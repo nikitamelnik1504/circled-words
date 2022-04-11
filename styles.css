@@ -16,8 +16,8 @@
 
 .pulse:hover,
 .pulse:focus {
-    -webkit-animation: pulse 1s;
-    animation: pulse 1s;
+    -webkit-animation: pulse 2s;
+    animation: pulse 2s;
     box-shadow: 0 0 0 2em transparent;
 }
 
