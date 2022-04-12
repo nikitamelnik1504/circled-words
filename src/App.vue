@@ -1,7 +1,6 @@
 <script setup>
 
 import Header from '@/components/Header/Header.vue';
-import bootstrap from 'bootstrap';
 
 </script>
 
@@ -12,4 +11,6 @@ import bootstrap from 'bootstrap';
 
 <style>
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "css/fonts.css";
+@import "css/global.css";
 </style>

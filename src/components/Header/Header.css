@@ -1,3 +1,16 @@
-body {
+header .navbar .navbar-brand {
+    font-size: 26px;
+}
 
+header .navbar .navbar-brand .logo-primary-text {
+    color: #FFB229;
+}
+
+header .navbar .navbar-brand .logo-secondary-text {
+    color: #B97A2A;
+}
+
+header .navbar .navbar-nav .nav-item a {
+    font-size: 16px;
+    color: #F1F2F2;
 }
