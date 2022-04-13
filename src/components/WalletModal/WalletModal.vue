@@ -3,23 +3,35 @@
 import detectEthereumProvider from '@metamask/detect-provider'
 
 const provider = await detectEthereumProvider()
+let metaMaskData = {};
+
+metaMaskData.metaMaskExist = Boolean(provider)
 
 if (provider) {
   const chainId = await provider.request({
     method: 'eth_chainId'
   })
+  metaMaskData.isEthereumChain = (chainId === '0x1');
 }
 
 export default {
   data: () => {
     return {
-      metaMaskExist: function () {
-        if (provider) {
-          return 'your-wallet'
-        }
-        else {
-          return 'https://metamask.io/download/'
-        }
+      metaMaskData: metaMaskData,
+      connect: function () {
+        window.ethereum
+            .request({method: 'eth_requestAccounts'})
+            .then(function () {
+              alert('Connected')
+            })
+            .catch((error) => {
+              if (error.code === 4001) {
+                // EIP-1193 userRejectedRequest error
+                console.log('Please connect to MetaMask.');
+              } else {
+                console.error(error);
+              }
+            });
       },
     }
   }
@@ -36,9 +48,14 @@ export default {
           <!--            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
         </div>
         <div class="modal-body d-flex justify-content-center">
-          <a :href="metaMaskExist()" class="wallet-link d-flex justify-content-center align-items-center flex-column">
+          <a href="#"
+             v-on:click="metaMaskData.isEthereumChain ? connect() : ''"
+             v-bind:class="{ disabled: !metaMaskData.isEthereumChain }"
+             class="wallet-link d-flex justify-content-center align-items-center flex-column text-center position-relative">
+            <span class="position-absolute wallet-network-error-background" v-show="!metaMaskData.isEthereumChain"></span>
             <img src="../../assets/images/metamask.svg" alt="f">
             <h6>Metamask</h6>
+            <p class="wallet-network-error" v-show="!metaMaskData.isEthereumChain">Please change your network to Ethereum</p>
           </a>
         </div>
       </div>

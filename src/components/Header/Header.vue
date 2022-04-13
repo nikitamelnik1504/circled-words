@@ -1,5 +1,8 @@
 <script setup>
+
 import WalletModal from '@/components/WalletModal/WalletModal.vue';
+
+const ethereum = document.ethereum;
 </script>
 
 <template>
@@ -26,8 +29,11 @@ import WalletModal from '@/components/WalletModal/WalletModal.vue';
               <router-link to="/roadmap" class="nav-link">Roadmap</router-link>
             </li>
             <li class="nav-item connect-wallet-link">
-              <button type="button" href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#connectWalletModal">
+              <button v-if="!ethereum" type="button" href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#connectWalletModal">
                 Connect Wallet
+              </button>
+              <button v-else type="button" href="#" class="nav-link">
+                Log out
               </button>
             </li>
           </ul>
