@@ -1,15 +1,22 @@
-<script setup>
-
-import WalletModal from '@/components/WalletModal/WalletModal.vue';
+<script>
+import WalletModal from '@/components/WalletModal.vue';
+import {mapGetters} from 'vuex';
 
 const ethereum = document.ethereum;
+
+export default {
+  methods: mapGetters(["isMetaMaskConnected"]),
+  components: {
+    WalletModal
+  },
+}
 </script>
 
 <template>
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <router-link to="/" class="navbar-brand d-flex align-items-center"><img src="../../assets/images/logo.svg"
+        <router-link to="/" class="navbar-brand d-flex align-items-center"><img src="../assets/images/logo.svg"
                                                                                 alt=""
                                                                                 class="me-1"><span
             class="logo-primary-text">Circled</span><span class="logo-secondary-text">Words</span></router-link>
@@ -29,7 +36,8 @@ const ethereum = document.ethereum;
               <router-link to="/roadmap" class="nav-link">Roadmap</router-link>
             </li>
             <li class="nav-item connect-wallet-link">
-              <button v-if="!ethereum" type="button" href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#connectWalletModal">
+              <button v-if="!isMetaMaskConnected()" type="button" href="#" class="nav-link" data-bs-toggle="modal"
+                      data-bs-target="#connectWalletModal">
                 Connect Wallet
               </button>
               <button v-else type="button" href="#" class="nav-link">
@@ -45,5 +53,5 @@ const ethereum = document.ethereum;
 </template>
 
 <style>
-@import "./Header.css";
+@import "Header.css";
 </style>
