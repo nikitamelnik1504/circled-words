@@ -24,10 +24,10 @@ export default {
     ...mapActions(["connectToMetaMask"]),
     async showMetaMaskModal() {
       let connectionToMetaMask = this.connectToMetaMask();
+      let walletModalCloseButton = this.$refs.CloseWalletModal;
       connectionToMetaMask.then(function (result) {
         if (result === 'connected') {
-          console.log('close_modal');
-          // this.$refs.CloseWalletModal.click();
+          walletModalCloseButton.click();
         }
       })
     }
