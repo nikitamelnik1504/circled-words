@@ -1,11 +1,12 @@
 <script>
 import WalletModal from '@/components/WalletModal.vue';
-import {mapGetters} from 'vuex';
-
-const ethereum = document.ethereum;
+import {mapGetters, mapActions} from 'vuex';
 
 export default {
-  methods: mapGetters(["isMetaMaskConnected"]),
+  methods: {
+    ...mapGetters(["isMetaMaskConnected"]),
+    ...mapActions(["resetWalletState"])
+  },
   components: {
     WalletModal
   },
@@ -36,11 +37,12 @@ export default {
               <router-link to="/roadmap" class="nav-link">Roadmap</router-link>
             </li>
             <li class="nav-item connect-wallet-link">
-              <button v-if="!isMetaMaskConnected()" type="button" href="#" class="nav-link" data-bs-toggle="modal"
+              <button v-if="!isMetaMaskConnected()" type="button" href="#" class="nav-link"
+                      data-bs-toggle="modal"
                       data-bs-target="#connectWalletModal">
                 Connect Wallet
               </button>
-              <button v-else type="button" href="#" class="nav-link">
+              <button v-else @click="resetWalletState()" type="button" href="#" class="nav-link">
                 Log out
               </button>
             </li>

@@ -5,13 +5,17 @@ import store from "../index";
 
 const provider = await detectEthereumProvider()
 
-const state = () => ({
-    metamask: {
-        connected: localStorage.getItem('metaMaskConnected') === 'true',
-        chainId: '',
-        walletAddress: '',
-    },
-})
+const getDefaultState = () => {
+    return {
+        metamask: {
+            connected: false,
+            chainId: '',
+            walletAddress: '',
+        },
+    }
+};
+
+const state = getDefaultState()
 
 const getters = {
     isMetaMaskConnected(state) {
@@ -25,17 +29,26 @@ const mutations = {
     },
     setWalletAddress(state, address) {
         state.metamask.walletAddress = address
-    }
+    },
+    resetState(state) {
+        Object.assign(state, getDefaultState())
+    },
 }
 
 const actions = {
+    resetWalletState({commit}) {
+        commit('resetState')
+    },
     connectToMetaMask() {
-        provider.request({method: 'eth_requestAccounts'})
+        return provider.request({method: 'eth_requestAccounts'})
             .then(walletAddress => {
                 // @TODO: Implement multiple accounts.
                 store.commit('setWalletAddress', walletAddress[0])
                 store.commit('setMetaMaskConnected')
-                localStorage.setItem('metaMaskConnected', 'true')
+                return 'connected'
+            })
+            .catch((error) => {
+                return 'not_connected'
             })
     }
 }

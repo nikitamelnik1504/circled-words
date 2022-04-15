@@ -1,5 +1,16 @@
-<script setup>
+<script>
 import Header from '@/components/Header.vue';
+import store from "./store";
+
+export default {
+  components: {
+    Header
+  },
+  beforeCreate() {
+    store.commit('initialiseStore');
+  },
+}
+
 </script>
 
 <template>
