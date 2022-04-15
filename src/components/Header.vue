@@ -34,7 +34,7 @@ export default {
               <router-link to="/my-words" class="nav-link">My Words</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/roadmap" class="nav-link">Roadmap</router-link>
+              <router-link to="/roadmap" class="nav-link disabled">Roadmap</router-link>
             </li>
             <li class="nav-item connect-wallet-link">
               <button v-if="!isMetaMaskConnected()" type="button" href="#" class="nav-link"

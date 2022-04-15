@@ -25,6 +25,10 @@ header .navbar .navbar-nav .nav-item.connect-wallet-link .nav-link {
     transition: 0.3s;
 }
 
+header .navbar .navbar-nav .nav-item .nav-link.disabled {
+    color: #51524B;
+}
+
 header .navbar .navbar-nav .nav-item.connect-wallet-link .nav-link:hover {
     box-shadow: inset 0 0 0 2em #FFB229;
     color: #17181C;
