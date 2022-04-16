@@ -1,0 +1,30 @@
+{
+  "assets": [
+    {
+      "name": "CircledWord #1",
+      "traits": [
+        {
+          "trait_type": "Text color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Border color",
+          "value": "Blue"
+        }
+      ]
+    },
+    {
+      "name": "CircledWord #2",
+      "traits": [
+        {
+          "trait_type": "Text color",
+          "value": "Cornflower Blue"
+        },
+        {
+          "trait_type": "Border color",
+          "value": "White"
+        }
+      ]
+    }
+  ]
+}
