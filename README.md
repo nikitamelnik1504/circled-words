@@ -1,14 +1,8 @@
 # CircledWords
 
-This template should help get you started developing with Vue 3 in Vite.
+Circled word - is a label in border with unique animation. It could be very simple, like fade transition of text color, and it could be very difficult, like pulse animation with multiple colors. It’s very similar to button, let’s call it button.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Every button has own animation(transition) duration, start text color, start border color and etc. Our project wants to show you, how simple web animation can do something especial and beautifull.
 
 ## Project Setup
 
@@ -27,3 +21,5 @@ npm run dev
 ```sh
 npm run build
 ```
+
+© 2022 CircledWords
