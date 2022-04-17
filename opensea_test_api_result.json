@@ -10,6 +10,26 @@
         {
           "trait_type": "Border color",
           "value": "Blue"
+        },
+        {
+          "trait_type": "Background color",
+          "value": "Blue"
+        },
+        {
+          "trait_type": "Second Text color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Second Border color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Animation type",
+          "value": "Fill in"
+        },
+        {
+          "trait_type": "Animation duration",
+          "value": "0.8"
         }
       ]
     },
@@ -23,6 +43,26 @@
         {
           "trait_type": "Border color",
           "value": "White"
+        },
+        {
+          "trait_type": "Background color",
+          "value": "Blue"
+        },
+        {
+          "trait_type": "Second Text color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Second Border color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Animation type",
+          "value": "Fill in"
+        },
+        {
+          "trait_type": "Animation duration",
+          "value": "0.8"
         }
       ]
     }

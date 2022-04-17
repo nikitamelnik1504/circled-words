@@ -1,6 +1,9 @@
 <script>
 
 export default {
+  methods: {
+
+  },
   props: {
     title: String,
     textColor: String,
