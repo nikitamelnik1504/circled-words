@@ -23,10 +23,12 @@ export default {
   </div>
   <div class="buttons-list container-fluid mt-4">
     <div class="row">
-      <div class="col-12 col-sm-11 col-xxl-8 mx-auto">
-        <div class="row justify-content-around">
-          <div v-for="word in api_result.assets" class="col-3 button-item text-center py-3">
-            <CircledWord :title="word.name" :textColor="word.traits" />
+      <div class="col-12 col-sm-10 col-xxl-8 mx-auto">
+        <div class="row">
+          <div v-for="word in api_result.assets" class="col-4">
+            <div class="button-item text-center py-3">
+              <CircledWord :metadata="word"/>
+            </div>
           </div>
         </div>
       </div>
