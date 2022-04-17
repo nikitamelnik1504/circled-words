@@ -1,8 +1,9 @@
 <script>
 
+import colors from "@/assets/libraries/colors.json"
+
 export default {
   methods: {
-
   },
   props: {
     title: String,

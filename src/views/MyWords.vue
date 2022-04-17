@@ -1,6 +1,7 @@
 <script>
 
 import CircledWord from "@/components/CircledWord.vue"
+import api_result from "@/../opensea_test_api_result.json"
 
 export default {
   components: {
@@ -8,23 +9,8 @@ export default {
   },
   data() {
     return {
+      api_result
       // Sample API Data, waiting for OpenSea access token.
-      api_data: [
-        {
-          name: 'CircledWord #1',
-          traits: [
-            {trait_type: 'Text color', value: 'Red'},
-            {trait_type: 'Border color', value: 'Blue'},
-          ]
-        },
-        {
-          name: 'CircledWord #2',
-          traits: [
-            {trait_type: 'Text color', value: 'Cornflower Blue'},
-            {trait_type: 'Border color', value: 'White'},
-          ]
-        }
-      ]
     }
   }
 }
@@ -39,7 +25,7 @@ export default {
     <div class="row">
       <div class="col-12 col-sm-11 col-xxl-8 mx-auto">
         <div class="row justify-content-around">
-          <div v-for="word in api_data" class="col-3 button-item text-center py-3">
+          <div v-for="word in api_result.assets" class="col-3 button-item text-center py-3">
             <CircledWord :title="word.name" :textColor="word.traits" />
           </div>
         </div>
