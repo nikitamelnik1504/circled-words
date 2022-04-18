@@ -1,49 +1,33 @@
 <script>
 
-import colors from "@/assets/libraries/colors.json"
+import getWord from "./CircledWord";
 
 export default {
   methods: {
-    getTitle() {
-      return this.metadata.name;
+    getMetadata() {
+      return this.metadata
     },
-    getStartTextColor() {
-      let start_text_color = "";
-      this.metadata.traits.forEach(trait => {
-        if (trait.trait_type === "Text color") {
-          start_text_color = colors[trait.value];
-        }
-      })
-      return '#' + start_text_color;
-    },
-    getStyles() {
-      let styles = {};
-      if (typeof this.getStartTextColor() === 'string') {
-        styles.color = this.getStartTextColor()
-      }
-      return styles
-    },
+  },
+  mounted() {
+    this.word = getWord(this.getMetadata())
   },
   data() {
     return {
-      styles: this.getStyles(),
-      title: this.getTitle(),
+      word: Object
     }
   },
   props: {
     metadata: Object,
-    textColor: String,
-    borderColor: String,
-    animationType: String,
-    animationDuration: Number
   },
 }
-
 </script>
 
 <template>
-  <h5 class="button-title mb-5">{{ title }}</h5>
-  <a href="#" class="mt-3 text-decoration-none" :style="styles">CIRCLED</a>
+  <h5 class="button-title mb-5">{{ word.title }}</h5>
+  <a href="#" class="circled-word mt-3 text-decoration-none d-inline-block" :class="word.elementClass"
+     :style="word.elementStyle">CIRCLED</a>
 </template>
 
-<style></style>
+<style scoped>
+@import "CircledWord.css";
+</style>
