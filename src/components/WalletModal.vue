@@ -23,11 +23,13 @@ export default {
     ...mapGetters(["isMetaMaskConnected"]),
     ...mapActions(["connectToMetaMask"]),
     async showMetaMaskModal() {
-      let connectionToMetaMask = this.connectToMetaMask();
-      let walletModalCloseButton = this.$refs.CloseWalletModal;
+      let connectionToMetaMask = this.connectToMetaMask()
+      let walletModalCloseButton = this.$refs.CloseWalletModal
+      let router = this.$router;
       connectionToMetaMask.then(function (result) {
         if (result === 'connected') {
-          walletModalCloseButton.click();
+          router.push('/my-words')
+          walletModalCloseButton.click()
         }
       })
     }

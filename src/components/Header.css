@@ -1,3 +1,7 @@
+header {
+    z-index: 1;
+}
+
 header .navbar .navbar-brand {
     font-size: 26px;
 }

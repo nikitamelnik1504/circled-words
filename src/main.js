@@ -12,7 +12,7 @@ router.beforeEach(async (to, from) => {
     if (requiresAuth) {
         console.log(store.getters.isMetaMaskConnected)
         if (await store.getters.isMetaMaskConnected === false) {
-            return '/403'
+            return '/403-error'
         }
     }
 })

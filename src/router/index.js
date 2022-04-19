@@ -24,7 +24,7 @@ const routes = [
         component: Roadmap,
     },
     {
-        path: "/403",
+        path: "/403-error",
         name: "403 error",
         component: Error403,
     }
