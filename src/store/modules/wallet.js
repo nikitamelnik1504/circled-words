@@ -18,9 +18,7 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const getters = {
-    isMetaMaskConnected(state) {
-        return state.metamask.connected
-    }
+    isMetaMaskConnected: state => state.metamask.connected
 }
 
 const mutations = {

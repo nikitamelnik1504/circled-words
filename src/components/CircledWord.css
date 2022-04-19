@@ -3,10 +3,12 @@
 }
 
 .fill:hover, .fill:focus {
-    box-shadow: inset 0 0 0 2em var(--hover);
+    box-shadow: inset 0 0 0 2em var(--background-color);
 }
 
 .circled-word {
+    border: solid 4px var(--border-color);
     padding: 38px 47px;
     font-size: 32px;
+    transition: var(--animation-duration);
 }

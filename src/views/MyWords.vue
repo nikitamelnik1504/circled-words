@@ -2,15 +2,32 @@
 
 import CircledWord from "@/components/CircledWord.vue"
 import api_result from "@/../opensea_test_api_result.json"
+import {mapGetters} from "vuex";
 
 export default {
   components: {
     CircledWord,
   },
+  computed: {
+    ...mapGetters({
+      metamaskConnected: 'isMetaMaskConnected'
+    })
+  },
+  methods: {
+    getWords() {
+      return api_result;
+    }
+  },
+  watch: {
+    metamaskConnected(newValue, oldValue) {
+      if (newValue === false) {
+        this.$router.push('/')
+      }
+    }
+  },
   data() {
     return {
-      api_result
-      // Sample API Data, waiting for OpenSea access token.
+      api_result: this.getWords()
     }
   }
 }
@@ -26,7 +43,7 @@ export default {
       <div class="col-12 col-sm-10 col-xxl-8 mx-auto">
         <div class="row">
           <div v-for="word in api_result.assets" class="col-4">
-            <div class="button-item text-center py-3">
+            <div class="button-item text-center pt-3 pb-5">
               <CircledWord :metadata="word"/>
             </div>
           </div>

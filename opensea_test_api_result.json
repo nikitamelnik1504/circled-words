@@ -9,7 +9,40 @@
         },
         {
           "trait_type": "Border color",
+          "value": "Green"
+        },
+        {
+          "trait_type": "Background color",
           "value": "Blue"
+        },
+        {
+          "trait_type": "Second Text color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Second Border color",
+          "value": "Red"
+        },
+        {
+          "trait_type": "Animation type",
+          "value": "Fill In"
+        },
+        {
+          "trait_type": "Animation duration",
+          "value": "10"
+        }
+      ]
+    },
+    {
+      "name": "CircledWord #2",
+      "traits": [
+        {
+          "trait_type": "Text color",
+          "value": "Cornflower Blue"
+        },
+        {
+          "trait_type": "Border color",
+          "value": "White"
         },
         {
           "trait_type": "Background color",
@@ -34,15 +67,15 @@
       ]
     },
     {
-      "name": "CircledWord #2",
+      "name": "CircledWord #3",
       "traits": [
         {
           "trait_type": "Text color",
-          "value": "Cornflower Blue"
+          "value": "White"
         },
         {
           "trait_type": "Border color",
-          "value": "White"
+          "value": "Yellow"
         },
         {
           "trait_type": "Background color",
