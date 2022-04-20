@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <header class="position-relative" ref="header">
+  <header class="position-relative" id="header">
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand d-flex align-items-center"><img src="../assets/images/logo.svg"

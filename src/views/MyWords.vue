@@ -1,12 +1,14 @@
 <script>
 
 import CircledWord from "@/components/CircledWord.vue"
+import MyWord from "@/components/MyWord.vue";
 import api_result from "@/../opensea_test_api_result.json"
 import {mapGetters} from "vuex";
 
 export default {
   components: {
     CircledWord,
+    MyWord,
   },
   computed: {
     ...mapGetters({
@@ -43,9 +45,7 @@ export default {
       <div class="col-12 col-sm-10 col-xxl-8 mx-auto">
         <div class="row">
           <div v-for="word in api_result.assets" class="col-4">
-            <div class="button-item text-center pt-3 pb-5">
-              <CircledWord :metadata="word"/>
-            </div>
+              <MyWord :metadata="word"/>
           </div>
         </div>
       </div>
