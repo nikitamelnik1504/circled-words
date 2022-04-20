@@ -5,7 +5,7 @@ import {mapGetters, mapActions} from 'vuex';
 export default {
   methods: {
     ...mapGetters(["isMetaMaskConnected"]),
-    ...mapActions(["resetWalletState"])
+    ...mapActions(["resetWalletState"]),
   },
   components: {
     WalletModal
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <header class="position-relative">
+  <header class="position-relative" ref="header">
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand d-flex align-items-center"><img src="../assets/images/logo.svg"

@@ -1,0 +1,12 @@
+.slogan {
+    color: #F1F2F2;
+    font-size: 64px;
+}
+
+.slogan .word-primary {
+    color: #FFB229;
+}
+
+.slogan .word-secondary {
+    color: #DC962A;
+}
