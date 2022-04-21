@@ -1,6 +1,6 @@
 .homepage .slogan {
     color: #F1F2F2;
-    font-size: 64px;
+    font-size: 36px;
 }
 
 .homepage .slogan .word-primary {
@@ -11,13 +11,34 @@
     color: #DC962A;
 }
 
+.homepage .slogan-section .start-journey-button {
+    font-size: 16px;
+    color: #F1F2F2;
+    padding: 8px 21px;
+    border: solid 2px #F1F2F2;
+}
+
+.homepage .slogan-section .slogan-links {
+    margin-top: 30px;
+}
+
 .homepage .slogan-section .slogan-links .slogan-link {
     flex: 1 0 50%;
 }
 
 .homepage .slogan-section .slogan-links .slogan-link .circled-word {
-    width: 95%;
-    margin-top: 5%;
+    width: 90%;
+    margin-top: 10%;
+    padding: 10px 12px;
+    border-width: 2px;
+    font-size: 16px;
+}
+
+@media (min-width: 400px) {
+    .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+        width: 94%;
+        margin-top: 6%;
+    }
 }
 
 @media (min-width: 576px) {
@@ -25,13 +46,25 @@
         font-size: 36px;
         max-width: 400px;
     }
+
+    .homepage .slogan-section .slogan-links {
+        margin-top: 30px;
+    }
+
     .homepage .slogan-section .slogan-links .slogan-link .circled-word {
         padding: 13px 24px;
         font-size: 26px;
+        border-width: 4px;
     }
 }
 
 @media (min-width: 992px) {
+    .homepage .slogan-section .start-journey-button {
+        font-size: 21px;
+        border: solid 4px #F1F2F2;
+        padding: 12px 27px;
+    }
+
     .homepage .slogan {
         font-size: 48px;
         max-width: 700px;
@@ -39,6 +72,8 @@
 
     .homepage .slogan-section .slogan-links .slogan-link .circled-word {
         padding: 25px 35px;
+        margin-top: 5%;
+        width: 95%;
     }
 }
 
@@ -57,5 +92,10 @@
     .homepage .slogan-section .slogan-links .slogan-link .circled-word {
         font-size: 48px;
         padding: 35px 60px;
+    }
+
+    .homepage .slogan-section .start-journey-button {
+        font-size: 26px;
+        padding: 15px 27px;
     }
 }
