@@ -17,18 +17,24 @@
 
 .homepage .slogan-section .slogan-links .slogan-link .circled-word {
     width: 95%;
-    margin-top: 25px;
+    margin-top: 5%;
 }
 
 @media (min-width: 576px) {
     .homepage .slogan {
         font-size: 36px;
+        max-width: 400px;
+    }
+    .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+        padding: 13px 24px;
+        font-size: 26px;
     }
 }
 
 @media (min-width: 992px) {
     .homepage .slogan {
         font-size: 48px;
+        max-width: 700px;
     }
 
     .homepage .slogan-section .slogan-links .slogan-link .circled-word {

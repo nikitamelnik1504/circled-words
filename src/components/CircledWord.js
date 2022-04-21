@@ -21,8 +21,9 @@ const trait_getters = {
         return '#' + colors[traits["Background color"]]
     }, getStartBorderColor(traits) {
         return '#' + colors[traits["Border color"]]
-    },
-    getAnimationDuration(traits) {
+    }, getSecondTextColor(traits) {
+        return '#' + colors[traits["Second Text color"]]
+    }, getAnimationDuration(traits) {
         return traits["Animation duration"] + 's'
     }
 }
@@ -39,6 +40,7 @@ const getWord = (metadata) => {
         'Fill In': () => {
             data.elementClass = 'fill'
             data.elementStyle = {
+                '--second-text-color': trait_getters.getSecondTextColor(traits),
                 '--text-color': trait_getters.getStartTextColor(traits),
                 '--border-color': trait_getters.getStartBorderColor(traits),
                 '--background-color': trait_getters.getBackgroundColor(traits),

@@ -15,7 +15,7 @@ export default {
 
 <template>
   <header class="position-relative" id="header">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-sm">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand d-flex align-items-center"><img src="../assets/images/logo.svg"
                                                                                 alt=""

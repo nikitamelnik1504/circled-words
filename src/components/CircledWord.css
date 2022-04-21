@@ -2,8 +2,9 @@
     color: var(--text-color);
 }
 
-.fill:hover, .fill:focus {
+.fill:hover {
     box-shadow: inset 0 0 0 2em var(--background-color);
+    color: var(--second-text-color);
 }
 
 .circled-word {

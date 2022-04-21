@@ -20,6 +20,9 @@ export default {
           traits: [
             {trait_type: 'Text color', value: 'Amethyst'},
             {trait_type: 'Animation type', value: 'Fill In'},
+            {trait_type: 'Background color', value: 'Amethyst'},
+            {trait_type: 'Second Text color', value: 'White'},
+            {trait_type: 'Animation duration', value: 0.5},
             {trait_type: 'Border color', value: 'Amethyst'}
           ],
           link: '1',
@@ -29,7 +32,10 @@ export default {
           traits: [
             {trait_type: 'Text color', value: 'Persian Pink'},
             {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Border color', value: 'Persian Pink'}
+            {trait_type: 'Background color', value: 'Persian Pink'},
+            {trait_type: 'Animation duration', value: 0.5},
+            {trait_type: 'Border color', value: 'Persian Pink'},
+            {trait_type: 'Second Text color', value: 'White'},
           ],
           link: '2',
         },
@@ -38,7 +44,10 @@ export default {
           traits: [
             {trait_type: 'Text color', value: 'Geraldine'},
             {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Border color', value: 'Geraldine'}
+            {trait_type: 'Background color', value: 'Geraldine'},
+            {trait_type: 'Border color', value: 'Geraldine'},
+            {trait_type: 'Animation duration', value: 0.5},
+            {trait_type: 'Second Text color', value: 'White'},
           ],
           link: '3',
         },
@@ -47,7 +56,10 @@ export default {
           traits: [
             {trait_type: 'Text color', value: 'Atomic Tangerine'},
             {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Border color', value: 'Atomic Tangerine'}
+            {trait_type: 'Border color', value: 'Atomic Tangerine'},
+            {trait_type: 'Animation duration', value: 0.5},
+            {trait_type: 'Background color', value: 'Atomic Tangerine'},
+            {trait_type: 'Second Text color', value: 'White'},
           ],
           link: '4',
         }
@@ -81,13 +93,13 @@ export default {
       <div class="col-11 m-auto">
         <div class="row d-flex justify-content-center align-items-center">
           <div class="col-lg-6">
-            <h2 class="slogan">
+            <h2 class="slogan mx-auto text-center text-lg-start">
               <span class="word-secondary">Circled</span>
               <span class="word-primary"> word</span> is already
               waiting for
               you!</h2>
           </div>
-          <div class="col-lg-6 slogan-links d-flex flex-wrap">
+          <div class="col-8 col-lg-6 slogan-links d-flex flex-wrap">
             <div v-for="word in wordsData" class="slogan-link d-flex justify-content-center">
               <CircledWord :wordData="word" :link="word.link"/>
             </div>
