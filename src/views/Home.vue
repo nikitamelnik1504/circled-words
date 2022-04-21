@@ -5,7 +5,7 @@ import getWord from "../components/CircledWord";
 
 export default {
   methods: {
-    setSloganContainerHeight() {
+    setSloganRowHeight() {
       let header_height = document.getElementById('header').clientHeight;
       let window_height = window.innerHeight;
       return {
@@ -76,21 +76,28 @@ export default {
 </script>
 
 <template>
-  <div class="container" :style="setSloganContainerHeight()">
-    <div class="row h-100 d-flex align-items-center">
-      <div class="col-6">
-        <h2 class="slogan">
-          <span class="word-secondary">Circled</span>
-          <span class="word-primary"> word</span> is already
-          waiting for
-          you!</h2>
-      </div>
-      <div class="col-6 d-flex">
-        <div v-for="word in wordsData">
-          <CircledWord :wordData="word" :link="word.link"/>
+  <div class="container-fluid homepage">
+    <section class="row slogan-section" :style="setSloganRowHeight()">
+      <div class="col-11 m-auto">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-lg-6">
+            <h2 class="slogan">
+              <span class="word-secondary">Circled</span>
+              <span class="word-primary"> word</span> is already
+              waiting for
+              you!</h2>
+          </div>
+          <div class="col-lg-6 slogan-links d-flex flex-wrap">
+            <div v-for="word in wordsData" class="slogan-link d-flex justify-content-center">
+              <CircledWord :wordData="word" :link="word.link"/>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <section class="row">
+
+    </section>
   </div>
 </template>
 

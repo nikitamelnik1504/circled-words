@@ -1,12 +1,55 @@
-.slogan {
+.homepage .slogan {
     color: #F1F2F2;
     font-size: 64px;
 }
 
-.slogan .word-primary {
+.homepage .slogan .word-primary {
     color: #FFB229;
 }
 
-.slogan .word-secondary {
+.homepage .slogan .word-secondary {
     color: #DC962A;
+}
+
+.homepage .slogan-section .slogan-links .slogan-link {
+    flex: 1 0 50%;
+}
+
+.homepage .slogan-section .slogan-links .slogan-link .circled-word {
+    width: 95%;
+    margin-top: 25px;
+}
+
+@media (min-width: 576px) {
+    .homepage .slogan {
+        font-size: 36px;
+    }
+}
+
+@media (min-width: 992px) {
+    .homepage .slogan {
+        font-size: 48px;
+    }
+
+    .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+        padding: 25px 35px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+        font-size: 32px;
+        padding: 25px 50px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .homepage .slogan {
+        font-size: 64px;
+    }
+
+    .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+        font-size: 48px;
+        padding: 35px 60px;
+    }
 }
