@@ -1,0 +1,122 @@
+[
+  {
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Amethyst"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fill In"
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Amethyst"
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "White"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 0.5
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Amethyst"
+      }
+    ],
+    "link": "1"
+  },
+  {
+    "link": "2",
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fill In"
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 0.5
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "White"
+      }
+    ]
+  },
+  {
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Geraldine"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fill In"
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Geraldine"
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Geraldine"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 0.5
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "White"
+      }
+    ],
+    "link": "3"
+  },
+  {
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Atomic Tangerine"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fill In"
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Atomic Tangerine"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 0.5
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Atomic Tangerine"
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "White"
+      }
+    ],
+    "link": "4"
+  }
+]

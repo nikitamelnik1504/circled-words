@@ -1,0 +1,92 @@
+[
+  {
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Clay Creek"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fade"
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Clay Creek"
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "Black Haze"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 1
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Clay Creek"
+      }
+    ],
+    "link": "1"
+  },
+  {
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fill In"
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 0.5
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "White"
+      }
+    ],
+    "link": "2"
+  },
+  {
+    "title": "CIRCLED",
+    "traits": [
+      {
+        "trait_type": "Text color",
+        "value": "Geraldine"
+      },
+      {
+        "trait_type": "Animation type",
+        "value": "Fill In"
+      },
+      {
+        "trait_type": "Background color",
+        "value": "Geraldine"
+      },
+      {
+        "trait_type": "Border color",
+        "value": "Geraldine"
+      },
+      {
+        "trait_type": "Animation duration",
+        "value": 0.5
+      },
+      {
+        "trait_type": "Second Text color",
+        "value": "White"
+      }
+    ],
+    "link": "3"
+  }
+]

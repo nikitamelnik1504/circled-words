@@ -34,6 +34,19 @@
     font-size: 16px;
 }
 
+.homepage .section-title {
+    font-size: 48px;
+}
+
+.homepage .description-section .section-title {
+    color: #9966CC;
+}
+
+.homepage .description-section .description-text {
+    font-size: 26px;
+    color: #F1F2F2;
+}
+
 @media (min-width: 400px) {
     .homepage .slogan-section .slogan-links .slogan-link .circled-word {
         width: 94%;
@@ -63,6 +76,12 @@
         font-size: 21px;
         border: solid 4px #F1F2F2;
         padding: 12px 27px;
+        transition: 0.3s;
+    }
+
+    .homepage .slogan-section .start-journey-button:hover {
+        background-color: #F1F2F2;
+        color: #17181C;
     }
 
     .homepage .slogan {

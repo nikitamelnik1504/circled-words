@@ -1,69 +1,25 @@
 <script>
 
-import CircledWord from "@/components/CircledWord.vue";
-import getWord from "../components/CircledWord";
+import CircledWord from "@/components/CircledWord.vue"
+import getWord from "../components/CircledWord"
+import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
+import sampleWords from "../components/json/homepage_circled_word_samples.json"
 
 export default {
   methods: {
     setSloganRowHeight() {
-      let header_height = document.getElementById('header').clientHeight;
-      let window_height = window.innerHeight;
+      let header_height = document.getElementById('header').clientHeight
+      let window_height = window.innerHeight
       return {
         'min-height': (window_height - header_height) + 'px'
       }
     },
-    // @TODO: Move to separate json file.
     getSloganWords() {
-      return [
-        {
-          title: 'CIRCLED',
-          traits: [
-            {trait_type: 'Text color', value: 'Amethyst'},
-            {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Background color', value: 'Amethyst'},
-            {trait_type: 'Second Text color', value: 'White'},
-            {trait_type: 'Animation duration', value: 0.5},
-            {trait_type: 'Border color', value: 'Amethyst'}
-          ],
-          link: '1',
-        },
-        {
-          title: 'CIRCLED',
-          traits: [
-            {trait_type: 'Text color', value: 'Persian Pink'},
-            {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Background color', value: 'Persian Pink'},
-            {trait_type: 'Animation duration', value: 0.5},
-            {trait_type: 'Border color', value: 'Persian Pink'},
-            {trait_type: 'Second Text color', value: 'White'},
-          ],
-          link: '2',
-        },
-        {
-          title: 'CIRCLED',
-          traits: [
-            {trait_type: 'Text color', value: 'Geraldine'},
-            {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Background color', value: 'Geraldine'},
-            {trait_type: 'Border color', value: 'Geraldine'},
-            {trait_type: 'Animation duration', value: 0.5},
-            {trait_type: 'Second Text color', value: 'White'},
-          ],
-          link: '3',
-        },
-        {
-          title: 'CIRCLED',
-          traits: [
-            {trait_type: 'Text color', value: 'Atomic Tangerine'},
-            {trait_type: 'Animation type', value: 'Fill In'},
-            {trait_type: 'Border color', value: 'Atomic Tangerine'},
-            {trait_type: 'Animation duration', value: 0.5},
-            {trait_type: 'Background color', value: 'Atomic Tangerine'},
-            {trait_type: 'Second Text color', value: 'White'},
-          ],
-          link: '4',
-        }
-      ]
+      return sloganWords
+    },
+    // Warning!!! Especial examples metadata differs from OpenSea.
+    getSampleWords() {
+      return sampleWords
     },
     getWordsData() {
       let data = [];
@@ -99,7 +55,8 @@ export default {
                 <span class="word-primary"> word</span> is already
                 waiting for
                 you!</h2>
-              <a href="#" class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4">Start your journey!</a>
+              <a href="#" class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4">Start your
+                journey!</a>
             </div>
           </div>
           <div class="col-12 col-sm-9 col-md-8 col-lg-6 slogan-links d-flex flex-wrap">
@@ -110,8 +67,19 @@ export default {
         </div>
       </div>
     </section>
-    <section class="row">
+    <section class="row description-section text-center">
+      <div class="col-11 mx-auto">
+        <h3 class="section-title">What is it?</h3>
+        <p class="description-text text-start">Circled word - is a label in border with unique animation. It could be
+          very simple, like fade transition of
+          text color, and it could be very difficult, like pulse animation with multiple colors. It’s very similar to
+          button, let’s call it button. <br><br>
 
+          Every button has own animation(transition) duration, start text color, start border color and etc. Our project
+          wants to show you, how simple web animation can do something especial and beautifull.<br><br>
+
+          We did some examples for you to show how it works:</p>
+      </div>
     </section>
   </div>
 </template>
