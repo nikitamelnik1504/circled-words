@@ -1,6 +1,7 @@
 <script>
 
 import CircledWord from "@/components/CircledWord.vue"
+import ExampleWord from "@/components/ExampleWord.vue";
 import getWord from "../components/CircledWord"
 import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
 import sampleWords from "../components/json/homepage_circled_word_samples.json"
@@ -33,10 +34,12 @@ export default {
   },
   data() {
     return {
-      wordsData: this.getWordsData()
+      wordsData: this.getWordsData(),
+      sampleWordsData: this.getSampleWords()
     }
   },
   components: {
+    ExampleWord,
     CircledWord,
   }
 }
@@ -79,6 +82,9 @@ export default {
           wants to show you, how simple web animation can do something especial and beautifull.<br><br>
 
           We did some examples for you to show how it works:</p>
+        <div>
+          <ExampleWord v-for="word in sampleWordsData" :metadata="word"/>
+        </div>
       </div>
     </section>
   </div>

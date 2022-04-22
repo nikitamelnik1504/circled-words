@@ -1,5 +1,8 @@
 [
   {
+    "sample_data": {
+      "name": "CircledWord #1"
+    },
     "traits": [
       {
         "trait_type": "Text color",
@@ -7,7 +10,7 @@
       },
       {
         "trait_type": "Animation type",
-        "value": "Fade"
+        "value": "Fill In"
       },
       {
         "trait_type": "Background color",
@@ -28,6 +31,15 @@
     ]
   },
   {
+    "sample_data": {
+      "name": "CircledWord #2",
+      "updated": [
+        "Animation duration",
+        "Background color",
+        "Animation type"
+      ],
+      "adventure_text": "Not bad. We have pulse background filling animation, and it takes little bit longer, because we have changed Animation duration param."
+    },
     "traits": [
       {
         "trait_type": "Text color",
