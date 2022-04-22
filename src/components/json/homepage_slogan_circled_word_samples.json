@@ -1,6 +1,5 @@
 [
   {
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -27,11 +26,9 @@
         "value": "Amethyst"
       }
     ],
-    "link": "1"
+    "link": "#1"
   },
   {
-    "link": "2",
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -57,10 +54,10 @@
         "trait_type": "Second Text color",
         "value": "White"
       }
-    ]
+    ],
+    "link": "#2"
   },
   {
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -87,10 +84,9 @@
         "value": "White"
       }
     ],
-    "link": "3"
+    "link": "#3"
   },
   {
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -117,6 +113,6 @@
         "value": "White"
       }
     ],
-    "link": "4"
+    "link": "#4"
   }
 ]

@@ -1,6 +1,5 @@
 [
   {
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -26,11 +25,9 @@
         "trait_type": "Border color",
         "value": "Clay Creek"
       }
-    ],
-    "link": "1"
+    ]
   },
   {
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -56,11 +53,9 @@
         "trait_type": "Second Text color",
         "value": "White"
       }
-    ],
-    "link": "2"
+    ]
   },
   {
-    "title": "CIRCLED",
     "traits": [
       {
         "trait_type": "Text color",
@@ -86,7 +81,6 @@
         "trait_type": "Second Text color",
         "value": "White"
       }
-    ],
-    "link": "3"
+    ]
   }
 ]
