@@ -18,8 +18,8 @@
     border: solid 2px #F1F2F2;
 }
 
-.homepage .slogan-section .slogan-links {
-    margin-top: 30px;
+.homepage .slogan-section .slogan-wrapper {
+    margin-bottom: 30px;
 }
 
 .homepage .slogan-section .slogan-links .slogan-link {
@@ -58,10 +58,6 @@
     .homepage .slogan {
         font-size: 36px;
         max-width: 400px;
-    }
-
-    .homepage .slogan-section .slogan-links {
-        margin-top: 30px;
     }
 
     .homepage .slogan-section .slogan-links .slogan-link .circled-word {

@@ -50,7 +50,7 @@ export default {
   <div class="container-fluid homepage">
     <section class="row slogan-section" :style="setSloganRowHeight()">
       <div class="col-11 m-auto">
-        <div class="row d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5">
+        <div class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5">
           <div class="col-lg-6 d-flex justify-content-center">
             <div class="mx-auto d-inline-block text-center text-lg-start">
               <h2 class="slogan">
