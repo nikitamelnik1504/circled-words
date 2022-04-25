@@ -1,6 +1,6 @@
 import colors from "@/assets/libraries/colors.json"
 
-const metadata_getters = {
+export const metadata_getters = {
     getTitle(metadata) {
         return metadata.name
     }, getTraits(metadata) {
@@ -12,7 +12,7 @@ const metadata_getters = {
     },
 }
 
-const trait_getters = {
+export const trait_getters = {
     getAnimationType: (traits) => {
         return traits["Animation type"]
     }, getStartTextColor(traits) {
@@ -28,7 +28,7 @@ const trait_getters = {
     }
 }
 
-const getWord = (metadata) => {
+export const getWord = (metadata) => {
     let data = {
         elementClass: String, elementStyle: Object, title: metadata_getters.getTitle(metadata)
     };
