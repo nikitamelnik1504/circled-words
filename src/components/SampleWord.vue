@@ -2,6 +2,7 @@
 
 import CircledWord from "@/components/CircledWord.vue"
 import {getWord, metadata_getters} from "./CircledWord";
+import colors from "@/assets/libraries/colors.json"
 
 export default {
   components: {
@@ -27,15 +28,22 @@ export default {
       for (let property in traits) {
         result[property] = {
           value: traits[property],
-          updated: updated_circled_properties.includes(property)
+          updated: updated_circled_properties.includes(property),
         }
+
+        if (traits[property] in colors) {
+          result[property].color = '#' + colors[traits[property]]
+        } else {
+          result[property].color = '#948561'
+        }
+
         data['circledProperties'] = result
       }
 
       data['adventureText'] = ('adventure_text' in sample_data) ? sample_data.adventure_text : false
-      console.log(data)
+
       return data;
-    }
+    },
   },
   data() {
     return {
@@ -52,12 +60,17 @@ export default {
 
 <template>
   <div>
-    <h5>{{ name }}</h5>
+    <h5 class="sample-word-name mb-4">{{ name }}</h5>
     <CircledWord :wordData="wordData"/>
     <div class="text-start mt-3">
-      <p v-for="(data, title) in sampleWordData.circledProperties" class="mb-1">
-        {{ title }}: {{ data.value }}
+      <p v-for="(data, title) in sampleWordData.circledProperties" class="sample-word-property-name mb-1">
+        {{ title }}: <span class="sample-word-property-value" :class="data.updated ? 'text-decoration-underline': false"
+                           :style="'color:' + data.color">{{ data.value }}</span>
       </p>
     </div>
   </div>
 </template>
+
+<style>
+@import "SampleWord.css";
+</style>

@@ -71,8 +71,8 @@ export default {
       </div>
     </section>
     <section class="row description-section text-center">
-      <div class="col-11 mx-auto">
-        <h3 class="section-title">What is it?</h3>
+      <div class="col-9 mx-auto">
+        <h3 class="section-title mb-3">What is it?</h3>
         <p class="description-text text-start">Circled word - is a label in border with unique animation. It could be
           very simple, like fade transition of
           text color, and it could be very difficult, like pulse animation with multiple colors. It’s very similar to
@@ -82,8 +82,12 @@ export default {
           wants to show you, how simple web animation can do something especial and beautifull.<br><br>
 
           We did some examples for you to show how it works:</p>
-        <div class="d-flex justify-content-between">
-          <SampleWord v-for="word in sampleWordsData" :metadata="word"/>
+        <div class="row mt-5 justify-content-between sample-words">
+          <div class="col-3" v-for="word in sampleWordsData">
+            <div class="row">
+              <SampleWord :metadata="word" class="col-10 sample-word"/>
+            </div>
+          </div>
         </div>
       </div>
     </section>

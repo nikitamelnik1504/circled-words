@@ -1,11 +1,7 @@
 [
   {
     "sample_data": {
-      "updated": [
-        "Animation duration",
-        "Background color",
-        "Animation type"
-      ]
+      "updated": []
     },
     "name": "CircledWord #1",
     "traits": [
