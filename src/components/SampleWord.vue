@@ -67,6 +67,11 @@ export default {
         {{ title }}: <span class="sample-word-property-value" :class="data.updated ? 'text-decoration-underline': false"
                            :style="'color:' + data.color">{{ data.value }}</span>
       </p>
+      <p class="mt-5 sample-word-adventure-text">
+        {{ sampleWordData.adventureText }}
+        <br><br>
+        HERE IS A MAGIC
+      </p>
     </div>
   </div>
 </template>

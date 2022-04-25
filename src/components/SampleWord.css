@@ -6,3 +6,12 @@
 .sample-word .sample-word-name {
     font-size: 26px;
 }
+
+.sample-word .sample-word-property-name {
+    font-size: 18px;
+}
+
+.sample-word .sample-word-adventure-text {
+    color: #FFB229;
+    font-size: 16px;
+}
