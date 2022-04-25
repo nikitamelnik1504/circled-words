@@ -1,7 +1,8 @@
 [
   {
     "sample_data": {
-      "updated": []
+      "updated": [],
+      "adventure_text": "As you can see - we have simple background filling animation and text color change."
     },
     "name": "CircledWord #1",
     "traits": [
@@ -70,7 +71,8 @@
   },
   {
     "sample_data": {
-      "updated": []
+      "updated": [],
+      "adventure_text": "WOW! We have new text color at the start and new border color at the same time."
     },
     "name": "CircledWord #3",
     "traits": [

@@ -59,19 +59,23 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h5 class="sample-word-name mb-4">{{ name }}</h5>
-    <CircledWord :wordData="wordData"/>
-    <div class="text-start mt-3">
-      <p v-for="(data, title) in sampleWordData.circledProperties" class="sample-word-property-name mb-1">
-        {{ title }}: <span class="sample-word-property-value" :class="data.updated ? 'text-decoration-underline': false"
-                           :style="'color:' + data.color">{{ data.value }}</span>
-      </p>
-      <p class="mt-5 sample-word-adventure-text">
+  <div class="d-flex flex-column justify-content-between">
+    <div>
+      <h5 class="sample-word-name mb-4">{{ name }}</h5>
+      <CircledWord :wordData="wordData"/>
+      <div class="text-start mt-3">
+        <p v-for="(data, title) in sampleWordData.circledProperties" class="sample-word-property-name mb-1">
+          {{ title }}: <span class="sample-word-property-value"
+                             :class="data.updated ? 'text-decoration-underline': false"
+                             :style="'color:' + data.color">{{ data.value }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="text-start sample-word-adventure-text">
+      <p class="mt-5">
         {{ sampleWordData.adventureText }}
-        <br><br>
-        HERE IS A MAGIC
       </p>
+      <p>HERE IS A MAGIC</p>
     </div>
   </div>
 </template>
