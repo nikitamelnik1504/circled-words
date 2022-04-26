@@ -1,0 +1,55 @@
+header {
+  z-index: 1;
+
+  .navbar {
+    .navbar-brand {
+      font-size: 26px;
+
+      .logo-primary-text {
+        color: #FFB229;
+      }
+
+      .logo-secondary-text {
+        color: #B97A2A;
+      }
+    }
+
+    .navbar-nav {
+      .nav-item {
+        a {
+          font-size: 16px;
+          color: #F1F2F2;
+        }
+
+        .nav-link {
+          transition: 0.3s;
+
+          &.disabled {
+            color: #51524B;
+          }
+        }
+
+        &.connect-wallet-link {
+          .nav-link {
+            border: solid 4px #FFB229;
+            background: none;
+            color: #FFB229;
+
+            &:hover {
+              box-shadow: inset 0 0 0 2em #FFB229;
+              color: #17181C;
+            }
+          }
+
+          &.logged-in {
+            .nav-link {
+              // @TODO: Implement logged-in class.
+              border-color: #B97A2A;
+              color: #B97A2A;
+            }
+          }
+        }
+      }
+    }
+  }
+}

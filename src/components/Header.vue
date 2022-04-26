@@ -53,7 +53,3 @@ export default {
   </header>
   <WalletModal/>
 </template>
-
-<style>
-@import "Header.css";
-</style>
