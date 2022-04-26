@@ -39,7 +39,6 @@
 }
 
 .homepage .description-section .sample-words .sample-word-wrapper:last-child .row {
-    margin-top: 30px;
     justify-content: center;
 }
 
@@ -48,7 +47,7 @@
 }
 
 .homepage .description-section .description-text {
-    font-size: 26px;
+    font-size: 21px;
     color: #F1F2F2;
 }
 
@@ -70,9 +69,11 @@
         font-size: 26px;
         border-width: 4px;
     }
+}
 
-    .homepage .description-section .description-text {
-        font-size: 21px;
+@media (min-width: 768px) {
+    .homepage .description-section .sample-words .sample-word-wrapper:last-child .row {
+        margin-top: 30px;
     }
 }
 
