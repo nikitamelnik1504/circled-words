@@ -1,0 +1,149 @@
+.homepage {
+  .slogan-section {
+    .slogan-wrapper {
+      margin-bottom: 30px;
+
+      .slogan {
+        color: #F1F2F2;
+        font-size: 36px;
+
+        .word-primary {
+          color: #FFB229;
+        }
+
+        .word-secondary {
+          color: #DC962A;
+        }
+      }
+
+      .slogan-links {
+        .slogan-link {
+          flex: 1 0 50%;
+
+          .circled-word {
+            width: 90%;
+            margin-top: 10%;
+            padding: 10px 12px;
+            border-width: 2px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      .start-journey-button {
+        font-size: 16px;
+        color: #F1F2F2;
+        padding: 8px 21px;
+        border: solid 2px #F1F2F2;
+      }
+    }
+  }
+
+  .description-section {
+
+  }
+}
+
+.homepage .section-title {
+  font-size: 36px;
+}
+
+.homepage .description-section .sample-words .sample-word-wrapper:last-child .row {
+  justify-content: center;
+}
+
+.homepage .description-section .section-title {
+  color: #9966CC;
+}
+
+.homepage .description-section .description-text {
+  font-size: 21px;
+  color: #F1F2F2;
+}
+
+@media (min-width: 400px) {
+  .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+    width: 94%;
+    margin-top: 6%;
+  }
+}
+
+@media (min-width: 576px) {
+  .homepage .slogan {
+    font-size: 36px;
+    max-width: 400px;
+  }
+
+  .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+    padding: 13px 24px;
+    font-size: 26px;
+    border-width: 4px;
+  }
+}
+
+@media (min-width: 768px) {
+  .homepage .description-section .sample-words .sample-word-wrapper:last-child .row {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .homepage .slogan-section .start-journey-button {
+    font-size: 21px;
+    border: solid 4px #F1F2F2;
+    padding: 12px 27px;
+    transition: 0.3s;
+  }
+
+  .homepage .slogan-section .start-journey-button:hover {
+    background-color: #F1F2F2;
+    color: #17181C;
+  }
+
+  .homepage .slogan {
+    font-size: 48px;
+    max-width: 700px;
+  }
+
+  .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+    padding: 25px 35px;
+    margin-top: 5%;
+    width: 95%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .homepage .section-title {
+    font-size: 48px;
+  }
+
+  .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+    font-size: 32px;
+    padding: 25px 50px;
+  }
+
+  .homepage .description-section .description-text {
+    font-size: 26px;
+  }
+
+  .homepage .description-section .sample-words .sample-word-wrapper:last-child .row {
+    margin-top: unset;
+    justify-content: unset;
+  }
+}
+
+@media (min-width: 1400px) {
+  .homepage .slogan {
+    font-size: 64px;
+  }
+
+  .homepage .slogan-section .slogan-links .slogan-link .circled-word {
+    font-size: 48px;
+    padding: 35px 60px;
+  }
+
+  .homepage .slogan-section .start-journey-button {
+    font-size: 26px;
+    padding: 15px 27px;
+  }
+}

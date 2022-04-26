@@ -94,7 +94,3 @@ export default {
     <section class="mt-5"></section>
   </div>
 </template>
-
-<style>
-@import "Home.css";
-</style>

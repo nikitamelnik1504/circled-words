@@ -25,7 +25,3 @@ export default {
     <CircledWord :wordData="wordData"/>
   </div>
 </template>
-
-<style>
-
-</style>
