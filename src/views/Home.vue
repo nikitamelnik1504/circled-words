@@ -71,7 +71,7 @@ export default {
       </div>
     </section>
     <section id="description" class="row description-section text-center">
-      <div class="col-xl-10 col-xxl-9 mx-auto">
+      <div class="col-md-10 col-xxl-9 mx-auto">
         <h3 class="section-title mb-3">What is it?</h3>
         <p class="description-text text-start">Circled word - is a label in border with unique animation. It could be
           very simple, like fade transition of
@@ -83,7 +83,7 @@ export default {
 
           We did some examples for you to show how it works:</p>
         <div class="row mt-5 justify-content-xl-between justify-content-center sample-words">
-          <div class="col-lg-5 col-xl-4 col-xxl-3" v-for="word in sampleWordsData">
+          <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-3 sample-word-wrapper" v-for="word in sampleWordsData">
             <div class="row h-100">
               <SampleWord :metadata="word" class="col-10 sample-word"/>
             </div>
