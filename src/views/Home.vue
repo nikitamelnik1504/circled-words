@@ -70,9 +70,9 @@ export default {
         </div>
       </div>
     </section>
-    <section id="description" class="row description-section text-center">
+    <section id="description" class="row description-section">
       <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
-        <h3 class="section-title mb-3">What is it?</h3>
+        <h3 class="section-title text-center mb-3">What is it?</h3>
         <p class="description-text text-start">Circled word - is a label in border with unique animation. It could be
           very simple, like fade transition of
           text color, and it could be very difficult, like pulse animation with multiple colors. It’s very similar to
@@ -91,6 +91,13 @@ export default {
         </div>
       </div>
     </section>
-    <section class="mt-5"></section>
+    <section id="stats" class="row stats-section mt-5">
+      <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
+        <h3 class="section-title my-3 text-center">Some stats?</h3>
+        <div class="row">
+
+        </div>
+      </div>
+    </section>
   </div>
 </template>
