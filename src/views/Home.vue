@@ -2,9 +2,16 @@
 
 import CircledWord from "@/components/CircledWord.vue"
 import SampleWord from "@/components/SampleWord.vue";
+import StatBlock from "@/components/StatBlock.vue";
 import getWord from "../components/CircledWord"
 import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
 import sampleWords from "../components/json/homepage_circled_word_samples.json"
+
+const stats = [
+  {value: 1000, title: 'Words was created', description: 'Over 1000 words was created and available in OpenSea'},
+  {value: 200, title: 'Words have 2-3 step animation', description: 'New look for animations, new colors'},
+  {value: 5000, title: 'Users received enjoy', description: 'Match own favourite colors and transitions'}
+]
 
 export default {
   methods: {
@@ -30,17 +37,22 @@ export default {
         data.push(current_word)
       })
       return data
+    },
+    getStatsData() {
+      return stats;
     }
   },
   data() {
     return {
       wordsData: this.getWordsData(),
-      sampleWordsData: this.getSampleWords()
+      sampleWordsData: this.getSampleWords(),
+      statsData: this.getStatsData(),
     }
   },
   components: {
     SampleWord,
     CircledWord,
+    StatBlock
   }
 }
 
@@ -94,10 +106,19 @@ export default {
     <section id="stats" class="row stats-section mt-5">
       <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
         <h3 class="section-title my-3 text-center">Some stats?</h3>
-        <div class="row">
-
+        <div class="row justify-content-between">
+          <div class="col-md-6 col-lg-4 stat-item-wrapper mt-4 mx-md-auto mx-lg-0" v-for="stat in statsData">
+            <div class="row h-100">
+              <div class="col-lg-12 col-xxl-11 mx-auto">
+                <div class="stat-item h-100 d-flex flex-column justify-content-between">
+                  <StatBlock :value="stat.value" :title="stat.title" :description="stat.description"/>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+    <section class="mt-5 pt-5"></section>
   </div>
 </template>
