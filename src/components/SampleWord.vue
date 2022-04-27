@@ -79,7 +79,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style>
-@import "SampleWord.css";
-</style>
