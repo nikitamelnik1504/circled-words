@@ -65,7 +65,7 @@
       },
       {
         "trait_type": "Animation duration",
-        "value": 0.5
+        "value": 2
       },
       {
         "trait_type": "Background color",
@@ -109,7 +109,7 @@
       },
       {
         "trait_type": "Animation duration",
-        "value": 0.5
+        "value": 3
       },
       {
         "trait_type": "Background color",

@@ -62,7 +62,7 @@ export default {
   <div class="d-flex flex-column justify-content-between">
     <div>
       <h5 class="sample-word-name mb-4">{{ name }}</h5>
-      <CircledWord :wordData="wordData"/>
+      <CircledWord :wordData="wordData" :autoplayAnimation="true"/>
       <div class="text-start mt-3">
         <p v-for="(data, title) in sampleWordData.circledProperties" class="sample-word-property-name mb-1">
           {{ title }}: <span class="sample-word-property-value"
