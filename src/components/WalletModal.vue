@@ -69,7 +69,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style>
-@import "WalletModal.css";
-</style>

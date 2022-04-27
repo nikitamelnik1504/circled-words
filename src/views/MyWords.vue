@@ -52,7 +52,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style>
-@import "MyWords.css";
-</style>

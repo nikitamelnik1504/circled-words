@@ -3,7 +3,3 @@
     <h1 class="error-text">Please connect your wallet to see this page</h1>
   </div>
 </template>
-
-<style>
-@import "403.css";
-</style>

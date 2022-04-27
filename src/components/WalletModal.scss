@@ -1,0 +1,54 @@
+.modal {
+  .modal-dialog {
+    .modal-content {
+      background-color: #17181C;
+      border: solid 4px #F1F2F2;
+      border-radius: unset;
+      padding-bottom: 50px;
+
+      .modal-header {
+        border: none;
+
+        .modal-title {
+          font-size: 26px;
+          color: #F1F2F2;
+        }
+      }
+
+      .modal-body {
+        .wallet-link {
+          border: solid 4px #FFB229;
+          max-width: 340px;
+          padding: 0 80px 20px;
+          text-decoration: none;
+          color: #F1F2F2;
+          transition: 0.2s;
+
+          &:hover {
+            background-color: #34352D;
+          }
+
+          &.disabled:hover {
+            background-color: unset;
+          }
+
+          .wallet-network-error-background {
+            background-color: #34352D;
+            opacity: 0.8;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+          }
+
+          .wallet-network-error {
+            min-width: 278px;
+            color: #FFB229;
+            z-index: 2;
+          }
+        }
+      }
+    }
+  }
+}
