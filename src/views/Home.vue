@@ -117,8 +117,13 @@ export default {
             </div>
           </div>
         </div>
+        <p class="text-center pt-4">Every day our team is working for you to create enjoy for your eyes.  </p>
       </div>
     </section>
-    <section class="mt-5 pt-5"></section>
+    <section id="benefits" class="row benefits-section mt-3">
+      <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
+        <h3 class="section-title my-3 text-center">Benefits?</h3>
+      </div>
+    </section>
   </div>
 </template>
