@@ -178,5 +178,15 @@
     .section-title {
       color: #FF7F82;
     }
+
+    .benefit-item {
+      padding: 26px 36px;
+      border: solid 4px #F1F2F2;
+
+      .benefit-description {
+        color: #FFB229;
+        font-size: 26px;
+      }
+    }
   }
 }

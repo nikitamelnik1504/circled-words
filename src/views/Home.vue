@@ -1,8 +1,8 @@
 <script>
 
 import CircledWord from "@/components/CircledWord.vue"
-import SampleWord from "@/components/SampleWord.vue";
-import StatBlock from "@/components/StatBlock.vue";
+import SampleWord from "@/components/SampleWord.vue"
+import StatBlock from "@/components/StatBlock.vue"
 import getWord from "../components/CircledWord"
 import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
 import sampleWords from "../components/json/homepage_circled_word_samples.json"
@@ -13,8 +13,19 @@ const stats = [
   {value: 5000, title: 'Users received enjoy', description: 'Match own favourite colors and transitions'}
 ]
 
+const benefits = [
+  {value: 'Too unique items. More and more properties in one button. You could be owner of the most animated button, step by step colors, long animation durations.'},
+  {value: 'Possibility to make resell, you can try to search the most beautiful button and make trade. '},
+  {value: 'Possibility to play with buttons that you owned on our site.'}
+]
+
 export default {
   methods: {
+    getHighestBenefitBlock() {
+      let wrapper = document.getElementById('benefitsWrapper')
+      let max_height = wrapper.children
+      wrapper.children
+    },
     setSloganRowHeight() {
       let header_height = document.getElementById('header').clientHeight
       let window_height = window.innerHeight
@@ -39,14 +50,21 @@ export default {
       return data
     },
     getStatsData() {
-      return stats;
+      return stats
+    },
+    getBenefitsData() {
+      return benefits
     }
+  },
+  mounted() {
+    this.getHighestBenefitBlock()
   },
   data() {
     return {
       wordsData: this.getWordsData(),
       sampleWordsData: this.getSampleWords(),
       statsData: this.getStatsData(),
+      benefitsData: this.getBenefitsData()
     }
   },
   components: {
@@ -117,12 +135,23 @@ export default {
             </div>
           </div>
         </div>
-        <p class="text-center pt-4">Every day our team is working for you to create enjoy for your eyes.  </p>
+        <p class="text-center pt-4">Every day our team is working for you to create enjoy for your eyes. </p>
       </div>
     </section>
     <section id="benefits" class="row benefits-section mt-3">
       <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
         <h3 class="section-title my-3 text-center">Benefits?</h3>
+        <div class="row justify-content-center" id="benefitsWrapper">
+          <div class="col-5" v-for="benefit in benefitsData">
+            <div class="row mx-auto h-100">
+              <div class="col-10 mt-4 mx-auto">
+                <div class="benefit-item d-flex align-items-center text-center h-100">
+                  <p class="benefit-description m-0">{{ benefit.value }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
