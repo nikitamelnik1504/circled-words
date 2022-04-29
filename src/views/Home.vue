@@ -21,11 +21,6 @@ const benefits = [
 
 export default {
   methods: {
-    getHighestBenefitBlock() {
-      let wrapper = document.getElementById('benefitsWrapper')
-      let max_height = wrapper.children
-      wrapper.children
-    },
     setSloganRowHeight() {
       let header_height = document.getElementById('header').clientHeight
       let window_height = window.innerHeight
@@ -55,9 +50,6 @@ export default {
     getBenefitsData() {
       return benefits
     }
-  },
-  mounted() {
-    this.getHighestBenefitBlock()
   },
   data() {
     return {
@@ -103,7 +95,7 @@ export default {
     <section id="description" class="row description-section">
       <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
         <h3 class="section-title text-center mb-3">What is it?</h3>
-        <p class="description-text text-start">Circled word - is a label in border with unique animation. It could be
+        <p class="description-text mt-4 text-start">Circled word - is a label in border with unique animation. It could be
           very simple, like fade transition of
           text color, and it could be very difficult, like pulse animation with multiple colors. It’s very similar to
           button, let’s call it button. <br><br>
@@ -127,7 +119,7 @@ export default {
         <div class="row justify-content-between">
           <div class="col-md-6 col-lg-4 stat-item-wrapper mt-4 mx-md-auto mx-lg-0" v-for="stat in statsData">
             <div class="row h-100">
-              <div class="col-lg-12 col-xxl-11 mx-auto">
+              <div class="col-xxl-11 mx-auto">
                 <div class="stat-item h-100 d-flex flex-column justify-content-between">
                   <StatBlock :value="stat.value" :title="stat.title" :description="stat.description"/>
                 </div>
@@ -135,16 +127,16 @@ export default {
             </div>
           </div>
         </div>
-        <p class="text-center pt-4">Every day our team is working for you to create enjoy for your eyes. </p>
+        <p class="help-description text-center pt-4">Every day our team is working for you to create enjoy for your eyes. </p>
       </div>
     </section>
     <section id="benefits" class="row benefits-section mt-3">
       <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
         <h3 class="section-title my-3 text-center">Benefits?</h3>
         <div class="row justify-content-center" id="benefitsWrapper">
-          <div class="col-5" v-for="benefit in benefitsData">
-            <div class="row mx-auto h-100">
-              <div class="col-10 mt-4 mx-auto">
+          <div class="col-md-6 col-lg-4" v-for="benefit in benefitsData">
+            <div class="row h-100">
+              <div class="col-xxl-11 mt-4 mx-auto">
                 <div class="benefit-item d-flex align-items-center text-center h-100">
                   <p class="benefit-description m-0">{{ benefit.value }}</p>
                 </div>
@@ -152,6 +144,7 @@ export default {
             </div>
           </div>
         </div>
+        <p class="disabled help-description text-center mt-3">Our Roadmap is available <a href="#" class="disabled text-decoration-underline">here</a>.</p>
       </div>
     </section>
   </div>
