@@ -147,5 +147,8 @@ export default {
         <p class="disabled help-description text-center mt-3">Our Roadmap is available <a href="#" class="disabled text-decoration-underline">here</a>.</p>
       </div>
     </section>
+    <section id="help" class="row help-section mt-3">
+      <h3 class="section-title my-3 text-center">Need help?</h3>
+    </section>
   </div>
 </template>
