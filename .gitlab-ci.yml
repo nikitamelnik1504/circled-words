@@ -5,22 +5,12 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Pages/HTML.gitlab-ci.yml
 
 # Full project: https://gitlab.com/pages/plain-html
-
-image: node:latest
-
-stages:
-  - build
-
-build:
-  stage: build
-  script:
-    - npm install
-    - npm run build
-
 pages:
   stage: deploy
   script:
     - mkdir .public
+    - call npm install
+    - call npm run build
     - cp -r ./dist/* .public
     - rm -rf public
     - mv .public public
