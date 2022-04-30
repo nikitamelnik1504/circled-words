@@ -215,5 +215,30 @@
     .section-title {
       color: #FFA260;
     }
+
+    .accordion {
+      .accordion-item {
+        border: solid 4px #F1F2F2;
+        background: none;
+
+        &:not(:first-of-type) {
+          border-top: 0;
+        }
+
+        .accordion-header {
+          .accordion-button {
+            color: #F1F2F2;
+            background: none;
+            font-size: 21px;
+          }
+        }
+
+        .accordion-collapse {
+          .accordion-body {
+            color: #FFB229;
+          }
+        }
+      }
+    }
   }
 }

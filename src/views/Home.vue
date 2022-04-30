@@ -3,6 +3,7 @@
 import CircledWord from "@/components/CircledWord.vue"
 import SampleWord from "@/components/SampleWord.vue"
 import StatBlock from "@/components/StatBlock.vue"
+import HelpAccordionItem from "@/components/HelpAccordionItem.vue";
 import getWord from "../components/CircledWord"
 import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
 import sampleWords from "../components/json/homepage_circled_word_samples.json"
@@ -17,6 +18,14 @@ const benefits = [
   {value: 'Too unique items. More and more properties in one button. You could be owner of the most animated button, step by step colors, long animation durations.'},
   {value: 'Possibility to make resell, you can try to search the most beautiful button and make trade. '},
   {value: 'Possibility to play with buttons that you owned on our site.'}
+]
+
+const help = [
+  {question: 'What we sell for you?', answer: 'Test data 1'},
+  {question: 'What are the funds being used for?', answer: 'Test data 2'},
+  {question: 'Where I can buy circled words?', answer: 'Test data 3'},
+  {question: 'How I can check my NFTs here owned in OpenSea?', answer: 'Test data 4'},
+  {question: 'Where I can create my own circled word?', answer: 'You can buy it in our official OpenSea profile page.'}
 ]
 
 export default {
@@ -49,6 +58,9 @@ export default {
     },
     getBenefitsData() {
       return benefits
+    },
+    getHelpData() {
+      return help
     }
   },
   data() {
@@ -56,13 +68,15 @@ export default {
       wordsData: this.getWordsData(),
       sampleWordsData: this.getSampleWords(),
       statsData: this.getStatsData(),
-      benefitsData: this.getBenefitsData()
+      benefitsData: this.getBenefitsData(),
+      helpData: this.getHelpData()
     }
   },
   components: {
     SampleWord,
     CircledWord,
-    StatBlock
+    StatBlock,
+    HelpAccordionItem
   }
 }
 
@@ -95,7 +109,8 @@ export default {
     <section id="description" class="row description-section">
       <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
         <h3 class="section-title text-center mb-3">What is it?</h3>
-        <p class="description-text mt-4 text-start">Circled word - is a label in border with unique animation. It could be
+        <p class="description-text mt-4 text-start">Circled word - is a label in border with unique animation. It could
+          be
           very simple, like fade transition of
           text color, and it could be very difficult, like pulse animation with multiple colors. It’s very similar to
           button, let’s call it button. <br><br>
@@ -127,7 +142,8 @@ export default {
             </div>
           </div>
         </div>
-        <p class="help-description text-center pt-4">Every day our team is working for you to create enjoy for your eyes. </p>
+        <p class="help-description text-center pt-4">Every day our team is working for you to create enjoy for your
+          eyes. </p>
       </div>
     </section>
     <section id="benefits" class="row benefits-section mt-3">
@@ -144,11 +160,18 @@ export default {
             </div>
           </div>
         </div>
-        <p class="disabled help-description text-center mt-3">Our Roadmap is available <a href="#" class="disabled text-decoration-underline">here</a>.</p>
+        <p class="disabled help-description text-center mt-3">Our Roadmap is available <a href="#"
+                                                                                          class="disabled text-decoration-underline">here</a>.
+        </p>
       </div>
     </section>
     <section id="help" class="row help-section mt-3">
       <h3 class="section-title my-3 text-center">Need help?</h3>
+      <div class="col-11 col-sm-10 col-xxl-8 mx-auto mt-4">
+        <div class="accordion" id="helpAccordion">
+          <HelpAccordionItem v-for="item in helpData" :question="item.question" :answer="item.answer"/>
+        </div>
+      </div>
     </section>
   </div>
 </template>
