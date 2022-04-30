@@ -32,6 +32,9 @@ export default {
           walletModalCloseButton.click()
         }
       })
+    },
+    isMetaMaskInstalled() {
+      return typeof window.ethereum !== 'undefined'
     }
   },
 }
@@ -54,8 +57,8 @@ export default {
                   aria-label="Close"></button>
         </div>
         <div class="modal-body d-flex justify-content-center">
-          <a href="#"
-             @click="showMetaMaskModal"
+          <a :href="isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'"
+             @click="isMetaMaskInstalled() ? showMetaMaskModal() : undefined"
              class="wallet-link d-flex justify-content-center align-items-center flex-column text-center position-relative">
             <!--            <span class="position-absolute wallet-network-error-background"-->
             <!--                 ></span>-->

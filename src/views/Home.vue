@@ -3,7 +3,6 @@
 import CircledWord from "@/components/CircledWord.vue"
 import SampleWord from "@/components/SampleWord.vue"
 import StatBlock from "@/components/StatBlock.vue"
-import Error403 from "@/views/403.vue"
 import HelpAccordionItem from "@/components/HelpAccordionItem.vue";
 import getWord from "../components/CircledWord"
 import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
