@@ -217,26 +217,35 @@
       color: #FFA260;
     }
 
-    .accordion {
-      .accordion-item {
-        border: solid 4px #F1F2F2;
-        background: none;
+    .accordion-wrapper {
+      min-height: 600px;
 
-        &:not(:first-of-type) {
-          border-top: 0;
-        }
+      .accordion {
+        .accordion-item {
+          border: solid 4px #F1F2F2;
+          background: none;
 
-        .accordion-header {
-          .accordion-button {
-            color: #F1F2F2;
-            background: none;
-            font-size: 21px;
+          &:not(:first-of-type) {
+            border-top: 0;
           }
-        }
 
-        .accordion-collapse {
-          .accordion-body {
-            color: #FFB229;
+          .accordion-header {
+            .accordion-button {
+              color: #F1F2F2;
+              background: none;
+              font-size: 16px;
+
+              @include media-breakpoint-up(lg) {
+                font-size: 21px;
+              }
+            }
+          }
+
+          .accordion-collapse {
+            .accordion-body {
+              color: #FFB229;
+              $accordion-icon-color: red;
+            }
           }
         }
       }

@@ -24,7 +24,7 @@ export default {
 <template>
   <div class="accordion-item">
     <h2 class="accordion-header" :id.attr="'heading' + uuid">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target.attr="'#collapse' + uuid"
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target.attr="'#collapse' + uuid"
               aria-expanded="false" :aria-controls.attr="'collapse' + uuid">
         {{ question }}
       </button>
