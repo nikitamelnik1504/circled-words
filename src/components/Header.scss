@@ -40,13 +40,15 @@ header {
               box-shadow: inset 0 0 0 2em #FFB229;
               color: #17181C;
             }
-          }
 
-          &.logged-in {
-            .nav-link {
-              // @TODO: Implement logged-in class.
-              border-color: #B97A2A;
-              color: #B97A2A;
+            &.logged-in {
+              border-color: #DC962A;
+              color: #DC962A;
+
+              &:hover {
+                box-shadow: inset 0 0 0 2em #DC962A;
+                color: #17181C;
+              }
             }
           }
         }

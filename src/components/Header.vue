@@ -42,7 +42,7 @@ export default {
                       data-bs-target="#connectWalletModal">
                 Connect Wallet
               </button>
-              <button v-else @click="resetWalletState()" type="button" href="#" class="nav-link">
+              <button v-else @click="resetWalletState()" type="button" href="#" class="nav-link px-3 logged-in">
                 Log out
               </button>
             </li>
