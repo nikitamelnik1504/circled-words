@@ -3,6 +3,7 @@
 import CircledWord from "@/components/CircledWord.vue"
 import SampleWord from "@/components/SampleWord.vue"
 import StatBlock from "@/components/StatBlock.vue"
+import Error403 from "@/views/403.vue"
 import HelpAccordionItem from "@/components/HelpAccordionItem.vue";
 import getWord from "../components/CircledWord"
 import sloganWords from "../components/json/homepage_slogan_circled_word_samples.json"
@@ -30,12 +31,11 @@ const help = [
 
 export default {
   methods: {
-    setSloganRowHeight() {
-      let header_height = document.getElementById('header').clientHeight
-      let window_height = window.innerHeight
-      return {
-        'min-height': (window_height - header_height) + 'px'
-      }
+    getFreeHeight() {
+      return window.innerHeight - this.headerHeight
+    },
+    onResize() {
+      this.freeHeight = this.getFreeHeight()
     },
     getSloganWords() {
       return sloganWords
@@ -65,12 +65,21 @@ export default {
   },
   data() {
     return {
+      freeHeight: Number,
+      headerHeight: Number,
       wordsData: this.getWordsData(),
       sampleWordsData: this.getSampleWords(),
       statsData: this.getStatsData(),
       benefitsData: this.getBenefitsData(),
-      helpData: this.getHelpData()
+      helpData: this.getHelpData(),
     }
+  },
+  mounted() {
+    this.headerHeight = document.getElementById('header').offsetHeight
+    this.onResize()
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
   },
   components: {
     SampleWord,
@@ -84,7 +93,7 @@ export default {
 
 <template>
   <div class="container-fluid homepage">
-    <section class="row slogan-section" :style="setSloganRowHeight()">
+    <section class="row slogan-section" :style="{'height': freeHeight + 'px'}">
       <div class="col-11 m-auto">
         <div class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5">
           <div class="col-lg-6 d-flex justify-content-center">
