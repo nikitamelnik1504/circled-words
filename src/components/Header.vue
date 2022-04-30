@@ -37,7 +37,7 @@ export default {
               <router-link to="/roadmap" class="nav-link disabled">Roadmap</router-link>
             </li>
             <li class="nav-item connect-wallet-link">
-              <button v-if="!isMetaMaskConnected()" type="button" href="#" class="nav-link"
+              <button v-if="!isMetaMaskConnected()" type="button" href="#" class="nav-link px-3"
                       data-bs-toggle="modal"
                       data-bs-target="#connectWalletModal">
                 Connect Wallet
