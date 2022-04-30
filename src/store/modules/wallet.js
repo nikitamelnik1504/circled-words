@@ -3,8 +3,6 @@
 import detectEthereumProvider from '@metamask/detect-provider'
 import store from "../index";
 
-const provider = await detectEthereumProvider()
-
 const getDefaultState = () => {
     return {
         metamask: {
@@ -37,7 +35,8 @@ const actions = {
     resetWalletState({commit}) {
         commit('resetState')
     },
-    connectToMetaMask() {
+    async connectToMetaMask() {
+        let provider = await detectEthereumProvider()
         return provider.request({method: 'eth_requestAccounts'})
             .then(walletAddress => {
                 // @TODO: Implement multiple accounts.
