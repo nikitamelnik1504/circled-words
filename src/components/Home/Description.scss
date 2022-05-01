@@ -1,0 +1,33 @@
+.description-section {
+  .section-title {
+    color: #9966CC;
+  }
+
+  .description-text {
+    font-size: 21px;
+    color: #F1F2F2;
+
+    @include media-breakpoint-up(xl) {
+      font-size: 26px;
+    }
+  }
+
+  .sample-words {
+    .sample-word-wrapper {
+      &:last-child {
+        .row {
+          justify-content: center;
+
+          @include media-breakpoint-up(md) {
+            margin-top: 30px;
+          }
+
+          @include media-breakpoint-up(xl) {
+            margin-top: unset;
+            justify-content: unset;
+          }
+        }
+      }
+    }
+  }
+}

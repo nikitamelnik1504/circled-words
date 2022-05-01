@@ -1,0 +1,36 @@
+.stats-section {
+  .section-title {
+    color: #EF6EAE;
+  }
+
+  .stat-item-wrapper {
+    .stat-item {
+      padding: 26px 36px;
+      border: solid 4px #F1F2F2;
+      border-radius: 4px;
+
+      .stat-value {
+        color: #FFB229;
+        font-size: 36px;
+
+        @include media-breakpoint-up(xl) {
+          font-size: 48px;
+        }
+      }
+
+      .stat-title {
+        color: #DC962A;
+        font-size: 21px;
+
+        @include media-breakpoint-up(xl) {
+          font-size: 26px;
+        }
+      }
+
+      .stat-description {
+        color: #B97A2A;
+        font-size: 16px;
+      }
+    }
+  }
+}
