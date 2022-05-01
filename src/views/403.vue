@@ -9,8 +9,8 @@ export default {
     }
   },
   mounted() {
-    this.headerHeight = document.getElementById('header').offsetHeight
-    this.footerHeight = document.getElementById('footer').offsetHeight
+    this.headerHeight = document.getElementById('header').scrollHeight
+    this.footerHeight = document.getElementById('footer').scrollHeight
     this.onResize()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     getFreeHeight() {
-      return window.innerHeight - this.headerHeight - this.footerHeight
+      return window.innerHeight - this.headerHeight - this.footerHeight - 1 // 1px top border height
     },
     onResize() {
       this.freeHeight = this.getFreeHeight()

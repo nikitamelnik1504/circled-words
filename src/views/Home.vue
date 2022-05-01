@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted() {
-    this.headerHeight = document.getElementById('header').offsetHeight
+    this.headerHeight = document.getElementById('header').scrollHeight
     this.onResize()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
