@@ -49,7 +49,6 @@ export default {
         current_word.link = word.link;
         data.push(current_word);
       });
-      console.log(data);
       return data;
     },
   },

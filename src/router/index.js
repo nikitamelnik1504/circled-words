@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/page/Home/index.vue";
-import MyWords from "@/views/MyWords.vue";
-import Roadmap from "@/views/Roadmap.vue";
+import MyWords from "@/views/page/MyWords/index.vue";
+import Roadmap from "@/views/page/Roadmap/index.vue";
 import Error403 from "@/views/error-page/403/index.vue";
 
 const routes = [

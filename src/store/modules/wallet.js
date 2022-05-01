@@ -46,6 +46,7 @@ const actions = {
         return "connected";
       })
       .catch((error) => {
+        console.log(error);
         return "not_connected";
       });
   },

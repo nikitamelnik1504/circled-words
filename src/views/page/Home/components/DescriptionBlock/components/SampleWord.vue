@@ -8,7 +8,10 @@ export default {
     CircledWord,
   },
   props: {
-    metadata: Object,
+    metadata: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -68,6 +71,7 @@ export default {
       <div class="text-start mt-3">
         <p
           v-for="(data, title) in sampleWordData.circledProperties"
+          :key="title"
           class="sample-word-property-name mb-1"
         >
           {{ title }}:

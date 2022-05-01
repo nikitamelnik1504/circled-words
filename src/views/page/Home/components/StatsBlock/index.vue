@@ -43,7 +43,8 @@ export default {
       <h3 class="section-title my-3 text-center">Some stats?</h3>
       <div class="row justify-content-between">
         <div
-          v-for="stat in statsData"
+          v-for="(stat, index) in statsData"
+          :key="index"
           class="col-md-6 col-lg-4 stat-item-wrapper mt-4 mx-md-auto mx-lg-0"
         >
           <div class="row h-100">

@@ -5,8 +5,16 @@ export default {
       type: Object,
       required: true,
     },
-    link: String,
-    autoplayAnimation: false,
+    link: {
+      type: String,
+      default: "#",
+      required: false,
+    },
+    autoplayAnimation: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   data() {
     return {
@@ -32,7 +40,7 @@ export default {
 
 <template>
   <a
-    :href="link ? link : '#'"
+    :href="link"
     class="circled-word text-decoration-none d-inline-block text-center user-select-none"
     :class="[
       wordData.elementClass,

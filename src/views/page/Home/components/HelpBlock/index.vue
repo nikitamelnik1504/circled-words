@@ -41,7 +41,8 @@ export default {
     <div class="col-11 col-sm-10 col-xxl-8 mx-auto mt-4 accordion-wrapper">
       <div id="helpAccordion" class="accordion">
         <HelpAccordionItem
-          v-for="item in helpData"
+          v-for="(item, index) in helpData"
+          :key="index"
           :question="item.question"
           :answer="item.answer"
         />

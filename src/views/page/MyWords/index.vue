@@ -1,13 +1,17 @@
 <script>
-import CircledWord from "@/components/CircledWord.vue";
 import MyWord from "@/components/MyWord.vue";
 import api_result from "@/../opensea_test_api_result.json";
 import { mapGetters } from "vuex";
 
 export default {
+  name: "MyWordsPage",
   components: {
-    CircledWord,
     MyWord,
+  },
+  data() {
+    return {
+      api_result: this.getWords(),
+    };
   },
   computed: {
     ...mapGetters({
@@ -15,7 +19,7 @@ export default {
     }),
   },
   watch: {
-    metamaskConnected(newValue, oldValue) {
+    metamaskConnected(newValue) {
       if (newValue === false) {
         this.$router.push("/");
       }
@@ -25,11 +29,6 @@ export default {
     getWords() {
       return api_result;
     },
-  },
-  data() {
-    return {
-      api_result: this.getWords(),
-    };
   },
 };
 </script>
@@ -42,7 +41,11 @@ export default {
     <div class="row">
       <div class="col-12 col-sm-10 col-xxl-8 mx-auto">
         <div class="row">
-          <div v-for="word in api_result.assets" class="col-4">
+          <div
+            v-for="(word, index) in api_result.assets"
+            :key="index"
+            class="col-4"
+          >
             <MyWord :metadata="word" />
           </div>
         </div>

@@ -30,7 +30,11 @@ export default {
     <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
       <h3 class="section-title my-3 text-center">Benefits?</h3>
       <div id="benefitsWrapper" class="row justify-content-center">
-        <div v-for="benefit in benefitsData" class="col-md-6 col-lg-4">
+        <div
+          v-for="(benefit, index) in benefitsData"
+          :key="index"
+          class="col-md-6 col-lg-4"
+        >
           <div class="row h-100">
             <div class="col-xxl-11 mt-4 mx-auto">
               <div

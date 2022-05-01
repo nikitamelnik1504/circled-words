@@ -41,7 +41,8 @@ export default {
         class="row mt-4 mt-md-5 justify-content-xl-between justify-content-center sample-words"
       >
         <div
-          v-for="word in sampleWordsData"
+          v-for="(word, index) in sampleWordsData"
+          :key="index"
           class="col-md-6 col-lg-5 col-xl-4 col-xxl-3 sample-word-wrapper"
         >
           <div class="row h-100">
