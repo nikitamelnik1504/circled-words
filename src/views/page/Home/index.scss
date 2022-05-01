@@ -24,9 +24,9 @@
     }
   }
 
-  @import "@/components/Home/Slogan.scss";
-  @import "@/components/Home/Description.scss";
-  @import "@/components/Home/Stats.scss";
-  @import "@/components/Home/Benefits.scss";
-  @import "@/components/Home/Help.scss";
+  @import "./components/SloganBlock";
+  @import "./components/DescriptionBlock";
+  @import "./components/StatsBlock";
+  @import "./components/BenefitsBlock";
+  @import "./components/HelpBlock";
 }

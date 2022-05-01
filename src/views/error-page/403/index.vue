@@ -1,5 +1,19 @@
+<template>
+  <div class="container-fluid">
+    <div class="row">
+      <div
+        class="text-center d-flex align-items-center justify-content-center"
+        :style="{ 'min-height': freeHeight + 'px' }"
+      >
+        <h1 class="error-text">Please connect your wallet to see this page</h1>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
 export default {
+  name: "403Page",
   data() {
     return {
       freeHeight: Number,
@@ -29,16 +43,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div class="container-fluid">
-    <div class="row">
-      <div
-        class="text-center d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': freeHeight + 'px' }"
-      >
-        <h1 class="error-text">Please connect your wallet to see this page</h1>
-      </div>
-    </div>
-  </div>
-</template>

@@ -1,6 +1,6 @@
 <script>
 import CircledWord from "@/components/CircledWord.vue";
-import { getWord, metadata_getters } from "./CircledWord";
+import { getWord, metadata_getters } from "@/components/CircledWord.js";
 import colors from "@/assets/libraries/colors.json";
 
 export default {

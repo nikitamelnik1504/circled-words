@@ -1,5 +1,5 @@
 <script>
-import HelpAccordionItem from "@/components/HelpAccordionItem.vue";
+import HelpAccordionItem from "./components/HelpAccordionItem.vue";
 
 const help = [
   { question: "What we sell for you?", answer: "Test data 1" },
@@ -16,6 +16,7 @@ const help = [
 ];
 
 export default {
+  name: "HelpBlock",
   components: {
     HelpAccordionItem,
   },

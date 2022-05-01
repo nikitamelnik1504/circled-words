@@ -49,6 +49,7 @@ export default {
         current_word.link = word.link;
         data.push(current_word);
       });
+      console.log(data);
       return data;
     },
   },
@@ -79,7 +80,8 @@ export default {
           class="col-12 col-sm-9 col-md-8 col-lg-6 slogan-links d-flex flex-wrap"
         >
           <div
-            v-for="word in wordsData"
+            v-for="(word, index) in wordsData"
+            :key="index"
             class="slogan-link d-flex justify-content-center"
           >
             <CircledWord :word-data="word" :link="word.link" />

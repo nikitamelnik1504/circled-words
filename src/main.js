@@ -5,7 +5,7 @@ import router from "./router";
 import "@popperjs/core/dist/umd/popper.min.js";
 
 const app = createApp(App);
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   const { requiresAuth } = to.meta;
 
   if (requiresAuth) {

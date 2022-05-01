@@ -2,11 +2,10 @@
 @import "bootstrap";
 @import "scss/fonts";
 @import "scss/global";
-@import "components/SampleWord";
 @import "components/Header";
 @import "components/WalletModal";
 @import "components/CircledWord";
-@import "views/403";
-@import "views/Home";
+@import "views/error-page/403";
+@import "views/page/Home";
 @import "views/MyWords";
 @import "components/Footer";

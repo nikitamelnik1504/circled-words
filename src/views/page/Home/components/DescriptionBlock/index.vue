@@ -1,8 +1,9 @@
 <script>
-import SampleWord from "@/components/SampleWord.vue";
-import sampleWords from "../json/homepage_circled_word_samples.json";
+import SampleWord from "./components/SampleWord.vue";
+import sampleWords from "@/components/json/homepage_circled_word_samples.json";
 
 export default {
+  name: "DescriptionBlock",
   components: {
     SampleWord,
   },

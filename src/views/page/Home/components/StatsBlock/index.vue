@@ -1,5 +1,5 @@
 <script>
-import StatBlock from "@/components/StatBlock.vue";
+import StatBlock from "./components/StatBlock.vue";
 
 const stats = [
   {
@@ -20,6 +20,7 @@ const stats = [
 ];
 
 export default {
+  name: "StatsBlock",
   components: {
     StatBlock,
   },
