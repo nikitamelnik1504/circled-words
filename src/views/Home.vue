@@ -31,7 +31,7 @@ const help = [
 export default {
   methods: {
     getFreeHeight() {
-      return window.innerHeight - this.headerHeight
+      return document.documentElement.clientHeight - this.headerHeight
     },
     onResize() {
       this.freeHeight = this.getFreeHeight()
@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted() {
-    this.headerHeight = document.getElementById('header').scrollHeight
+    this.headerHeight = document.getElementById('header').clientHeight
     this.onResize()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
