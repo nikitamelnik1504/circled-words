@@ -9,7 +9,7 @@
 
 <script>
 import CircledWord from "@/components/CircledWord.vue";
-import getWord from "./CircledWord";
+import getWord from "@/components/CircledWord.js";
 
 export default {
   components: {

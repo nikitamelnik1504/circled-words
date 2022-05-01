@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import MyWord from "@/components/MyWord.vue";
+import MyWord from "./components/MyWord.vue";
 import api_result from "@/../opensea_test_api_result.json";
 import { mapGetters } from "vuex";
 
