@@ -7,9 +7,7 @@ export default {
 }
 </script>
 
-<template>
-  
-</template>
+<template />
 
 <style>
 

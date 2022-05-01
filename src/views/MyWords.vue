@@ -15,16 +15,16 @@ export default {
       metamaskConnected: 'isMetaMaskConnected'
     })
   },
-  methods: {
-    getWords() {
-      return api_result;
-    }
-  },
   watch: {
     metamaskConnected(newValue, oldValue) {
       if (newValue === false) {
         this.$router.push('/')
       }
+    }
+  },
+  methods: {
+    getWords() {
+      return api_result;
     }
   },
   data() {
@@ -38,14 +38,19 @@ export default {
 
 <template>
   <div class="text-center">
-    <h1 class="my-words-title">My Words</h1>
+    <h1 class="my-words-title">
+      My Words
+    </h1>
   </div>
   <div class="buttons-list container-fluid mt-4">
     <div class="row">
       <div class="col-12 col-sm-10 col-xxl-8 mx-auto">
         <div class="row">
-          <div v-for="word in api_result.assets" class="col-4">
-              <MyWord :metadata="word"/>
+          <div
+            v-for="word in api_result.assets"
+            class="col-4"
+          >
+            <MyWord :metadata="word" />
           </div>
         </div>
       </div>

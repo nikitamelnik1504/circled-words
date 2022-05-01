@@ -23,7 +23,7 @@ export default {
     <Slogan />
     <Description />
     <Stats />
-    <Benefits/>
-    <Help/>
+    <Benefits />
+    <Help />
   </div>
 </template>

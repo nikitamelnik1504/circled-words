@@ -8,6 +8,16 @@ export default {
   components: {
     CircledWord
   },
+  props: {
+    metadata: Object
+  },
+  data() {
+    return {
+      wordData: getWord(this.metadata),
+      sampleWordData: this.getSampleWordData(),
+      name: metadata_getters.getTitle(this.metadata),
+    }
+  },
   methods: {
     getSampleWordData() {
       let data = {}
@@ -44,16 +54,6 @@ export default {
 
       return data;
     },
-  },
-  data() {
-    return {
-      wordData: getWord(this.metadata),
-      sampleWordData: this.getSampleWordData(),
-      name: metadata_getters.getTitle(this.metadata),
-    }
-  },
-  props: {
-    metadata: Object
   }
 }
 </script>
@@ -61,13 +61,23 @@ export default {
 <template>
   <div class="d-flex flex-column justify-content-between">
     <div>
-      <h5 class="sample-word-name text-center mb-4">{{ name }}</h5>
-      <CircledWord :wordData="wordData" :autoplayAnimation="true"/>
+      <h5 class="sample-word-name text-center mb-4">
+        {{ name }}
+      </h5>
+      <CircledWord
+        :word-data="wordData"
+        :autoplay-animation="true"
+      />
       <div class="text-start mt-3">
-        <p v-for="(data, title) in sampleWordData.circledProperties" class="sample-word-property-name mb-1">
-          {{ title }}: <span class="sample-word-property-value"
-                             :class="data.updated ? 'text-decoration-underline': false"
-                             :style="'color:' + data.color">{{ data.value }}</span>
+        <p
+          v-for="(data, title) in sampleWordData.circledProperties"
+          class="sample-word-property-name mb-1"
+        >
+          {{ title }}: <span
+            class="sample-word-property-value"
+            :class="data.updated ? 'text-decoration-underline': false"
+            :style="'color:' + data.color"
+          >{{ data.value }}</span>
         </p>
       </div>
     </div>

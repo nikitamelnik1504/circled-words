@@ -43,27 +43,43 @@ export default {
 </script>
 
 <template>
-  <div class="modal fade"
-       id="connectWalletModal"
-       tabindex="-1"
-       aria-labelledby="exampleModalLabel"
-       aria-hidden="true"
-       ref="connectWalletModal"
+  <div
+    id="connectWalletModal"
+    ref="connectWalletModal"
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
   >
     <div class="modal-dialog position-absolute top-0 bottom-0 start-0 end-0 d-flex align-items-center">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
-          <h5 class="modal-title" id="exampleModalLabel">Select your wallet</h5>
-          <button ref="CloseWalletModal" type="button" class="btn-close d-none" data-bs-dismiss="modal"
-                  aria-label="Close"></button>
+          <h5
+            id="exampleModalLabel"
+            class="modal-title"
+          >
+            Select your wallet
+          </h5>
+          <button
+            ref="CloseWalletModal"
+            type="button"
+            class="btn-close d-none"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="modal-body d-flex justify-content-center">
-          <a :href="isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'"
-             @click="isMetaMaskInstalled() ? showMetaMaskModal() : undefined"
-             class="wallet-link d-flex justify-content-center align-items-center flex-column text-center position-relative">
+          <a
+            :href="isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'"
+            class="wallet-link d-flex justify-content-center align-items-center flex-column text-center position-relative"
+            @click="isMetaMaskInstalled() ? showMetaMaskModal() : undefined"
+          >
             <!--            <span class="position-absolute wallet-network-error-background"-->
             <!--                 ></span>-->
-            <img src="../assets/images/metamask.svg" alt="f">
+            <img
+              src="../assets/images/metamask.svg"
+              alt="f"
+            >
             <h6>Metamask</h6>
             <!--            <p class="wallet-network-error" >Please change your network to-->
             <!--              Ethereum</p>-->

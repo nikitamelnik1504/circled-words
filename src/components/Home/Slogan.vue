@@ -5,6 +5,9 @@ import sloganWords from "@/components/json/homepage_slogan_circled_word_samples.
 import CircledWord from "@/components/CircledWord.vue"
 
 export default {
+  components: {
+    CircledWord
+  },
   data() {
     return {
       freeHeight: Number,
@@ -46,15 +49,15 @@ export default {
       })
       return data
     },
-  },
-  components: {
-    CircledWord
   }
 }
 </script>
 
 <template>
-  <section class="row slogan-section" :style="{'height': freeHeight + 'px'}">
+  <section
+    class="row slogan-section"
+    :style="{'height': freeHeight + 'px'}"
+  >
     <div class="col-11 m-auto">
       <div class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5">
         <div class="col-lg-6 d-flex justify-content-center">
@@ -63,14 +66,24 @@ export default {
               <span class="word-secondary">Circled</span>
               <span class="word-primary"> word</span> is already
               waiting for
-              you!</h2>
-            <a href="#" class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4">Start your
+              you!
+            </h2>
+            <a
+              href="#"
+              class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4"
+            >Start your
               journey!</a>
           </div>
         </div>
         <div class="col-12 col-sm-9 col-md-8 col-lg-6 slogan-links d-flex flex-wrap">
-          <div v-for="word in wordsData" class="slogan-link d-flex justify-content-center">
-            <CircledWord :wordData="word" :link="word.link"/>
+          <div
+            v-for="word in wordsData"
+            class="slogan-link d-flex justify-content-center"
+          >
+            <CircledWord
+              :word-data="word"
+              :link="word.link"
+            />
           </div>
         </div>
       </div>
