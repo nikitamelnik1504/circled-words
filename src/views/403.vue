@@ -10,7 +10,7 @@ export default {
   },
   mounted() {
     this.headerHeight = document.getElementById('header').clientHeight
-    this.footerHeight = document.getElementById('footer').clientHeight - 1 // 1px top border height
+    this.footerHeight = document.getElementById('footer').clientHeight + 1 // 1px top border height
     this.onResize()
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
