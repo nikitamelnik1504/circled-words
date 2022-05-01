@@ -38,6 +38,7 @@
 import getWord from "@/components/CircledWord";
 import sloganWords from "@/components/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
+import { getFreeHeight } from "@/utils/layout-space.js";
 
 export default {
   components: {
@@ -50,30 +51,14 @@ export default {
     };
   },
   mounted() {
-    this.headerHeight = this.getHeaderHeight();
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
   },
   methods: {
-    getFreeHeight() {
-      return document.documentElement.clientHeight - this.getHeaderHeight();
-    },
-    getHeaderHeight() {
-      let header = document.getElementById("header");
-      let navbar = document.getElementById("navbarNav");
-      if (
-        navbar.classList.contains("collapsing") ||
-        navbar.classList.contains("show")
-      ) {
-        return header.clientHeight - navbar.clientHeight;
-      } else {
-        return header.clientHeight;
-      }
-    },
     onResize() {
-      this.freeHeight = this.getFreeHeight();
+      this.freeHeight = getFreeHeight();
     },
     getSloganWords() {
       return sloganWords;
