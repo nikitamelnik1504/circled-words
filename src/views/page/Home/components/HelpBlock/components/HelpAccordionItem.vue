@@ -1,25 +1,3 @@
-<script>
-import { uuid } from "vue-uuid";
-
-export default {
-  props: {
-    question: {
-      required: true,
-      type: String,
-    },
-    answer: {
-      required: true,
-      type: String,
-    },
-  },
-  data() {
-    return {
-      uuid: uuid.v4(),
-    };
-  },
-};
-</script>
-
 <template>
   <div class="accordion-item">
     <h2 :id.attr="'heading' + uuid" class="accordion-header">
@@ -46,3 +24,25 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import { uuid } from "vue-uuid";
+
+export default {
+  props: {
+    question: {
+      required: true,
+      type: String,
+    },
+    answer: {
+      required: true,
+      type: String,
+    },
+  },
+  data() {
+    return {
+      uuid: uuid.v4(),
+    };
+  },
+};
+</script>

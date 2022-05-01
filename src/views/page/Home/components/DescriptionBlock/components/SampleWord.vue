@@ -1,3 +1,35 @@
+<template>
+  <div class="d-flex flex-column justify-content-between">
+    <div>
+      <h5 class="sample-word-name text-center mb-4">
+        {{ name }}
+      </h5>
+      <CircledWord :word-data="wordData" :autoplay-animation="true" />
+      <div class="text-start mt-3">
+        <p
+          v-for="(data, title) in sampleWordData.circledProperties"
+          :key="title"
+          class="sample-word-property-name mb-1"
+        >
+          {{ title }}:
+          <span
+            class="sample-word-property-value"
+            :class="data.updated ? 'text-decoration-underline' : false"
+            :style="'color:' + data.color"
+            >{{ data.value }}</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="text-start sample-word-adventure-text">
+      <p class="mt-5">
+        {{ sampleWordData.adventureText }}
+      </p>
+      <p>HERE IS A MAGIC</p>
+    </div>
+  </div>
+</template>
+
 <script>
 import CircledWord from "@/components/CircledWord.vue";
 import { getWord, metadata_getters } from "@/components/CircledWord.js";
@@ -60,35 +92,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div class="d-flex flex-column justify-content-between">
-    <div>
-      <h5 class="sample-word-name text-center mb-4">
-        {{ name }}
-      </h5>
-      <CircledWord :word-data="wordData" :autoplay-animation="true" />
-      <div class="text-start mt-3">
-        <p
-          v-for="(data, title) in sampleWordData.circledProperties"
-          :key="title"
-          class="sample-word-property-name mb-1"
-        >
-          {{ title }}:
-          <span
-            class="sample-word-property-value"
-            :class="data.updated ? 'text-decoration-underline' : false"
-            :style="'color:' + data.color"
-            >{{ data.value }}</span
-          >
-        </p>
-      </div>
-    </div>
-    <div class="text-start sample-word-adventure-text">
-      <p class="mt-5">
-        {{ sampleWordData.adventureText }}
-      </p>
-      <p>HERE IS A MAGIC</p>
-    </div>
-  </div>
-</template>

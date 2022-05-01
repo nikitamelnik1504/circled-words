@@ -1,3 +1,19 @@
+<template>
+  <a
+    :href="link"
+    class="circled-word text-decoration-none d-inline-block text-center user-select-none"
+    :class="[
+      wordData.elementClass,
+      {
+        hover: !animationRunning && autoplayAnimation,
+        disabled: autoplayAnimation,
+      },
+    ]"
+    :style="wordData.elementStyle"
+    >CIRCLED</a
+  >
+</template>
+
 <script>
 export default {
   props: {
@@ -37,19 +53,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <a
-    :href="link"
-    class="circled-word text-decoration-none d-inline-block text-center user-select-none"
-    :class="[
-      wordData.elementClass,
-      {
-        hover: !animationRunning && autoplayAnimation,
-        disabled: autoplayAnimation,
-      },
-    ]"
-    :style="wordData.elementStyle"
-    >CIRCLED</a
-  >
-</template>

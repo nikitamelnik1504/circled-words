@@ -1,3 +1,19 @@
+<template>
+  <div>
+    <h4 class="stat-value m-0">
+      {{ value }}
+    </h4>
+    <p class="stat-title">
+      {{ title }}
+    </p>
+  </div>
+  <div>
+    <p class="stat-description">
+      {{ description }}
+    </p>
+  </div>
+</template>
+
 <script>
 export default {
   props: {
@@ -16,19 +32,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div>
-    <h4 class="stat-value m-0">
-      {{ value }}
-    </h4>
-    <p class="stat-title">
-      {{ title }}
-    </p>
-  </div>
-  <div>
-    <p class="stat-description">
-      {{ description }}
-    </p>
-  </div>
-</template>

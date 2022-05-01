@@ -1,26 +1,3 @@
-<script>
-import WalletModal from "@/components/WalletModal.vue";
-import { mapGetters, mapActions } from "vuex";
-import { Collapse } from "bootstrap";
-
-export default {
-  methods: {
-    ...mapGetters(["isMetaMaskConnected"]),
-    ...mapActions(["resetWalletState"]),
-    toggleNavbar() {
-      const menuToggle = document.getElementById("navbarNav");
-      if (menuToggle.classList.contains("show")) {
-        const bsCollapse = new Collapse(menuToggle);
-        bsCollapse.toggle();
-      }
-    },
-  },
-  components: {
-    WalletModal,
-  },
-};
-</script>
-
 <template>
   <header id="header" class="position-relative">
     <nav class="navbar navbar-expand-sm navbar-dark">
@@ -102,3 +79,26 @@ export default {
   </header>
   <WalletModal />
 </template>
+
+<script>
+import WalletModal from "@/components/WalletModal.vue";
+import { mapGetters, mapActions } from "vuex";
+import { Collapse } from "bootstrap";
+
+export default {
+  components: {
+    WalletModal,
+  },
+  methods: {
+    ...mapGetters(["isMetaMaskConnected"]),
+    ...mapActions(["resetWalletState"]),
+    toggleNavbar() {
+      const menuToggle = document.getElementById("navbarNav");
+      if (menuToggle.classList.contains("show")) {
+        const bsCollapse = new Collapse(menuToggle);
+        bsCollapse.toggle();
+      }
+    },
+  },
+};
+</script>

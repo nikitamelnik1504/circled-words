@@ -1,42 +1,3 @@
-<script>
-// @TODO: Implement validation for chain network.
-
-import { mapActions, mapGetters } from "vuex";
-
-// const provider = await detectEthereumProvider()
-// let metaMaskData = {};
-//
-// metaMaskData.metaMaskExist = Boolean(provider)
-//
-// if (provider) {
-//   const chainId = await provider.request({
-//     method: 'eth_chainId'
-//   })
-//   metaMaskData.isEthereumChain = (chainId === '0x1');
-// }
-
-export default {
-  methods: {
-    ...mapGetters(["isMetaMaskConnected"]),
-    ...mapActions(["connectToMetaMask"]),
-    async showMetaMaskModal() {
-      let connectionToMetaMask = this.connectToMetaMask();
-      let walletModalCloseButton = this.$refs.CloseWalletModal;
-      let router = this.$router;
-      connectionToMetaMask.then(function (result) {
-        if (result === "connected") {
-          router.push("/my-words");
-          walletModalCloseButton.click();
-        }
-      });
-    },
-    isMetaMaskInstalled() {
-      return typeof window.ethereum !== "undefined";
-    },
-  },
-};
-</script>
-
 <template>
   <div
     id="connectWalletModal"
@@ -80,3 +41,42 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+// @TODO: Implement validation for chain network.
+
+import { mapActions, mapGetters } from "vuex";
+
+// const provider = await detectEthereumProvider()
+// let metaMaskData = {};
+//
+// metaMaskData.metaMaskExist = Boolean(provider)
+//
+// if (provider) {
+//   const chainId = await provider.request({
+//     method: 'eth_chainId'
+//   })
+//   metaMaskData.isEthereumChain = (chainId === '0x1');
+// }
+
+export default {
+  methods: {
+    ...mapGetters(["isMetaMaskConnected"]),
+    ...mapActions(["connectToMetaMask"]),
+    async showMetaMaskModal() {
+      let connectionToMetaMask = this.connectToMetaMask();
+      let walletModalCloseButton = this.$refs.CloseWalletModal;
+      let router = this.$router;
+      connectionToMetaMask.then(function (result) {
+        if (result === "connected") {
+          router.push("/my-words");
+          walletModalCloseButton.click();
+        }
+      });
+    },
+    isMetaMaskInstalled() {
+      return typeof window.ethereum !== "undefined";
+    },
+  },
+};
+</script>

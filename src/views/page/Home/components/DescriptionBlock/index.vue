@@ -1,26 +1,3 @@
-<script>
-import SampleWord from "./components/SampleWord.vue";
-import sampleWords from "@/components/json/homepage_circled_word_samples.json";
-
-export default {
-  name: "DescriptionBlock",
-  components: {
-    SampleWord,
-  },
-  data() {
-    return {
-      sampleWordsData: this.getSampleWords(),
-    };
-  },
-  methods: {
-    // Warning!!! Especial examples metadata differs from OpenSea.
-    getSampleWords() {
-      return sampleWords;
-    },
-  },
-};
-</script>
-
 <template>
   <section id="description" class="row description-section">
     <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
@@ -56,3 +33,26 @@ export default {
     </div>
   </section>
 </template>
+
+<script>
+import SampleWord from "./components/SampleWord.vue";
+import sampleWords from "@/components/json/homepage_circled_word_samples.json";
+
+export default {
+  name: "DescriptionBlock",
+  components: {
+    SampleWord,
+  },
+  data() {
+    return {
+      sampleWordsData: this.getSampleWords(),
+    };
+  },
+  methods: {
+    // Warning!!! Especial examples metadata differs from OpenSea.
+    getSampleWords() {
+      return sampleWords;
+    },
+  },
+};
+</script>

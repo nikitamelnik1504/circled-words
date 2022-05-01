@@ -1,3 +1,9 @@
+<template>
+  <Header />
+  <router-view />
+  <Footer />
+</template>
+
 <script>
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
@@ -13,12 +19,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <Header />
-  <router-view />
-  <Footer />
-</template>
 
 <style lang="scss">
 @import "main";
