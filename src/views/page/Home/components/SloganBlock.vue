@@ -1,5 +1,8 @@
 <template>
-  <section class="row slogan-section" :style="{ height: freeHeight + 'px' }">
+  <section
+    class="row slogan-section"
+    :style="{ 'min-height': freeHeight + 'px' }"
+  >
     <div class="col-11 m-auto">
       <div
         class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5"

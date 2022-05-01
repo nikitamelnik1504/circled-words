@@ -12,33 +12,24 @@
 </template>
 
 <script>
+import { getFreeHeight } from "@/utils/layout-space.js";
+
 export default {
   name: "403Page",
   data() {
     return {
       freeHeight: Number,
-      headerHeight: Number,
-      footerHeight: Number,
     };
   },
   mounted() {
-    this.headerHeight = document.getElementById("header").clientHeight;
-    this.footerHeight = document.getElementById("footer").clientHeight + 1; // 1px top border height
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
   },
   methods: {
-    getFreeHeight() {
-      return (
-        document.documentElement.clientHeight -
-        this.headerHeight -
-        this.footerHeight
-      );
-    },
     onResize() {
-      this.freeHeight = this.getFreeHeight();
+      this.freeHeight = getFreeHeight(true);
     },
   },
 };
