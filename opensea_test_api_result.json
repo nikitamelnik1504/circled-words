@@ -5,23 +5,23 @@
       "traits": [
         {
           "trait_type": "Text color",
-          "value": "Red"
+          "value": "Cerulean"
         },
         {
           "trait_type": "Border color",
-          "value": "Green"
+          "value": "Cerulean"
         },
         {
           "trait_type": "Background color",
-          "value": "Blue"
+          "value": "Cerulean"
         },
         {
           "trait_type": "Second Text color",
-          "value": "Red"
+          "value": "White"
         },
         {
           "trait_type": "Second Border color",
-          "value": "Red"
+          "value": "Malibu"
         },
         {
           "trait_type": "Animation type",
@@ -29,7 +29,7 @@
         },
         {
           "trait_type": "Animation duration",
-          "value": "10"
+          "value": "1"
         }
       ]
     },

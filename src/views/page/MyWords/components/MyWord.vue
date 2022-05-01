@@ -1,7 +1,8 @@
 <template>
-  <div class="button-item text-center pt-3 pb-5">
+  <div class="button-item text-center pt-4 pb-5">
     <h5 class="button-title mb-5">
-      {{ wordData.title }}
+      <span class="primary">Circled</span><span class="secondary">Word</span> #1
+      <!--      {{ wordData.title }}-->
     </h5>
     <CircledWord :word-data="wordData" />
   </div>

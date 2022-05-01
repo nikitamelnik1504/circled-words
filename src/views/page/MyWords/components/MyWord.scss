@@ -1,0 +1,17 @@
+.button-item {
+  border: solid 1px #34352D;
+  border-radius: 4px;
+
+  .button-title {
+    font-size: 28px;
+    color: #51524B;
+
+    .primary {
+      color: #FFB229;
+    }
+
+    .secondary {
+      color: #B97A2A;
+    }
+  }
+}
