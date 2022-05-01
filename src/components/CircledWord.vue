@@ -1,5 +1,4 @@
 <script>
-
 export default {
   props: {
     wordData: {
@@ -7,35 +6,42 @@ export default {
       required: true,
     },
     link: String,
-    autoplayAnimation: false
+    autoplayAnimation: false,
   },
   data() {
     return {
       animationRunning: false,
-    }
+    };
   },
   mounted() {
     if (this.autoplayAnimation === true) {
-      this.runAnimation()
+      this.runAnimation();
     }
   },
   methods: {
     runAnimation: function () {
-      let self = this
+      let self = this;
       setTimeout(function () {
-        self.runAnimation()
+        self.runAnimation();
       }, 3000);
-      return this.animationRunning = !this.animationRunning;
-    }
-  }
-}
+      return (this.animationRunning = !this.animationRunning);
+    },
+  },
+};
 </script>
 
 <template>
   <a
     :href="link ? link : '#'"
     class="circled-word text-decoration-none d-inline-block text-center user-select-none"
-    :class="[wordData.elementClass, {'hover': !animationRunning && autoplayAnimation, 'disabled': autoplayAnimation}]"
+    :class="[
+      wordData.elementClass,
+      {
+        hover: !animationRunning && autoplayAnimation,
+        disabled: autoplayAnimation,
+      },
+    ]"
     :style="wordData.elementStyle"
-  >CIRCLED</a>
+    >CIRCLED</a
+  >
 </template>

@@ -1,14 +1,7 @@
 <script>
-
-
-
-export default {
-
-}
+export default {};
 </script>
 
 <template />
 
-<style>
-
-</style>
+<style></style>

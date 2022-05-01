@@ -1,11 +1,11 @@
 .description-section {
   .section-title {
-    color: #9966CC;
+    color: #9966cc;
   }
 
   .description-text {
     font-size: 21px;
-    color: #F1F2F2;
+    color: #f1f2f2;
 
     @include media-breakpoint-up(xl) {
       font-size: 26px;

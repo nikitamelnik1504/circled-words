@@ -1,18 +1,17 @@
 <script>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 import store from "@/store";
 
 export default {
   components: {
     Header,
-    Footer
+    Footer,
   },
   beforeCreate() {
-    store.commit('initialiseStore');
+    store.commit("initialiseStore");
   },
-}
-
+};
 </script>
 
 <template>

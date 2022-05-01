@@ -6,11 +6,11 @@ header {
       font-size: 26px;
 
       .logo-primary-text {
-        color: #FFB229;
+        color: #ffb229;
       }
 
       .logo-secondary-text {
-        color: #B97A2A;
+        color: #b97a2a;
       }
     }
 
@@ -18,36 +18,36 @@ header {
       .nav-item {
         a {
           font-size: 16px;
-          color: #F1F2F2;
+          color: #f1f2f2;
         }
 
         .nav-link {
           transition: 0.3s;
 
           &.disabled {
-            color: #51524B;
+            color: #51524b;
           }
         }
 
         &.connect-wallet-link {
           .nav-link {
-            border: solid 4px #FFB229;
+            border: solid 4px #ffb229;
             background: none;
-            color: #FFB229;
+            color: #ffb229;
             border-radius: 4px;
 
             &:hover {
-              box-shadow: inset 0 0 0 2em #FFB229;
-              color: #17181C;
+              box-shadow: inset 0 0 0 2em #ffb229;
+              color: #17181c;
             }
 
             &.logged-in {
-              border-color: #DC962A;
-              color: #DC962A;
+              border-color: #dc962a;
+              color: #dc962a;
 
               &:hover {
-                box-shadow: inset 0 0 0 2em #DC962A;
-                color: #17181C;
+                box-shadow: inset 0 0 0 2em #dc962a;
+                color: #17181c;
               }
             }
           }

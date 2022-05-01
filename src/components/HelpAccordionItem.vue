@@ -1,6 +1,5 @@
 <script>
-
-import {uuid} from 'vue-uuid';
+import { uuid } from "vue-uuid";
 
 export default {
   props: {
@@ -11,22 +10,19 @@ export default {
     answer: {
       required: true,
       type: String,
-    }
+    },
   },
   data() {
     return {
       uuid: uuid.v4(),
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <template>
   <div class="accordion-item">
-    <h2
-      :id.attr="'heading' + uuid"
-      class="accordion-header"
-    >
+    <h2 :id.attr="'heading' + uuid" class="accordion-header">
       <button
         class="accordion-button collapsed"
         type="button"

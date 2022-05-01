@@ -1,6 +1,6 @@
 .help-section {
   .section-title {
-    color: #FFA260;
+    color: #ffa260;
   }
 
   .accordion-wrapper {
@@ -8,7 +8,7 @@
 
     .accordion {
       .accordion-item {
-        border: solid 4px #F1F2F2;
+        border: solid 4px #f1f2f2;
         background: none;
 
         &:not(:first-of-type) {
@@ -17,7 +17,7 @@
 
         .accordion-header {
           .accordion-button {
-            color: #F1F2F2;
+            color: #f1f2f2;
             background: none;
             font-size: 16px;
 
@@ -29,7 +29,7 @@
 
         .accordion-collapse {
           .accordion-body {
-            color: #FFB229;
+            color: #ffb229;
             $accordion-icon-color: red;
           }
         }

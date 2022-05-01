@@ -1,15 +1,15 @@
 .benefits-section {
   .section-title {
-    color: #FF7F82;
+    color: #ff7f82;
   }
 
   .benefit-item {
     padding: 26px 36px;
-    border: solid 4px #FFB229;
+    border: solid 4px #ffb229;
     border-radius: 4px;
 
     .benefit-description {
-      color: #F1F2F2;
+      color: #f1f2f2;
       font-size: 16px;
 
       @include media-breakpoint-up(xl) {

@@ -1,21 +1,20 @@
 <script>
-
 export default {
   props: {
     value: {
       required: true,
-      type: Number
+      type: Number,
     },
     title: {
       required: true,
-      type: String
+      type: String,
     },
     description: {
       required: true,
       type: String,
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>

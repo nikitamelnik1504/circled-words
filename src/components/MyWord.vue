@@ -1,6 +1,5 @@
 <script>
-
-import CircledWord from "@/components/CircledWord.vue"
+import CircledWord from "@/components/CircledWord.vue";
 import getWord from "./CircledWord";
 
 export default {
@@ -8,15 +7,14 @@ export default {
     CircledWord,
   },
   props: {
-    metadata: Object
+    metadata: Object,
   },
   data() {
     return {
-      wordData: getWord(this.metadata)
-    }
+      wordData: getWord(this.metadata),
+    };
   },
-}
-
+};
 </script>
 
 <template>

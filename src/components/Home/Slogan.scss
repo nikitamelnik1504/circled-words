@@ -3,15 +3,15 @@
     margin-bottom: 30px;
 
     .slogan {
-      color: #F1F2F2;
+      color: #f1f2f2;
       font-size: 36px;
 
       .word-primary {
-        color: #FFB229;
+        color: #ffb229;
       }
 
       .word-secondary {
-        color: #DC962A;
+        color: #dc962a;
       }
 
       @include media-breakpoint-up(sm) {
@@ -72,20 +72,20 @@
 
     .start-journey-button {
       font-size: 16px;
-      color: #F1F2F2;
+      color: #f1f2f2;
       padding: 8px 21px;
-      border: solid 2px #F1F2F2;
+      border: solid 2px #f1f2f2;
       border-radius: 4px;
 
       @include media-breakpoint-up(lg) {
         font-size: 21px;
-        border: solid 4px #F1F2F2;
+        border: solid 4px #f1f2f2;
         padding: 12px 27px;
         transition: 0.3s;
 
         &:hover {
-          background-color: #F1F2F2;
-          color: #17181C;
+          background-color: #f1f2f2;
+          color: #17181c;
         }
       }
 

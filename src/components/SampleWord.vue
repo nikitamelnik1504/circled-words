@@ -1,61 +1,61 @@
 <script>
-
-import CircledWord from "@/components/CircledWord.vue"
-import {getWord, metadata_getters} from "./CircledWord";
-import colors from "@/assets/libraries/colors.json"
+import CircledWord from "@/components/CircledWord.vue";
+import { getWord, metadata_getters } from "./CircledWord";
+import colors from "@/assets/libraries/colors.json";
 
 export default {
   components: {
-    CircledWord
+    CircledWord,
   },
   props: {
-    metadata: Object
+    metadata: Object,
   },
   data() {
     return {
       wordData: getWord(this.metadata),
       sampleWordData: this.getSampleWordData(),
       name: metadata_getters.getTitle(this.metadata),
-    }
+    };
   },
   methods: {
     getSampleWordData() {
-      let data = {}
+      let data = {};
 
-      if (!('sample_data' in this.metadata)) {
+      if (!("sample_data" in this.metadata)) {
         return;
       }
       let sample_data = this.metadata.sample_data;
 
-      if (!('updated' in sample_data)) {
+      if (!("updated" in sample_data)) {
         return;
       }
-      let updated_circled_properties = sample_data.updated
+      let updated_circled_properties = sample_data.updated;
 
-      let traits = metadata_getters.getTraits(this.metadata)
+      let traits = metadata_getters.getTraits(this.metadata);
 
-      let result = {}
+      let result = {};
       for (let property in traits) {
         result[property] = {
           value: traits[property],
           updated: updated_circled_properties.includes(property),
-        }
+        };
 
         if (traits[property] in colors) {
-          result[property].color = '#' + colors[traits[property]]
+          result[property].color = "#" + colors[traits[property]];
         } else {
-          result[property].color = '#948561'
+          result[property].color = "#948561";
         }
 
-        data['circledProperties'] = result
+        data["circledProperties"] = result;
       }
 
-      data['adventureText'] = ('adventure_text' in sample_data) ? sample_data.adventure_text : false
+      data["adventureText"] =
+        "adventure_text" in sample_data ? sample_data.adventure_text : false;
 
       return data;
     },
-  }
-}
+  },
+};
 </script>
 
 <template>
@@ -64,20 +64,19 @@ export default {
       <h5 class="sample-word-name text-center mb-4">
         {{ name }}
       </h5>
-      <CircledWord
-        :word-data="wordData"
-        :autoplay-animation="true"
-      />
+      <CircledWord :word-data="wordData" :autoplay-animation="true" />
       <div class="text-start mt-3">
         <p
           v-for="(data, title) in sampleWordData.circledProperties"
           class="sample-word-property-name mb-1"
         >
-          {{ title }}: <span
+          {{ title }}:
+          <span
             class="sample-word-property-value"
-            :class="data.updated ? 'text-decoration-underline': false"
+            :class="data.updated ? 'text-decoration-underline' : false"
             :style="'color:' + data.color"
-          >{{ data.value }}</span>
+            >{{ data.value }}</span
+          >
         </p>
       </div>
     </div>

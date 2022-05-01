@@ -1,8 +1,8 @@
 .modal {
   .modal-dialog {
     .modal-content {
-      background-color: #17181C;
-      border: solid 4px #F1F2F2;
+      background-color: #17181c;
+      border: solid 4px #f1f2f2;
       border-radius: 4px;
       padding-bottom: 50px;
 
@@ -11,22 +11,22 @@
 
         .modal-title {
           font-size: 26px;
-          color: #F1F2F2;
+          color: #f1f2f2;
         }
       }
 
       .modal-body {
         .wallet-link {
-          border: solid 4px #FFB229;
+          border: solid 4px #ffb229;
           border-radius: 4px;
           max-width: 340px;
           padding: 0 80px 20px;
           text-decoration: none;
-          color: #F1F2F2;
+          color: #f1f2f2;
           transition: 0.2s;
 
           &:hover {
-            background-color: #34352D;
+            background-color: #34352d;
           }
 
           &.disabled:hover {
@@ -34,7 +34,7 @@
           }
 
           .wallet-network-error-background {
-            background-color: #34352D;
+            background-color: #34352d;
             opacity: 0.8;
             left: 0;
             right: 0;
@@ -45,7 +45,7 @@
 
           .wallet-network-error {
             min-width: 278px;
-            color: #FFB229;
+            color: #ffb229;
             z-index: 2;
           }
         }

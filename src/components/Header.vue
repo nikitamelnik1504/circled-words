@@ -1,31 +1,28 @@
 <script>
-import WalletModal from '@/components/WalletModal.vue';
-import {mapGetters, mapActions} from 'vuex';
-import {Collapse} from 'bootstrap';
+import WalletModal from "@/components/WalletModal.vue";
+import { mapGetters, mapActions } from "vuex";
+import { Collapse } from "bootstrap";
 
 export default {
   methods: {
     ...mapGetters(["isMetaMaskConnected"]),
     ...mapActions(["resetWalletState"]),
     toggleNavbar() {
-      const menuToggle = document.getElementById('navbarNav')
-      if (menuToggle.classList.contains('show')) {
-        const bsCollapse = new Collapse(menuToggle)
-        bsCollapse.toggle()
+      const menuToggle = document.getElementById("navbarNav");
+      if (menuToggle.classList.contains("show")) {
+        const bsCollapse = new Collapse(menuToggle);
+        bsCollapse.toggle();
       }
     },
   },
   components: {
-    WalletModal
+    WalletModal,
   },
-}
+};
 </script>
 
 <template>
-  <header
-    id="header"
-    class="position-relative"
-  >
+  <header id="header" class="position-relative">
     <nav class="navbar navbar-expand-sm navbar-dark">
       <div class="container-fluid mt-1 px-4">
         <router-link
@@ -33,13 +30,10 @@ export default {
           class="navbar-brand d-flex align-items-center"
           @click="toggleNavbar()"
         >
-          <img
-            src="../assets/images/logo.svg"
-            alt=""
-            class="me-1"
-          ><span
+          <img src="../assets/images/logo.svg" alt="" class="me-1" /><span
             class="logo-primary-text"
-          >Circled</span><span class="logo-secondary-text">Words</span>
+            >Circled</span
+          ><span class="logo-secondary-text">Words</span>
         </router-link>
         <button
           class="navbar-toggler"
@@ -58,11 +52,7 @@ export default {
         >
           <ul class="navbar-nav d-flex align-items-center">
             <li class="nav-item me-md-4">
-              <router-link
-                to="/"
-                class="nav-link"
-                @click="toggleNavbar()"
-              >
+              <router-link to="/" class="nav-link" @click="toggleNavbar()">
                 Home
               </router-link>
             </li>

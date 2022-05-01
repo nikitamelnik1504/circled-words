@@ -1,20 +1,20 @@
-import {createApp} from 'vue'
-import App from './App.vue'
-import store from './store';
-import router from './router';
-import '@popperjs/core/dist/umd/popper.min.js';
+import { createApp } from "vue";
+import App from "./App.vue";
+import store from "./store";
+import router from "./router";
+import "@popperjs/core/dist/umd/popper.min.js";
 
-const app = createApp(App)
+const app = createApp(App);
 router.beforeEach(async (to, from) => {
-    const {requiresAuth} = to.meta
+  const { requiresAuth } = to.meta;
 
-    if (requiresAuth) {
-        if (await store.getters.isMetaMaskConnected === false) {
-            return '/403-error'
-        }
+  if (requiresAuth) {
+    if ((await store.getters.isMetaMaskConnected) === false) {
+      return "/403-error";
     }
-})
-app.use(router)
-app.use(store)
+  }
+});
+app.use(router);
+app.use(store);
 
-app.mount('#app')
+app.mount("#app");
