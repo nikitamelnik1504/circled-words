@@ -5,6 +5,7 @@
 import detectEthereumProvider from '@metamask/detect-provider'
 import {mapActions, mapGetters} from 'vuex';
 import {hide} from '@popperjs/core';
+import {Modal} from 'bootstrap'
 
 // const provider = await detectEthereumProvider()
 // let metaMaskData = {};
