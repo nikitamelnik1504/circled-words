@@ -17,6 +17,11 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  },
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
