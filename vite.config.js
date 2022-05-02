@@ -1,6 +1,8 @@
 import { fileURLToPath, URL } from "url";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
+import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
 import { defineConfig } from "vite";
+import inject from "@rollup/plugin-inject";
 import vue from "@vitejs/plugin-vue";
 import eslintPlugin from "vite-plugin-eslint";
 
@@ -8,7 +10,7 @@ import eslintPlugin from "vite-plugin-eslint";
 export default defineConfig({
   base: "",
   define: {
-    global: {},
+    global: "globalThis",
     "process.env": {},
   },
   plugins: [vue(), eslintPlugin()],
@@ -18,6 +20,14 @@ export default defineConfig({
     },
   },
   build: {
+    rollupOptions: {
+      plugins: [
+        inject({
+          include: ["node_module/semaphore/**"],
+          modules: { Buffer: ["buffer", "Buffer"] },
+        }),
+      ],
+    },
     commonjsOptions: {
       transformMixedEsModules: true,
     },
@@ -33,6 +43,7 @@ export default defineConfig({
         NodeGlobalsPolyfillPlugin({
           buffer: true,
         }),
+        NodeModulesPolyfillPlugin(),
       ],
     },
   },

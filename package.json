@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@metamask/detect-provider": "^1.2.0",
     "@popperjs/core": "^2.11.5",
+    "@rollup/plugin-inject": "^4.0.4",
     "@walletconnect/client": "^1.7.8",
     "@walletconnect/qrcode-modal": "^1.7.8",
     "@walletconnect/web3-provider": "^1.7.8",
