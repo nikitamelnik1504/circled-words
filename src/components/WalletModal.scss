@@ -2,10 +2,10 @@
   .modal-dialog {
     .modal-content {
       background-color: #17181c;
-      border: solid 4px #f1f2f2;
+      border: solid 1px #51524b;
       border-radius: 4px;
       padding-bottom: 50px;
-      width: 80%;
+      width: 90%;
 
       @include media-breakpoint-up(md) {
         width: 100%;
@@ -22,7 +22,7 @@
 
       .modal-body {
         .wallet-link {
-          border: solid 4px #ffb229;
+          border: solid 1px #51524b;
           border-radius: 4px;
           max-width: 340px;
           padding: 10px 70px 10px;
