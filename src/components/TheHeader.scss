@@ -27,6 +27,14 @@ header {
           &.disabled {
             color: #51524b;
           }
+
+          &:focus {
+            color: #f1f2f2;
+          }
+
+          &.router-link-active {
+            border-bottom: solid 2px #ffb229;
+          }
         }
 
         &.connect-wallet-link {
