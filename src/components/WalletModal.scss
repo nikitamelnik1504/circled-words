@@ -32,6 +32,10 @@
           color: #f1f2f2;
           transition: 0.2s;
 
+          @include media-breakpoint-up(sm) {
+            padding: 10px 55px 10px;
+          }
+
           @include media-breakpoint-up(md) {
             padding: 0 0 20px;
             width: 100%;

@@ -22,8 +22,8 @@
           />
         </div>
         <div class="modal-body d-flex justify-content-center">
-          <div class="row">
-            <div class="col-6">
+          <div class="row flex-column flex-sm-row">
+            <div class="col-sm-6 mb-4 mb-sm-0">
               <a
                 :href="
                   isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'
@@ -43,7 +43,7 @@
                 <!--              Ethereum</p>-->
               </a>
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
               <a
                 href="#"
                 class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
