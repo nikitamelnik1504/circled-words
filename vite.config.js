@@ -21,6 +21,9 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      external: [
+        "node_modules/web3-provider-engine/subproviders/nonce-tracker.js",
+      ],
       plugins: [inject({ Buffer: ["Buffer", "Buffer"] })],
     },
     commonjsOptions: {
