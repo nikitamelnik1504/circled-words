@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/page/Home/index.vue";
 import MyWords from "@/views/page/MyWords/index.vue";
 import Roadmap from "@/views/page/Roadmap/index.vue";
@@ -41,7 +41,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory("/circled-words/"),
+  history: createWebHashHistory("/circled-words/"),
   routes,
 });
 
