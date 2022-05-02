@@ -22,20 +22,41 @@
           />
         </div>
         <div class="modal-body d-flex justify-content-center">
-          <a
-            :href="
-              isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'
-            "
-            class="wallet-link d-flex justify-content-center align-items-center flex-column text-center position-relative"
-            @click="isMetaMaskInstalled() ? showMetaMaskModal() : undefined"
-          >
-            <!--            <span class="position-absolute wallet-network-error-background"-->
-            <!--                 ></span>-->
-            <img src="../assets/images/metamask.svg" alt="f" />
-            <h6>Metamask</h6>
-            <!--            <p class="wallet-network-error" >Please change your network to-->
-            <!--              Ethereum</p>-->
-          </a>
+          <div class="row">
+            <div class="col-6">
+              <a
+                :href="
+                  isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'
+                "
+                class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
+                @click="isMetaMaskInstalled() ? showMetaMaskModal() : undefined"
+              >
+                <!--            <span class="position-absolute wallet-network-error-background"-->
+                <!--                 ></span>-->
+                <img
+                  src="../assets/images/metamask.svg"
+                  class="w-100"
+                  alt="metamask"
+                />
+                <h6>Metamask</h6>
+                <!--            <p class="wallet-network-error" >Please change your network to-->
+                <!--              Ethereum</p>-->
+              </a>
+            </div>
+            <div class="col-6">
+              <a
+                href="#"
+                class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
+              >
+                <img
+                  class="w-100"
+                  src="../assets/images/walletconnect.svg"
+                  alt="walletconnect"
+                />
+                <h6>WalletConnect</h6>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

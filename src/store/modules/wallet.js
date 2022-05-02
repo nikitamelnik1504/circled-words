@@ -1,5 +1,7 @@
 // @TODO: Implement chain validation.
 
+// import WalletConnect from "@walletconnect/client";
+// import QRCodeModal from "@walletconnect/qrcode-modal";
 import detectEthereumProvider from "@metamask/detect-provider";
 import store from "../index";
 
@@ -11,6 +13,7 @@ const getDefaultState = () => {
       chainId: "",
       walletAddress: "",
     },
+    walletConnect: {},
   };
 };
 
