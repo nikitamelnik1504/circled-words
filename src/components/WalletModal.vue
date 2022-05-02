@@ -8,7 +8,7 @@
     aria-hidden="true"
   >
     <div
-      class="modal-dialog position-absolute top-0 bottom-0 start-0 end-0 d-flex align-items-center"
+      class="modal-dialog position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center"
     >
       <div class="modal-content">
         <div class="modal-header justify-content-center">
