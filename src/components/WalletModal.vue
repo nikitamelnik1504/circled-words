@@ -61,7 +61,7 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   methods: {
-    ...mapGetters(["isMetaMaskConnected"]),
+    ...mapGetters(["isMetaMaskConnected", "isMetaMaskInstalled"]),
     ...mapActions(["connectToMetaMask"]),
     async showMetaMaskModal() {
       let connectionToMetaMask = this.connectToMetaMask();
@@ -73,9 +73,6 @@ export default {
           walletModalCloseButton.click();
         }
       });
-    },
-    isMetaMaskInstalled() {
-      return typeof window.ethereum !== "undefined";
     },
   },
 };

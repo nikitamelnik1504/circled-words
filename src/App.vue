@@ -17,6 +17,9 @@ export default {
   beforeCreate() {
     store.commit("initialiseStore");
   },
+  created() {
+    store.dispatch("checkMetaMaskInstalled");
+  },
 };
 </script>
 

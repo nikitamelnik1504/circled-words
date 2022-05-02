@@ -6,6 +6,7 @@ import store from "../index";
 const getDefaultState = () => {
   return {
     metamask: {
+      installed: false,
       connected: false,
       chainId: "",
       walletAddress: "",
@@ -17,6 +18,7 @@ const state = getDefaultState();
 
 const getters = {
   isMetaMaskConnected: (state) => state.metamask.connected,
+  isMetaMaskInstalled: (state) => state.metamask.installed,
 };
 
 const mutations = {
@@ -27,13 +29,29 @@ const mutations = {
     state.metamask.walletAddress = address;
   },
   resetState(state) {
+    let metamask_installed = state.metamask.installed;
     Object.assign(state, getDefaultState());
+    state.metamask.installed = metamask_installed;
+  },
+  setMetaMaskInstalled(state) {
+    state.metamask.installed = true;
+  },
+  setMaskMaskUninstalled(state) {
+    state.metamask.installed = false;
   },
 };
 
 const actions = {
   resetWalletState({ commit }) {
     commit("resetState");
+  },
+  async checkMetaMaskInstalled() {
+    let provider = await detectEthereumProvider();
+    if (provider !== null) {
+      store.commit("setMetaMaskInstalled");
+    } else {
+      store.commit("setMaskMaskUninstalled");
+    }
   },
   async connectToMetaMask() {
     let provider = await detectEthereumProvider();
