@@ -21,7 +21,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["web3-provider-engine"],
+      external: ["@walletconnect/web3-provider"],
       plugins: [inject({ Buffer: ["Buffer", "Buffer"] })],
     },
     commonjsOptions: {
