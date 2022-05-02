@@ -2,17 +2,17 @@
   <div class="container-fluid my-words">
     <section class="row">
       <div class="col-12" :style="{ 'min-height': freeHeight + 'px' }">
-        <div class="text-center">
+        <div class="text-center my-4 my-lg-0 mt-lg-2">
           <h1 class="my-words-title">My Words</h1>
         </div>
-        <div class="buttons-list container-fluid mt-4">
+        <div class="buttons-list container-fluid pt-1 pt-lg-0 mt-4">
           <div class="row">
-            <div class="col-12 col-sm-10 col-xxl-8 mx-auto">
-              <div class="row">
+            <div class="col-11 col-xl-9 col-xxl-8 mx-auto">
+              <div class="row flex-column flex-sm-row">
                 <div
                   v-for="(word, index) in apiResult.assets"
                   :key="index"
-                  class="col-4"
+                  class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"
                 >
                   <MyWord :metadata="word" />
                 </div>
