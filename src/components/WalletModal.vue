@@ -47,6 +47,7 @@
               <a
                 href="#"
                 class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
+                @click="runWalletConnect()"
               >
                 <img
                   class="w-100"
@@ -67,6 +68,8 @@
 // @TODO: Implement validation for chain network.
 
 import { mapActions, mapGetters } from "vuex";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { providers } from "ethers";
 
 // const provider = await detectEthereumProvider()
 // let metaMaskData = {};
@@ -94,6 +97,13 @@ export default {
           walletModalCloseButton.click();
         }
       });
+    },
+    async runWalletConnect() {
+      const provider = new WalletConnectProvider({
+        infuraId: "270dd5535d1344b2a5a507a081f3d45b",
+      });
+      await provider.enable();
+      return new providers.Web3Provider(provider);
     },
   },
 };
