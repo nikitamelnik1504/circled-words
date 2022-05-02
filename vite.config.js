@@ -4,6 +4,7 @@ import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfil
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import eslintPlugin from "vite-plugin-eslint";
+import inject from "@rollup/plugin-inject";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,6 +20,9 @@ export default defineConfig({
     },
   },
   build: {
+    rollupOptions: {
+      plugins: [inject({ Buffer: ["Buffer", "Buffer"] })],
+    },
     commonjsOptions: {
       transformMixedEsModules: true,
     },
