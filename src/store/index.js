@@ -1,9 +1,13 @@
 import { createStore } from "vuex";
+import metamask from "./modules/wallet/metamask";
+import walletConnect from "./modules/wallet/walletConnect";
 import wallet from "./modules/wallet";
 
 const store = createStore({
   modules: {
     wallet,
+    metamask,
+    walletConnect,
   },
   mutations: {
     initialiseStore(state) {
