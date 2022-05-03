@@ -26,10 +26,10 @@
             <div class="col-sm-6 mb-4 mb-sm-0">
               <a
                 :href="
-                  isMetaMaskInstalled() ? '#' : 'https://metamask.io/download/'
+                  isMetamaskInstalled() ? '#' : 'https://metamask.io/download/'
                 "
                 class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="isMetaMaskInstalled() ? showMetaMaskModal() : undefined"
+                @click="isMetamaskInstalled() ? showMetaMaskModal() : undefined"
               >
                 <!--            <span class="position-absolute wallet-network-error-background"-->
                 <!--                 ></span>-->
@@ -47,7 +47,7 @@
               <a
                 href="#"
                 class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="runWalletConnect()"
+                @click="showWalletConnectModal()"
               >
                 <img
                   class="w-100"
@@ -68,8 +68,6 @@
 // @TODO: Implement validation for chain network.
 
 import { mapActions, mapGetters } from "vuex";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import { providers } from "ethers";
 
 // const provider = await detectEthereumProvider()
 // let metaMaskData = {};
@@ -85,8 +83,12 @@ import { providers } from "ethers";
 
 export default {
   methods: {
-    ...mapGetters(["isMetaMaskConnected", "isMetaMaskInstalled"]),
-    ...mapActions(["connectToMetaMask"]),
+    ...mapGetters([
+      "isMetamaskConnected",
+      "isWalletConnectConnected",
+      "isMetamaskInstalled",
+    ]),
+    ...mapActions(["connectToMetaMask", "connectToWalletConnect"]),
     async showMetaMaskModal() {
       let connectionToMetaMask = this.connectToMetaMask();
       let walletModalCloseButton = this.$refs.CloseWalletModal;
@@ -98,12 +100,8 @@ export default {
         }
       });
     },
-    async runWalletConnect() {
-      const provider = new WalletConnectProvider({
-        infuraId: "270dd5535d1344b2a5a507a081f3d45b",
-      });
-      await provider.enable();
-      return new providers.Web3Provider(provider);
+    async showWalletConnectModal() {
+      this.connectToWalletConnect();
     },
   },
 };

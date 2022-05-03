@@ -9,7 +9,7 @@ router.beforeEach(async (to) => {
   const { requiresAuth } = to.meta;
 
   if (requiresAuth) {
-    if ((await store.getters.isMetaMaskConnected) === false) {
+    if ((await store.getters.isMetamaskConnected) === false) {
       return "/403-error";
     }
   }

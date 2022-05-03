@@ -53,7 +53,7 @@
             </li>
             <li class="nav-item connect-wallet-link">
               <button
-                v-if="!isMetaMaskConnected()"
+                v-if="!isMetamaskConnected() && !isWalletConnectConnected()"
                 type="button"
                 href="#"
                 class="nav-link px-3"
@@ -82,7 +82,7 @@
 
 <script>
 import WalletModal from "@/components/WalletModal.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import { Collapse } from "bootstrap";
 
 export default {
@@ -90,8 +90,9 @@ export default {
     WalletModal,
   },
   methods: {
-    ...mapGetters(["isMetaMaskConnected"]),
+    ...mapGetters(["isMetamaskConnected", "isWalletConnectConnected"]),
     ...mapActions(["resetWalletState"]),
+    ...mapMutations(["setWalletAddress"]),
     toggleNavbar() {
       const menuToggle = document.getElementById("navbarNav");
       if (menuToggle.classList.contains("show")) {
