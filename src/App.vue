@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header :is="await_completed" />
   <router-view />
   <Footer />
 </template>
@@ -21,28 +21,17 @@ export default {
   beforeCreate() {
     store.commit("initialiseStore");
   },
-  async unmounted() {
-    if (this.isMetamaskConnected()) {
-      let provider = await this.getMetamaskProvider();
-      provider.removeListener(
-        "accountsChanged",
-        this.metamaskAccountsChangedEvent
-      );
-    }
-  },
   async created() {
-    const metamaskProvider = await this.getMetamaskProvider();
+    const metamaskProvider = await this.getMetamaskProviderFromDom();
     const walletConnectProvider = await this.getWalletConnectProvider();
 
     if (metamaskProvider) {
       this.setMetamaskProvider(metamaskProvider);
       if (this.isMetamaskConnected()) {
         this.resetWalletState();
+        // @TODO: Implement promise wait.
         await this.connectToMetaMask();
-        metamaskProvider.on(
-          "accountsChanged",
-          this.metamaskAccountsChangedEvent
-        );
+        await this.addMetamaskEventListeners(this.getMetamaskEvents());
         const chainId = await metamaskProvider.request({
           method: "eth_chainId",
         });
@@ -51,9 +40,14 @@ export default {
         // }
       }
     }
-    if (walletConnectProvider && this.isWalletConnectConnected()) {
-      await walletConnectProvider.enable();
-      const web3Provider = new providers.Web3Provider(walletConnectProvider);
+    // if (walletConnectProvider && this.isWalletConnectConnected()) {
+    //   await walletConnectProvider.enable();
+    //   const web3Provider = new providers.Web3Provider(walletConnectProvider);
+    // }
+  },
+  async unmounted() {
+    if (await this.isMetamaskConnected()) {
+      await this.removeMetamaskEventListeners(this.getMetamaskEvents());
     }
   },
   methods: {
@@ -67,16 +61,22 @@ export default {
       "resetWalletState",
       "setMetamaskProvider",
       "connectToMetaMask",
-      "connectMetamaskEvents",
+      "addMetamaskEventListeners",
+      "removeMetamaskEventListeners",
     ]),
     ...mapMutations(["setDisconnected"]),
-    async getMetamaskProvider() {
+    async getMetamaskProviderFromDom() {
       return await detectEthereumProvider();
     },
     async getWalletConnectProvider() {
       return new WalletConnectProvider({
         infuraId: "270dd5535d1344b2a5a507a081f3d45b",
       });
+    },
+    getMetamaskEvents() {
+      return {
+        accountsChanged: this.metamaskAccountsChangedEvent,
+      };
     },
     metamaskAccountsChangedEvent() {
       this.resetWalletState();

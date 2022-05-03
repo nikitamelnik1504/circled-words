@@ -32,6 +32,18 @@ const actions = {
         return "not_connected";
       });
   },
+  async addMetamaskEventListeners({ getters }, events) {
+    let provider = await getters.getMetamaskProvider;
+    for (let event_id in events) {
+      provider.on(event_id, events[event_id]);
+    }
+  },
+  async removeMetamaskEventListeners({ getters }, events) {
+    let provider = await getters.getMetamaskProvider;
+    for (let event_id in events) {
+      provider.removeListener(event_id, events[event_id]);
+    }
+  },
 };
 
 const mutations = {
