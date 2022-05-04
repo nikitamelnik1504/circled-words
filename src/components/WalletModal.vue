@@ -46,6 +46,10 @@
             <div class="col-sm-6">
               <a
                 href="#"
+                :class="{
+                  disabled:
+                    Object.keys(getWalletConnectProvider()).length === 0,
+                }"
                 class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
                 @click="showWalletConnectModal()"
               >
@@ -84,6 +88,7 @@ export default {
       "isMetamaskConnected",
       "isMetamaskInstalled",
       "isWalletConnectConnected",
+      "getWalletConnectProvider",
     ]),
     ...mapActions([
       "connectToMetamask",
