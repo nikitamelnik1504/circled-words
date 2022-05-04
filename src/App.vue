@@ -11,7 +11,6 @@ import store from "@/store";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { providers } from "ethers";
 
 export default {
   components: {
@@ -32,22 +31,33 @@ export default {
         // @TODO: Implement promise wait.
         await this.connectToMetamask();
         await this.addMetamaskEventListeners(this.getMetamaskEvents());
-        const chainId = await metamaskProvider.request({
-          method: "eth_chainId",
-        });
+        // const chainId = await metamaskProvider.request({
+        //   method: "eth_chainId",
+        // });
         // if (chainId !== this.getChainId()) {
         //   this.resetWalletState();
         // }
       }
     }
-    // if (walletConnectProvider && this.isWalletConnectConnected()) {
-    //   await walletConnectProvider.enable();
-    //   const web3Provider = new providers.Web3Provider(walletConnectProvider);
-    // }
+    if (walletConnectProvider) {
+      this.setWalletConnectProvider(walletConnectProvider);
+      if (this.isWalletConnectConnected()) {
+        this.resetWalletState();
+        await this.connectToWalletConnect();
+        await this.addWalletConnectEventListeners(
+          this.getWalletConnectEvents()
+        );
+      }
+    }
   },
   async unmounted() {
     if (await this.isMetamaskConnected()) {
       await this.removeMetamaskEventListeners(this.getMetamaskEvents());
+    }
+    if (await this.isWalletConnectConnected) {
+      await this.removeWalletConnectEventListeners(
+        this.getWalletConnectEvents()
+      );
     }
   },
   methods: {
@@ -63,6 +73,10 @@ export default {
       "connectToMetamask",
       "addMetamaskEventListeners",
       "removeMetamaskEventListeners",
+      "removeWalletConnectEventListeners",
+      "connectToWalletConnect",
+      "setWalletConnectProvider",
+      "addWalletConnectEventListeners",
     ]),
     ...mapMutations(["setDisconnected"]),
     async getMetamaskProviderFromDom() {
@@ -75,10 +89,19 @@ export default {
     },
     getMetamaskEvents() {
       return {
-        accountsChanged: this.metamaskAccountsChangedEvent,
+        accountsChanged: this.walletConnectAccountsChangedEvent,
       };
     },
     metamaskAccountsChangedEvent() {
+      this.resetWalletState();
+      this.$router.go(this.$router.currentRoute);
+    },
+    getWalletConnectEvents() {
+      return {
+        accountsChanged: this.metamaskAccountsChangedEvent,
+      };
+    },
+    walletConnectAccountsChangedEvent() {
       this.resetWalletState();
       this.$router.go(this.$router.currentRoute);
     },

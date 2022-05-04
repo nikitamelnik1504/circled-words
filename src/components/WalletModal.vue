@@ -65,45 +65,46 @@
 </template>
 
 <script>
-// @TODO: Implement validation for chain network.
-
 import { mapActions, mapGetters } from "vuex";
 import store from "../store";
-
-// const provider = await detectEthereumProvider()
-// let metaMaskData = {};
-//
-// metaMaskData.metaMaskExist = Boolean(provider)
-//
-// if (provider) {
-//   const chainId = await provider.request({
-//     method: 'eth_chainId'
-//   })
-//   metaMaskData.isEthereumChain = (chainId === '0x1');
-// }
 
 export default {
   async unmounted() {
     if (await this.isMetamaskConnected()) {
       await this.removeMetamaskEventListeners(this.getMetamaskEvents());
     }
+    if (await this.isWalletConnectConnected()) {
+      await this.removeWalletConnectEventListeners(
+        this.getWalletConnectEvents()
+      );
+    }
   },
   methods: {
     ...mapGetters([
       "isMetamaskConnected",
-      "isWalletConnectConnected",
       "isMetamaskInstalled",
+      "isWalletConnectConnected",
     ]),
     ...mapActions([
       "connectToMetamask",
       "connectToWalletConnect",
       "removeMetamaskEventListeners",
+      "removeWalletConnectEventListeners",
       "resetWalletState",
     ]),
     getMetamaskEvents() {
       return {
         accountsChanged: this.metamaskAccountsChangedEvent,
       };
+    },
+    getWalletConnectEvents() {
+      return {
+        accountsChanged: this.walletConnectAccountsChangedEvent,
+      };
+    },
+    walletConnectAccountsChangedEvent() {
+      this.resetWalletState();
+      this.$router.go(this.$router.currentRoute);
     },
     metamaskAccountsChangedEvent() {
       this.resetWalletState();
@@ -115,15 +116,25 @@ export default {
       let walletModalCloseButton = this.$refs.CloseWalletModal;
       let router = this.$router;
       connectionToMetaMask.then(function (result) {
-        store.dispatch("addMetamaskEventListeners", metamaskEvents);
         if (result === "connected") {
+          store.dispatch("addMetamaskEventListeners", metamaskEvents);
           router.push("/my-words");
           walletModalCloseButton.click();
         }
       });
     },
     async showWalletConnectModal() {
-      this.connectToWalletConnect();
+      let connectionToWalletConnect = this.connectToWalletConnect();
+      let walletConnectEvents = this.getWalletConnectEvents();
+      let walletModalCloseButton = this.$refs.CloseWalletModal;
+      let router = this.$router;
+      connectionToWalletConnect.then((result) => {
+        if (result === "connected") {
+          store.dispatch("addWalletConnectEventListeners", walletConnectEvents);
+          router.push("/my-words");
+          walletModalCloseButton.click();
+        }
+      });
     },
   },
 };
