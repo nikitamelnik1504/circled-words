@@ -99,7 +99,7 @@ export default {
     },
     getWalletConnectEvents() {
       return {
-        accountsChanged: this.walletConnectAccountsChangedEvent,
+        disconnect: this.walletConnectAccountsChangedEvent,
       };
     },
     walletConnectAccountsChangedEvent() {

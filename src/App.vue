@@ -98,7 +98,7 @@ export default {
     },
     getWalletConnectEvents() {
       return {
-        accountsChanged: this.metamaskAccountsChangedEvent,
+        disconnect: this.walletConnectAccountsChangedEvent,
       };
     },
     walletConnectAccountsChangedEvent() {
