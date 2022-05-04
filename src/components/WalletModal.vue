@@ -29,7 +29,9 @@
                   isMetamaskInstalled() ? '#' : 'https://metamask.io/download/'
                 "
                 class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="isMetamaskInstalled() ? showMetamaskModal() : undefined"
+                @click.prevent="
+                  isMetamaskInstalled() ? showMetamaskModal() : undefined
+                "
               >
                 <!--            <span class="position-absolute wallet-network-error-background"-->
                 <!--                 ></span>-->
@@ -47,7 +49,7 @@
               <a
                 href="#"
                 class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="
+                @click.prevent="
                   isWalletConnectInitialized
                     ? showWalletConnectModal()
                     : undefined
@@ -125,11 +127,9 @@ export default {
       let connectionToMetaMask = this.connectToMetamask();
       let metamaskEvents = this.getMetamaskEvents();
       let walletModalCloseButton = this.$refs.CloseWalletModal;
-      let router = this.$router;
       connectionToMetaMask.then(function (result) {
         if (result === "connected") {
           store.dispatch("addMetamaskEventListeners", metamaskEvents);
-          router.push("/my-words");
           walletModalCloseButton.click();
         }
       });
@@ -138,11 +138,9 @@ export default {
       let connectionToWalletConnect = this.connectToWalletConnect();
       let walletConnectEvents = this.getWalletConnectEvents();
       let walletModalCloseButton = this.$refs.CloseWalletModal;
-      let router = this.$router;
       connectionToWalletConnect.then((result) => {
         if (result === "connected") {
           store.dispatch("addWalletConnectEventListeners", walletConnectEvents);
-          router.push("/my-words");
           walletModalCloseButton.click();
         }
       });

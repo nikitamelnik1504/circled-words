@@ -15,9 +15,6 @@ const routes = [
     path: "/my-words",
     name: "My Words",
     component: MyWords,
-    meta: {
-      requiresAuth: true,
-    },
   },
   {
     path: "/roadmap",
