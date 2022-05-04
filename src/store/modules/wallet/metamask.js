@@ -9,7 +9,8 @@ const getters = {
   getMetamaskProvider: (state) => {
     return state.metamaskProvider;
   },
-  isMetamaskInstalled: (state) => Boolean(state.metamaskProvider),
+  isMetamaskInstalled: (state) =>
+    Object.keys(state.metamaskProvider).length !== 0,
 };
 
 const actions = {
