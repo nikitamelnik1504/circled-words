@@ -6,6 +6,7 @@ const state = {
     web3Provider: {},
     provider: {},
   },
+  walletConnectInitialized: false,
 };
 
 const getters = {
@@ -14,6 +15,9 @@ const getters = {
   },
   getWeb3WalletConnectProvider: (state) => {
     return state.walletConnectProvider.web3Provider;
+  },
+  isWalletConnectInitialized: (state) => {
+    return state.walletConnectInitialized;
   },
 };
 
@@ -53,6 +57,9 @@ const actions = {
         return "not_connected";
       });
   },
+  setWalletConnectInitialized({ commit }) {
+    commit("setWalletConnectInitialized");
+  },
 };
 
 const mutations = {
@@ -61,6 +68,9 @@ const mutations = {
   },
   setWalletConnectProvider(state, provider) {
     state.walletConnectProvider.provider = provider;
+  },
+  setWalletConnectInitialized(state) {
+    state.walletConnectInitialized = true;
   },
 };
 

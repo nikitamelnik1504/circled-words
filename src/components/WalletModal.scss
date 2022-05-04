@@ -33,7 +33,7 @@
           transition: 0.2s;
 
           &.disabled {
-            display: none;
+            background-color: rebeccapurple;
           }
 
           @include media-breakpoint-up(sm) {

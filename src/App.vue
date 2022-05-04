@@ -23,6 +23,9 @@ export default {
   async created() {
     const metamaskProvider = await this.getMetamaskProviderFromDom();
     const walletConnectProvider = await this.getWalletConnectProvider();
+    Promise.resolve(walletConnectProvider).then(function () {
+      store.dispatch("setWalletConnectInitialized");
+    });
 
     if (metamaskProvider) {
       this.setMetamaskProvider(metamaskProvider);
