@@ -29,7 +29,7 @@
                   isMetamaskInstalled() ? '#' : 'https://metamask.io/download/'
                 "
                 class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="isMetamaskInstalled() ? showMetaMaskModal() : undefined"
+                @click="isMetamaskInstalled() ? showMetamaskModal() : undefined"
               >
                 <!--            <span class="position-absolute wallet-network-error-background"-->
                 <!--                 ></span>-->
@@ -95,7 +95,7 @@ export default {
       "isMetamaskInstalled",
     ]),
     ...mapActions([
-      "connectToMetaMask",
+      "connectToMetamask",
       "connectToWalletConnect",
       "removeMetamaskEventListeners",
       "resetWalletState",
@@ -109,8 +109,8 @@ export default {
       this.resetWalletState();
       this.$router.go(this.$router.currentRoute);
     },
-    async showMetaMaskModal() {
-      let connectionToMetaMask = this.connectToMetaMask();
+    async showMetamaskModal() {
+      let connectionToMetaMask = this.connectToMetamask();
       let metamaskEvents = this.getMetamaskEvents();
       let walletModalCloseButton = this.$refs.CloseWalletModal;
       let router = this.$router;

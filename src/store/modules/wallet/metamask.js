@@ -16,7 +16,7 @@ const actions = {
   setMetamaskProvider({ commit }, provider) {
     commit("setMetamaskProvider", provider);
   },
-  async connectToMetaMask({ getters }) {
+  async connectToMetamask({ getters }) {
     let provider = getters.getMetamaskProvider;
     return provider
       .request({ method: "eth_requestAccounts" })

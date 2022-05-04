@@ -30,7 +30,7 @@ export default {
       if (this.isMetamaskConnected()) {
         this.resetWalletState();
         // @TODO: Implement promise wait.
-        await this.connectToMetaMask();
+        await this.connectToMetamask();
         await this.addMetamaskEventListeners(this.getMetamaskEvents());
         const chainId = await metamaskProvider.request({
           method: "eth_chainId",
@@ -60,7 +60,7 @@ export default {
     ...mapActions([
       "resetWalletState",
       "setMetamaskProvider",
-      "connectToMetaMask",
+      "connectToMetamask",
       "addMetamaskEventListeners",
       "removeMetamaskEventListeners",
     ]),
