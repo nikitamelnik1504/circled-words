@@ -68,6 +68,7 @@
 // @TODO: Implement validation for chain network.
 
 import { mapActions, mapGetters } from "vuex";
+import store from "../store";
 
 // const provider = await detectEthereumProvider()
 // let metaMaskData = {};
@@ -82,18 +83,39 @@ import { mapActions, mapGetters } from "vuex";
 // }
 
 export default {
+  async unmounted() {
+    if (await this.isMetamaskConnected()) {
+      await this.removeMetamaskEventListeners(this.getMetamaskEvents());
+    }
+  },
   methods: {
     ...mapGetters([
       "isMetamaskConnected",
       "isWalletConnectConnected",
       "isMetamaskInstalled",
     ]),
-    ...mapActions(["connectToMetaMask", "connectToWalletConnect"]),
+    ...mapActions([
+      "connectToMetaMask",
+      "connectToWalletConnect",
+      "removeMetamaskEventListeners",
+      "resetWalletState",
+    ]),
+    getMetamaskEvents() {
+      return {
+        accountsChanged: this.metamaskAccountsChangedEvent,
+      };
+    },
+    metamaskAccountsChangedEvent() {
+      this.resetWalletState();
+      this.$router.go(this.$router.currentRoute);
+    },
     async showMetaMaskModal() {
       let connectionToMetaMask = this.connectToMetaMask();
+      let metamaskEvents = this.getMetamaskEvents();
       let walletModalCloseButton = this.$refs.CloseWalletModal;
       let router = this.$router;
       connectionToMetaMask.then(function (result) {
+        store.dispatch("addMetamaskEventListeners", metamaskEvents);
         if (result === "connected") {
           router.push("/my-words");
           walletModalCloseButton.click();

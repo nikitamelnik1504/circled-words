@@ -1,5 +1,5 @@
 <template>
-  <Header :is="await_completed" />
+  <Header />
   <router-view />
   <Footer />
 </template>
