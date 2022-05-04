@@ -46,10 +46,18 @@
             <div class="col-sm-6">
               <a
                 href="#"
-                :class="{ disabled: !isWalletConnectInitialized() }"
                 class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="showWalletConnectModal()"
+                @click="
+                  isWalletConnectInitialized
+                    ? showWalletConnectModal()
+                    : undefined
+                "
               >
+                <span
+                  :class="{ 'd-none': isWalletConnectInitialized() }"
+                  class="position-absolute wallet-loader top-0 bottom-0 end-0 start-0 d-flex justify-content-center align-items-center"
+                  >Loading...</span
+                >
                 <img
                   class="w-100"
                   src="../assets/images/walletconnect.svg"
