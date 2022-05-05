@@ -9,14 +9,15 @@
           <div class="buttons-list container-fluid pt-1 pt-lg-0 mt-4">
             <div class="row">
               <div class="col-11 col-xl-9 col-xxl-8 mx-auto">
+                {{ assets }}
                 <div class="row flex-column flex-sm-row">
-                  <div
-                    v-for="(word, index) in apiResult.assets"
-                    :key="index"
-                    class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"
-                  >
-                    <MyWord :metadata="word" />
-                  </div>
+                  <!--                  <div-->
+                  <!--                    v-for="(word, index) in apiResult.assets"-->
+                  <!--                    :key="index"-->
+                  <!--                    class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"-->
+                  <!--                  >-->
+                  <!--                    <MyWord :metadata="word" />-->
+                  <!--                  </div>-->
                 </div>
               </div>
             </div>
@@ -37,9 +38,9 @@
 
 <script>
 import MyWord from "./components/MyWord.vue";
-import api_result from "@/../opensea_test_api_result.json";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { getFreeHeight } from "@/utils/layout-space.js";
+import store from "../../../store";
 
 export default {
   name: "MyWordsPage",
@@ -48,17 +49,25 @@ export default {
   },
   data() {
     return {
+      assets: [],
       freeHeight: Number,
-      apiResult: this.getWords(),
+      loaded: false,
     };
   },
   computed: {
     ...mapGetters({
       metamaskConnected: "isMetamaskConnected",
       walletConnectConnected: "isWalletConnectConnected",
+      getAssets: "getAssets",
     }),
+    ...mapActions(["connectToMetamask", "setAssets"]),
   },
+  created() {},
   mounted() {
+    Promise.resolve(this.connectToMetamask).then(() => {
+      this.setAssets;
+      this.assets = this.getAssets;
+    });
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
@@ -67,9 +76,6 @@ export default {
   methods: {
     onResize() {
       this.freeHeight = getFreeHeight(true);
-    },
-    getWords() {
-      return api_result;
     },
   },
 };
