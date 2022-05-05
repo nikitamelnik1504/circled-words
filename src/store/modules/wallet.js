@@ -15,6 +15,9 @@ const getters = {
   isMetamaskConnected: (state) => {
     return state.wallet.type === "metamask" && state.wallet.connected === true;
   },
+  getWalletAddress: (state) => {
+    return state.wallet.walletAddress;
+  },
   isWalletConnectConnected: (state) => {
     return (
       state.wallet.type === "walletConnect" && state.wallet.connected === true

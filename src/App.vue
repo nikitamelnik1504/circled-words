@@ -32,8 +32,9 @@ export default {
       if (this.isMetamaskConnected()) {
         this.resetWalletState();
         // @TODO: Implement promise wait.
-        await this.connectToMetamask();
-        await this.addMetamaskEventListeners(this.getMetamaskEvents());
+        await Promise.resolve(await this.connectToMetamask()).then(() => {
+          this.addMetamaskEventListeners(this.getMetamaskEvents());
+        });
         // const chainId = await metamaskProvider.request({
         //   method: "eth_chainId",
         // });

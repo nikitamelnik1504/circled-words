@@ -2,16 +2,16 @@
   <div class="container-fluid my-words">
     <section class="row">
       <div class="col-12" :style="{ 'min-height': freeHeight + 'px' }">
-        <div v-if="metamaskConnected || walletConnectConnected">
+        <div v-if="isMetamaskConnected || isWalletConnectConnected">
           <div class="text-center my-4 my-lg-0 mt-lg-2">
             <h1 class="my-words-title">My Words</h1>
           </div>
           <div class="buttons-list container-fluid pt-1 pt-lg-0 mt-4">
             <div class="row">
               <div class="col-11 col-xl-9 col-xxl-8 mx-auto">
-                <div class="row flex-column flex-sm-row">
+                <div v-if="loaded === true" class="row flex-column flex-sm-row">
                   <div
-                    v-for="(word, index) in apiResult.assets"
+                    v-for="(word, index) in assets"
                     :key="index"
                     class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"
                   >
@@ -36,10 +36,12 @@
 </template>
 
 <script>
+import "vue";
 import MyWord from "./components/MyWord.vue";
-import api_result from "@/../opensea_test_api_result.json";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { getFreeHeight } from "@/utils/layout-space.js";
+import axios from "axios";
+import store from "../../../store";
 
 export default {
   name: "MyWordsPage",
@@ -48,28 +50,63 @@ export default {
   },
   data() {
     return {
+      assets: [],
       freeHeight: Number,
-      apiResult: this.getWords(),
+      loaded: false,
     };
   },
   computed: {
-    ...mapGetters({
-      metamaskConnected: "isMetamaskConnected",
-      walletConnectConnected: "isWalletConnectConnected",
-    }),
+    ...mapGetters([
+      "isMetamaskConnected",
+      "isWalletConnectConnected",
+      "getWalletAddress",
+    ]),
+    ...mapActions(["connectToMetamask"]),
   },
   mounted() {
+    store.dispatch("connectToMetamask").then(() => {
+      this.loadAssets().then((result) => {
+        result.data.assets.forEach((item, key) => {
+          this.assets[key] = item;
+        });
+        this.loaded = true;
+      });
+    });
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
   },
   methods: {
+    loadAssets() {
+      const request_params = {
+        owner: this.getWalletAddress,
+        collection: "circledwords-test-collection",
+        order_direction: "desc",
+        limit: 50,
+        include_orders: false,
+      };
+      let request_string = "";
+      for (let param in request_params) {
+        if (request_string !== "") {
+          request_string += "&";
+        }
+        request_string +=
+          param + "=" + encodeURIComponent(request_params[param]);
+      }
+
+      let request_url =
+        "https://api.opensea.io/api/v1/assets?" + request_string;
+
+      return axios.get(request_url, {
+        headers: {
+          Accept: "application/json",
+          "X-API-KEY": "c53720a2d2324aca85614b30e3000a83",
+        },
+      });
+    },
     onResize() {
       this.freeHeight = getFreeHeight(true);
-    },
-    getWords() {
-      return api_result;
     },
   },
 };
