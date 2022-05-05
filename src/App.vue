@@ -70,7 +70,6 @@ export default {
       "getChainId",
       "isWalletConnectConnected",
       "getMetamaskProvider",
-      "getAssets",
     ]),
     ...mapActions([
       "resetWalletState",
@@ -82,7 +81,6 @@ export default {
       "connectToWalletConnect",
       "setWalletConnectProvider",
       "addWalletConnectEventListeners",
-      "setAssets",
     ]),
     ...mapMutations(["setDisconnected"]),
     async getMetamaskProviderFromDom() {

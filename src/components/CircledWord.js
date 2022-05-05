@@ -9,6 +9,7 @@ export const metadata_getters = {
     metadata.traits.forEach((trait) => {
       traits[trait.trait_type] = trait.value;
     });
+
     return traits;
   },
 };
@@ -41,23 +42,26 @@ export const getWord = (metadata) => {
     title: metadata_getters.getTitle(metadata),
   };
   let traits = metadata_getters.getTraits(metadata);
-  let animation_type = trait_getters.getAnimationType(traits);
 
-  // @TODO: replace to IIFE.
-  const animation_types = {
-    "Fill In": () => {
-      data.elementClass = "fill";
-      data.elementStyle = {
-        "--second-text-color": trait_getters.getSecondTextColor(traits),
-        "--text-color": trait_getters.getStartTextColor(traits),
-        "--border-color": trait_getters.getStartBorderColor(traits),
-        "--background-color": trait_getters.getBackgroundColor(traits),
-        "--animation-duration": trait_getters.getAnimationDuration(traits),
-      };
-    },
-  };
-  // Add required properties related to animation type.
-  animation_types[animation_type]();
+  if (traits && Object.keys(traits).length !== 0) {
+    let animation_type = trait_getters.getAnimationType(traits);
+
+    // @TODO: replace to IIFE.
+    const animation_types = {
+      "Fill In": () => {
+        data.elementClass = "fill";
+        data.elementStyle = {
+          "--second-text-color": trait_getters.getSecondTextColor(traits),
+          "--text-color": trait_getters.getStartTextColor(traits),
+          "--border-color": trait_getters.getStartBorderColor(traits),
+          "--background-color": trait_getters.getBackgroundColor(traits),
+          "--animation-duration": trait_getters.getAnimationDuration(traits),
+        };
+      },
+    };
+    // Add required properties related to animation type.
+    animation_types[animation_type]();
+  }
   return data;
 };
 
