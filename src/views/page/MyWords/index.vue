@@ -2,23 +2,35 @@
   <div class="container-fluid my-words">
     <section class="row">
       <div class="col-12" :style="{ 'min-height': freeHeight + 'px' }">
-        <div v-if="isMetamaskConnected || isWalletConnectConnected">
-          <div class="text-center my-4 my-lg-0 mt-lg-2">
-            <h1 class="my-words-title">My Words</h1>
-          </div>
-          <div class="buttons-list container-fluid pt-1 pt-lg-0 mt-4">
-            <div class="row">
-              <div class="col-11 col-xl-9 col-xxl-8 mx-auto">
-                <div v-if="loaded === true" class="row flex-column flex-sm-row">
-                  <div
-                    v-for="(word, index) in assets"
-                    :key="index"
-                    class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"
-                  >
-                    <MyWord :metadata="word" />
+        <div
+          v-if="isMetamaskConnected || isWalletConnectConnected"
+          class="h-100"
+        >
+          <div v-if="loaded === true">
+            <div class="text-center my-4 my-lg-0 mt-lg-2">
+              <h1 class="my-words-title">My Words</h1>
+            </div>
+            <div class="buttons-list pt-1 pt-lg-0 mt-4">
+              <div class="row">
+                <div class="col-11 col-xl-9 col-xxl-8 mx-auto">
+                  <div class="row flex-column flex-sm-row">
+                    <div
+                      v-for="(word, index) in assets"
+                      :key="index"
+                      class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"
+                    >
+                      <MyWord :metadata="word" />
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div v-else class="row h-100">
+            <div
+              class="col-12 h-100 d-flex align-items-center justify-content-center"
+            >
+              <h1>Loading...</h1>
             </div>
           </div>
         </div>
