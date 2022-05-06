@@ -6,11 +6,17 @@
           v-if="isMetamaskConnected || isWalletConnectConnected"
           class="h-100"
         >
-          <div v-if="loaded === true">
-            <div class="text-center my-4 my-lg-0 mt-lg-2">
+          <div v-if="loaded === true" class="h-100">
+            <div
+              v-if="assets.length !== 0"
+              class="text-center my-4 my-lg-0 mt-lg-2"
+            >
               <h1 class="my-words-title">My Words</h1>
             </div>
-            <div class="buttons-list pt-1 pt-lg-0 mt-4">
+            <div
+              v-if="assets.length !== 0"
+              class="buttons-list pt-1 pt-lg-0 mt-4"
+            >
               <div class="row">
                 <div class="col-11 col-xl-9 col-xxl-8 mx-auto">
                   <div class="row flex-column flex-sm-row">
@@ -22,6 +28,15 @@
                       <MyWord :metadata="word" />
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div v-else class="h-100">
+              <div class="row h-100">
+                <div
+                  class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
+                >
+                  <h1>You don't have any CircledWords</h1>
                 </div>
               </div>
             </div>
@@ -50,7 +65,7 @@
 <script>
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import { getFreeHeight } from "@/utils/layout-space.js";
 import axios from "axios";
 import store from "../../../store";
@@ -73,6 +88,7 @@ export default {
       "isWalletConnectConnected",
       "getWalletAddress",
     ]),
+    ...mapState(["wallet"]),
     ...mapActions(["connectToMetamask", "connectToWalletConnect"]),
   },
   watch: {
@@ -80,10 +96,16 @@ export default {
       if (newValue === true) {
         this.loadAssetsFromWalletConnect();
       }
+      if (newValue === false) {
+        this.assets = [];
+      }
     },
     isMetamaskConnected(newValue) {
       if (newValue === true) {
         this.loadAssetsFromMetamask();
+      }
+      if (newValue === false) {
+        this.assets = [];
       }
     },
   },
