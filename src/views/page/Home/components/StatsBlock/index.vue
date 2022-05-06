@@ -35,17 +35,17 @@ import StatBlock from "./components/StatBlock.vue";
 
 const stats = [
   {
-    value: 1000,
+    value: 10,
     title: "Words was created",
     description: "Over 1000 words was created and available in OpenSea",
   },
   {
-    value: 200,
+    value: 2,
     title: "Words have 2-3 step animation",
     description: "New look for animations, new colors",
   },
   {
-    value: 5000,
+    value: 20,
     title: "Users received enjoy",
     description: "Match own favourite colors and transitions",
   },

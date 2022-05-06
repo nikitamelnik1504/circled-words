@@ -87,7 +87,7 @@
         "Background color",
         "Second Text color"
       ],
-      "adventure_text": "WOW! We have new text color at the start and new border color at the same time."
+      "adventure_text": "WOW! We have new text color and new border color at the start."
     },
     "name": "CircledWord #3",
     "traits": [

@@ -10,7 +10,7 @@
 
         Every button has own animation(transition) duration, start text color,
         start border color and etc. Our project wants to show you, how simple
-        web animation can do something especial and beautifull.<br /><br />
+        web animation can do something especial and beautiful.<br /><br />
 
         We did some examples for you to show how it works:
       </p>

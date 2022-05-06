@@ -33,11 +33,11 @@
 const benefits = [
   {
     value:
-      "Too unique items. More and more properties in one button. You could be owner of the most animated button, step by step colors, long animation durations.",
+      "Too unique items. More and more properties in one button. You could be owner of the most animated button. Step by step colors, long animation durations.",
   },
   {
     value:
-      "Possibility to make resell, you can try to search the most beautiful button and make trade. ",
+      "Possibility to make resell. You can try to search the most beautiful button and make a trade. ",
   },
   { value: "Possibility to play with buttons that you owned on our site." },
 ];
