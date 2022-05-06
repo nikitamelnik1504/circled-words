@@ -1,5 +1,6 @@
 [
   {
+    "name": "CircledWord Sample #1",
     "traits": [
       {
         "trait_type": "Text color",
@@ -29,6 +30,7 @@
     "link": "#description"
   },
   {
+    "name": "CircledWord Sample #2",
     "traits": [
       {
         "trait_type": "Text color",
@@ -58,6 +60,7 @@
     "link": "#stats"
   },
   {
+    "name": "CircledWord Sample #3",
     "traits": [
       {
         "trait_type": "Text color",
@@ -87,6 +90,7 @@
     "link": "#benefits"
   },
   {
+    "name": "CircledWord Sample #4",
     "traits": [
       {
         "trait_type": "Text color",

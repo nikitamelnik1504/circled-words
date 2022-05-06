@@ -2,7 +2,8 @@ import colors from "@/assets/libraries/colors.json";
 
 export const metadata_getters = {
   getTitle(metadata) {
-    return metadata.name;
+    let hash_position = metadata.name.indexOf("#");
+    return metadata.name.substring(hash_position);
   },
   getTraits(metadata) {
     let traits = {};
