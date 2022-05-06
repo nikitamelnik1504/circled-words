@@ -63,21 +63,33 @@ export default {
     ]),
     ...mapActions(["connectToMetamask"]),
   },
+  watch: {
+    isMetamaskConnected(newValue) {
+      if (newValue === true) {
+        this.loadAssetsFromMetamask();
+      }
+    },
+  },
   mounted() {
-    store.dispatch("connectToMetamask").then(() => {
-      this.loadAssets().then((result) => {
-        result.data.assets.forEach((item, key) => {
-          this.assets[key] = item;
-        });
-        this.loaded = true;
-      });
-    });
+    if (this.isMetamaskConnected === true) {
+      this.loadAssetsFromMetamask();
+    }
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
   },
   methods: {
+    loadAssetsFromMetamask() {
+      store.dispatch("connectToMetamask").then(() => {
+        this.loadAssets().then((result) => {
+          result.data.assets.forEach((item, key) => {
+            this.assets[key] = item;
+          });
+          this.loaded = true;
+        });
+      });
+    },
     loadAssets() {
       const request_params = {
         owner: this.getWalletAddress,
