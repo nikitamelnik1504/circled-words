@@ -21,6 +21,11 @@ import HelpAccordionItem from "./components/HelpAccordionItem.vue";
 
 const help = [
   {
+    question: "What I can do with NFTs on your site?",
+    answer:
+      "You can hover mouse on each button and run animation manually by yourself. That's amazing to try.",
+  },
+  {
     question: "What we sell for you?",
     answer:
       "We sell you many hours of our work to show you beautiful animations and transitions.",
