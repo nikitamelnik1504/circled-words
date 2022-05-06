@@ -25,6 +25,10 @@
       {
         "trait_type": "Border color",
         "value": "Amethyst"
+      },
+      {
+        "trait_type": "Second Border color",
+        "value": "Amethyst"
       }
     ],
     "link": "#description"
@@ -50,6 +54,10 @@
       },
       {
         "trait_type": "Border color",
+        "value": "Persian Pink"
+      },
+      {
+        "trait_type": "Second Border color",
         "value": "Persian Pink"
       },
       {
@@ -79,6 +87,10 @@
         "value": "Geraldine"
       },
       {
+        "trait_type": "Second Border color",
+        "value": "Geraldine"
+      },
+      {
         "trait_type": "Animation duration",
         "value": 0.5
       },
@@ -102,6 +114,10 @@
       },
       {
         "trait_type": "Border color",
+        "value": "Atomic Tangerine"
+      },
+      {
+        "trait_type": "Second Border color",
         "value": "Atomic Tangerine"
       },
       {
