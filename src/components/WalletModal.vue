@@ -29,9 +29,7 @@
                   isMetamaskInstalled() ? '#' : 'https://metamask.io/download/'
                 "
                 class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click.prevent="
-                  isMetamaskInstalled() ? showMetamaskModal() : undefined
-                "
+                @click="metamaskLink($event)"
               >
                 <!--            <span class="position-absolute wallet-network-error-background"-->
                 <!--                 ></span>-->
@@ -144,6 +142,12 @@ export default {
           walletModalCloseButton.click();
         }
       });
+    },
+    metamaskLink(event) {
+      if (this.isMetamaskInstalled()) {
+        event.preventDefault();
+        this.showMetamaskModal();
+      }
     },
   },
 };
