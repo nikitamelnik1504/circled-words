@@ -20,16 +20,33 @@
 import HelpAccordionItem from "./components/HelpAccordionItem.vue";
 
 const help = [
-  { question: "What we sell for you?", answer: "Test data 1" },
-  { question: "What are the funds being used for?", answer: "Test data 2" },
-  { question: "Where I can buy circled words?", answer: "Test data 3" },
   {
-    question: "How I can check my NFTs here owned in OpenSea?",
-    answer: "Test data 4",
+    question: "What we sell for you?",
+    answer:
+      "We sell you many hours of our work to show you beautiful animations and transitions.",
   },
   {
-    question: "Where I can create my own circled word?",
-    answer: "You can buy it in our official OpenSea profile page.",
+    question: "What are the funds being used for?",
+    answer:
+      "We will use funds for development of our project. New features, new NFTs, all this take a lot of time. In future we want to create our own token and staking features.",
+  },
+  {
+    question: "Where I can buy CircledWord?",
+    answer: "You can buy it on our official OpenSea collection page.",
+  },
+  {
+    question: "Where I can check my NFTs owned from OpenSea?",
+    answer: "You can check it on My Words page.",
+  },
+  {
+    question: "Where I should check news about the project?",
+    answer:
+      "Join our Discord channel. We will do there all interesting stuff like: CircledWord generation via bot, airdrops and etc. We still working with News page on our site.",
+  },
+  {
+    question: "Why Roadmap page still not available yet?",
+    answer:
+      "We have too much ideas what to do next. We need to group some things to show you this.",
   },
 ];
 
