@@ -20,6 +20,10 @@
 
   .sample-word-property-name {
     font-size: 18px;
+
+    .sample-word-property-value {
+      text-decoration-color: #f1f2f2 !important;
+    }
   }
 
   .sample-word-adventure-text {

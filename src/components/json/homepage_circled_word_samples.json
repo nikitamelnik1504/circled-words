@@ -41,7 +41,8 @@
       "updated": [
         "Animation duration",
         "Background color",
-        "Second Border color"
+        "Second Border color",
+        "Second Text color"
       ],
       "adventure_text": "Not bad. We have pulse background filling animation, and it takes little bit longer, because we have changed Animation duration param."
     },
@@ -57,7 +58,7 @@
       },
       {
         "trait_type": "Second Border color",
-        "value": "Black Haze"
+        "value": "My Sin"
       },
       {
         "trait_type": "Animation type",

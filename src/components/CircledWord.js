@@ -28,6 +28,9 @@ export const trait_getters = {
   getStartBorderColor(traits) {
     return "#" + colors[traits["Border color"]];
   },
+  getSecondBorderColor(traits) {
+    return "#" + colors[traits["Second Border color"]];
+  },
   getSecondTextColor(traits) {
     return "#" + colors[traits["Second Text color"]];
   },
@@ -53,6 +56,7 @@ export const getWord = (metadata) => {
         data.elementClass = "fill";
         data.elementStyle = {
           "--second-text-color": trait_getters.getSecondTextColor(traits),
+          "--second-border-color": trait_getters.getSecondBorderColor(traits),
           "--text-color": trait_getters.getStartTextColor(traits),
           "--border-color": trait_getters.getStartBorderColor(traits),
           "--background-color": trait_getters.getBackgroundColor(traits),
