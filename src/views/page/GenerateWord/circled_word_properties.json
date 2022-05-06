@@ -1,0 +1,33 @@
+{
+  "name": "CircledWord #1",
+  "traits": [
+    {
+      "trait_type": "Text color",
+      "value": "Clay Creek"
+    },
+    {
+      "trait_type": "Border color",
+      "value": "Clay Creek"
+    },
+    {
+      "trait_type": "Second Border color",
+      "value": "Clay Creek"
+    },
+    {
+      "trait_type": "Animation type",
+      "value": "Fill In"
+    },
+    {
+      "trait_type": "Animation duration",
+      "value": 1
+    },
+    {
+      "trait_type": "Background color",
+      "value": "Clay Creek"
+    },
+    {
+      "trait_type": "Second Text color",
+      "value": "Black Haze"
+    }
+  ]
+}
