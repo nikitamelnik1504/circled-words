@@ -2,6 +2,7 @@
   <div class="d-flex flex-column justify-content-between">
     <div>
       <h5 class="sample-word-name text-center mb-4">
+        <span class="primary">Circled</span><span class="secondary">Word</span>
         {{ name }}
       </h5>
       <CircledWord :word-data="wordData" :autoplay-animation="true" />

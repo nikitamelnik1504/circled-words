@@ -1,6 +1,15 @@
 .sample-word {
   .sample-word-name {
     font-size: 26px;
+    color: #51524B;
+
+    .primary {
+      color: #ffb229;
+    }
+
+    .secondary {
+      color: #B97A2A;
+    }
   }
 
   .circled-word {
