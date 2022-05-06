@@ -73,9 +73,14 @@ export default {
       "isWalletConnectConnected",
       "getWalletAddress",
     ]),
-    ...mapActions(["connectToMetamask"]),
+    ...mapActions(["connectToMetamask", "connectToWalletConnect"]),
   },
   watch: {
+    isWalletConnectConnected(newValue) {
+      if (newValue === true) {
+        this.loadAssetsFromWalletConnect();
+      }
+    },
     isMetamaskConnected(newValue) {
       if (newValue === true) {
         this.loadAssetsFromMetamask();
@@ -86,12 +91,25 @@ export default {
     if (this.isMetamaskConnected === true) {
       this.loadAssetsFromMetamask();
     }
+    if (this.isWalletConnectConnected === true) {
+      this.loadAssetsFromWalletConnect();
+    }
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
   },
   methods: {
+    loadAssetsFromWalletConnect() {
+      store.dispatch("connectToWalletConnect").then(() => {
+        this.loadAssets().then((result) => {
+          result.data.assets.forEach((item, key) => {
+            this.assets[key] = item;
+          });
+          this.loaded = true;
+        });
+      });
+    },
     loadAssetsFromMetamask() {
       store.dispatch("connectToMetamask").then(() => {
         this.loadAssets().then((result) => {

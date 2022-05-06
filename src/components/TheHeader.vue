@@ -67,7 +67,7 @@
                 type="button"
                 href="#"
                 class="nav-link px-3 logged-in"
-                @click="resetWalletState()"
+                @click="resetWalletState(true)"
               >
                 Log out
               </button>

@@ -47,10 +47,9 @@ export default {
       this.setWalletConnectProvider(walletConnectProvider);
       if (this.isWalletConnectConnected()) {
         this.resetWalletState();
-        await this.connectToWalletConnect();
-        await this.addWalletConnectEventListeners(
-          this.getWalletConnectEvents()
-        );
+        await Promise.resolve(await this.connectToWalletConnect()).then(() => {
+          this.addWalletConnectEventListeners(this.getWalletConnectEvents());
+        });
       }
     }
   },

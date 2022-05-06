@@ -47,8 +47,8 @@ const mutations = {
 };
 
 const actions = {
-  resetWalletState({ getters, commit }) {
-    if (getters.isWalletConnectConnected) {
+  resetWalletState({ getters, commit }, closeSession = false) {
+    if (closeSession && getters.isWalletConnectConnected) {
       getters.getWalletConnectProvider.disconnect();
     }
     commit("resetWalletState");
