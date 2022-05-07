@@ -6,16 +6,9 @@
 
 # Full project: https://gitlab.com/pages/plain-html
 
-variables:
-  REMOTE_HOST: '195.179.193.31'
-
-image: node:16
-
-cache:
-  paths:
-    - node_modules/
-
 deploy_production:
+  variables:
+    REMOTE_HOST: '195.179.193.31'
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
     - eval $(ssh-agent -s)
@@ -31,6 +24,10 @@ deploy_production:
       - production
 
 pages:
+  image: node:16
+  cache:
+    paths:
+      - node_modules/
   before_script:
     - npm install
   stage: deploy
