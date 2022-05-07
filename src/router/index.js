@@ -1,10 +1,16 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory,
+} from "vue-router";
 import Home from "@/views/page/Home/index.vue";
 import MyWords from "@/views/page/MyWords/index.vue";
 import Roadmap from "@/views/page/Roadmap/index.vue";
 import Error403 from "@/views/error-page/403/index.vue";
 import Error404 from "@/views/error-page/404/index.vue";
 import GenerateWord from "@/views/page/GenerateWord/index.vue";
+
+const IS_PROD = true;
 
 const routes = [
   {
@@ -47,7 +53,9 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory("/circled-words/"),
+  history: IS_PROD
+    ? createWebHistory()
+    : createWebHashHistory("/circled-words/"),
   routes,
 });
 
