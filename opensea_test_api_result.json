@@ -4,31 +4,31 @@
       "name": "CircledWord #1",
       "traits": [
         {
-          "trait_type": "Text color",
+          "trait_type": "Text Color",
           "value": "Cerulean"
         },
         {
-          "trait_type": "Border color",
+          "trait_type": "Border Color",
           "value": "Cerulean"
         },
         {
-          "trait_type": "Background color",
+          "trait_type": "Background Color",
           "value": "Cerulean"
         },
         {
-          "trait_type": "Second Text color",
+          "trait_type": "Second Text Color",
           "value": "White"
         },
         {
-          "trait_type": "Second Border color",
+          "trait_type": "Second Border Color",
           "value": "Malibu"
         },
         {
-          "trait_type": "Animation type",
+          "trait_type": "Animation Type",
           "value": "Fill In"
         },
         {
-          "trait_type": "Animation duration",
+          "trait_type": "Animation Duration",
           "value": "1"
         }
       ]
@@ -37,31 +37,31 @@
       "name": "CircledWord #2",
       "traits": [
         {
-          "trait_type": "Text color",
+          "trait_type": "Text Color",
           "value": "Cornflower Blue"
         },
         {
-          "trait_type": "Border color",
+          "trait_type": "Border Color",
           "value": "White"
         },
         {
-          "trait_type": "Background color",
+          "trait_type": "Background Color",
           "value": "Blue"
         },
         {
-          "trait_type": "Second Text color",
+          "trait_type": "Second Text Color",
           "value": "Red"
         },
         {
-          "trait_type": "Second Border color",
+          "trait_type": "Second Border Color",
           "value": "Red"
         },
         {
-          "trait_type": "Animation type",
+          "trait_type": "Animation Type",
           "value": "Fill In"
         },
         {
-          "trait_type": "Animation duration",
+          "trait_type": "Animation Duration",
           "value": "0.8"
         }
       ]
@@ -70,31 +70,31 @@
       "name": "CircledWord #3",
       "traits": [
         {
-          "trait_type": "Text color",
+          "trait_type": "Text Color",
           "value": "White"
         },
         {
-          "trait_type": "Border color",
+          "trait_type": "Border Color",
           "value": "Yellow"
         },
         {
-          "trait_type": "Background color",
+          "trait_type": "Background Color",
           "value": "Blue"
         },
         {
-          "trait_type": "Second Text color",
+          "trait_type": "Second Text Color",
           "value": "Red"
         },
         {
-          "trait_type": "Second Border color",
+          "trait_type": "Second Border Color",
           "value": "Red"
         },
         {
-          "trait_type": "Animation type",
+          "trait_type": "Animation Type",
           "value": "Fill In"
         },
         {
-          "trait_type": "Animation duration",
+          "trait_type": "Animation Duration",
           "value": "0.8"
         }
       ]

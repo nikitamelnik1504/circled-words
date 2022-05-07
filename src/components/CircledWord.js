@@ -17,25 +17,25 @@ export const metadata_getters = {
 
 export const trait_getters = {
   getAnimationType: (traits) => {
-    return traits["Animation type"];
+    return traits["Animation Type"];
   },
   getStartTextColor(traits) {
-    return "#" + colors[traits["Text color"]];
+    return "#" + colors[traits["Text Color"]];
   },
   getBackgroundColor(traits) {
-    return "#" + colors[traits["Background color"]];
+    return "#" + colors[traits["Background Color"]];
   },
   getStartBorderColor(traits) {
-    return "#" + colors[traits["Border color"]];
+    return "#" + colors[traits["Border Color"]];
   },
   getSecondBorderColor(traits) {
-    return "#" + colors[traits["Second Border color"]];
+    return "#" + colors[traits["Second Border Color"]];
   },
   getSecondTextColor(traits) {
-    return "#" + colors[traits["Second Text color"]];
+    return "#" + colors[traits["Second Text Color"]];
   },
   getAnimationDuration(traits) {
-    return traits["Animation duration"] + "s";
+    return traits["Animation Duration"] + "s";
   },
 };
 
