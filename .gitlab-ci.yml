@@ -9,6 +9,7 @@
 deploy_production:
   variables:
     REMOTE_HOST: '195.179.193.31'
+    PROJECT_ROOT: '/usr/share/nginx/html'
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
     - eval $(ssh-agent -s)
@@ -18,7 +19,7 @@ deploy_production:
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh root@${REMOTE_HOST} "cd /home"
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/production -f;npm install --production;npm run build;"
   only:
     refs:
       - production
