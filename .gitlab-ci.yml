@@ -12,7 +12,7 @@ deploy_production:
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$PROD_SSH")
+    - ssh-add <(echo "$PROD_SSH" | base64 -d)
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
