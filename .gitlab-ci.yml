@@ -6,16 +6,33 @@
 
 # Full project: https://gitlab.com/pages/plain-html
 
-image: node:16
+variables:
+  REMOTE_HOST: '195.179.193.31'
 
-before_script:
-  - npm install
+image: node:16
 
 cache:
   paths:
     - node_modules/
 
+deploy_production:
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$PROD_SSH")
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh root@${REMOTE_HOST} "cd /home"
+  only:
+    refs:
+      - production
+
 pages:
+  before_script:
+    - npm install
   stage: deploy
   script:
     - mkdir .public
