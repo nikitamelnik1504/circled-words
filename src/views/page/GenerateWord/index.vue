@@ -55,7 +55,10 @@
             </form>
             <div class="d-flex align-items-center">
               <CircledWord
-                :class="{ disabled: startTime <= 2 }"
+                :class="{
+                  disabled: startTime <= 2,
+                  'new-circled': startTime <= 2,
+                }"
                 :word-data="wordData"
                 :create-word-animation="runAnimation"
                 @animation-completed="finishAnimation"
