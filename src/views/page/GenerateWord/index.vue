@@ -6,7 +6,50 @@
         :style="{ 'min-height': freeHeight + 'px' }"
       >
         <div>
-          <CircledWord :word-data="wordData" />
+          <div class="d-flex justify-content-between">
+            <form action="" class="me-5">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="m-0 me-4">Animation Type:</p>
+                <select
+                  id="animationType"
+                  v-model="wordProperties.traits[0].value"
+                  name="animation_type"
+                >
+                  <option value="Fill In">Fill In</option>
+                </select>
+              </div>
+              <div class="d-flex mt-2 justify-content-between">
+                <p class="m-0 me-4">Text Color:</p>
+                <input v-model="wordProperties.traits[1].value" type="text" />
+              </div>
+              <div class="d-flex mt-2 justify-content-between">
+                <p class="m-0 me-4">Border Color:</p>
+                <input v-model="wordProperties.traits[2].value" type="text" />
+              </div>
+              <div class="d-flex mt-2 justify-content-between">
+                <p class="m-0 me-4">Background Color:</p>
+                <input v-model="wordProperties.traits[3].value" type="text" />
+              </div>
+              <div class="d-flex mt-2 justify-content-between">
+                <p class="m-0 me-4">Animation Duration:</p>
+                <input v-model="wordProperties.traits[4].value" type="number" />
+              </div>
+              <div class="d-flex mt-2 justify-content-between">
+                <p class="m-0 me-4">Second Text Color:</p>
+                <input v-model="wordProperties.traits[5].value" type="text" />
+              </div>
+              <div class="d-flex mt-2 justify-content-between">
+                <p class="m-0 me-4">Second Border Color:</p>
+                <input v-model="wordProperties.traits[6].value" type="text" />
+              </div>
+              <div class="d-flex mt-2 justify-content-center">
+                <input type="submit" value="Create" />
+              </div>
+            </form>
+            <div class="d-flex align-items-center">
+              <CircledWord :word-data="wordData" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -17,7 +60,6 @@
 import { getFreeHeight } from "@/utils/layout-space.js";
 import CircledWord from "@/components/CircledWord.vue";
 import getWord from "@/components/CircledWord.js";
-import circled_word_data from "./circled_word_properties.json";
 
 export default {
   name: "GenerateWordPage",
@@ -25,10 +67,31 @@ export default {
   data() {
     return {
       freeHeight: Number,
-      wordData: getWord(circled_word_data),
+      wordProperties: {
+        name: "CircledWord #1",
+        traits: [
+          { trait_type: "Animation Type", value: "Fill In" },
+          { trait_type: "Text Color", value: "White" },
+          { trait_type: "Border Color", value: "White" },
+          { trait_type: "Background Color", value: "White" },
+          { trait_type: "Animation Duration", value: 1 },
+          { trait_type: "Second Text Color", value: "Black" },
+          { trait_type: "Second Border Color", value: "White" },
+        ],
+      },
+      wordData: Object,
     };
   },
+  watch: {
+    wordProperties: {
+      handler(val) {
+        this.wordData = getWord(val);
+      },
+      deep: true,
+    },
+  },
   mounted() {
+    this.wordData = getWord(this.wordProperties);
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
