@@ -145,7 +145,7 @@ export default {
     loadAssets() {
       const request_params = {
         owner: this.getWalletAddress,
-        collection: "circledwords-test-collection",
+        collection: "circledwords",
         order_direction: "desc",
         limit: 50,
         include_orders: false,
