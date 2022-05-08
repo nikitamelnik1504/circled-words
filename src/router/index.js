@@ -32,9 +32,6 @@ const routes = [
     path: "/generate-word",
     name: "Generate word",
     component: GenerateWord,
-    meta: {
-      requiresAuth: true,
-    },
   },
   {
     path: "/403-error",
