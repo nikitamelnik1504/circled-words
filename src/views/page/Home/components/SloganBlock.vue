@@ -15,7 +15,8 @@
               you!
             </h2>
             <a
-              href="#"
+              href="https://opensea.io/collection/circledwords"
+              target="_blank"
               class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4"
               >Start your journey!</a
             >
