@@ -6,6 +6,9 @@
         :style="{ 'min-height': freeHeight + 'px' }"
       >
         <div>
+          <div class="timer text-center">
+            <h1 ref="startTime" class="timer-value">{{ startTime }}</h1>
+          </div>
           <div class="d-flex justify-content-between">
             <form ref="generateForm" action="" class="me-5">
               <div class="d-flex align-items-center justify-content-between">
@@ -46,12 +49,17 @@
                 <input
                   type="button"
                   value="Start animation"
-                  @click="$refs.generateForm.style.display = 'none'"
+                  @click="startAnimation()"
                 />
               </div>
             </form>
             <div class="d-flex align-items-center">
-              <CircledWord :word-data="wordData" />
+              <CircledWord
+                :class="{ disabled: startTime <= 2 }"
+                :word-data="wordData"
+                :create-word-animation="runAnimation"
+                @animation-completed="finishAnimation"
+              />
             </div>
           </div>
         </div>
@@ -83,7 +91,9 @@ export default {
           { trait_type: "Second Border Color", value: "White" },
         ],
       },
+      startTime: 3,
       wordData: Object,
+      runAnimation: false,
     };
   },
   watch: {
@@ -104,6 +114,26 @@ export default {
   methods: {
     onResize() {
       this.freeHeight = getFreeHeight(true);
+    },
+    finishAnimation() {
+      this.$refs.generateForm.style.display = "block";
+      this.runAnimation = false;
+      this.$refs.startTime.style.display = "block";
+      this.startTime = 3;
+    },
+    startAnimation() {
+      this.$refs.generateForm.style.display = "none";
+      if (this.startTime <= 0) {
+        this.$refs.startTime.style.display = "none";
+      }
+      if (this.startTime > -1) {
+        setTimeout(() => {
+          this.startTime -= 1;
+          this.startAnimation();
+        }, 1000);
+      } else {
+        this.runAnimation = true;
+      }
     },
   },
 };
