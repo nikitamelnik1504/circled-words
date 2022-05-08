@@ -7,7 +7,7 @@
       >
         <div>
           <div class="d-flex justify-content-between">
-            <form action="" class="me-5">
+            <form ref="generateForm" action="" class="me-5">
               <div class="d-flex align-items-center justify-content-between">
                 <p class="m-0 me-4">Animation Type:</p>
                 <select
@@ -43,7 +43,11 @@
                 <input v-model="wordProperties.traits[6].value" type="text" />
               </div>
               <div class="d-flex mt-2 justify-content-center">
-                <input type="submit" value="Create" />
+                <input
+                  type="button"
+                  value="Start animation"
+                  @click="$refs.generateForm.style.display = 'none'"
+                />
               </div>
             </form>
             <div class="d-flex align-items-center">
