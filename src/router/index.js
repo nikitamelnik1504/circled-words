@@ -10,7 +10,7 @@ import Error403 from "@/views/error-page/403/index.vue";
 import Error404 from "@/views/error-page/404/index.vue";
 import GenerateWord from "@/views/page/GenerateWord/index.vue";
 
-const IS_PROD = false;
+const IS_PROD = true;
 
 const routes = [
   {
