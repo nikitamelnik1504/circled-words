@@ -9,7 +9,7 @@
 deploy_production:
   variables:
     REMOTE_HOST: '195.179.193.31'
-    PROJECT_ROOT: '/usr/share/nginx/html/site'
+    PROJECT_ROOT: '/var/www/site'
   before_script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
     - eval $(ssh-agent -s)
