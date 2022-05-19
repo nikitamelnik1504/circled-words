@@ -13,7 +13,7 @@ export default defineConfig({
     global: "globalThis",
     "process.env": {},
   },
-  plugins: [vue()],
+  plugins: [vue(), eslintPlugin()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

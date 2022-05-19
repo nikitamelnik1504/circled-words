@@ -1,4 +1,3 @@
-import store from "../../index";
 import { providers } from "ethers";
 
 const state = {
