@@ -7,4 +7,4 @@ COPY ./ ./
 RUN npm i
 RUN npm run build
 EXPOSE 8080
-CMD [ "http-server",  "-P http://localhost:8080? dist" ]
+CMD [ "http-server",  "-P http://localhost:8080?", "dist" ]
