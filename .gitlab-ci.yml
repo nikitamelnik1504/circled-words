@@ -22,9 +22,9 @@ deploy_production:
     - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/production -f;docker compose up --detach --build site"
   only:
     refs:
-      - production
+      - master
 
-pages:
+deploy_pages:
   image: node:16
   cache:
     paths:
@@ -41,5 +41,6 @@ pages:
   artifacts:
     paths:
       - public
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  only:
+    refs:
+      - pages
