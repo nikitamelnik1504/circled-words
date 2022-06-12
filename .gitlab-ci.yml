@@ -19,7 +19,7 @@ deploy_production:
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/production -f;docker compose up --detach --build site"
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/production -f;cd ..;sh install.sh -p;docker compose up --detach --build site_app"
   only:
     refs:
       - master
