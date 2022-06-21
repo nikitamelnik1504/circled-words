@@ -23,7 +23,7 @@
                     <div
                       v-for="(word, index) in assets"
                       :key="index"
-                      class="col-12 col-sm-6 col-lg-4 mb-4 mb-lg-0"
+                      class="col-12 col-sm-6 col-lg-4 mb-4"
                     >
                       <MyWord :metadata="word" />
                     </div>
