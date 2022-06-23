@@ -3,7 +3,7 @@
     <div class="col-12">
       <h3 class="section-title my-3 text-center">Need help?</h3>
     </div>
-    <div class="col-11 col-sm-10 col-xxl-8 mx-auto mt-4 accordion-wrapper">
+    <div class="col-11 col-sm-10 col-xxl-8 mx-auto my-4 accordion-wrapper">
       <div id="helpAccordion" class="accordion">
         <HelpAccordionItem
           v-for="(item, index) in helpData"
