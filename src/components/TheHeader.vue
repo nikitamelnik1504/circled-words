@@ -44,6 +44,15 @@
             </li>
             <li class="nav-item me-md-4">
               <router-link
+                  to="/generate-word"
+                  class="nav-link disabled"
+                  @click="toggleNavbar()"
+              >
+                Create Word
+              </router-link>
+            </li>
+            <li class="nav-item me-md-4">
+              <router-link
                 to="/roadmap"
                 class="nav-link disabled"
                 @click="toggleNavbar()"
