@@ -71,12 +71,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { getFreeHeight } from "@/utils/layout-space.js";
 import CircledWord from "@/components/CircledWord.vue";
 import getWord from "@/components/CircledWord.js";
 
-export default {
+export default defineComponent({
   name: "GenerateWordPage",
   components: { CircledWord },
   data() {
@@ -139,5 +140,5 @@ export default {
       }
     },
   },
-};
+});
 </script>
