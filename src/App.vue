@@ -4,7 +4,8 @@
   <Footer />
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import store from "@/store";
@@ -12,10 +13,10 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
-export default {
+export default defineComponent({
   components: {
     Header,
-    Footer,
+    Footer
   },
   beforeCreate() {
     store.commit("initialiseStore");
@@ -23,7 +24,7 @@ export default {
   async created() {
     const metamaskProvider = await this.getMetamaskProviderFromDom();
     const walletConnectProvider = await this.getWalletConnectProvider();
-    Promise.resolve(walletConnectProvider).then(function () {
+    Promise.resolve(walletConnectProvider).then(function() {
       store.dispatch("setWalletConnectInitialized");
     });
 
@@ -68,7 +69,7 @@ export default {
       "isMetamaskConnected",
       "getChainId",
       "isWalletConnectConnected",
-      "getMetamaskProvider",
+      "getMetamaskProvider"
     ]),
     ...mapActions([
       "resetWalletState",
@@ -79,7 +80,7 @@ export default {
       "removeWalletConnectEventListeners",
       "connectToWalletConnect",
       "setWalletConnectProvider",
-      "addWalletConnectEventListeners",
+      "addWalletConnectEventListeners"
     ]),
     ...mapMutations(["setDisconnected"]),
     async getMetamaskProviderFromDom() {
@@ -87,12 +88,12 @@ export default {
     },
     async getWalletConnectProvider() {
       return new WalletConnectProvider({
-        infuraId: "270dd5535d1344b2a5a507a081f3d45b",
+        infuraId: "270dd5535d1344b2a5a507a081f3d45b"
       });
     },
     getMetamaskEvents() {
       return {
-        accountsChanged: this.walletConnectAccountsChangedEvent,
+        accountsChanged: this.walletConnectAccountsChangedEvent
       };
     },
     metamaskAccountsChangedEvent() {
@@ -101,15 +102,15 @@ export default {
     },
     getWalletConnectEvents() {
       return {
-        disconnect: this.walletConnectAccountsChangedEvent,
+        disconnect: this.walletConnectAccountsChangedEvent
       };
     },
     walletConnectAccountsChangedEvent() {
       this.resetWalletState();
       this.$router.go(this.$router.currentRoute);
-    },
-  },
-};
+    }
+  }
+});
 </script>
 
 <style lang="scss">
