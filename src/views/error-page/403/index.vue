@@ -11,10 +11,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { getFreeHeight } from "@/utils/layout-space.js";
 
-export default {
+export default defineComponent({
   name: "403Page",
   data() {
     return {
@@ -30,7 +31,8 @@ export default {
   methods: {
     onResize() {
       this.freeHeight = getFreeHeight(true);
-    },
-  },
-};
+    }
+  }
+});
+
 </script>
