@@ -5,33 +5,90 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Vue, Options } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import store from "@/store";
 import detectEthereumProvider from "@metamask/detect-provider";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { namespace } from "s-vuex-class";
+
+const wallet = namespace("wallet");
+const metamask = namespace("metamask");
+const walletConnect = namespace("walletConnect");
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
-export default defineComponent({
+@Options({
+  name: "App",
   components: {
     Header,
     Footer
-  },
+  }
+})
+export default class App extends Vue {
+
+  public $router;
+
+  public async getMetamaskProviderFromDom() {
+    return await detectEthereumProvider();
+  }
+
+  @wallet.Getter
+  public isMetamaskConnected!: () => boolean;
+
+  @wallet.Getter
+  public getChainId!: () => string;
+
+  @wallet.Getter
+  public isWalletConnectConnected!: () => boolean;
+
+  @wallet.Action
+  public resetWalletState!: (closeSession: boolean) => void;
+
+  @metamask.Action
+  public updateMetamaskProvider!: (provider) => void;
+
+  @metamask.Action
+  public connectToMetamask!: () => Promise<string>;
+
+  @metamask.Action
+  public addMetamaskEventListeners!: (events) => Promise<any>;
+
+  @metamask.Action
+  public removeMetamaskEventListeners!: (events) => Promise<any>;
+
+  @walletConnect.Action
+  public removeWalletConnectEventListeners!: (events) => Promise<any>;
+
+  @walletConnect.Action
+  public connectToWalletConnect!: () => Promise<string>;
+
+  @walletConnect.Action
+  public updateWalletConnectProvider!: (provider) => void;
+
+  @walletConnect.Action
+  public addWalletConnectEventListeners!: (events) => Promise<any>;
+
+  @walletConnect.Action
+  public updateWalletConnectInitialization!: () => void;
+
   beforeCreate() {
     store.commit("initialiseStore");
-  },
+  }
+
   async created() {
     const metamaskProvider = await this.getMetamaskProviderFromDom();
     const walletConnectProvider = await this.getWalletConnectProvider();
+    const globalObject = this;
     Promise.resolve(walletConnectProvider).then(function() {
-      store.dispatch("setWalletConnectInitialized");
+      globalObject.updateWalletConnectInitialization();
     });
 
+    this.resetWalletState(false);
+
     if (metamaskProvider) {
-      this.setMetamaskProvider(metamaskProvider);
-      if (this.isMetamaskConnected()) {
-        this.resetWalletState();
+      this.updateMetamaskProvider(metamaskProvider);
+      if (this.isMetamaskConnected) {
+        this.resetWalletState(false);
         // @TODO: Implement promise wait.
         await Promise.resolve(await this.connectToMetamask()).then(() => {
           this.addMetamaskEventListeners(this.getMetamaskEvents());
@@ -45,17 +102,18 @@ export default defineComponent({
       }
     }
     if (walletConnectProvider) {
-      this.setWalletConnectProvider(walletConnectProvider);
-      if (this.isWalletConnectConnected()) {
-        this.resetWalletState();
+      this.updateWalletConnectProvider(walletConnectProvider);
+      if (this.isWalletConnectConnected) {
+        this.resetWalletState(false);
         await Promise.resolve(await this.connectToWalletConnect()).then(() => {
-          this.addWalletConnectEventListeners(this.getWalletConnectEvents());
+          this.updateWalletConnectProvider(this.getWalletConnectEvents());
         });
       }
     }
-  },
+  }
+
   async unmounted() {
-    if (await this.isMetamaskConnected()) {
+    if (await this.isMetamaskConnected) {
       await this.removeMetamaskEventListeners(this.getMetamaskEvents());
     }
     if (await this.isWalletConnectConnected) {
@@ -63,54 +121,36 @@ export default defineComponent({
         this.getWalletConnectEvents()
       );
     }
-  },
-  methods: {
-    ...mapGetters([
-      "isMetamaskConnected",
-      "getChainId",
-      "isWalletConnectConnected",
-      "getMetamaskProvider"
-    ]),
-    ...mapActions([
-      "resetWalletState",
-      "setMetamaskProvider",
-      "connectToMetamask",
-      "addMetamaskEventListeners",
-      "removeMetamaskEventListeners",
-      "removeWalletConnectEventListeners",
-      "connectToWalletConnect",
-      "setWalletConnectProvider",
-      "addWalletConnectEventListeners"
-    ]),
-    ...mapMutations(["setDisconnected"]),
-    async getMetamaskProviderFromDom() {
-      return await detectEthereumProvider();
-    },
-    async getWalletConnectProvider() {
-      return new WalletConnectProvider({
-        infuraId: "270dd5535d1344b2a5a507a081f3d45b"
-      });
-    },
-    getMetamaskEvents() {
-      return {
-        accountsChanged: this.walletConnectAccountsChangedEvent
-      };
-    },
-    metamaskAccountsChangedEvent() {
-      this.resetWalletState();
-      this.$router.go(this.$router.currentRoute);
-    },
-    getWalletConnectEvents() {
-      return {
-        disconnect: this.walletConnectAccountsChangedEvent
-      };
-    },
-    walletConnectAccountsChangedEvent() {
-      this.resetWalletState();
-      this.$router.go(this.$router.currentRoute);
-    }
   }
-});
+
+  async getWalletConnectProvider() {
+    return new WalletConnectProvider({
+      infuraId: "270dd5535d1344b2a5a507a081f3d45b"
+    });
+  }
+
+  getMetamaskEvents() {
+    return {
+      accountsChanged: this.walletConnectAccountsChangedEvent
+    };
+  }
+
+  metamaskAccountsChangedEvent() {
+    this.resetWalletState(false);
+    this.$router.go(this.$router.currentRoute);
+  }
+
+  getWalletConnectEvents() {
+    return {
+      disconnect: this.walletConnectAccountsChangedEvent
+    };
+  }
+
+  walletConnectAccountsChangedEvent() {
+    this.resetWalletState(false);
+    this.$router.go(this.$router.currentRoute);
+  }
+}
 </script>
 
 <style lang="scss">

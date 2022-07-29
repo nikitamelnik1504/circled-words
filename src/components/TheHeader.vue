@@ -8,9 +8,9 @@
           @click="toggleNavbar()"
         >
           <img src="../assets/images/logo.svg" alt="" class="me-1" /><span
-            class="logo-primary-text"
-            >Circled</span
-          ><span class="logo-secondary-text">Words</span>
+          class="logo-primary-text"
+        >Circled</span
+        ><span class="logo-secondary-text">Words</span>
         </router-link>
         <button
           class="navbar-toggler"
@@ -44,9 +44,9 @@
             </li>
             <li class="nav-item me-md-4">
               <router-link
-                  to="/generate-word"
-                  class="nav-link disabled"
-                  @click="toggleNavbar()"
+                to="/generate-word"
+                class="nav-link disabled"
+                @click="toggleNavbar()"
               >
                 Create Word
               </router-link>
@@ -62,7 +62,7 @@
             </li>
             <li class="nav-item connect-wallet-link">
               <button
-                v-if="!isMetamaskConnected() && !isWalletConnectConnected()"
+                v-if="!isMetamaskConnected && !isWalletConnectConnected"
                 type="button"
                 href="#"
                 class="nav-link px-3"
@@ -89,26 +89,39 @@
   <WalletModal />
 </template>
 
-<script>
+<script lang="ts">
 import WalletModal from "@/components/WalletModal.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
 import { Collapse } from "bootstrap";
+import { Vue, Options } from "vue-property-decorator";
+import { namespace } from "s-vuex-class";
+const wallet = namespace("wallet");
 
-export default {
+@Options({
   components: {
-    WalletModal,
-  },
-  methods: {
-    ...mapGetters(["isMetamaskConnected", "isWalletConnectConnected"]),
-    ...mapActions(["resetWalletState"]),
-    ...mapMutations(["setWalletAddress"]),
-    toggleNavbar() {
-      const menuToggle = document.getElementById("navbarNav");
-      if (menuToggle.classList.contains("show")) {
-        const bsCollapse = new Collapse(menuToggle);
-        bsCollapse.toggle();
-      }
-    },
-  },
-};
+    WalletModal
+  }
+})
+export default class TheHeader extends Vue {
+
+  @wallet.Getter
+  public isMetamaskConnected!: () => boolean;
+
+  @wallet.Getter
+  public isWalletConnectConnected!: () => boolean;
+
+  @wallet.Action
+  public resetWalletState!: (closeSession: boolean) => void;
+
+  @wallet.Mutation
+  public setWalletAddress!: (address: string) => void;
+
+  toggleNavbar() {
+    const menuToggle = document.getElementById("navbarNav");
+    if (menuToggle.classList.contains("show")) {
+      const bsCollapse = new Collapse(menuToggle);
+      bsCollapse.toggle();
+    }
+  }
+}
+
 </script>

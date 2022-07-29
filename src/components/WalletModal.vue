@@ -26,7 +26,7 @@
             <div class="col-sm-6 mb-4 mb-sm-0">
               <a
                 :href="
-                  isMetamaskInstalled() ? '#' : 'https://metamask.io/download/'
+                  isMetamaskInstalled ? '#' : 'https://metamask.io/download/'
                 "
                 class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
                 @click="metamaskLink($event)"
@@ -54,9 +54,9 @@
                 "
               >
                 <span
-                  :class="{ 'd-none': isWalletConnectInitialized() }"
+                  :class="{ 'd-none': isWalletConnectInitialized }"
                   class="position-absolute wallet-loader top-0 bottom-0 end-0 start-0 d-flex justify-content-center align-items-center"
-                  >Loading...</span
+                >Loading...</span
                 >
                 <img
                   class="w-100"
@@ -73,82 +73,113 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from "vuex";
+<script lang="ts">
 import store from "../store";
+import { Vue, Options } from "vue-property-decorator";
+import { namespace } from "s-vuex-class";
 
-export default {
+const wallet = namespace("wallet");
+const metamask = namespace("metamask");
+const walletConnect = namespace("walletConnect");
+// ...mapActions([
+//   "removeWalletConnectEventListeners",
+// ]),
+
+@Options({})
+export default class WalletModal extends Vue {
+
+  public $router;
+
+  @wallet.Getter
+  public isMetamaskConnected!: () => boolean;
+
+  @wallet.Getter
+  public isWalletConnectConnected!: () => boolean;
+
+  @wallet.Action
+  public resetWalletState!: (closeSession: boolean) => void;
+
+  @metamask.Getter
+  public isMetamaskInstalled!: () => boolean;
+
+  @metamask.Action
+  public connectToMetamask!: () => Promise<string>;
+
+  @metamask.Action
+  public removeMetamaskEventListeners!: (events) => Promise<any>;
+
+  @walletConnect.Getter
+  public isWalletConnectInitialized!: () => boolean;
+
+  @walletConnect.Action
+  public connectToWalletConnect!: () => Promise<string>;
+
+  @walletConnect.Action
+  public removeWalletConnectEventListeners!: (events) => Promise<any>;
+
+  public metamaskLink(event) {
+    if (this.isMetamaskInstalled) {
+      event.preventDefault();
+      this.showMetamaskModal();
+    }
+  }
+
+  public async showWalletConnectModal() {
+    let connectionToWalletConnect = this.connectToWalletConnect();
+    let walletConnectEvents = this.getWalletConnectEvents();
+    let walletModalCloseButton = this.$refs.CloseWalletModal;
+    connectionToWalletConnect.then((result) => {
+      if (result === "connected") {
+        store.dispatch("addWalletConnectEventListeners", walletConnectEvents);
+        walletModalCloseButton.click();
+      }
+    });
+  }
+
+  public async showMetamaskModal() {
+    let connectionToMetaMask = this.connectToMetamask();
+    let metamaskEvents = this.getMetamaskEvents();
+    let walletModalCloseButton = this.$refs.CloseWalletModal;
+    connectionToMetaMask.then(function(result) {
+      if (result === "connected") {
+        store.dispatch("addMetamaskEventListeners", metamaskEvents);
+        walletModalCloseButton.click();
+      }
+    });
+  }
+
+  public metamaskAccountsChangedEvent() {
+    this.resetWalletState(false);
+    this.$router.go(this.$router.currentRoute);
+  }
+
+  public walletConnectAccountsChangedEvent() {
+    this.resetWalletState(false);
+    this.$router.go(this.$router.currentRoute);
+  }
+
+  public getMetamaskEvents() {
+    return {
+      accountsChanged: this.metamaskAccountsChangedEvent
+    };
+  }
+
+  public getWalletConnectEvents() {
+    return {
+      disconnect: this.walletConnectAccountsChangedEvent
+    };
+  }
+
   async unmounted() {
-    if (await this.isMetamaskConnected()) {
+    if (await this.isMetamaskConnected) {
       await this.removeMetamaskEventListeners(this.getMetamaskEvents());
     }
-    if (await this.isWalletConnectConnected()) {
+    if (await this.isWalletConnectConnected) {
       await this.removeWalletConnectEventListeners(
         this.getWalletConnectEvents()
       );
     }
-  },
-  methods: {
-    ...mapGetters([
-      "isMetamaskConnected",
-      "isMetamaskInstalled",
-      "isWalletConnectConnected",
-      "getWalletConnectProvider",
-      "isWalletConnectInitialized",
-    ]),
-    ...mapActions([
-      "connectToMetamask",
-      "connectToWalletConnect",
-      "removeMetamaskEventListeners",
-      "removeWalletConnectEventListeners",
-      "resetWalletState",
-    ]),
-    getMetamaskEvents() {
-      return {
-        accountsChanged: this.metamaskAccountsChangedEvent,
-      };
-    },
-    getWalletConnectEvents() {
-      return {
-        disconnect: this.walletConnectAccountsChangedEvent,
-      };
-    },
-    walletConnectAccountsChangedEvent() {
-      this.resetWalletState();
-      this.$router.go(this.$router.currentRoute);
-    },
-    metamaskAccountsChangedEvent() {
-      this.resetWalletState();
-      this.$router.go(this.$router.currentRoute);
-    },
-    async showMetamaskModal() {
-      let connectionToMetaMask = this.connectToMetamask();
-      let metamaskEvents = this.getMetamaskEvents();
-      let walletModalCloseButton = this.$refs.CloseWalletModal;
-      connectionToMetaMask.then(function (result) {
-        if (result === "connected") {
-          store.dispatch("addMetamaskEventListeners", metamaskEvents);
-          walletModalCloseButton.click();
-        }
-      });
-    },
-    async showWalletConnectModal() {
-      let connectionToWalletConnect = this.connectToWalletConnect();
-      let walletConnectEvents = this.getWalletConnectEvents();
-      let walletModalCloseButton = this.$refs.CloseWalletModal;
-      connectionToWalletConnect.then((result) => {
-        if (result === "connected") {
-          store.dispatch("addWalletConnectEventListeners", walletConnectEvents);
-          walletModalCloseButton.click();
-        }
-      });
-    },
-    metamaskLink(event) {
-      if (this.isMetamaskInstalled()) {
-        event.preventDefault();
-        this.showMetamaskModal();
-      }
-    },
-  },
-};
+  }
+
+}
 </script>
