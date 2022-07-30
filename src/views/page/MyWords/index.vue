@@ -62,53 +62,45 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import { mapActions, mapGetters, mapState } from "vuex";
 import { getFreeHeight } from "@/utils/layout-space.js";
-import axios from "axios";
-import store from "../../../store";
+import { Vue, Options, Watch } from "vue-property-decorator";
+import { namespace } from "s-vuex-class";
 
-export default {
+const wallet = namespace("wallet");
+const metamask = namespace("metamask");
+const walletConnect = namespace("walletConnect");
+
+import axios from "axios";
+
+@Options({
   name: "MyWordsPage",
   components: {
-    MyWord,
-  },
-  data() {
-    return {
-      assets: [],
-      freeHeight: Number,
-      loaded: false,
-    };
-  },
-  computed: {
-    ...mapGetters([
-      "isMetamaskConnected",
-      "isWalletConnectConnected",
-      "getWalletAddress",
-    ]),
-    ...mapState(["wallet"]),
-    ...mapActions(["connectToMetamask", "connectToWalletConnect"]),
-  },
-  watch: {
-    isWalletConnectConnected(newValue) {
-      if (newValue === true) {
-        this.loadAssetsFromWalletConnect();
-      }
-      if (newValue === false) {
-        this.assets = [];
-      }
-    },
-    isMetamaskConnected(newValue) {
-      if (newValue === true) {
-        this.loadAssetsFromMetamask();
-      }
-      if (newValue === false) {
-        this.assets = [];
-      }
-    },
-  },
+    MyWord
+  }
+})
+export default class MyWords extends Vue {
+  assets = [];
+  freeHeight = Number;
+  loaded = false;
+
+  @wallet.Getter
+  public isMetamaskConnected!: () => boolean;
+
+  @wallet.Getter
+  public isWalletConnectConnected!: () => boolean;
+
+  @wallet.Getter
+  public getWalletAddress!: () => string;
+
+  @metamask.Action
+  public connectToMetamask!: () => Promise<string>;
+
+  @walletConnect.Action
+  public connectToWalletConnect!: () => Promise<string>;
+
   mounted() {
     if (this.isMetamaskConnected === true) {
       this.loadAssetsFromMetamask();
@@ -120,58 +112,81 @@ export default {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-  },
-  methods: {
-    loadAssetsFromWalletConnect() {
-      store.dispatch("connectToWalletConnect").then(() => {
-        this.loadAssets().then((result) => {
-          result.data.assets.forEach((item, key) => {
-            this.assets[key] = item;
-          });
-          this.loaded = true;
+  }
+
+  @Watch("isWalletConnectConnected")
+  onWalletConnectConnected(newValue) {
+    if (newValue === true) {
+      this.loadAssetsFromWalletConnect();
+    }
+    if (newValue === false) {
+      this.assets = [];
+    }
+  }
+
+  @Watch("isMetamaskConnected")
+  onMetamaskConnected(newValue) {
+    if (newValue === true) {
+      this.loadAssetsFromMetamask();
+    }
+    if (newValue === false) {
+      this.assets = [];
+    }
+  }
+
+  loadAssetsFromWalletConnect() {
+    this.connectToWalletConnect().then(() => {
+      this.loadAssets().then((result) => {
+        result.data.assets.forEach((item, key) => {
+          this.assets[key] = item;
         });
+        this.loaded = true;
       });
-    },
-    loadAssetsFromMetamask() {
-      store.dispatch("connectToMetamask").then(() => {
-        this.loadAssets().then((result) => {
-          result.data.assets.forEach((item, key) => {
-            this.assets[key] = item;
-          });
-          this.loaded = true;
+    });
+  }
+
+  loadAssetsFromMetamask() {
+    this.connectToMetamask().then(() => {
+      this.loadAssets().then((result) => {
+        result.data.assets.forEach((item, key) => {
+          this.assets[key] = item;
         });
+        this.loaded = true;
       });
-    },
-    loadAssets() {
-      const request_params = {
-        owner: this.getWalletAddress,
-        collection: "circledwords",
-        order_direction: "desc",
-        limit: 50,
-        include_orders: false,
-      };
-      let request_string = "";
-      for (let param in request_params) {
-        if (request_string !== "") {
-          request_string += "&";
-        }
-        request_string +=
-          param + "=" + encodeURIComponent(request_params[param]);
+    });
+  }
+
+  loadAssets() {
+    const request_params = {
+      owner: this.getWalletAddress,
+      collection: "circledwords",
+      order_direction: "desc",
+      limit: 50,
+      include_orders: false
+    };
+    let request_string = "";
+    for (let param in request_params) {
+      if (request_string !== "") {
+        request_string += "&";
       }
+      request_string +=
+        param + "=" + encodeURIComponent(request_params[param]);
+    }
 
-      let request_url =
-        "https://api.opensea.io/api/v1/assets?" + request_string;
+    let request_url =
+      "https://api.opensea.io/api/v1/assets?" + request_string;
 
-      return axios.get(request_url, {
-        headers: {
-          Accept: "application/json",
-          "X-API-KEY": "c53720a2d2324aca85614b30e3000a83",
-        },
-      });
-    },
-    onResize() {
-      this.freeHeight = getFreeHeight(true);
-    },
-  },
-};
+    return axios.get(request_url, {
+      headers: {
+        Accept: "application/json",
+        "X-API-KEY": "c53720a2d2324aca85614b30e3000a83"
+      }
+    });
+  }
+
+  onResize() {
+    this.freeHeight = getFreeHeight(true);
+  }
+
+}
 </script>

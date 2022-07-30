@@ -32,9 +32,9 @@ class Metamask extends VuexModule {
       .request({ method: "eth_requestAccounts" })
       .then((walletAddress) => {
         // @TODO: Implement multiple accounts.
-        this.context.commit("setWalletAddress", walletAddress[0]);
-        this.context.commit("setWalletType", "metamask");
-        this.context.commit("setConnected");
+        this.context.commit("wallet/setWalletAddress", walletAddress[0], { root: true });
+        this.context.commit("wallet/setWalletType", "metamask", { root: true });
+        this.context.commit("wallet/setConnected", true, { root: true });
         return "connected";
       })
       .catch((error) => {
@@ -43,6 +43,7 @@ class Metamask extends VuexModule {
       });
   }
 
+  @Action
   public async addMetamaskEventListeners(events): Promise<any> {
     let provider = await this.context.getters.getMetamaskProvider;
     for (let event_id in events) {
@@ -50,6 +51,7 @@ class Metamask extends VuexModule {
     }
   }
 
+  @Action
   public async removeMetamaskEventListeners(events): Promise<any> {
     let provider = await this.context.getters.getMetamaskProvider;
     for (let event_id in events) {

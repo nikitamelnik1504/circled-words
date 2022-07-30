@@ -83,8 +83,6 @@ export default class App extends Vue {
       globalObject.updateWalletConnectInitialization();
     });
 
-    this.resetWalletState(false);
-
     if (metamaskProvider) {
       this.updateMetamaskProvider(metamaskProvider);
       if (this.isMetamaskConnected) {

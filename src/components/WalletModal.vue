@@ -81,9 +81,6 @@ import { namespace } from "s-vuex-class";
 const wallet = namespace("wallet");
 const metamask = namespace("metamask");
 const walletConnect = namespace("walletConnect");
-// ...mapActions([
-//   "removeWalletConnectEventListeners",
-// ]),
 
 @Options({})
 export default class WalletModal extends Vue {
@@ -107,6 +104,9 @@ export default class WalletModal extends Vue {
 
   @metamask.Action
   public removeMetamaskEventListeners!: (events) => Promise<any>;
+
+  @metamask.Action
+  public addMetamaskEventListeners!: (events) => Promise<any>;
 
   @walletConnect.Getter
   public isWalletConnectInitialized!: () => boolean;
@@ -140,9 +140,10 @@ export default class WalletModal extends Vue {
     let connectionToMetaMask = this.connectToMetamask();
     let metamaskEvents = this.getMetamaskEvents();
     let walletModalCloseButton = this.$refs.CloseWalletModal;
+    const globalObject = this;
     connectionToMetaMask.then(function(result) {
       if (result === "connected") {
-        store.dispatch("addMetamaskEventListeners", metamaskEvents);
+        globalObject.addMetamaskEventListeners(metamaskEvents);
         walletModalCloseButton.click();
       }
     });
