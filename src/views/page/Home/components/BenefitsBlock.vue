@@ -47,11 +47,7 @@ const benefits = [
 @Options({
 })
 export default class BenefitsBlock extends Vue {
-  data() {
-    return {
-      benefitsData: this.getBenefitsData(),
-    };
-  }
+  benefitsData = this.getBenefitsData();
 
   getBenefitsData() {
     return benefits;

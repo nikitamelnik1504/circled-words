@@ -63,11 +63,7 @@ const help = [
   },
 })
 export default class HelpBlock extends Vue {
-  data() {
-    return {
-      helpData: this.getHelpData(),
-    };
-  }
+  helpData = this.getHelpData();
 
   getHelpData() {
     return help;

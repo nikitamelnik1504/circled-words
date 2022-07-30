@@ -51,12 +51,8 @@ import { getFreeHeight } from "@/utils/layout-space.js";
   },
 })
 export default class SloganBlock extends Vue {
-  data() {
-    return {
-      freeHeight: Number,
-      wordsData: this.getWordsData(),
-    };
-  }
+  freeHeight = Number;
+  wordsData = this.getWordsData();
 
   mounted() {
     this.onResize();

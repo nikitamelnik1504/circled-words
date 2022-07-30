@@ -49,13 +49,9 @@ import colors from "@/assets/libraries/colors.json";
   },
 })
 export default class SampleWord extends Vue {
-  data() {
-    return {
-      wordData: getWord(this.metadata),
-      sampleWordData: this.getSampleWordData(),
-      name: metadata_getters.getTitle(this.metadata),
-    };
-  }
+  wordData = getWord(this.metadata);
+  sampleWordData = this.getSampleWordData();
+  name = metadata_getters.getTitle(this.metadata);
 
   getSampleWordData() {
     let data = {};

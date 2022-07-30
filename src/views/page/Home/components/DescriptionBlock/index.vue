@@ -46,11 +46,7 @@ import sampleWords from "@/components/json/homepage_circled_word_samples.json";
   },
 })
 export default class DescriptionBlock extends Vue {
-  data() {
-    return {
-      sampleWordsData: this.getSampleWords(),
-    };
-  }
+  sampleWordsData = this.getSampleWords();
 
   // Warning!!! Especial examples metadata differs from OpenSea.
   getSampleWords() {

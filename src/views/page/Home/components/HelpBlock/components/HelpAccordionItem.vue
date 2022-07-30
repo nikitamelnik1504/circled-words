@@ -42,10 +42,6 @@ import { uuid } from "vue-uuid";
   },
 })
 export default class HelpAccordionItem extends Vue {
-  data() {
-    return {
-      uuid: uuid.v4(),
-    };
-  }
+  uuid = uuid.v4();
 }
 </script>
