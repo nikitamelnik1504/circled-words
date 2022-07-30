@@ -14,8 +14,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
+
+@Options({
   props: {
     value: {
       required: true,
@@ -30,5 +32,7 @@ export default {
       type: String,
     },
   },
+})
+export default class StatBlock extends Vue {
 };
 </script>

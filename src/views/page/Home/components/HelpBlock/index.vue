@@ -16,7 +16,8 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
 import HelpAccordionItem from "./components/HelpAccordionItem.vue";
 
 const help = [
@@ -55,20 +56,21 @@ const help = [
   },
 ];
 
-export default {
+@Options({
   name: "HelpBlock",
   components: {
     HelpAccordionItem,
   },
+})
+export default class HelpBlock extends Vue {
   data() {
     return {
       helpData: this.getHelpData(),
     };
-  },
-  methods: {
-    getHelpData() {
-      return help;
-    },
-  },
-};
+  }
+
+  getHelpData() {
+    return help;
+  }
+}
 </script>

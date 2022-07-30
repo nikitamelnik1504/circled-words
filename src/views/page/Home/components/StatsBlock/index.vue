@@ -30,7 +30,8 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
 import StatBlock from "./components/StatBlock.vue";
 
 const stats = [
@@ -51,20 +52,21 @@ const stats = [
   },
 ];
 
-export default {
+@Options({
   name: "StatsBlock",
   components: {
     StatBlock,
   },
+})
+export default class StatsBlock extends Vue {
   data() {
     return {
       statsData: this.getStatsData(),
     };
-  },
-  methods: {
-    getStatsData() {
-      return stats;
-    },
-  },
+  }
+
+  getStatsData() {
+    return stats;
+  }
 };
 </script>

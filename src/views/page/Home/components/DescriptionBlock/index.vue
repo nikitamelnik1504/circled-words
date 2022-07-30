@@ -34,25 +34,27 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
 import SampleWord from "./components/SampleWord.vue";
 import sampleWords from "@/components/json/homepage_circled_word_samples.json";
 
-export default {
+@Options ({
   name: "DescriptionBlock",
   components: {
     SampleWord,
   },
+})
+export default class DescriptionBlock extends Vue {
   data() {
     return {
       sampleWordsData: this.getSampleWords(),
     };
-  },
-  methods: {
-    // Warning!!! Especial examples metadata differs from OpenSea.
-    getSampleWords() {
-      return sampleWords;
-    },
-  },
+  }
+
+  // Warning!!! Especial examples metadata differs from OpenSea.
+  getSampleWords() {
+    return sampleWords;
+  }
 };
 </script>

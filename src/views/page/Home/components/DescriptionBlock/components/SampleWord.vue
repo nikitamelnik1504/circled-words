@@ -31,12 +31,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
 import CircledWord from "@/components/CircledWord.vue";
 import { getWord, metadata_getters } from "@/components/CircledWord.js";
 import colors from "@/assets/libraries/colors.json";
 
-export default {
+@Options({
   components: {
     CircledWord,
   },
@@ -46,50 +47,51 @@ export default {
       required: true,
     },
   },
+})
+export default class SampleWord extends Vue {
   data() {
     return {
       wordData: getWord(this.metadata),
       sampleWordData: this.getSampleWordData(),
       name: metadata_getters.getTitle(this.metadata),
     };
-  },
-  methods: {
-    getSampleWordData() {
-      let data = {};
+  }
 
-      if (!("sample_data" in this.metadata)) {
-        return;
-      }
-      let sample_data = this.metadata.sample_data;
+  getSampleWordData() {
+    let data = {};
 
-      if (!("updated" in sample_data)) {
-        return;
-      }
-      let updated_circled_properties = sample_data.updated;
+    if (!("sample_data" in this.metadata)) {
+      return;
+    }
+    let sample_data = this.metadata.sample_data;
 
-      let traits = metadata_getters.getTraits(this.metadata);
+    if (!("updated" in sample_data)) {
+      return;
+    }
+    let updated_circled_properties = sample_data.updated;
 
-      let result = {};
-      for (let property in traits) {
-        result[property] = {
-          value: traits[property],
-          updated: updated_circled_properties.includes(property),
-        };
+    let traits = metadata_getters.getTraits(this.metadata);
 
-        if (traits[property] in colors) {
-          result[property].color = "#" + colors[traits[property]];
-        } else {
-          result[property].color = "#948561";
-        }
+    let result = {};
+    for (let property in traits) {
+      result[property] = {
+        value: traits[property],
+        updated: updated_circled_properties.includes(property),
+      };
 
-        data["circledProperties"] = result;
+      if (traits[property] in colors) {
+        result[property].color = "#" + colors[traits[property]];
+      } else {
+        result[property].color = "#948561";
       }
 
-      data["adventureText"] =
+      data["circledProperties"] = result;
+    }
+
+    data["adventureText"] =
         "adventure_text" in sample_data ? sample_data.adventure_text : false;
 
-      return data;
-    },
-  },
-};
+    return data;
+  }
+}
 </script>

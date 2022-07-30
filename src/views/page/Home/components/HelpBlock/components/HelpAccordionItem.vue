@@ -25,10 +25,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
 import { uuid } from "vue-uuid";
 
-export default {
+@Options({
   props: {
     question: {
       required: true,
@@ -39,10 +40,12 @@ export default {
       type: String,
     },
   },
+})
+export default class HelpAccordionItem extends Vue {
   data() {
     return {
       uuid: uuid.v4(),
     };
-  },
-};
+  }
+}
 </script>

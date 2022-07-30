@@ -38,44 +38,49 @@
   </section>
 </template>
 
-<script>
-import getWord from "@/components/CircledWord";
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
+import getWord from "@/components/CircledWord.js";
 import sloganWords from "@/components/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
 import { getFreeHeight } from "@/utils/layout-space.js";
 
-export default {
+@Options({
   components: {
     CircledWord,
   },
+})
+export default class SloganBlock extends Vue {
   data() {
     return {
       freeHeight: Number,
       wordsData: this.getWordsData(),
     };
-  },
+  }
+
   mounted() {
     this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-  },
-  methods: {
-    onResize() {
-      this.freeHeight = getFreeHeight();
-    },
-    getSloganWords() {
-      return sloganWords;
-    },
-    getWordsData() {
-      let data = [];
-      this.getSloganWords().forEach((word) => {
-        let current_word = getWord(word);
-        current_word.link = word.link;
-        data.push(current_word);
-      });
-      return data;
-    },
-  },
+  }
+
+  onResize() {
+    this.freeHeight = getFreeHeight();
+  }
+
+  getSloganWords() {
+    return sloganWords;
+  }
+
+  getWordsData() {
+    let data = [];
+    this.getSloganWords().forEach((word) => {
+      let current_word = getWord(word);
+      current_word.link = word.link;
+      data.push(current_word);
+    });
+    return data;
+  }
 };
 </script>
