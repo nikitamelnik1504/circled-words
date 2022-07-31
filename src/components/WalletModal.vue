@@ -74,7 +74,6 @@
 </template>
 
 <script lang="ts">
-import store from "../store";
 import { Vue, Options } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 

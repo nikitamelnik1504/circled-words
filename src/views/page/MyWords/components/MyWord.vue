@@ -8,24 +8,28 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import CircledWord from "@/components/CircledWord.vue";
 import getWord from "@/components/CircledWord.js";
+import { Vue, Options, Prop } from "vue-property-decorator";
 
-export default {
+@Options({
   components: {
-    CircledWord,
-  },
-  props: {
-    metadata: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      wordData: getWord(this.metadata),
-    };
-  },
-};
+    CircledWord
+  }
+})
+export default class MyWord extends Vue {
+  @Prop({ type: Object, required: true }) readonly metadata!: Object;
+
+  wordData = {};
+
+  getData() {
+    return getWord(this.metadata);
+  }
+
+  mounted() {
+    this.wordData = this.getData();
+  }
+}
+
 </script>
