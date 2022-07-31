@@ -115,6 +115,9 @@ export default class WalletModal extends Vue {
   public connectToWalletConnect!: () => Promise<string>;
 
   @walletConnect.Action
+  public addWalletConnectEventListeners!: (events) => Promise<any>;
+
+  @walletConnect.Action
   public removeWalletConnectEventListeners!: (events) => Promise<any>;
 
   public metamaskLink(event) {
@@ -130,7 +133,7 @@ export default class WalletModal extends Vue {
     let walletModalCloseButton = this.$refs.CloseWalletModal;
     connectionToWalletConnect.then((result) => {
       if (result === "connected") {
-        store.dispatch("addWalletConnectEventListeners", walletConnectEvents);
+        this.addWalletConnectEventListeners(walletConnectEvents);
         walletModalCloseButton.click();
       }
     });

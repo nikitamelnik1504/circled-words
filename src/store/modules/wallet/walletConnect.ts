@@ -72,9 +72,9 @@ class WalletConnect extends VuexModule {
       .then((address) => {
         const web3Provider = new providers.Web3Provider(provider);
         this.context.commit("setWeb3WalletConnectProvider", web3Provider);
-        this.context.commit("setWalletAddress", address[0]);
-        this.context.commit("setWalletType", "walletConnect");
-        this.context.commit("setConnected");
+        this.context.commit("wallet/setWalletAddress", address[0], { root: true });
+        this.context.commit("wallet/setWalletType", "walletConnect", { root: true });
+        this.context.commit("wallet/setConnected", true, { root: true });
         return "connected";
       })
       .catch((error) => {

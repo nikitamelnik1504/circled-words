@@ -40,7 +40,7 @@ class Wallet extends VuexModule {
   @Action
   public resetWalletState(closeSession: boolean = false) {
     if (closeSession && this.context.getters.isWalletConnectConnected) {
-      this.context.getters.getWalletConnectProvider.disconnect();
+      this.context.rootGetters['walletConnect/getWalletConnectProvider'].disconnect();
     }
     this.context.commit("setDefaultWalletState");
   }

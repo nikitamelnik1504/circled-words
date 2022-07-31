@@ -104,7 +104,7 @@ export default class App extends Vue {
       if (this.isWalletConnectConnected) {
         this.resetWalletState(false);
         await Promise.resolve(await this.connectToWalletConnect()).then(() => {
-          this.updateWalletConnectProvider(this.getWalletConnectEvents());
+          this.addWalletConnectEventListeners(this.getWalletConnectEvents());
         });
       }
     }
