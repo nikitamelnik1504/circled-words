@@ -6,16 +6,18 @@ const getDefaultWalletState = () => {
     type: "",
     walletAddress: "",
     connected: false,
-    chainId: ""
+    chainId: "",
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 @Module({ namespaced: true, name: "wallet", store })
 class Wallet extends VuexModule {
-  public wallet: object = getDefaultWalletState();
+  public wallet = getDefaultWalletState();
 
   public get isMetamaskConnected(): boolean {
-    return this.wallet.type === "metamask" && this.wallet.connected === true;
+    return this.wallet.type === "metamask" && this.wallet.connected;
   }
 
   public get getWalletAddress(): string {
@@ -23,9 +25,7 @@ class Wallet extends VuexModule {
   }
 
   public get isWalletConnectConnected(): boolean {
-    return (
-      this.wallet.type === "walletConnect" && this.wallet.connected === true
-    );
+    return this.wallet.type === "walletConnect" && this.wallet.connected;
   }
 
   public get getChainId(): string {
@@ -38,15 +38,17 @@ class Wallet extends VuexModule {
   }
 
   @Action
-  public resetWalletState(closeSession: boolean = false) {
+  public resetWalletState(closeSession = false) {
     if (closeSession && this.context.getters.isWalletConnectConnected) {
-      this.context.rootGetters['walletConnect/getWalletConnectProvider'].disconnect();
+      this.context.rootGetters[
+        "walletConnect/getWalletConnectProvider"
+      ].disconnect();
     }
     this.context.commit("setDefaultWalletState");
   }
 
   @Mutation
-  public setWalletType(type): void {
+  public setWalletType(type: string): void {
     this.wallet.type = type;
   }
 
@@ -61,10 +63,9 @@ class Wallet extends VuexModule {
   }
 
   @Mutation
-  public setWalletAddress(address): void {
+  public setWalletAddress(address: string): void {
     this.wallet.walletAddress = address;
   }
-
 }
 
 export default Wallet;
