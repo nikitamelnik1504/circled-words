@@ -32,5 +32,10 @@
         "src/*"
       ]
     }
-  }
+  },
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    }
+  ]
 }

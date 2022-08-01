@@ -6,7 +6,8 @@
     "build": "vite build",
     "preview": "vite preview --port 5050",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --fix src",
-    "format": "prettier .  --write"
+    "format": "prettier .  --write",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
@@ -32,6 +33,7 @@
     "web3": "^1.7.3"
   },
   "devDependencies": {
+    "husky": "^8.0.1",
     "@typescript-eslint/parser": "^5.31.0",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vue/tsconfig": "^0.1.3",
