@@ -8,10 +8,10 @@
 
 deploy_production:
   variables:
-    REMOTE_HOST: '195.179.193.31'
-    PROJECT_ROOT: '/var/www/site'
+    REMOTE_HOST: "195.179.193.31"
+    PROJECT_ROOT: "/var/www/site"
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$PROD_SSH" | base64 -d)
     - mkdir -p ~/.ssh

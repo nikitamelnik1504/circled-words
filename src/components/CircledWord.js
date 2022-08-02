@@ -2,11 +2,11 @@ import colors from "@/assets/libraries/colors.json";
 
 export const metadata_getters = {
   getTitle(metadata) {
-    let hash_position = metadata.name.indexOf("#");
+    const hash_position = metadata.name.indexOf("#");
     return metadata.name.substring(hash_position);
   },
   getTraits(metadata) {
-    let traits = {};
+    const traits = {};
     metadata.traits.forEach((trait) => {
       traits[trait.trait_type] = trait.value;
     });
@@ -40,15 +40,15 @@ export const trait_getters = {
 };
 
 export const getWord = (metadata) => {
-  let data = {
+  const data = {
     elementClass: String,
     elementStyle: Object,
     title: metadata_getters.getTitle(metadata),
   };
-  let traits = metadata_getters.getTraits(metadata);
+  const traits = metadata_getters.getTraits(metadata);
 
   if (traits && Object.keys(traits).length !== 0) {
-    let animation_type = trait_getters.getAnimationType(traits);
+    const animation_type = trait_getters.getAnimationType(traits);
 
     // @TODO: replace to IIFE.
     const animation_types = {

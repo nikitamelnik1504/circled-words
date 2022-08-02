@@ -44,13 +44,12 @@ const benefits = [
   { value: "Possibility to play with buttons that you owned on our site." },
 ];
 
-@Options({
-})
+@Options({})
 export default class BenefitsBlock extends Vue {
   benefitsData = this.getBenefitsData();
 
   getBenefitsData() {
     return benefits;
   }
-};
+}
 </script>

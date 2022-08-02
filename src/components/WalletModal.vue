@@ -56,7 +56,7 @@
                 <span
                   :class="{ 'd-none': isWalletConnectInitialized }"
                   class="position-absolute wallet-loader top-0 bottom-0 end-0 start-0 d-flex justify-content-center align-items-center"
-                >Loading...</span
+                  >Loading...</span
                 >
                 <img
                   class="w-100"
@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Ref } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 
 const wallet = namespace("wallet");
@@ -83,7 +83,6 @@ const walletConnect = namespace("walletConnect");
 
 @Options({})
 export default class WalletModal extends Vue {
-
   public $router;
 
   @wallet.Getter
@@ -102,10 +101,14 @@ export default class WalletModal extends Vue {
   public connectToMetamask!: () => Promise<string>;
 
   @metamask.Action
-  public removeMetamaskEventListeners!: (events) => Promise<any>;
+  public removeMetamaskEventListeners!: (
+    events: Record<string, unknown>
+  ) => Promise<void>;
 
   @metamask.Action
-  public addMetamaskEventListeners!: (events) => Promise<any>;
+  public addMetamaskEventListeners!: (
+    events: Record<string, unknown>
+  ) => Promise<void>;
 
   @walletConnect.Getter
   public isWalletConnectInitialized!: () => boolean;
@@ -114,12 +117,18 @@ export default class WalletModal extends Vue {
   public connectToWalletConnect!: () => Promise<string>;
 
   @walletConnect.Action
-  public addWalletConnectEventListeners!: (events) => Promise<any>;
+  public addWalletConnectEventListeners!: (
+    events: Record<string, unknown>
+  ) => Promise<void>;
 
   @walletConnect.Action
-  public removeWalletConnectEventListeners!: (events) => Promise<any>;
+  public removeWalletConnectEventListeners!: (
+    events: Record<string, unknown>
+  ) => Promise<void>;
 
-  public metamaskLink(event) {
+  @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
+
+  public metamaskLink(event: Event) {
     if (this.isMetamaskInstalled) {
       event.preventDefault();
       this.showMetamaskModal();
@@ -127,26 +136,23 @@ export default class WalletModal extends Vue {
   }
 
   public async showWalletConnectModal() {
-    let connectionToWalletConnect = this.connectToWalletConnect();
-    let walletConnectEvents = this.getWalletConnectEvents();
-    let walletModalCloseButton = this.$refs.CloseWalletModal;
+    const connectionToWalletConnect = this.connectToWalletConnect();
+    const walletConnectEvents = this.getWalletConnectEvents();
     connectionToWalletConnect.then((result) => {
       if (result === "connected") {
         this.addWalletConnectEventListeners(walletConnectEvents);
-        walletModalCloseButton.click();
+        this.closeWalletModal.click();
       }
     });
   }
 
   public async showMetamaskModal() {
-    let connectionToMetaMask = this.connectToMetamask();
-    let metamaskEvents = this.getMetamaskEvents();
-    let walletModalCloseButton = this.$refs.CloseWalletModal;
-    const globalObject = this;
-    connectionToMetaMask.then(function(result) {
+    const connectionToMetaMask = this.connectToMetamask();
+    const metamaskEvents = this.getMetamaskEvents();
+    connectionToMetaMask.then((result) => {
       if (result === "connected") {
-        globalObject.addMetamaskEventListeners(metamaskEvents);
-        walletModalCloseButton.click();
+        this.addMetamaskEventListeners(metamaskEvents);
+        this.closeWalletModal.click();
       }
     });
   }
@@ -163,13 +169,13 @@ export default class WalletModal extends Vue {
 
   public getMetamaskEvents() {
     return {
-      accountsChanged: this.metamaskAccountsChangedEvent
+      accountsChanged: this.metamaskAccountsChangedEvent,
     };
   }
 
   public getWalletConnectEvents() {
     return {
-      disconnect: this.walletConnectAccountsChangedEvent
+      disconnect: this.walletConnectAccountsChangedEvent,
     };
   }
 
@@ -183,6 +189,5 @@ export default class WalletModal extends Vue {
       );
     }
   }
-
 }
 </script>

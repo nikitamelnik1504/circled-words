@@ -21,11 +21,10 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
   name: "App",
   components: {
     Header,
-    Footer
-  }
+    Footer,
+  },
 })
 export default class App extends Vue {
-
   public $router;
 
   public async getMetamaskProviderFromDom() {
@@ -45,28 +44,30 @@ export default class App extends Vue {
   public resetWalletState!: (closeSession: boolean) => void;
 
   @metamask.Action
-  public updateMetamaskProvider!: (provider) => void;
+  public updateMetamaskProvider!: (provider: object) => void;
 
   @metamask.Action
   public connectToMetamask!: () => Promise<string>;
 
   @metamask.Action
-  public addMetamaskEventListeners!: (events) => Promise<any>;
+  public addMetamaskEventListeners!: (events: object) => Promise<void>;
 
   @metamask.Action
-  public removeMetamaskEventListeners!: (events) => Promise<any>;
+  public removeMetamaskEventListeners!: (events: object) => Promise<string>;
 
   @walletConnect.Action
-  public removeWalletConnectEventListeners!: (events) => Promise<any>;
+  public removeWalletConnectEventListeners!: (
+    events: object
+  ) => Promise<string>;
 
   @walletConnect.Action
   public connectToWalletConnect!: () => Promise<string>;
 
   @walletConnect.Action
-  public updateWalletConnectProvider!: (provider) => void;
+  public updateWalletConnectProvider!: (provider: object) => void;
 
   @walletConnect.Action
-  public addWalletConnectEventListeners!: (events) => Promise<any>;
+  public addWalletConnectEventListeners!: (events: object) => Promise<string>;
 
   @walletConnect.Action
   public updateWalletConnectInitialization!: () => void;
@@ -78,9 +79,8 @@ export default class App extends Vue {
   async created() {
     const metamaskProvider = await this.getMetamaskProviderFromDom();
     const walletConnectProvider = await this.getWalletConnectProvider();
-    const globalObject = this;
-    Promise.resolve(walletConnectProvider).then(function() {
-      globalObject.updateWalletConnectInitialization();
+    Promise.resolve(walletConnectProvider).then(() => {
+      this.updateWalletConnectInitialization();
     });
 
     if (metamaskProvider) {
@@ -123,13 +123,13 @@ export default class App extends Vue {
 
   async getWalletConnectProvider() {
     return new WalletConnectProvider({
-      infuraId: "270dd5535d1344b2a5a507a081f3d45b"
+      infuraId: "270dd5535d1344b2a5a507a081f3d45b",
     });
   }
 
   getMetamaskEvents() {
     return {
-      accountsChanged: this.walletConnectAccountsChangedEvent
+      accountsChanged: this.walletConnectAccountsChangedEvent,
     };
   }
 
@@ -140,7 +140,7 @@ export default class App extends Vue {
 
   getWalletConnectEvents() {
     return {
-      disconnect: this.walletConnectAccountsChangedEvent
+      disconnect: this.walletConnectAccountsChangedEvent,
     };
   }
 

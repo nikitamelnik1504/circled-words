@@ -1,13 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*.vue",
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["env.d.ts", "src/**/*.vue", "src/**/*.ts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
     "sourceMap": false,
@@ -22,15 +16,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "removeComments": false,
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "paths": {
-      "@*": [
-        "src/*"
-      ]
+      "@*": ["src/*"]
     }
   },
   "references": [

@@ -70,13 +70,13 @@ export default class SloganBlock extends Vue {
   }
 
   getWordsData() {
-    let data = [];
+    const data = [];
     this.getSloganWords().forEach((word) => {
-      let current_word = getWord(word);
+      const current_word = getWord(word);
       current_word.link = word.link;
       data.push(current_word);
     });
     return data;
   }
-};
+}
 </script>

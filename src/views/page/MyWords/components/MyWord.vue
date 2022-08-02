@@ -15,11 +15,11 @@ import { Vue, Options, Prop } from "vue-property-decorator";
 
 @Options({
   components: {
-    CircledWord
-  }
+    CircledWord,
+  },
 })
 export default class MyWord extends Vue {
-  @Prop({ type: Object, required: true }) readonly metadata!: Object;
+  @Prop({ type: Object, required: true }) readonly metadata!;
 
   wordData = {};
 
@@ -31,5 +31,4 @@ export default class MyWord extends Vue {
     this.wordData = this.getData();
   }
 }
-
 </script>

@@ -23,9 +23,8 @@ import Slogan from "./components/SloganBlock.vue";
     Description,
     Stats,
     Benefits,
-    Help
+    Help,
   },
 })
-export default class Home extends Vue {
-};
+export default class Home extends Vue {}
 </script>

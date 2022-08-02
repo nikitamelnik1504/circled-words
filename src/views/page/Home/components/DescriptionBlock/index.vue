@@ -39,7 +39,7 @@ import { Vue, Options } from "vue-property-decorator";
 import SampleWord from "./components/SampleWord.vue";
 import sampleWords from "@/components/json/homepage_circled_word_samples.json";
 
-@Options ({
+@Options({
   name: "DescriptionBlock",
   components: {
     SampleWord,
@@ -52,5 +52,5 @@ export default class DescriptionBlock extends Vue {
   getSampleWords() {
     return sampleWords;
   }
-};
+}
 </script>

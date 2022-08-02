@@ -64,5 +64,5 @@ export default class StatsBlock extends Vue {
   getStatsData() {
     return stats;
   }
-};
+}
 </script>

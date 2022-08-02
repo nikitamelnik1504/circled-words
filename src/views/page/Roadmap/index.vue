@@ -8,6 +8,5 @@ import { Vue, Options } from "vue-property-decorator";
 @Options({
   name: "RoadmapPage",
 })
-export default class Roadmap extends Vue {
-};
+export default class Roadmap extends Vue {}
 </script>

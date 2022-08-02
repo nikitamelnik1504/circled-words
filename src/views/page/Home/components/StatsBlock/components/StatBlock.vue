@@ -33,6 +33,5 @@ import { Vue, Options } from "vue-property-decorator";
     },
   },
 })
-export default class StatBlock extends Vue {
-};
+export default class StatBlock extends Vue {}
 </script>

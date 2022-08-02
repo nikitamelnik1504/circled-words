@@ -31,8 +31,7 @@ export default defineComponent({
   methods: {
     onResize() {
       this.freeHeight = getFreeHeight(true);
-    }
-  }
+    },
+  },
 });
-
 </script>

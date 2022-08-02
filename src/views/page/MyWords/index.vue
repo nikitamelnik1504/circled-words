@@ -78,8 +78,8 @@ import axios from "axios";
 @Options({
   name: "MyWordsPage",
   components: {
-    MyWord
-  }
+    MyWord,
+  },
 })
 export default class MyWords extends Vue {
   assets = [];
@@ -162,31 +162,29 @@ export default class MyWords extends Vue {
       collection: "circledwords",
       order_direction: "desc",
       limit: 50,
-      include_orders: false
+      include_orders: false,
     };
     let request_string = "";
-    for (let param in request_params) {
+    for (const param in request_params) {
       if (request_string !== "") {
         request_string += "&";
       }
-      request_string +=
-        param + "=" + encodeURIComponent(request_params[param]);
+      request_string += param + "=" + encodeURIComponent(request_params[param]);
     }
 
-    let request_url =
+    const request_url =
       "https://api.opensea.io/api/v1/assets?" + request_string;
 
     return axios.get(request_url, {
       headers: {
         Accept: "application/json",
-        "X-API-KEY": "c53720a2d2324aca85614b30e3000a83"
-      }
+        "X-API-KEY": "c53720a2d2324aca85614b30e3000a83",
+      },
     });
   }
 
   onResize() {
     this.freeHeight = getFreeHeight(true);
   }
-
 }
 </script>

@@ -14,8 +14,8 @@ function getFooterHeight() {
 }
 
 function getHeaderHeight() {
-  let header = document.getElementById("header");
-  let navbar = document.getElementById("navbarNav");
+  const header = document.getElementById("header");
+  const navbar = document.getElementById("navbarNav");
   if (
     navbar.classList.contains("collapsing") ||
     navbar.classList.contains("show")

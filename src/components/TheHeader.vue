@@ -8,9 +8,9 @@
           @click="toggleNavbar()"
         >
           <img src="../assets/images/logo.svg" alt="" class="me-1" /><span
-          class="logo-primary-text"
-        >Circled</span
-        ><span class="logo-secondary-text">Words</span>
+            class="logo-primary-text"
+            >Circled</span
+          ><span class="logo-secondary-text">Words</span>
         </router-link>
         <button
           class="navbar-toggler"
@@ -98,11 +98,10 @@ const wallet = namespace("wallet");
 
 @Options({
   components: {
-    WalletModal
-  }
+    WalletModal,
+  },
 })
 export default class TheHeader extends Vue {
-
   @wallet.Getter
   public isMetamaskConnected!: () => boolean;
 
@@ -123,5 +122,4 @@ export default class TheHeader extends Vue {
     }
   }
 }
-
 </script>

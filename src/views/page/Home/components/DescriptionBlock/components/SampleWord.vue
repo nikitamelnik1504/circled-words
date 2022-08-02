@@ -54,22 +54,22 @@ export default class SampleWord extends Vue {
   name = metadata_getters.getTitle(this.metadata);
 
   getSampleWordData() {
-    let data = {};
+    const data = {};
 
     if (!("sample_data" in this.metadata)) {
       return;
     }
-    let sample_data = this.metadata.sample_data;
+    const sample_data = this.metadata.sample_data;
 
     if (!("updated" in sample_data)) {
       return;
     }
-    let updated_circled_properties = sample_data.updated;
+    const updated_circled_properties = sample_data.updated;
 
-    let traits = metadata_getters.getTraits(this.metadata);
+    const traits = metadata_getters.getTraits(this.metadata);
 
-    let result = {};
-    for (let property in traits) {
+    const result = {};
+    for (const property in traits) {
       result[property] = {
         value: traits[property],
         updated: updated_circled_properties.includes(property),
@@ -85,7 +85,7 @@ export default class SampleWord extends Vue {
     }
 
     data["adventureText"] =
-        "adventure_text" in sample_data ? sample_data.adventure_text : false;
+      "adventure_text" in sample_data ? sample_data.adventure_text : false;
 
     return data;
   }
