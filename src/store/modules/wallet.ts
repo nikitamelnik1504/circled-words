@@ -16,16 +16,20 @@ const getDefaultWalletState = () => {
 class Wallet extends VuexModule {
   public wallet = getDefaultWalletState();
 
-  public get isMetamaskConnected(): boolean {
-    return this.wallet.type === "metamask" && this.wallet.connected;
+  public get isMetamaskConnected(): string {
+    return this.wallet.type === "metamask" && this.wallet.connected
+      ? "connected"
+      : "not_connected";
   }
 
   public get getWalletAddress(): string {
     return this.wallet.walletAddress;
   }
 
-  public get isWalletConnectConnected(): boolean {
-    return this.wallet.type === "walletConnect" && this.wallet.connected;
+  public get isWalletConnectConnected(): string {
+    return this.wallet.type === "walletConnect" && this.wallet.connected
+      ? "connected"
+      : "not_connected";
   }
 
   public get getChainId(): string {
@@ -39,7 +43,10 @@ class Wallet extends VuexModule {
 
   @Action
   public resetWalletState(closeSession = false) {
-    if (closeSession && this.context.getters.isWalletConnectConnected) {
+    if (
+      closeSession &&
+      this.context.getters.isWalletConnectConnected === "connected"
+    ) {
       this.context.rootGetters[
         "walletConnect/getWalletConnectProvider"
       ].disconnect();

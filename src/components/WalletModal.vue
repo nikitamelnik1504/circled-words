@@ -86,10 +86,10 @@ export default class WalletModal extends Vue {
   public $router;
 
   @wallet.Getter
-  public isMetamaskConnected!: () => boolean;
+  public isMetamaskConnected!: () => string;
 
   @wallet.Getter
-  public isWalletConnectConnected!: () => boolean;
+  public isWalletConnectConnected!: () => string;
 
   @wallet.Action
   public resetWalletState!: (closeSession: boolean) => void;

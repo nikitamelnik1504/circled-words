@@ -3,7 +3,10 @@
     <section class="row">
       <div class="col-12" :style="{ 'min-height': freeHeight + 'px' }">
         <div
-          v-if="isMetamaskConnected || isWalletConnectConnected"
+          v-if="
+            isMetamaskConnected === 'connected' ||
+            isWalletConnectConnected === 'connected'
+          "
           class="h-100"
         >
           <div v-if="loaded === true" class="h-100">
@@ -87,10 +90,10 @@ export default class MyWords extends Vue {
   loaded = false;
 
   @wallet.Getter
-  public isMetamaskConnected!: () => boolean;
+  public isMetamaskConnected!: () => string;
 
   @wallet.Getter
-  public isWalletConnectConnected!: () => boolean;
+  public isWalletConnectConnected!: () => string;
 
   @wallet.Getter
   public getWalletAddress!: () => string;
@@ -102,10 +105,10 @@ export default class MyWords extends Vue {
   public connectToWalletConnect!: () => Promise<string>;
 
   mounted() {
-    if (this.isMetamaskConnected === true) {
+    if (this.isMetamaskConnected === "connected") {
       this.loadAssetsFromMetamask();
     }
-    if (this.isWalletConnectConnected === true) {
+    if (this.isWalletConnectConnected === "connected") {
       this.loadAssetsFromWalletConnect();
     }
     this.onResize();
@@ -116,20 +119,20 @@ export default class MyWords extends Vue {
 
   @Watch("isWalletConnectConnected")
   onWalletConnectConnected(newValue) {
-    if (newValue === true) {
+    if (newValue === "connected") {
       this.loadAssetsFromWalletConnect();
     }
-    if (newValue === false) {
+    if (newValue === "not_connected ") {
       this.assets = [];
     }
   }
 
   @Watch("isMetamaskConnected")
   onMetamaskConnected(newValue) {
-    if (newValue === true) {
+    if (newValue === "connected") {
       this.loadAssetsFromMetamask();
     }
-    if (newValue === false) {
+    if (newValue === "not_connected") {
       this.assets = [];
     }
   }

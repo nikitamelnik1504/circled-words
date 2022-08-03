@@ -32,13 +32,13 @@ export default class App extends Vue {
   }
 
   @wallet.Getter
-  public isMetamaskConnected!: () => boolean;
+  public isMetamaskConnected!: () => string;
 
   @wallet.Getter
   public getChainId!: () => string;
 
   @wallet.Getter
-  public isWalletConnectConnected!: () => boolean;
+  public isWalletConnectConnected!: () => string;
 
   @wallet.Action
   public resetWalletState!: (closeSession: boolean) => void;
@@ -85,7 +85,7 @@ export default class App extends Vue {
 
     if (metamaskProvider) {
       this.updateMetamaskProvider(metamaskProvider);
-      if (this.isMetamaskConnected) {
+      if (this.isMetamaskConnected === "connected") {
         this.resetWalletState(false);
         // @TODO: Implement promise wait.
         await Promise.resolve(await this.connectToMetamask()).then(() => {
@@ -101,7 +101,7 @@ export default class App extends Vue {
     }
     if (walletConnectProvider) {
       this.updateWalletConnectProvider(walletConnectProvider);
-      if (this.isWalletConnectConnected) {
+      if (this.isWalletConnectConnected === "connected") {
         this.resetWalletState(false);
         await Promise.resolve(await this.connectToWalletConnect()).then(() => {
           this.addWalletConnectEventListeners(this.getWalletConnectEvents());

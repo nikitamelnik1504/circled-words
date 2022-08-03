@@ -10,8 +10,8 @@ router.beforeEach(async (to) => {
 
   if (requiresAuth) {
     if (
-      (await store.getters.isMetamaskConnected) === false &&
-      (await store.getters.isWalletConnectConnected) === false
+      (await store.getters.isMetamaskConnected) === "not_connected" &&
+      (await store.getters.isWalletConnectConnected) === "not_connected"
     ) {
       return "/403-error";
     }

@@ -62,7 +62,10 @@
             </li>
             <li class="nav-item connect-wallet-link">
               <button
-                v-if="!isMetamaskConnected && !isWalletConnectConnected"
+                v-if="
+                  isMetamaskConnected === 'not_connected' &&
+                  isWalletConnectConnected === 'not_connected'
+                "
                 type="button"
                 href="#"
                 class="nav-link px-3"
@@ -94,6 +97,7 @@ import WalletModal from "@/components/WalletModal.vue";
 import { Collapse } from "bootstrap";
 import { Vue, Options } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
+
 const wallet = namespace("wallet");
 
 @Options({
@@ -103,10 +107,10 @@ const wallet = namespace("wallet");
 })
 export default class TheHeader extends Vue {
   @wallet.Getter
-  public isMetamaskConnected!: () => boolean;
+  public isMetamaskConnected!: () => string;
 
   @wallet.Getter
-  public isWalletConnectConnected!: () => boolean;
+  public isWalletConnectConnected!: () => string;
 
   @wallet.Action
   public resetWalletState!: (closeSession: boolean) => void;
