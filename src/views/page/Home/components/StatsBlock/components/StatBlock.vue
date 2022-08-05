@@ -15,23 +15,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Prop } from "vue-property-decorator";
 
-@Options({
-  props: {
-    value: {
-      required: true,
-      type: Number,
-    },
-    title: {
-      required: true,
-      type: String,
-    },
-    description: {
-      required: true,
-      type: String,
-    },
-  },
-})
-export default class StatBlock extends Vue {}
+@Options({})
+export default class StatBlock extends Vue {
+  @Prop({ type: Number, required: true }) readonly value!: number;
+  @Prop({ type: String, required: true }) readonly title!: string;
+  @Prop({ type: String, required: true }) readonly description!: string;
+}
 </script>

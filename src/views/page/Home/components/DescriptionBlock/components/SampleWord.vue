@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Prop } from "vue-property-decorator";
 import CircledWord from "@/components/CircledWord.vue";
 import { getWord, metadata_getters } from "@/components/CircledWord.js";
 import colors from "@/assets/libraries/colors.json";
@@ -41,19 +41,15 @@ import colors from "@/assets/libraries/colors.json";
   components: {
     CircledWord,
   },
-  props: {
-    metadata: {
-      type: Object,
-      required: true,
-    },
-  },
 })
 export default class SampleWord extends Vue {
+  @Prop({ type: Object, required: true }) readonly metadata!: object;
+
   wordData = getWord(this.metadata);
   sampleWordData = this.getSampleWordData();
   name = metadata_getters.getTitle(this.metadata);
 
-  getSampleWordData() {
+  getSampleWordData(): object | undefined {
     const data = {};
 
     if (!("sample_data" in this.metadata)) {

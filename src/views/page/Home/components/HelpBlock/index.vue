@@ -65,7 +65,7 @@ const help = [
 export default class HelpBlock extends Vue {
   helpData = this.getHelpData();
 
-  getHelpData() {
+  getHelpData(): object {
     return help;
   }
 }

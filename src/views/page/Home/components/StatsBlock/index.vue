@@ -61,7 +61,7 @@ const stats = [
 export default class StatsBlock extends Vue {
   statsData = this.getStatsData();
 
-  getStatsData() {
+  getStatsData(): object {
     return stats;
   }
 }

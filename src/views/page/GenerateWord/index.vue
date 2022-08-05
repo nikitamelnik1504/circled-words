@@ -109,32 +109,32 @@ export default class GenerateWord extends Vue {
     this.wordData = getWord(val);
   }
 
-  mounted() {
+  mounted(): void {
     this.wordData = getWord(this.wordProperties);
     this.onResize();
-    this.$nextTick(() => {
+    this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });
   }
 
-  onResize() {
+  onResize(): void {
     this.freeHeight = getFreeHeight(true);
   }
 
-  finishAnimation() {
+  finishAnimation(): void {
     this.generateForm.style.display = "block";
     this.runAnimation = false;
     this.startTimeElement.style.display = "block";
     this.startTime = 3;
   }
 
-  startAnimation() {
+  startAnimation(): void {
     this.generateForm.style.display = "none";
     if (this.startTime <= 0) {
       this.startTimeElement.style.display = "none";
     }
     if (this.startTime > -1) {
-      setTimeout(() => {
+      setTimeout((): void => {
         this.startTime -= 1;
         this.startAnimation();
       }, 1000);

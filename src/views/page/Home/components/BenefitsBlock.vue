@@ -48,7 +48,7 @@ const benefits = [
 export default class BenefitsBlock extends Vue {
   benefitsData = this.getBenefitsData();
 
-  getBenefitsData() {
+  getBenefitsData(): object {
     return benefits;
   }
 }

@@ -49,7 +49,7 @@ export default class DescriptionBlock extends Vue {
   sampleWordsData = this.getSampleWords();
 
   // Warning!!! Especial examples metadata differs from OpenSea.
-  getSampleWords() {
+  getSampleWords(): object {
     return sampleWords;
   }
 }

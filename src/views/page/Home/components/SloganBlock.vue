@@ -54,22 +54,22 @@ export default class SloganBlock extends Vue {
   freeHeight = Number;
   wordsData = this.getWordsData();
 
-  mounted() {
+  mounted(): void {
     this.onResize();
-    this.$nextTick(() => {
+    this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });
   }
 
-  onResize() {
+  onResize(): void {
     this.freeHeight = getFreeHeight();
   }
 
-  getSloganWords() {
+  getSloganWords(): object[] {
     return sloganWords;
   }
 
-  getWordsData() {
+  getWordsData(): object {
     const data = [];
     this.getSloganWords().forEach((word) => {
       const current_word = getWord(word);
