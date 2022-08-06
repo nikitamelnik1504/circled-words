@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, Prop, Ref, Watch } from "vue-property-decorator";
+import { Vue, Options, Prop, Ref, Watch, Emit } from "vue-property-decorator";
 
 @Options({})
 export default class CircledWord extends Vue {
@@ -52,7 +52,10 @@ export default class CircledWord extends Vue {
     this.circledWord.addEventListener("transitionend", startTransitionEvent);
   }
 
-  emits: ["animationCompleted"]; // @todo Move emit to decorator.
+  @Emit()
+  animationCompleted(): void {
+    return;
+  }
 
   mounted() {
     if (this.autoplayAnimation) {
@@ -63,7 +66,7 @@ export default class CircledWord extends Vue {
   createWordAnimationCompleted() {
     const endTransitionEvent = () => {
       setTimeout(() => {
-        this.$emit("animationCompleted");
+        this.animationCompleted();
         this.circledWord.removeEventListener(
           "transitionend",
           endTransitionEvent
