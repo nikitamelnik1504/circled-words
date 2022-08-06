@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { getFreeHeight } from "@/utils/layout-space";
 
 export default {
   name: "404Page",

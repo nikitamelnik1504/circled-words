@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { getFreeHeight } from "@/utils/layout-space";
 
 export default defineComponent({
   name: "403Page",

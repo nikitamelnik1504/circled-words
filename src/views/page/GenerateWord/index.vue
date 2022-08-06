@@ -73,7 +73,7 @@
 
 <script lang="ts">
 import { Vue, Options, Ref, Watch } from "vue-property-decorator";
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { getFreeHeight } from "@/utils/layout-space";
 import CircledWord from "@/components/CircledWord.vue";
 import getWord from "@/components/CircledWord.js";
 

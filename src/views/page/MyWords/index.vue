@@ -68,7 +68,7 @@
 <script lang="ts">
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { getFreeHeight } from "@/utils/layout-space";
 import { Vue, Options, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 
