@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import CircledWord from "@/components/CircledWord.vue";
-import getWord from "@/components/CircledWord.js";
+import CircledWordNFT from "@/utils/circled-word-nft";
 import { Vue, Options, Prop } from "vue-property-decorator";
 
 @Options({
@@ -19,16 +19,8 @@ import { Vue, Options, Prop } from "vue-property-decorator";
   },
 })
 export default class MyWord extends Vue {
-  @Prop({ type: Object, required: true }) readonly metadata!;
+  @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
 
-  wordData = {};
-
-  getData() {
-    return getWord(this.metadata);
-  }
-
-  mounted() {
-    this.wordData = this.getData();
-  }
+  wordData: CircledWordElement = new CircledWordNFT(this.metadata).getElement();
 }
 </script>

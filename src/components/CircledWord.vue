@@ -25,7 +25,7 @@ export default class CircledWord extends Vue {
   public animationRunning = false;
   public createAnimation = false;
 
-  @Prop({ required: true }) readonly wordData!: unknown; // @todo Add type.
+  @Prop({ required: true }) readonly wordData!: CircledWordElement;
   @Prop({ type: String, default: "#" }) readonly link!: string;
   @Prop({ type: Boolean, default: false }) readonly autoplayAnimation!: boolean;
   @Prop({ type: Boolean, default: false })

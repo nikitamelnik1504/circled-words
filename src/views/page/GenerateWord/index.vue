@@ -75,7 +75,7 @@
 import { Vue, Options, Ref, Watch } from "vue-property-decorator";
 import { getFreeHeight } from "@/utils/layout-space";
 import CircledWord from "@/components/CircledWord.vue";
-import getWord from "@/components/CircledWord.js";
+import CircledWordNFT from "@/utils/circled-word-nft";
 
 @Options({
   name: "GenerateWordPage",
@@ -85,32 +85,33 @@ import getWord from "@/components/CircledWord.js";
 })
 export default class GenerateWord extends Vue {
   freeHeight = Number;
-  wordProperties = {
+  wordProperties: NFTMetadata = {
     name: "CircledWord #1",
     traits: [
       { trait_type: "Animation Type", value: "Fill In" },
       { trait_type: "Text Color", value: "White" },
       { trait_type: "Border Color", value: "White" },
       { trait_type: "Background Color", value: "White" },
-      { trait_type: "Animation Duration", value: 1 },
+      { trait_type: "Animation Duration", value: "1" },
       { trait_type: "Second Text Color", value: "Black" },
       { trait_type: "Second Border Color", value: "White" },
     ],
   };
   startTime = 3;
-  wordData = Object;
+  wordData: CircledWordElement = new CircledWordNFT(
+    this.wordProperties
+  ).getElement();
   runAnimation = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
   @Ref("startTimeElement") readonly startTimeElement!: HTMLHeadingElement;
 
   @Watch("wordProperties", { deep: true })
-  handler(val: object): void {
-    this.wordData = getWord(val);
+  handler(val: NFTMetadata): void {
+    this.wordData = new CircledWordNFT(val).getElement();
   }
 
   mounted(): void {
-    this.wordData = getWord(this.wordProperties);
     this.onResize();
     this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);

@@ -40,10 +40,10 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-property-decorator";
-import getWord from "@/components/CircledWord.js";
 import sloganWords from "@/components/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
 import { getFreeHeight } from "@/utils/layout-space";
+import CircledWordNFT from "@/utils/circled-word-nft";
 
 @Options({
   components: {
@@ -65,14 +65,14 @@ export default class SloganBlock extends Vue {
     this.freeHeight = getFreeHeight();
   }
 
-  getSloganWords(): object[] {
-    return sloganWords;
+  getSloganWords(): NFTMetadata[] {
+    return sloganWords as NFTMetadata[];
   }
 
-  getWordsData(): object {
-    const data = [];
-    this.getSloganWords().forEach((word) => {
-      const current_word = getWord(word);
+  getWordsData(): CircledWordElement[] {
+    const data: CircledWordElement[] = [];
+    this.getSloganWords().forEach((word: NFTMetadata) => {
+      const current_word = new CircledWordNFT(word).getElement();
       current_word.link = word.link;
       data.push(current_word);
     });
