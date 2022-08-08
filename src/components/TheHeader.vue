@@ -107,10 +107,10 @@ const wallet = namespace("wallet");
 })
 export default class TheHeader extends Vue {
   @wallet.Getter
-  public isMetamaskConnected!: () => string;
+  public isMetamaskConnected!: string;
 
   @wallet.Getter
-  public isWalletConnectConnected!: () => string;
+  public isWalletConnectConnected!: string;
 
   @wallet.Action
   public resetWalletState!: (closeSession: boolean) => void;
@@ -118,8 +118,11 @@ export default class TheHeader extends Vue {
   @wallet.Mutation
   public setWalletAddress!: (address: string) => void;
 
-  toggleNavbar() {
+  toggleNavbar(): void {
     const menuToggle = document.getElementById("navbarNav");
+    if (!menuToggle) {
+      return;
+    }
     if (menuToggle.classList.contains("show")) {
       const bsCollapse = new Collapse(menuToggle);
       bsCollapse.toggle();

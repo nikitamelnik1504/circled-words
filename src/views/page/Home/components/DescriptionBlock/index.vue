@@ -37,7 +37,7 @@
 <script lang="ts">
 import { Vue, Options } from "vue-property-decorator";
 import SampleWord from "./components/SampleWord.vue";
-import sampleWords from "@/components/json/homepage_circled_word_samples.json";
+import sampleWords from "@/assets/json/homepage_circled_word_samples.json";
 
 @Options({
   name: "DescriptionBlock",
