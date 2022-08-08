@@ -120,7 +120,7 @@ export default class TheHeader extends Vue {
 
   toggleNavbar(): void {
     const menuToggle = document.getElementById("navbarNav");
-    if (menuToggle === null) {
+    if (!menuToggle) {
       return;
     }
     if (menuToggle.classList.contains("show")) {
