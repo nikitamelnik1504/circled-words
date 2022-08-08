@@ -16,6 +16,7 @@
     "@metamask/detect-provider": "^1.2.0",
     "@popperjs/core": "^2.11.5",
     "@rollup/plugin-inject": "^4.0.4",
+    "@types/bootstrap": "^5.2.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "@walletconnect/client": "^1.7.8",
