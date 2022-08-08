@@ -1,9 +1,9 @@
-export function getFreeHeight(footer = false): number | null {
+export function getFreeHeight(footer = false): number {
   const headerHeight = getHeaderHeight();
   const footerHeight = getFooterHeight();
 
   if (!headerHeight || !footerHeight) {
-    return null;
+    return document.documentElement.clientHeight;
   }
 
   if (footer) {
@@ -13,22 +13,22 @@ export function getFreeHeight(footer = false): number | null {
   return document.documentElement.clientHeight - headerHeight;
 }
 
-function getFooterHeight(): number | null {
+function getFooterHeight(): number {
   const footer = document.getElementById("footer");
 
   if (!footer) {
-    return null;
+    return 0;
   }
 
   return footer.clientHeight + 1; // 1px top border height
 }
 
-function getHeaderHeight(): number | null {
+function getHeaderHeight(): number {
   const header = document.getElementById("header");
   const navbar = document.getElementById("navbarNav");
 
   if (!header || !navbar) {
-    return null;
+    return 0;
   }
 
   if (
