@@ -84,7 +84,7 @@ import CircledWordNFT from "@/utils/circled-word-nft";
   },
 })
 export default class GenerateWord extends Vue {
-  freeHeight = Number;
+  freeHeight = getFreeHeight(true);
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
     traits: [
@@ -112,7 +112,6 @@ export default class GenerateWord extends Vue {
   }
 
   mounted(): void {
-    this.onResize();
     this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });

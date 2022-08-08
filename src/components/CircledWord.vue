@@ -34,7 +34,7 @@ export default class CircledWord extends Vue {
   @Ref("circledWord") readonly circledWord!: HTMLLinkElement;
 
   @Watch("createWordAnimation")
-  onCreateWordAnimation(value: boolean) {
+  onCreateWordAnimation(value: boolean): void {
     if (!value) {
       return;
     }
@@ -57,13 +57,13 @@ export default class CircledWord extends Vue {
     return;
   }
 
-  mounted() {
+  mounted(): void {
     if (this.autoplayAnimation) {
       this.runAnimation();
     }
   }
 
-  createWordAnimationCompleted() {
+  createWordAnimationCompleted(): void {
     const endTransitionEvent = () => {
       setTimeout(() => {
         this.animationCompleted();
@@ -76,7 +76,7 @@ export default class CircledWord extends Vue {
     this.circledWord.addEventListener("transitionend", endTransitionEvent);
   }
 
-  runAnimation() {
+  runAnimation(): boolean {
     setTimeout(() => {
       this.runAnimation();
     }, 3000);

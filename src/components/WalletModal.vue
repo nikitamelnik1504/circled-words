@@ -76,6 +76,7 @@
 <script lang="ts">
 import { Vue, Options, Ref } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
+import router from "@/router";
 
 const wallet = namespace("wallet");
 const metamask = namespace("metamask");
@@ -83,19 +84,17 @@ const walletConnect = namespace("walletConnect");
 
 @Options({})
 export default class WalletModal extends Vue {
-  public $router;
+  @wallet.Getter
+  public isMetamaskConnected!: string;
 
   @wallet.Getter
-  public isMetamaskConnected!: () => string;
-
-  @wallet.Getter
-  public isWalletConnectConnected!: () => string;
+  public isWalletConnectConnected!: string;
 
   @wallet.Action
   public resetWalletState!: (closeSession: boolean) => void;
 
   @metamask.Getter
-  public isMetamaskInstalled!: () => boolean;
+  public isMetamaskInstalled!: boolean;
 
   @metamask.Action
   public connectToMetamask!: () => Promise<string>;
@@ -111,7 +110,7 @@ export default class WalletModal extends Vue {
   ) => Promise<void>;
 
   @walletConnect.Getter
-  public isWalletConnectInitialized!: () => boolean;
+  public isWalletConnectInitialized!: boolean;
 
   @walletConnect.Action
   public connectToWalletConnect!: () => Promise<string>;
@@ -128,14 +127,14 @@ export default class WalletModal extends Vue {
 
   @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
 
-  public metamaskLink(event: Event) {
+  public metamaskLink(event: Event): void {
     if (this.isMetamaskInstalled) {
       event.preventDefault();
       this.showMetamaskModal();
     }
   }
 
-  public async showWalletConnectModal() {
+  public async showWalletConnectModal(): Promise<void> {
     const connectionToWalletConnect = this.connectToWalletConnect();
     const walletConnectEvents = this.getWalletConnectEvents();
     connectionToWalletConnect.then((result) => {
@@ -146,7 +145,7 @@ export default class WalletModal extends Vue {
     });
   }
 
-  public async showMetamaskModal() {
+  public async showMetamaskModal(): Promise<void> {
     const connectionToMetaMask = this.connectToMetamask();
     const metamaskEvents = this.getMetamaskEvents();
     connectionToMetaMask.then((result) => {
@@ -157,33 +156,33 @@ export default class WalletModal extends Vue {
     });
   }
 
-  public metamaskAccountsChangedEvent() {
+  public metamaskAccountsChangedEvent(): void {
     this.resetWalletState(false);
-    this.$router.go(this.$router.currentRoute);
+    router.push(router.currentRoute.value);
   }
 
-  public walletConnectAccountsChangedEvent() {
+  public walletConnectAccountsChangedEvent(): void {
     this.resetWalletState(false);
-    this.$router.go(this.$router.currentRoute);
+    router.push(router.currentRoute.value);
   }
 
-  public getMetamaskEvents() {
+  public getMetamaskEvents(): Record<string, () => void> {
     return {
       accountsChanged: this.metamaskAccountsChangedEvent,
     };
   }
 
-  public getWalletConnectEvents() {
+  public getWalletConnectEvents(): Record<string, () => void> {
     return {
       disconnect: this.walletConnectAccountsChangedEvent,
     };
   }
 
-  async unmounted() {
-    if (await this.isMetamaskConnected) {
+  async unmounted(): Promise<void> {
+    if (this.isMetamaskConnected) {
       await this.removeMetamaskEventListeners(this.getMetamaskEvents());
     }
-    if (await this.isWalletConnectConnected) {
+    if (this.isWalletConnectConnected) {
       await this.removeWalletConnectEventListeners(
         this.getWalletConnectEvents()
       );

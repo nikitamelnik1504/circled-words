@@ -76,7 +76,7 @@ const wallet = namespace("wallet");
 const metamask = namespace("metamask");
 const walletConnect = namespace("walletConnect");
 
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 
 @Options({
   name: "MyWordsPage",
@@ -85,18 +85,18 @@ import axios from "axios";
   },
 })
 export default class MyWords extends Vue {
-  assets = [];
-  freeHeight = Number;
+  assets: Array<object> = [];
+  freeHeight = getFreeHeight(true);
   loaded = false;
 
   @wallet.Getter
-  public isMetamaskConnected!: () => string;
+  public isMetamaskConnected!: string;
 
   @wallet.Getter
-  public isWalletConnectConnected!: () => string;
+  public isWalletConnectConnected!: string;
 
   @wallet.Getter
-  public getWalletAddress!: () => string;
+  public getWalletAddress!: string;
 
   @metamask.Action
   public connectToMetamask!: () => Promise<string>;
@@ -104,21 +104,20 @@ export default class MyWords extends Vue {
   @walletConnect.Action
   public connectToWalletConnect!: () => Promise<string>;
 
-  mounted() {
+  mounted(): void {
     if (this.isMetamaskConnected === "connected") {
       this.loadAssetsFromMetamask();
     }
     if (this.isWalletConnectConnected === "connected") {
       this.loadAssetsFromWalletConnect();
     }
-    this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
   }
 
   @Watch("isWalletConnectConnected")
-  onWalletConnectConnected(newValue) {
+  onWalletConnectConnected(newValue: string): void {
     if (newValue === "connected") {
       this.loadAssetsFromWalletConnect();
     }
@@ -128,7 +127,7 @@ export default class MyWords extends Vue {
   }
 
   @Watch("isMetamaskConnected")
-  onMetamaskConnected(newValue) {
+  onMetamaskConnected(newValue: string): void {
     if (newValue === "connected") {
       this.loadAssetsFromMetamask();
     }
@@ -137,30 +136,30 @@ export default class MyWords extends Vue {
     }
   }
 
-  loadAssetsFromWalletConnect() {
+  loadAssetsFromWalletConnect(): void {
     this.connectToWalletConnect().then(() => {
       this.loadAssets().then((result) => {
-        result.data.assets.forEach((item, key) => {
-          this.assets[key] = item;
+        result.data.assets.forEach((item: object) => {
+          this.assets.push(item);
         });
         this.loaded = true;
       });
     });
   }
 
-  loadAssetsFromMetamask() {
+  loadAssetsFromMetamask(): void {
     this.connectToMetamask().then(() => {
       this.loadAssets().then((result) => {
-        result.data.assets.forEach((item, key) => {
-          this.assets[key] = item;
+        result.data.assets.forEach((item: object) => {
+          this.assets.push(item);
         });
         this.loaded = true;
       });
     });
   }
 
-  loadAssets() {
-    const request_params = {
+  loadAssets(): Promise<AxiosResponse<any, any>> {
+    const request_params: Record<string, string | number | boolean> = {
       owner: this.getWalletAddress,
       collection: "circledwords",
       order_direction: "desc",
