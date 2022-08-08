@@ -1,8 +1,3 @@
-declare module "*.json" {
-  const value: any;
-  export default value;
-}
-
 interface CircledWordElement {
   elementClass: string;
   elementStyle: object;

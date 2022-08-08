@@ -158,7 +158,9 @@ export default class MyWords extends Vue {
     });
   }
 
-  loadAssets(): Promise<AxiosResponse<any, any>> {
+  loadAssets(): Promise<
+    AxiosResponse<{ assets: [] }, string | number | boolean>
+  > {
     const request_params: Record<string, string | number | boolean> = {
       owner: this.getWalletAddress,
       collection: "circledwords",

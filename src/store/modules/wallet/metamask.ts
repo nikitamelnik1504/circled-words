@@ -48,7 +48,7 @@ class Metamask extends VuexModule {
   }
 
   @Action
-  public async addMetamaskEventListeners(events: Array<any>): Promise<void> {
+  public async addMetamaskEventListeners(events: Array<string>): Promise<void> {
     const provider = await this.context.getters.getMetamaskProvider;
     for (const event_id in events) {
       provider.on(event_id, events[event_id]);
@@ -56,7 +56,9 @@ class Metamask extends VuexModule {
   }
 
   @Action
-  public async removeMetamaskEventListeners(events: Array<any>): Promise<void> {
+  public async removeMetamaskEventListeners(
+    events: Array<string>
+  ): Promise<void> {
     const provider = await this.context.getters.getMetamaskProvider;
     for (const event_id in events) {
       provider.removeListener(event_id, events[event_id]);

@@ -52,7 +52,7 @@ class WalletConnect extends VuexModule {
 
   @Action
   public async addWalletConnectEventListeners(
-    events: Array<any>
+    events: Array<string>
   ): Promise<void> {
     const provider = await this.context.getters.getWalletConnectProvider;
     for (const event_id in events) {
@@ -62,7 +62,7 @@ class WalletConnect extends VuexModule {
 
   @Action
   public async removeWalletConnectEventListeners(
-    events: Array<any>
+    events: Array<string>
   ): Promise<void> {
     const provider = await this.context.getters.getWalletConnectProvider;
     for (const event_id in events) {
