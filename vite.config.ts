@@ -21,6 +21,8 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       include: ["node_modules/@walletconnect/**"],
       plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
     },
