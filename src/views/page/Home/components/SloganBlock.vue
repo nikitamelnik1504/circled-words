@@ -51,11 +51,10 @@ import CircledWordNFT from "@/utils/circled-word-nft";
   },
 })
 export default class SloganBlock extends Vue {
-  freeHeight = Number;
+  freeHeight = getFreeHeight();
   wordsData = this.getWordsData();
 
   mounted(): void {
-    this.onResize();
     this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });

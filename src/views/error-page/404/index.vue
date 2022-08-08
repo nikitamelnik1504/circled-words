@@ -19,10 +19,9 @@ import { getFreeHeight } from "@/utils/layout-space";
   name: "404Page",
 })
 export default class Error404Page extends Vue {
-  freeHeight = Number;
+  freeHeight = getFreeHeight(true);
 
   mounted(): void {
-    this.onResize();
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
