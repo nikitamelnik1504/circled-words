@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-property-decorator";
-import sloganWords from "@/components/json/homepage_slogan_circled_word_samples.json";
+import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
 import { getFreeHeight } from "@/utils/layout-space";
 import CircledWordNFT from "@/utils/circled-word-nft";
