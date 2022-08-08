@@ -185,7 +185,7 @@ export default class MyWords extends Vue {
     });
   }
 
-  onResize() {
+  onResize(): void {
     this.freeHeight = getFreeHeight(true);
   }
 }
