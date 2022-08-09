@@ -128,7 +128,7 @@ export default class App extends Vue {
 
   getMetamaskEvents(): Record<string, () => void> {
     return {
-      accountsChanged: this.walletConnectAccountsChangedEvent,
+      accountsChanged: this.metamaskAccountsChangedEvent,
     };
   }
 
