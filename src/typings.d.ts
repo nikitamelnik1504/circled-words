@@ -1,3 +1,5 @@
+declare module 'bootstrap';
+
 interface CircledWordElement {
   elementClass: string;
   elementStyle: object;
