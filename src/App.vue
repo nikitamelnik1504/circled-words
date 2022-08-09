@@ -110,10 +110,10 @@ export default class App extends Vue {
   }
 
   async unmounted(): Promise<void> {
-    if (await this.isMetamaskConnected) {
+    if (this.isMetamaskConnected) {
       await this.removeMetamaskEventListeners(this.getMetamaskEvents());
     }
-    if (await this.isWalletConnectConnected) {
+    if (this.isWalletConnectConnected) {
       await this.removeWalletConnectEventListeners(
         this.getWalletConnectEvents()
       );
