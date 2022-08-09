@@ -26,7 +26,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
   },
 })
 export default class App extends Vue {
-  public async getMetamaskProviderFromDom() {
+  public async getMetamaskProviderFromDom(): Promise<unknown> {
     return await detectEthereumProvider();
   }
 
@@ -83,7 +83,7 @@ export default class App extends Vue {
     });
 
     if (metamaskProvider) {
-      this.updateMetamaskProvider(metamaskProvider);
+      this.updateMetamaskProvider(metamaskProvider as object);
       if (this.isMetamaskConnected === "connected") {
         this.resetWalletState(false);
         // @TODO: Implement promise wait.
