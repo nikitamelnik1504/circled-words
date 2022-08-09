@@ -158,12 +158,12 @@ export default class WalletModal extends Vue {
 
   public metamaskAccountsChangedEvent(): void {
     this.resetWalletState(false);
-    router.push(router.currentRoute.value);
+    router.go(0);
   }
 
   public walletConnectAccountsChangedEvent(): void {
     this.resetWalletState(false);
-    router.push(router.currentRoute.value);
+    router.go(0);
   }
 
   public getMetamaskEvents(): Record<string, () => void> {
