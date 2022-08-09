@@ -44,9 +44,9 @@
             </li>
             <li class="nav-item me-md-4">
               <router-link
-                  to="/generate-word"
-                  class="nav-link disabled"
-                  @click="toggleNavbar()"
+                to="/generate-word"
+                class="nav-link disabled"
+                @click="toggleNavbar()"
               >
                 Create Word
               </router-link>
@@ -62,7 +62,10 @@
             </li>
             <li class="nav-item connect-wallet-link">
               <button
-                v-if="!isMetamaskConnected() && !isWalletConnectConnected()"
+                v-if="
+                  isMetamaskConnected === 'not_connected' &&
+                  isWalletConnectConnected === 'not_connected'
+                "
                 type="button"
                 href="#"
                 class="nav-link px-3"
@@ -89,26 +92,41 @@
   <WalletModal />
 </template>
 
-<script>
+<script lang="ts">
 import WalletModal from "@/components/WalletModal.vue";
-import { mapGetters, mapActions, mapMutations } from "vuex";
 import { Collapse } from "bootstrap";
+import { Vue, Options } from "vue-property-decorator";
+import { namespace } from "s-vuex-class";
 
-export default {
+const wallet = namespace("wallet");
+
+@Options({
   components: {
     WalletModal,
   },
-  methods: {
-    ...mapGetters(["isMetamaskConnected", "isWalletConnectConnected"]),
-    ...mapActions(["resetWalletState"]),
-    ...mapMutations(["setWalletAddress"]),
-    toggleNavbar() {
-      const menuToggle = document.getElementById("navbarNav");
-      if (menuToggle.classList.contains("show")) {
-        const bsCollapse = new Collapse(menuToggle);
-        bsCollapse.toggle();
-      }
-    },
-  },
-};
+})
+export default class TheHeader extends Vue {
+  @wallet.Getter
+  public isMetamaskConnected!: string;
+
+  @wallet.Getter
+  public isWalletConnectConnected!: string;
+
+  @wallet.Action
+  public resetWalletState!: (closeSession: boolean) => void;
+
+  @wallet.Mutation
+  public setWalletAddress!: (address: string) => void;
+
+  toggleNavbar(): void {
+    const menuToggle = document.getElementById("navbarNav");
+    if (!menuToggle) {
+      return;
+    }
+    if (menuToggle.classList.contains("show")) {
+      const bsCollapse = new Collapse(menuToggle);
+      bsCollapse.toggle();
+    }
+  }
+}
 </script>

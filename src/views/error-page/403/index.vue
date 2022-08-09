@@ -12,27 +12,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { Vue, Options } from "vue-property-decorator";
+import { getFreeHeight } from "@/utils/layout-space";
 
-export default defineComponent({
+@Options({
   name: "403Page",
-  data() {
-    return {
-      freeHeight: Number,
-    };
-  },
-  mounted() {
-    this.onResize();
+})
+export default class Error403Page extends Vue {
+  freeHeight = getFreeHeight(true);
+
+  mounted(): void {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-  },
-  methods: {
-    onResize() {
-      this.freeHeight = getFreeHeight(true);
-    }
   }
-});
 
+  onResize(): void {
+    this.freeHeight = getFreeHeight(true);
+  }
+}
 </script>

@@ -7,7 +7,7 @@
       >
         <div>
           <div class="timer text-center">
-            <h1 ref="startTime" class="timer-value">{{ startTime }}</h1>
+            <h1 ref="startTimeElement" class="timer-value">{{ startTime }}</h1>
           </div>
           <div class="d-flex justify-content-between">
             <form ref="generateForm" action="" class="me-5">
@@ -72,73 +72,75 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { Vue, Options, Ref, Watch } from "vue-property-decorator";
+import { getFreeHeight } from "@/utils/layout-space";
 import CircledWord from "@/components/CircledWord.vue";
-import getWord from "@/components/CircledWord.js";
+import CircledWordNFT from "@/utils/circled-word-nft";
 
-export default defineComponent({
+@Options({
   name: "GenerateWordPage",
-  components: { CircledWord },
-  data() {
-    return {
-      freeHeight: Number,
-      wordProperties: {
-        name: "CircledWord #1",
-        traits: [
-          { trait_type: "Animation Type", value: "Fill In" },
-          { trait_type: "Text Color", value: "White" },
-          { trait_type: "Border Color", value: "White" },
-          { trait_type: "Background Color", value: "White" },
-          { trait_type: "Animation Duration", value: 1 },
-          { trait_type: "Second Text Color", value: "Black" },
-          { trait_type: "Second Border Color", value: "White" },
-        ],
-      },
-      startTime: 3,
-      wordData: Object,
-      runAnimation: false,
-    };
+  components: {
+    CircledWord,
   },
-  watch: {
-    wordProperties: {
-      handler(val) {
-        this.wordData = getWord(val);
-      },
-      deep: true,
-    },
-  },
-  mounted() {
-    this.wordData = getWord(this.wordProperties);
-    this.onResize();
-    this.$nextTick(() => {
+})
+export default class GenerateWord extends Vue {
+  freeHeight = getFreeHeight(true);
+  wordProperties: NFTMetadata = {
+    name: "CircledWord #1",
+    traits: [
+      { trait_type: "Animation Type", value: "Fill In" },
+      { trait_type: "Text Color", value: "White" },
+      { trait_type: "Border Color", value: "White" },
+      { trait_type: "Background Color", value: "White" },
+      { trait_type: "Animation Duration", value: "1" },
+      { trait_type: "Second Text Color", value: "Black" },
+      { trait_type: "Second Border Color", value: "White" },
+    ],
+  };
+  startTime = 3;
+  wordData: CircledWordElement = new CircledWordNFT(
+    this.wordProperties
+  ).getElement();
+  runAnimation = false;
+
+  @Ref("generateForm") readonly generateForm!: HTMLFormElement;
+  @Ref("startTimeElement") readonly startTimeElement!: HTMLHeadingElement;
+
+  @Watch("wordProperties", { deep: true })
+  handler(val: NFTMetadata): void {
+    this.wordData = new CircledWordNFT(val).getElement();
+  }
+
+  mounted(): void {
+    this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });
-  },
-  methods: {
-    onResize() {
-      this.freeHeight = getFreeHeight(true);
-    },
-    finishAnimation() {
-      this.$refs.generateForm.style.display = "block";
-      this.runAnimation = false;
-      this.$refs.startTime.style.display = "block";
-      this.startTime = 3;
-    },
-    startAnimation() {
-      this.$refs.generateForm.style.display = "none";
-      if (this.startTime <= 0) {
-        this.$refs.startTime.style.display = "none";
-      }
-      if (this.startTime > -1) {
-        setTimeout(() => {
-          this.startTime -= 1;
-          this.startAnimation();
-        }, 1000);
-      } else {
-        this.runAnimation = true;
-      }
-    },
-  },
-});
+  }
+
+  onResize(): void {
+    this.freeHeight = getFreeHeight(true);
+  }
+
+  finishAnimation(): void {
+    this.generateForm.style.display = "block";
+    this.runAnimation = false;
+    this.startTimeElement.style.display = "block";
+    this.startTime = 3;
+  }
+
+  startAnimation(): void {
+    this.generateForm.style.display = "none";
+    if (this.startTime <= 0) {
+      this.startTimeElement.style.display = "none";
+    }
+    if (this.startTime > -1) {
+      setTimeout((): void => {
+        this.startTime -= 1;
+        this.startAnimation();
+      }, 1000);
+    } else {
+      this.runAnimation = true;
+    }
+  }
+}
 </script>

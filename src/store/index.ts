@@ -10,9 +10,11 @@ const store = createStore({
     walletConnect,
   },
   mutations: {
-    initialiseStore(state) {
+    initialiseStore(state): void {
       if (localStorage.getItem("walletStore")) {
-        state.wallet.wallet = JSON.parse(localStorage.getItem("walletStore"));
+        state.wallet.wallet = JSON.parse(
+          localStorage.getItem("walletStore") as string
+        );
       }
     },
   },

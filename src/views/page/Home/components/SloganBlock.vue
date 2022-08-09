@@ -38,44 +38,44 @@
   </section>
 </template>
 
-<script>
-import getWord from "@/components/CircledWord";
-import sloganWords from "@/components/json/homepage_slogan_circled_word_samples.json";
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
+import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
-import { getFreeHeight } from "@/utils/layout-space.js";
+import { getFreeHeight } from "@/utils/layout-space";
+import CircledWordNFT from "@/utils/circled-word-nft";
 
-export default {
+@Options({
   components: {
     CircledWord,
   },
-  data() {
-    return {
-      freeHeight: Number,
-      wordsData: this.getWordsData(),
-    };
-  },
-  mounted() {
-    this.onResize();
-    this.$nextTick(() => {
+})
+export default class SloganBlock extends Vue {
+  freeHeight = getFreeHeight();
+  wordsData = this.getWordsData();
+
+  mounted(): void {
+    this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });
-  },
-  methods: {
-    onResize() {
-      this.freeHeight = getFreeHeight();
-    },
-    getSloganWords() {
-      return sloganWords;
-    },
-    getWordsData() {
-      let data = [];
-      this.getSloganWords().forEach((word) => {
-        let current_word = getWord(word);
-        current_word.link = word.link;
-        data.push(current_word);
-      });
-      return data;
-    },
-  },
-};
+  }
+
+  onResize(): void {
+    this.freeHeight = getFreeHeight();
+  }
+
+  getSloganWords(): NFTMetadata[] {
+    return sloganWords as NFTMetadata[];
+  }
+
+  getWordsData(): CircledWordElement[] {
+    const data: CircledWordElement[] = [];
+    this.getSloganWords().forEach((word: NFTMetadata) => {
+      const current_word = new CircledWordNFT(word).getElement();
+      current_word.link = word.link;
+      data.push(current_word);
+    });
+    return data;
+  }
+}
 </script>

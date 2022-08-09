@@ -31,65 +31,54 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options, Prop } from "vue-property-decorator";
 import CircledWord from "@/components/CircledWord.vue";
-import { getWord, metadata_getters } from "@/components/CircledWord.js";
+import CircledWordNFT from "@/utils/circled-word-nft";
 import colors from "@/assets/libraries/colors.json";
 
-export default {
+@Options({
   components: {
     CircledWord,
   },
-  props: {
-    metadata: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
+})
+export default class SampleWord extends Vue {
+  @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
+
+  circledWordNFT: CircledWordNFT = new CircledWordNFT(this.metadata);
+  wordData: CircledWordElement = this.circledWordNFT.getElement();
+  sampleWordData = this.getSampleWordData() as SampleWordData;
+  name = this.circledWordNFT.name;
+
+  getSampleWordData(): SampleWordData | false {
+    if (this.metadata.sample_data === undefined) {
+      return false;
+    }
+    const updated_circled_properties = this.metadata.sample_data.updated;
+
+    const traits = this.circledWordNFT.getTraits();
+
+    const result: { [key: string]: Record<string, string | boolean> } = {};
+    for (const property in traits) {
+      result[property] = {
+        value: traits[property],
+        updated: updated_circled_properties.includes(property as never),
+      };
+
+      if (traits[property] in colors) {
+        result[property].color = this.circledWordNFT.getColor(traits[property]);
+      } else {
+        result[property].color = "#948561";
+      }
+    }
+
     return {
-      wordData: getWord(this.metadata),
-      sampleWordData: this.getSampleWordData(),
-      name: metadata_getters.getTitle(this.metadata),
+      circledProperties: result,
+      adventureText:
+        "adventure_text" in this.metadata.sample_data
+          ? this.metadata.sample_data.adventure_text
+          : false,
     };
-  },
-  methods: {
-    getSampleWordData() {
-      let data = {};
-
-      if (!("sample_data" in this.metadata)) {
-        return;
-      }
-      let sample_data = this.metadata.sample_data;
-
-      if (!("updated" in sample_data)) {
-        return;
-      }
-      let updated_circled_properties = sample_data.updated;
-
-      let traits = metadata_getters.getTraits(this.metadata);
-
-      let result = {};
-      for (let property in traits) {
-        result[property] = {
-          value: traits[property],
-          updated: updated_circled_properties.includes(property),
-        };
-
-        if (traits[property] in colors) {
-          result[property].color = "#" + colors[traits[property]];
-        } else {
-          result[property].color = "#948561";
-        }
-
-        data["circledProperties"] = result;
-      }
-
-      data["adventureText"] =
-        "adventure_text" in sample_data ? sample_data.adventure_text : false;
-
-      return data;
-    },
-  },
-};
+  }
+}
 </script>

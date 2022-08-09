@@ -11,26 +11,24 @@
   </div>
 </template>
 
-<script>
-import { getFreeHeight } from "@/utils/layout-space.js";
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
+import { getFreeHeight } from "@/utils/layout-space";
 
-export default {
+@Options({
   name: "404Page",
-  data() {
-    return {
-      freeHeight: Number,
-    };
-  },
-  mounted() {
-    this.onResize();
+})
+export default class Error404Page extends Vue {
+  freeHeight = getFreeHeight(true);
+
+  mounted(): void {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-  },
-  methods: {
-    onResize() {
-      this.freeHeight = getFreeHeight(true);
-    },
-  },
-};
+  }
+
+  onResize(): void {
+    this.freeHeight = getFreeHeight(true);
+  }
+}
 </script>
