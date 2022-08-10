@@ -4,13 +4,14 @@
       <div class="container-fluid mt-1 px-4">
         <router-link
           to="/"
-          class="navbar-brand d-flex align-items-center"
+          class="navbar-brand d-flex align-items-center position-relative"
           @click="toggleNavbar()"
         >
           <img src="../assets/images/logo.svg" alt="" class="me-1" /><span
             class="logo-primary-text"
             >Circled</span
           ><span class="logo-secondary-text">Words</span>
+          <span class="logo-sub-text position-absolute">Beta</span>
         </router-link>
         <button
           class="navbar-toggler"
