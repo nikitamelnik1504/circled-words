@@ -1,4 +1,4 @@
-declare module 'bootstrap';
+declare module "bootstrap";
 
 interface CircledWordElement {
   elementClass: string;
