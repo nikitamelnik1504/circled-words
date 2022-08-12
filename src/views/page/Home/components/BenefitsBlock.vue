@@ -29,7 +29,9 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
+
 const benefits = [
   {
     value:
@@ -42,16 +44,12 @@ const benefits = [
   { value: "Possibility to play with buttons that you owned on our site." },
 ];
 
-export default {
-  data() {
-    return {
-      benefitsData: this.getBenefitsData(),
-    };
-  },
-  methods: {
-    getBenefitsData() {
-      return benefits;
-    },
-  },
-};
+@Options({})
+export default class BenefitsBlock extends Vue {
+  benefitsData = this.getBenefitsData();
+
+  getBenefitsData(): object {
+    return benefits;
+  }
+}
 </script>

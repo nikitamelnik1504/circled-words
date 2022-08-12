@@ -2,8 +2,11 @@
   <h1>Roadmap</h1>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Vue, Options } from "vue-property-decorator";
+
+@Options({
   name: "RoadmapPage",
-};
+})
+export default class Roadmap extends Vue {}
 </script>

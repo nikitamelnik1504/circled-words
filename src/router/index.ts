@@ -10,7 +10,11 @@ import Error403 from "@/views/error-page/403/index.vue";
 import Error404 from "@/views/error-page/404/index.vue";
 import GenerateWord from "@/views/page/GenerateWord/index.vue";
 
-const IS_PROD = true;
+if (process.env.IS_STAGING === undefined) {
+  console.warn("Make sure you create .env file or declare a variable.");
+}
+
+const IS_STAGING = process.env.IS_STAGING === "1";
 
 const routes = [
   {
@@ -50,9 +54,9 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: IS_PROD
-    ? createWebHistory()
-    : createWebHashHistory("/circled-words/"),
+  history: IS_STAGING
+    ? createWebHashHistory("/circled-words/")
+    : createWebHistory(),
   routes,
 });
 

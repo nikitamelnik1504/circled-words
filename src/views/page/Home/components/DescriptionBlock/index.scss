@@ -1,6 +1,8 @@
+@import "components/SampleWord";
+
 .description-section {
   .section-title {
-    color: #9966cc;
+    color: #96c;
   }
 
   .description-text {
@@ -28,8 +30,6 @@
           }
         }
       }
-
-      @import "components/SampleWord";
     }
   }
 }

@@ -17,86 +17,70 @@
   >
 </template>
 
-<script>
-export default {
-  props: {
-    wordData: {
-      type: Object,
-      required: true,
-    },
-    link: {
-      type: String,
-      default: "#",
-      required: false,
-    },
-    autoplayAnimation: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    createWordAnimation: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
-  emits: ["animationCompleted"],
-  data() {
-    return {
-      animationRunning: false,
-      createAnimation: false,
+<script lang="ts">
+import { Vue, Options, Prop, Ref, Watch, Emit } from "vue-property-decorator";
+
+@Options({})
+export default class CircledWord extends Vue {
+  public animationRunning = false;
+  public createAnimation = false;
+
+  @Prop({ required: true }) readonly wordData!: CircledWordElement;
+  @Prop({ type: String, default: "#" }) readonly link!: string;
+  @Prop({ type: Boolean, default: false }) readonly autoplayAnimation!: boolean;
+  @Prop({ type: Boolean, default: false })
+  readonly createWordAnimation!: boolean;
+
+  @Ref("circledWord") readonly circledWord!: HTMLLinkElement;
+
+  @Watch("createWordAnimation")
+  onCreateWordAnimation(value: boolean): void {
+    if (!value) {
+      return;
+    }
+    this.createAnimation = true;
+    const startTransitionEvent = () => {
+      setTimeout(() => {
+        this.createAnimation = false;
+        this.createWordAnimationCompleted();
+        this.circledWord.removeEventListener(
+          "transitionend",
+          startTransitionEvent
+        );
+      }, 2000);
     };
-  },
-  watch: {
-    createWordAnimation(value) {
-      if (value === false) {
-        return;
-      }
-      this.createAnimation = true;
-      const startTransitionEvent = () => {
-        setTimeout(() => {
-          this.createAnimation = false;
-          this.createWordAnimationCompleted();
-          this.$refs.circledWord.removeEventListener(
-            "transitionend",
-            startTransitionEvent
-          );
-        }, 2000);
-      };
-      this.$refs.circledWord.addEventListener(
-        "transitionend",
-        startTransitionEvent
-      );
-    },
-  },
-  mounted() {
-    if (this.autoplayAnimation === true) {
+    this.circledWord.addEventListener("transitionend", startTransitionEvent);
+  }
+
+  @Emit()
+  animationCompleted(): void {
+    return;
+  }
+
+  mounted(): void {
+    if (this.autoplayAnimation) {
       this.runAnimation();
     }
-  },
-  methods: {
-    createWordAnimationCompleted() {
-      const endTransitionEvent = () => {
-        setTimeout(() => {
-          this.$emit("animationCompleted");
-          this.$refs.circledWord.removeEventListener(
-            "transitionend",
-            endTransitionEvent
-          );
-        }, 1000);
-      };
-      this.$refs.circledWord.addEventListener(
-        "transitionend",
-        endTransitionEvent
-      );
-    },
-    runAnimation: function () {
-      let self = this;
-      setTimeout(function () {
-        self.runAnimation();
-      }, 3000);
-      return (this.animationRunning = !this.animationRunning);
-    },
-  },
-};
+  }
+
+  createWordAnimationCompleted(): void {
+    const endTransitionEvent = () => {
+      setTimeout(() => {
+        this.animationCompleted();
+        this.circledWord.removeEventListener(
+          "transitionend",
+          endTransitionEvent
+        );
+      }, 1000);
+    };
+    this.circledWord.addEventListener("transitionend", endTransitionEvent);
+  }
+
+  runAnimation(): boolean {
+    setTimeout(() => {
+      this.runAnimation();
+    }, 3000);
+    return (this.animationRunning = !this.animationRunning);
+  }
+}
 </script>

@@ -25,24 +25,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Options, Prop, Vue } from "vue-property-decorator";
 import { uuid } from "vue-uuid";
 
-export default {
-  props: {
-    question: {
-      required: true,
-      type: String,
-    },
-    answer: {
-      required: true,
-      type: String,
-    },
-  },
-  data() {
-    return {
-      uuid: uuid.v4(),
-    };
-  },
-};
+@Options({})
+export default class HelpAccordionItem extends Vue {
+  @Prop({ type: String, required: true }) readonly question!: string;
+  @Prop({ type: String, required: true }) readonly answer!: string;
+
+  uuid = uuid.v4();
+}
 </script>
