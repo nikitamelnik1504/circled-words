@@ -45,7 +45,7 @@
             </li>
             <li class="nav-item me-md-4">
               <router-link
-                to="/generate-word"
+                to="/create-word"
                 class="nav-link disabled"
                 @click="toggleNavbar()"
               >

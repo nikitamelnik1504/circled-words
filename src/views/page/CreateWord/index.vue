@@ -78,12 +78,12 @@ import CircledWord from "@/components/CircledWord.vue";
 import CircledWordNFT from "@/utils/circled-word-nft";
 
 @Options({
-  name: "GenerateWordPage",
+  name: "CreateWordPage",
   components: {
     CircledWord,
   },
 })
-export default class GenerateWord extends Vue {
+export default class CreateWord extends Vue {
   freeHeight = getFreeHeight(true);
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
