@@ -46,7 +46,7 @@
             <li class="nav-item me-md-4">
               <router-link
                 to="/create-word"
-                class="nav-link disabled"
+                class="nav-link"
                 @click="toggleNavbar()"
               >
                 Create Word
