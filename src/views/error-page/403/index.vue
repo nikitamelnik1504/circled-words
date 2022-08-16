@@ -12,23 +12,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
-import { getFreeHeight } from "@/utils/layout-space";
+import { Options } from "vue-property-decorator";
+import PageBase from "@/views/page/PageBase";
 
 @Options({
   name: "403Page",
 })
-export default class Error403Page extends Vue {
-  freeHeight = getFreeHeight(true);
-
-  mounted(): void {
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
-  }
-
-  onResize(): void {
-    this.freeHeight = getFreeHeight(true);
-  }
-}
+export default class Error403Page extends PageBase {}
 </script>

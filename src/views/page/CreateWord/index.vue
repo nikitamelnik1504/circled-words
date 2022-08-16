@@ -130,8 +130,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, Ref, Watch } from "vue-property-decorator";
-import { getFreeHeight } from "@/utils/layout-space";
+import { Options, Ref, Watch } from "vue-property-decorator";
+import PageBase from "@/views/page/PageBase";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordNFT from "@/utils/circled-word-nft";
 
@@ -141,8 +141,7 @@ import CircledWordNFT from "@/utils/circled-word-nft";
     CircledWord,
   },
 })
-export default class CreateWord extends Vue {
-  freeHeight = getFreeHeight(true);
+export default class CreateWord extends PageBase {
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
     traits: [
@@ -168,12 +167,6 @@ export default class CreateWord extends Vue {
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
     this.wordData = new CircledWordNFT(val).getElement();
-  }
-
-  mounted(): void {
-    this.$nextTick((): void => {
-      window.addEventListener("resize", this.onResize);
-    });
   }
 
   numberIncrement(): void {
@@ -215,10 +208,6 @@ export default class CreateWord extends Vue {
 
   isFloat(value: number): boolean {
     return Number(value) === value && value % 1 !== 0;
-  }
-
-  onResize(): void {
-    this.freeHeight = getFreeHeight(true);
   }
 
   finishAnimation(): void {

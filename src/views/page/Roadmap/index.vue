@@ -3,10 +3,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Options } from "vue-property-decorator";
+import PageBase from "@/views/page/PageBase";
 
 @Options({
   name: "RoadmapPage",
 })
-export default class Roadmap extends Vue {}
+export default class Roadmap extends PageBase {}
 </script>
