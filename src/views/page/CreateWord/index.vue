@@ -2,50 +2,108 @@
   <div class="container-fluid">
     <div class="row">
       <div
-        class="col-12 d-flex align-items-center justify-content-center"
+        class="col-10 mx-auto d-flex align-items-center justify-content-center"
         :style="{ 'min-height': freeHeight + 'px' }"
       >
-        <div>
+        <div class="w-100">
           <div class="timer text-center">
             <h1 ref="startTimeElement" class="timer-value">{{ startTime }}</h1>
           </div>
-          <div class="d-flex justify-content-between">
-            <form ref="generateForm" action="" class="me-5">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="m-0 me-4">Animation Type:</p>
+          <div
+            class="create-circled d-flex justify-content-center flex-column-reverse flex-sm-row"
+          >
+            <form ref="generateForm" action="" class="me-sm-4 me-md-5">
+              <div
+                class="button-field d-flex py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Animation Type</p>
                 <select
                   id="animationType"
                   v-model="wordProperties.traits[0].value"
+                  class="field-type select-type ms-2 ms-lg-5 text-center"
                   name="animation_type"
                 >
                   <option value="Fill In">Fill In</option>
                 </select>
               </div>
-              <div class="d-flex mt-2 justify-content-between">
-                <p class="m-0 me-4">Text Color:</p>
-                <input v-model="wordProperties.traits[1].value" type="text" />
+              <div
+                class="button-field d-flex mt-2 py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Text Color</p>
+                <input
+                  v-model="wordProperties.traits[1].value"
+                  class="field-type ms-2 ms-lg-5 text-center"
+                  type="text"
+                />
               </div>
-              <div class="d-flex mt-2 justify-content-between">
-                <p class="m-0 me-4">Border Color:</p>
-                <input v-model="wordProperties.traits[2].value" type="text" />
+              <div
+                class="button-field d-flex mt-2 py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Border Color</p>
+                <input
+                  v-model="wordProperties.traits[2].value"
+                  class="field-type ms-2 ms-lg-5 text-center"
+                  type="text"
+                />
               </div>
-              <div class="d-flex mt-2 justify-content-between">
-                <p class="m-0 me-4">Background Color:</p>
-                <input v-model="wordProperties.traits[3].value" type="text" />
+              <div
+                class="button-field d-flex mt-2 py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Background Color</p>
+                <input
+                  v-model="wordProperties.traits[3].value"
+                  class="field-type ms-2 ms-lg-5 text-center"
+                  type="text"
+                />
               </div>
-              <div class="d-flex mt-2 justify-content-between">
-                <p class="m-0 me-4">Animation Duration:</p>
-                <input v-model="wordProperties.traits[4].value" type="number" />
+              <div
+                class="button-field d-flex mt-2 py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Animation Duration</p>
+                <div class="number-input ms-2 ms-lg-5 position-relative">
+                  <button
+                    type="button"
+                    class="minus w-25 h-100 position-absolute start-0"
+                    @click="numberDecrement"
+                  ></button>
+                  <input
+                    ref="durationInput"
+                    v-model="wordProperties.traits[4].value"
+                    class="field-type text-center"
+                    type="number"
+                    min="0"
+                    max="3600"
+                    step="0.1"
+                    @input="restrictInput"
+                  />
+                  <button
+                    type="button"
+                    class="plus w-25 h-100 position-absolute end-0"
+                    @click="numberIncrement"
+                  ></button>
+                </div>
               </div>
-              <div class="d-flex mt-2 justify-content-between">
-                <p class="m-0 me-4">Second Text Color:</p>
-                <input v-model="wordProperties.traits[5].value" type="text" />
+              <div
+                class="button-field d-flex mt-2 py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Second Text Color</p>
+                <input
+                  v-model="wordProperties.traits[5].value"
+                  class="field-type ms-2 ms-lg-5 text-center"
+                  type="text"
+                />
               </div>
-              <div class="d-flex mt-2 justify-content-between">
-                <p class="m-0 me-4">Second Border Color:</p>
-                <input v-model="wordProperties.traits[6].value" type="text" />
+              <div
+                class="button-field d-flex mt-2 py-1 ps-3 pe-2 align-items-center justify-content-between"
+              >
+                <p class="field-name m-0 me-sm-5">Second Border Color</p>
+                <input
+                  v-model="wordProperties.traits[6].value"
+                  class="field-type ms-2 ms-lg-5 text-center"
+                  type="text"
+                />
               </div>
-              <div class="d-flex mt-2 justify-content-center">
+              <div class="d-flex my-3 justify-content-center">
                 <input
                   type="button"
                   value="Start animation"
@@ -53,7 +111,7 @@
                 />
               </div>
             </form>
-            <div class="d-flex align-items-center">
+            <div class="d-flex mb-5 justify-content-center align-items-center">
               <CircledWord
                 :class="{
                   disabled: startTime <= 2,
@@ -105,6 +163,7 @@ export default class CreateWord extends Vue {
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
   @Ref("startTimeElement") readonly startTimeElement!: HTMLHeadingElement;
+  @Ref("durationInput") readonly durationInput!: HTMLInputElement;
 
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
@@ -115,6 +174,47 @@ export default class CreateWord extends Vue {
     this.$nextTick((): void => {
       window.addEventListener("resize", this.onResize);
     });
+  }
+
+  numberIncrement(): void {
+    this.durationInput.stepUp();
+  }
+
+  numberDecrement(): void {
+    this.durationInput.stepDown();
+  }
+
+  restrictInput(): void {
+    console.log(this.durationInput.value.length);
+
+    const floatLength: number | null = this.isFloat(
+      Number(this.durationInput.value)
+    )
+      ? this.durationInput.value.length
+      : null;
+    const integerLength: number | null = !this.isFloat(
+      Number(this.durationInput.value)
+    )
+      ? this.durationInput.value.length
+      : null;
+
+    if (!floatLength && (integerLength as number) > 4) {
+      this.durationInput.value = this.durationInput.value.slice(0, 4);
+    } else if (!integerLength && (floatLength as number) > 5) {
+      this.durationInput.value = this.durationInput.value.slice(0, 5);
+    } else if (
+      Number(this.durationInput.value) < Number(this.durationInput.min)
+    ) {
+      this.durationInput.value = "1";
+    } else if (
+      Number(this.durationInput.value) > Number(this.durationInput.max)
+    ) {
+      this.durationInput.value = "3600";
+    }
+  }
+
+  isFloat(value: number): boolean {
+    return Number(value) === value && value % 1 !== 0;
   }
 
   onResize(): void {
