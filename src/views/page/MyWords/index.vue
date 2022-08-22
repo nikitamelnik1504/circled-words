@@ -68,8 +68,8 @@
 <script lang="ts">
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import { getFreeHeight } from "@/utils/layout-space";
-import { Vue, Options, Watch } from "vue-property-decorator";
+import PageBase from "@/views/page/PageBase";
+import { Options, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 
 const wallet = namespace("wallet");
@@ -84,9 +84,8 @@ import axios, { type AxiosResponse } from "axios";
     MyWord,
   },
 })
-export default class MyWords extends Vue {
+export default class MyWords extends PageBase {
   assets: Array<object> = [];
-  freeHeight = getFreeHeight(true);
   loaded = false;
 
   @wallet.Getter
@@ -111,9 +110,6 @@ export default class MyWords extends Vue {
     if (this.isWalletConnectConnected === "connected") {
       this.loadAssetsFromWalletConnect();
     }
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
   }
 
   @Watch("isWalletConnectConnected")
@@ -185,10 +181,6 @@ export default class MyWords extends Vue {
         "X-API-KEY": "c53720a2d2324aca85614b30e3000a83",
       },
     });
-  }
-
-  onResize(): void {
-    this.freeHeight = getFreeHeight(true);
   }
 }
 </script>

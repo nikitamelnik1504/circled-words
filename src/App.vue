@@ -1,17 +1,23 @@
 <template>
+  <Particles
+    id="liveBackground"
+    :particles-init="particlesInit"
+    url="src/assets/json/particles.json"
+  />
   <Header />
   <router-view />
   <Footer />
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Ref } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import store from "@/store";
 import router from "@/router";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { namespace } from "s-vuex-class";
+import { loadFull } from "tsparticles";
 
 const wallet = namespace("wallet");
 const metamask = namespace("metamask");
@@ -70,6 +76,12 @@ export default class App extends Vue {
 
   @walletConnect.Action
   public updateWalletConnectInitialization!: () => void;
+
+  @Ref("liveBackground") readonly liveBackground!: HTMLDivElement;
+
+  public async particlesInit(engine: never): Promise<void> {
+    await loadFull(engine);
+  }
 
   beforeCreate(): void {
     store.commit("initialiseStore");
