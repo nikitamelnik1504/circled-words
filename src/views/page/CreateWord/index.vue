@@ -178,8 +178,6 @@ export default class CreateWord extends PageBase {
   }
 
   restrictInput(): void {
-    console.log(this.durationInput.value.length);
-
     const floatLength: number | null = this.isFloat(
       Number(this.durationInput.value)
     )
