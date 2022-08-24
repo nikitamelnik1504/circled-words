@@ -1,7 +1,9 @@
 <template>
   <Particles
     id="liveBackground"
+    class="live-background"
     :particles-init="particlesInit"
+    :particles-loaded="particlesLoaded"
     url="src/assets/json/particles.json"
   />
   <Header />
@@ -10,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, Ref } from "vue-property-decorator";
+import { Vue, Options } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import store from "@/store";
@@ -77,10 +79,14 @@ export default class App extends Vue {
   @walletConnect.Action
   public updateWalletConnectInitialization!: () => void;
 
-  @Ref("liveBackground") readonly liveBackground!: HTMLDivElement;
-
   public async particlesInit(engine: never): Promise<void> {
     await loadFull(engine);
+  }
+
+  public async particlesLoaded(container: {
+    canvas: { element: HTMLCanvasElement };
+  }): Promise<void> {
+    container.canvas.element.style.zIndex = "-1";
   }
 
   beforeCreate(): void {
