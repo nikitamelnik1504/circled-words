@@ -13,6 +13,12 @@
             class="create-circled d-flex justify-content-center flex-column-reverse flex-sm-row"
           >
             <form ref="generateForm" action="" class="me-sm-4 me-md-5">
+              <div>
+                <h2 class="ps-2 mb-3 text-center text-sm-start">
+                  <span class="primary-text">Circled</span>
+                  <span class="secondary-text">Word</span>
+                </h2>
+              </div>
               <div
                 class="button-field d-flex py-1 ps-3 pe-2 align-items-center justify-content-between"
               >
