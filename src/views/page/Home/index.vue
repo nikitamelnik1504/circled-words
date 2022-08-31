@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid homepage">
-    <Slogan :free-height="freeHeight" />
+    <Slogan :free-height="height" />
     <Description />
     <Stats />
     <Benefits />
@@ -16,7 +16,6 @@ import Benefits from "./components/BenefitsBlock.vue";
 import Stats from "./components/StatsBlock/index.vue";
 import Description from "./components/DescriptionBlock/index.vue";
 import Slogan from "./components/SloganBlock.vue";
-import { getFreeHeight } from "@/utils/layout-space";
 
 @Options({
   name: "HomePage",
@@ -29,6 +28,7 @@ import { getFreeHeight } from "@/utils/layout-space";
   },
 })
 export default class Home extends PageBase {
-  freeHeight: number = getFreeHeight();
+  height: number =
+    this.freeHeight["clientHeight"] - this.freeHeight["headerHeight"];
 }
 </script>
