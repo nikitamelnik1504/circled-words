@@ -10,7 +10,7 @@
     <div
       class="modal-dialog position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center"
     >
-      <div class="modal-content">
+      <div class="modal-content px-md-3">
         <div class="modal-header justify-content-center">
           <h5 id="exampleModalLabel" class="modal-title">Select your wallet</h5>
           <button
@@ -22,49 +22,121 @@
           />
         </div>
         <div class="modal-body d-flex justify-content-center">
-          <div class="row flex-column flex-sm-row">
-            <div class="col-sm-6 mb-4 mb-sm-0">
-              <a
-                :href="
-                  isMetamaskInstalled ? '#' : 'https://metamask.io/download/'
-                "
-                class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click="metamaskLink($event)"
-              >
-                <!--            <span class="position-absolute wallet-network-error-background"-->
-                <!--                 ></span>-->
-                <img
-                  src="../assets/images/metamask.svg"
-                  class="w-100"
-                  alt="metamask"
-                />
-                <h6>Metamask</h6>
-                <!--            <p class="wallet-network-error" >Please change your network to-->
-                <!--              Ethereum</p>-->
-              </a>
-            </div>
-            <div class="col-sm-6">
-              <a
-                href="#"
-                class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative"
-                @click.prevent="
-                  isWalletConnectInitialized
-                    ? showWalletConnectModal()
-                    : undefined
-                "
-              >
-                <span
-                  :class="{ 'd-none': isWalletConnectInitialized }"
-                  class="position-absolute wallet-loader top-0 bottom-0 end-0 start-0 d-flex justify-content-center align-items-center"
-                  >Loading...</span
+          <div class="row flex-column flex-sm-row w-100">
+            <div class="blockchain-wrapper col-sm-6">
+              <div class="row text-center h-100">
+                <div
+                  class="col-sm-11 mb-4 mb-sm-0 wallet-links-wrapper mx-auto p-3 p-sm-4"
                 >
-                <img
-                  class="w-100"
-                  src="../assets/images/walletconnect.svg"
-                  alt="walletconnect"
-                />
-                <h6>WalletConnect</h6>
-              </a>
+                  <div class="row">
+                    <div class="mb-2">
+                      <h3 class="blockchain-title solana">
+                        Solana<br />(coming soon) <!-- (recommended) -->
+                      </h3>
+                    </div>
+                    <div class="col-6 col-sm-10 mx-auto mb-sm-3">
+                      <a
+                        href="#"
+                        class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2 disabled"
+                      >
+                        <div
+                          class="image-wrapper d-flex justify-content-center py-2"
+                        >
+                          <img
+                            src="../assets/images/phantom.svg"
+                            class="w-100"
+                            alt="phantom-wallet"
+                          />
+                        </div>
+                        <h6>Phantom Wallet</h6>
+                      </a>
+                    </div>
+                    <div class="col-6 col-sm-10 mx-auto">
+                      <a
+                        href="#"
+                        class="wallet-link solflare-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2 disabled"
+                      >
+                        <div
+                          class="image-wrapper d-flex justify-content-center py-2"
+                        >
+                          <img
+                            src="../assets/images/solflare.svg"
+                            class="w-100"
+                            alt="solflare"
+                          />
+                        </div>
+                        <h6>Solflare</h6>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="blockchain-wrapper col-sm-6 mb-4 mb-sm-0">
+              <div class="row text-center h-100">
+                <div class="col-sm-11 wallet-links-wrapper mx-auto p-3 p-sm-4">
+                  <div class="row">
+                    <div class="mb-2">
+                      <h3 class="blockchain-title ethereum">
+                        Ethereum<br />(deprecated)
+                      </h3>
+                    </div>
+                    <div class="col-6 col-sm-10 mx-auto mb-sm-3">
+                      <a
+                        :href="
+                          isMetamaskInstalled
+                            ? '#'
+                            : 'https://metamask.io/download/'
+                        "
+                        class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative py-2"
+                        @click="metamaskLink($event)"
+                      >
+                        <!--            <span class="position-absolute wallet-network-error-background"-->
+                        <!--                 ></span>-->
+                        <div
+                          class="image-wrapper d-flex justify-content-center py-2"
+                        >
+                          <img
+                            src="../assets/images/metamask.svg"
+                            class="w-100"
+                            alt="metamask"
+                          />
+                        </div>
+                        <h6>Metamask</h6>
+                        <!--            <p class="wallet-network-error" >Please change your network to-->
+                        <!--              Ethereum</p>-->
+                      </a>
+                    </div>
+                    <div class="col-6 col-sm-10 mx-auto">
+                      <a
+                        href="#"
+                        class="wallet-link wallet-connect-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2"
+                        @click.prevent="
+                          isWalletConnectInitialized
+                            ? showWalletConnectModal()
+                            : undefined
+                        "
+                      >
+                        <span
+                          :class="{ 'd-none': isWalletConnectInitialized }"
+                          class="position-absolute wallet-loader top-0 bottom-0 end-0 start-0 d-flex justify-content-center align-items-center"
+                          >Loading...</span
+                        >
+                        <div
+                          class="image-wrapper d-flex justify-content-center py-2"
+                        >
+                          <img
+                            class="w-100"
+                            src="../assets/images/walletconnect.svg"
+                            alt="walletconnect"
+                          />
+                        </div>
+                        <h6>WalletConnect</h6>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
