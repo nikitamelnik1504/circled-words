@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="text-center d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': height + 'px' }"
+        :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <h1 class="error-text">Error 404. Page not found</h1>
       </div>
@@ -18,10 +18,5 @@ import PageBase from "@/views/page/PageBase";
 @Options({
   name: "404Page",
 })
-export default class Error404Page extends PageBase {
-  height: number =
-    this.freeHeight["clientHeight"] -
-    this.freeHeight["headerHeight"] -
-    this.freeHeight["footerHeight"];
-}
+export default class Error404Page extends PageBase {}
 </script>

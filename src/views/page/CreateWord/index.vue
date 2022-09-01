@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="col-10 mx-auto d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': height + 'px' }"
+        :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
           <div class="timer text-center">
@@ -148,10 +148,6 @@ import CircledWordNFT from "@/utils/circled-word-nft";
   },
 })
 export default class CreateWord extends PageBase {
-  height: number =
-    this.freeHeight["clientHeight"] -
-    this.freeHeight["headerHeight"] -
-    this.freeHeight["footerHeight"];
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
     traits: [

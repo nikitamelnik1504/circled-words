@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid my-words">
     <section class="row">
-      <div class="col-12" :style="{ 'min-height': height + 'px' }">
+      <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
         <div
           v-if="
             isMetamaskConnected === 'connected' ||
@@ -85,10 +85,6 @@ import axios, { type AxiosResponse } from "axios";
   },
 })
 export default class MyWords extends PageBase {
-  height: number =
-    this.freeHeight["clientHeight"] -
-    this.freeHeight["headerHeight"] -
-    this.freeHeight["footerHeight"];
   assets: Array<object> = [];
   loaded = false;
 

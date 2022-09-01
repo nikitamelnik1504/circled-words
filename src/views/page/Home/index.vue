@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid homepage">
-    <Slogan :free-height="height" />
+    <Slogan :free-height="minHeightValue" />
     <Description />
     <Stats />
     <Benefits />
@@ -28,7 +28,7 @@ import Slogan from "./components/SloganBlock.vue";
   },
 })
 export default class Home extends PageBase {
-  height: number =
-    this.freeHeight["clientHeight"] - this.freeHeight["headerHeight"];
+  minHeightValue =
+    this.heightValue["clientHeight"] - this.heightValue["headerHeight"];
 }
 </script>
