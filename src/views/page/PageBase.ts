@@ -3,11 +3,15 @@ import { getFreeHeight } from "@/utils/layout-space";
 
 @Options({})
 export default class PageBase extends Vue {
-  heightValue: { [key: string]: number } = getFreeHeight();
+  heightValues: { [key: string]: number } = getFreeHeight();
   minHeightValue: number =
-    this.heightValue["clientHeight"] -
-    this.heightValue["headerHeight"] -
-    this.heightValue["footerHeight"];
+    this.heightValues["clientHeight"] -
+    this.heightValues["headerHeight"] -
+    this.heightValues["footerHeight"];
+
+  constructor(...args: Array<unknown>) {
+    super(args);
+  }
 
   mounted(): void {
     this.$nextTick((): void => {
@@ -16,6 +20,6 @@ export default class PageBase extends Vue {
   }
 
   onResize(): void {
-    this.heightValue = getFreeHeight();
+    this.heightValues = getFreeHeight();
   }
 }

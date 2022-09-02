@@ -1,7 +1,7 @@
 <template>
   <section
     class="row slogan-section"
-    :style="{ 'min-height': freeHeight + 'px' }"
+    :style="{ 'min-height': minHeightValue + 'px' }"
   >
     <div class="col-11 m-auto">
       <div
@@ -50,7 +50,7 @@ import CircledWordNFT from "@/utils/circled-word-nft";
   },
 })
 export default class SloganBlock extends Vue {
-  @Prop({ type: Number }) readonly freeHeight!: number;
+  @Prop({ type: Number }) readonly minHeightValue!: number;
 
   wordsData = this.getWordsData();
 
