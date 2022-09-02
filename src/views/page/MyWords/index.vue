@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid my-words">
     <section class="row">
-      <div class="col-12" :style="{ 'min-height': freeHeight + 'px' }">
+      <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
         <div
           v-if="
             isMetamaskConnected === 'connected' ||

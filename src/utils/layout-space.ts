@@ -1,16 +1,9 @@
-export function getFreeHeight(footer = false): number {
-  const headerHeight = getHeaderHeight();
-  const footerHeight = getFooterHeight();
+export function getFreeHeight(): { [key: string]: number } {
+  const headerHeight: number = getHeaderHeight();
+  const footerHeight: number = getFooterHeight();
+  const clientHeight: number = document.documentElement.clientHeight;
 
-  if (!headerHeight || !footerHeight) {
-    return document.documentElement.clientHeight;
-  }
-
-  if (footer) {
-    return document.documentElement.clientHeight - headerHeight - footerHeight;
-  }
-
-  return document.documentElement.clientHeight - headerHeight;
+  return { headerHeight, footerHeight, clientHeight };
 }
 
 function getFooterHeight(): number {

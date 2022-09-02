@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="text-center d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': freeHeight + 'px' }"
+        :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <h1 class="error-text">Error 404. Page not found</h1>
       </div>

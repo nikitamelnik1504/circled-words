@@ -1,7 +1,7 @@
 <template>
   <section
     class="row slogan-section"
-    :style="{ 'min-height': freeHeight + 'px' }"
+    :style="{ 'min-height': minHeightValue + 'px' }"
   >
     <div class="col-11 m-auto">
       <div
@@ -39,10 +39,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Prop } from "vue-property-decorator";
 import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
-import { getFreeHeight } from "@/utils/layout-space";
 import CircledWordNFT from "@/utils/circled-word-nft";
 
 @Options({
@@ -51,18 +50,9 @@ import CircledWordNFT from "@/utils/circled-word-nft";
   },
 })
 export default class SloganBlock extends Vue {
-  freeHeight = getFreeHeight();
+  @Prop({ type: Number }) readonly minHeightValue!: number;
+
   wordsData = this.getWordsData();
-
-  mounted(): void {
-    this.$nextTick((): void => {
-      window.addEventListener("resize", this.onResize);
-    });
-  }
-
-  onResize(): void {
-    this.freeHeight = getFreeHeight();
-  }
 
   getSloganWords(): NFTMetadata[] {
     return sloganWords as NFTMetadata[];

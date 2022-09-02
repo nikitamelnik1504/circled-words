@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="col-10 mx-auto d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': freeHeight + 'px' }"
+        :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
           <div class="timer text-center">
