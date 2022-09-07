@@ -4,8 +4,8 @@
       <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
         <div
           v-if="
-            isMetamaskConnected === 'connected' ||
-            isWalletConnectConnected === 'connected'
+            (metamaskService && metamaskService.isConnected()) ||
+            (walletConnectService && walletConnectService.isConnected())
           "
           class="h-100"
         >
@@ -69,14 +69,13 @@
 import "vue";
 import MyWord from "./components/MyWord.vue";
 import PageBase from "@/views/page/PageBase";
-import { Options, Watch } from "vue-property-decorator";
+import { Inject, Options, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
+import axios, { type AxiosResponse } from "axios";
+import MetamaskService from "@/utils/Service/MetamaskService";
+import WalletConnectService from "@/utils/Service/WalletConnectService";
 
 const wallet = namespace("wallet");
-const metamask = namespace("metamask");
-const walletConnect = namespace("walletConnect");
-
-import axios, { type AxiosResponse } from "axios";
 
 @Options({
   name: "MyWordsPage",
@@ -85,72 +84,87 @@ import axios, { type AxiosResponse } from "axios";
   },
 })
 export default class MyWords extends PageBase {
+  @Inject({ from: "metamaskService" }) metamaskService:
+    | MetamaskService
+    | false = false;
+
+  @Inject({ from: "walletConnectService" }) walletConnectService:
+    | WalletConnectService
+    | false = false;
+
+  isMetamaskInitialized = false;
+  isWalletConnectInitialized = false;
   assets: Array<object> = [];
   loaded = false;
 
   @wallet.Getter
-  public isMetamaskConnected!: string;
-
-  @wallet.Getter
-  public isWalletConnectConnected!: string;
-
-  @wallet.Getter
   public getWalletAddress!: string;
 
-  @metamask.Action
-  public connectToMetamask!: () => Promise<string>;
-
-  @walletConnect.Action
-  public connectToWalletConnect!: () => Promise<string>;
+  @wallet.Getter
+  public getStatus!: string;
 
   mounted(): void {
-    if (this.isMetamaskConnected === "connected") {
-      this.loadAssetsFromMetamask();
+    this.onMetamaskConnected(MetamaskService.initialized);
+    this.onWalletConnectConnected(WalletConnectService.initialized);
+  }
+
+  @Watch("isWalletConnectInitialized")
+  onWalletConnectConnected(status: boolean): void {
+    if (!status || this.loaded) {
+      return;
     }
-    if (this.isWalletConnectConnected === "connected") {
+
+    if ((this.walletConnectService as WalletConnectService).isConnected()) {
       this.loadAssetsFromWalletConnect();
     }
   }
 
-  @Watch("isWalletConnectConnected")
-  onWalletConnectConnected(newValue: string): void {
-    if (newValue === "connected") {
-      this.loadAssetsFromWalletConnect();
+  @Watch("walletConnectService", { deep: true })
+  onWalletConnectLoaded(value: unknown) {
+    if (!(value instanceof WalletConnectService)) {
+      return;
     }
-    if (newValue === "not_connected ") {
-      this.assets = [];
+
+    if (value.provider.connected) {
+      this.isWalletConnectInitialized = WalletConnectService.initialized;
     }
   }
 
-  @Watch("isMetamaskConnected")
-  onMetamaskConnected(newValue: string): void {
-    if (newValue === "connected") {
-      this.loadAssetsFromMetamask();
+  @Watch("metamaskService", { deep: true })
+  onMetamaskLoaded(value: unknown) {
+    if (!(value instanceof MetamaskService)) {
+      return;
     }
-    if (newValue === "not_connected") {
-      this.assets = [];
+
+    this.isMetamaskInitialized = MetamaskService.initialized;
+  }
+
+  @Watch("isMetamaskInitialized")
+  onMetamaskConnected(status: boolean) {
+    if (!status || this.loaded) {
+      return;
+    }
+
+    if ((this.metamaskService as MetamaskService).isConnected()) {
+      this.loadAssetsFromMetamask();
     }
   }
 
   loadAssetsFromWalletConnect(): void {
-    this.connectToWalletConnect().then(() => {
-      this.loadAssets().then((result) => {
-        result.data.assets.forEach((item: object) => {
-          this.assets.push(item);
-        });
-        this.loaded = true;
+    this.loadAssets().then((result) => {
+      result.data.assets.forEach((item: object) => {
+        this.assets.push(item);
       });
+      this.loaded = true;
     });
   }
 
   loadAssetsFromMetamask(): void {
-    this.connectToMetamask().then(() => {
-      this.loadAssets().then((result) => {
-        result.data.assets.forEach((item: object) => {
-          this.assets.push(item);
-        });
-        this.loaded = true;
+    this.loadAssets().then((result) => {
+      result.data.assets.forEach((item: object) => {
+        this.assets.push(item);
       });
+      this.loaded = true;
     });
   }
 
