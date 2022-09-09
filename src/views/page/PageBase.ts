@@ -1,6 +1,7 @@
 import { Vue, Options } from "vue-property-decorator";
 import { getFreeHeight } from "@/utils/layout-space";
 import { computed } from "vue";
+import type { ComputedRef } from "vue";
 
 @Options({})
 export default class PageBase extends Vue {
@@ -10,7 +11,7 @@ export default class PageBase extends Vue {
 
   heightValues: { [key: string]: number } = getFreeHeight();
 
-  minHeightValue = computed(() => {
+  minHeightValue: ComputedRef<number> = computed(() => {
     return (
       this.heightValues.clientHeight -
       this.heightValues.headerHeight -
