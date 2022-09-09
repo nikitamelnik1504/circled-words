@@ -15,14 +15,16 @@
 import { Vue, Options, Provide } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
-import store from "@/store";
 import detectEthereumProvider from "@metamask/detect-provider";
 import type { MetamaskProvider } from "@/utils/Service/MetamaskService";
 import { loadFull } from "tsparticles";
-import router from "@/router";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
+import { namespace } from "s-vuex-class";
+import type { Store } from "vuex";
+
+const wallet = namespace("wallet");
 
 @Options({
   name: "App",
@@ -41,31 +43,16 @@ export default class App extends Vue {
   @Provide({ to: "walletConnectService", reactive: true })
   walletConnectService: WalletConnectService | false = false;
 
+  @wallet.Mutation
+  public setDefaultWalletState!: () => string;
+
   private events = {
-    metamask: {
-      accountsChanged: [
-        {
-          callback: () => {
-            store.commit("wallet/setDefaultWalletState");
-            router.go(0);
-          },
-          connected: true,
-        },
-      ],
-    },
-    walletConnect: {
-      disconnect: [
-        {
-          callback: () => {
-            store.commit("wallet/setDefaultWalletState");
-            router.go(0);
-          },
-          connected: true,
-        },
-      ],
-    },
+    metamask: {},
+    walletConnect: {},
     phantomWallet: {},
   };
+
+  private $store!: Store<unknown>;
 
   public async particlesInit(engine: never): Promise<void> {
     await loadFull(engine);
@@ -78,17 +65,43 @@ export default class App extends Vue {
   }
 
   beforeCreate(): void {
-    store.commit("initialiseStore");
+    this.$store.commit("initialiseStore");
   }
 
   created(): void {
+    this.events = {
+      metamask: {
+        accountsChanged: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+      },
+      walletConnect: {
+        disconnect: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+      },
+      phantomWallet: {},
+    };
+
     detectEthereumProvider().then((result: MetamaskProvider | unknown) => {
       if (!(result as MetamaskProvider)) {
         return;
       }
       MetamaskService.create(
         result as MetamaskProvider,
-        store,
+        this.$store,
         this.events.metamask
       ).then((result) => (this.metamaskService = result));
     });
@@ -97,7 +110,7 @@ export default class App extends Vue {
       new WalletConnectProvider({
         infuraId: "270dd5535d1344b2a5a507a081f3d45b",
       }),
-      store,
+      this.$store,
       this.events.walletConnect
     ).then((result) => {
       this.walletConnectService = result;

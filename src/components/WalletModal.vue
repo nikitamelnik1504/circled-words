@@ -145,8 +145,10 @@
 <script lang="ts">
 import { Vue, Options, Ref, Inject } from "vue-property-decorator";
 import type MetamaskService from "@/utils/Service/MetamaskService";
-import store from "@/store";
 import type WalletConnectService from "@utils/Service/WalletConnectService";
+import { namespace } from "s-vuex-class";
+
+const wallet = namespace("wallet");
 
 @Options({})
 export default class WalletModal extends Vue {
@@ -160,31 +162,42 @@ export default class WalletModal extends Vue {
 
   @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
 
+  @wallet.Mutation
+  public setDefaultWalletState!: () => string;
+
   private events = {
-    metamask: {
-      accountsChanged: [
-        {
-          callback: () => {
-            store.commit("wallet/setDefaultWalletState");
-            this.$router.go(0);
-          },
-          connected: true,
-        },
-      ],
-    },
-    walletConnect: {
-      disconnect: [
-        {
-          callback: () => {
-            store.commit("wallet/setDefaultWalletState");
-            this.$router.go(0);
-          },
-          connected: true,
-        },
-      ],
-    },
+    metamask: {},
+    walletConnect: {},
     phantomWallet: {},
   };
+
+  created() {
+    this.events = {
+      metamask: {
+        accountsChanged: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+      },
+      walletConnect: {
+        disconnect: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+      },
+      phantomWallet: {},
+    };
+  }
 
   public async showWalletConnectModal(): Promise<void> {
     if (!this.walletConnectService) {
