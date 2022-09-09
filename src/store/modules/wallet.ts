@@ -1,4 +1,4 @@
-import { VuexModule, Module, Action, Mutation } from "vuex-module-decorators";
+import { VuexModule, Module, Mutation } from "vuex-module-decorators";
 import store from "vuex";
 
 const getDefaultWalletState = () => {
@@ -16,20 +16,16 @@ const getDefaultWalletState = () => {
 class Wallet extends VuexModule {
   public wallet = getDefaultWalletState();
 
-  public get isMetamaskConnected(): string {
-    return this.wallet.type === "metamask" && this.wallet.connected
-      ? "connected"
-      : "not_connected";
+  public get getActiveType(): string {
+    return this.wallet.type;
+  }
+
+  public get getStatus(): string {
+    return this.wallet.connected ? "connected" : "not_connected";
   }
 
   public get getWalletAddress(): string {
     return this.wallet.walletAddress;
-  }
-
-  public get isWalletConnectConnected(): string {
-    return this.wallet.type === "walletConnect" && this.wallet.connected
-      ? "connected"
-      : "not_connected";
   }
 
   public get getChainId(): string {
@@ -39,19 +35,6 @@ class Wallet extends VuexModule {
   @Mutation
   public setDefaultWalletState(): void {
     this.wallet = getDefaultWalletState();
-  }
-
-  @Action
-  public resetWalletState(closeSession = false) {
-    if (
-      closeSession &&
-      this.context.getters.isWalletConnectConnected === "connected"
-    ) {
-      this.context.rootGetters[
-        "walletConnect/getWalletConnectProvider"
-      ].disconnect();
-    }
-    this.context.commit("setDefaultWalletState");
   }
 
   @Mutation

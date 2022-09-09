@@ -63,10 +63,7 @@
             </li>
             <li class="nav-item connect-wallet-link">
               <button
-                v-if="
-                  isMetamaskConnected === 'not_connected' &&
-                  isWalletConnectConnected === 'not_connected'
-                "
+                v-if="getStatus === 'not_connected'"
                 type="button"
                 href="#"
                 class="nav-link px-3"
@@ -80,7 +77,7 @@
                 type="button"
                 href="#"
                 class="nav-link px-3 logged-in"
-                @click="resetWalletState(true)"
+                @click="logOut"
               >
                 Log out
               </button>
@@ -96,8 +93,10 @@
 <script lang="ts">
 import WalletModal from "@/components/WalletModal.vue";
 import { Collapse } from "bootstrap";
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Inject } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
+import MetamaskService from "@/utils/Service/MetamaskService";
+import WalletConnectService from "@/utils/Service/WalletConnectService";
 
 const wallet = namespace("wallet");
 
@@ -107,17 +106,26 @@ const wallet = namespace("wallet");
   },
 })
 export default class TheHeader extends Vue {
-  @wallet.Getter
-  public isMetamaskConnected!: string;
+  @Inject({ from: "metamaskService" }) metamaskService:
+    | MetamaskService
+    | false = false;
+
+  @Inject({ from: "walletConnectService" }) walletConnectService:
+    | WalletConnectService
+    | false = false;
 
   @wallet.Getter
-  public isWalletConnectConnected!: string;
+  public getStatus!: string;
 
-  @wallet.Action
-  public resetWalletState!: (closeSession: boolean) => void;
-
-  @wallet.Mutation
-  public setWalletAddress!: (address: string) => void;
+  async logOut() {
+    if (this.metamaskService instanceof MetamaskService) {
+      this.metamaskService.disconnect();
+    }
+    if (this.walletConnectService instanceof WalletConnectService) {
+      await this.walletConnectService.disconnect();
+    }
+    this.$router.go(0);
+  }
 
   toggleNavbar(): void {
     const menuToggle = document.getElementById("navbarNav");
