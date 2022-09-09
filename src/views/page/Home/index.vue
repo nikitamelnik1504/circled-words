@@ -16,6 +16,7 @@ import Benefits from "./components/BenefitsBlock.vue";
 import Stats from "./components/StatsBlock/index.vue";
 import Description from "./components/DescriptionBlock/index.vue";
 import Slogan from "./components/SloganBlock.vue";
+import { computed } from "vue";
 
 @Options({
   name: "HomePage",
@@ -30,7 +31,9 @@ import Slogan from "./components/SloganBlock.vue";
 export default class Home extends PageBase {
   constructor() {
     super();
-    this.minHeightValue += this.heightValues["footerHeight"];
+    this.minHeightValue = computed(() => {
+      return this.heightValues.clientHeight - this.heightValues.headerHeight;
+    });
   }
 }
 </script>
