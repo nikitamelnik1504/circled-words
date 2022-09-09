@@ -21,8 +21,10 @@ import { loadFull } from "tsparticles";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
+import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 import { namespace } from "s-vuex-class";
 import type { Store } from "vuex";
+import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 
 const wallet = namespace("wallet");
 
@@ -42,6 +44,9 @@ export default class App extends Vue {
 
   @Provide({ to: "walletConnectService", reactive: true })
   walletConnectService: WalletConnectService | false = false;
+
+  @Provide({ to: "phantomWalletService", reactive: true })
+  phantomWalletService: PhantomWalletService | false = false;
 
   @wallet.Mutation
   public setDefaultWalletState!: () => string;
@@ -97,6 +102,7 @@ export default class App extends Vue {
       phantomWallet: {},
     };
 
+    // Ethereum.
     detectEthereumProvider().then((result: MetamaskProvider | unknown) => {
       if (!(result as MetamaskProvider)) {
         return;
@@ -108,6 +114,7 @@ export default class App extends Vue {
       ).then((result) => (this.metamaskService = result));
     });
 
+    // WalletConnect.
     WalletConnectService.create(
       new WalletConnectProvider({
         infuraId: "270dd5535d1344b2a5a507a081f3d45b",
@@ -117,6 +124,21 @@ export default class App extends Vue {
     ).then((result) => {
       this.walletConnectService = result;
     });
+
+    // PhantomWallet.
+    if ("phantom" in window) {
+      const provider = window.phantom?.solana;
+
+      if (provider?.isPhantom && (provider as PhantomWalletAdapter)) {
+        PhantomWalletService.create(
+          provider,
+          this.$store,
+          this.events.phantomWallet
+        ).then((result) => {
+          this.phantomWalletService = result;
+        });
+      }
+    }
   }
 
   unmounted(): void {

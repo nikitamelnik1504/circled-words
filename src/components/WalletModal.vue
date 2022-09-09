@@ -31,14 +31,16 @@
                   <div class="row">
                     <div class="mb-2">
                       <h3 class="blockchain-title solana">
-                        Solana<br />(coming soon)
-                        <!-- (recommended) -->
+                        Solana<br />(recommended)
                       </h3>
                     </div>
                     <div class="col-6 col-sm-10 mx-auto mb-sm-3">
                       <a
-                        href="#"
-                        class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2 disabled"
+                        :href="
+                          phantomWalletService ? '#' : 'https://phantom.app'
+                        "
+                        class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2"
+                        @click="showPhantomWalletModal($event)"
                       >
                         <div
                           class="image-wrapper d-flex justify-content-center py-2"
@@ -145,7 +147,9 @@
 <script lang="ts">
 import { Vue, Options, Ref, Inject } from "vue-property-decorator";
 import type MetamaskService from "@/utils/Service/MetamaskService";
-import type WalletConnectService from "@utils/Service/WalletConnectService";
+import type WalletConnectService from "@/utils/Service/WalletConnectService";
+import type PhantomWalletService from "@/utils/Service/PhantomWalletService";
+
 import { namespace } from "s-vuex-class";
 
 const wallet = namespace("wallet");
@@ -158,6 +162,10 @@ export default class WalletModal extends Vue {
 
   @Inject({ from: "walletConnectService" }) walletConnectService:
     | WalletConnectService
+    | false = false;
+
+  @Inject({ from: "phantomWalletService" }) phantomWalletService:
+    | PhantomWalletService
     | false = false;
 
   @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
@@ -197,6 +205,19 @@ export default class WalletModal extends Vue {
       },
       phantomWallet: {},
     };
+  }
+
+  public async showPhantomWalletModal(event: Event): Promise<void> {
+    if (!this.phantomWalletService) {
+      return;
+    }
+
+    event.preventDefault();
+    const connectionToPhantomWallet = await this.phantomWalletService.connect();
+    if (connectionToPhantomWallet === "connected") {
+      // this.phantomWalletService.addEventsGroup(this.events.phantomWallet);
+      this.closeWalletModal.click();
+    }
   }
 
   public async showWalletConnectModal(): Promise<void> {
