@@ -62,6 +62,8 @@ export default class App extends Vue {
     canvas: { element: HTMLCanvasElement };
   }): Promise<void> {
     container.canvas.element.style.zIndex = "-1";
+    container.canvas.element.style.width = "100vw";
+    container.canvas.element.style.height = "100vh";
   }
 
   beforeCreate(): void {
