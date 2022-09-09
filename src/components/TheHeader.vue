@@ -97,6 +97,7 @@ import { Vue, Options, Inject } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
+import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 
 const wallet = namespace("wallet");
 
@@ -114,6 +115,10 @@ export default class TheHeader extends Vue {
     | WalletConnectService
     | false = false;
 
+  @Inject({ from: "phantomWalletService" }) phantomWalletService:
+    | PhantomWalletService
+    | false = false;
+
   @wallet.Getter
   public getStatus!: string;
 
@@ -124,6 +129,10 @@ export default class TheHeader extends Vue {
     if (this.walletConnectService instanceof WalletConnectService) {
       await this.walletConnectService.disconnect();
     }
+    if (this.phantomWalletService instanceof PhantomWalletService) {
+      await this.phantomWalletService.disconnect();
+    }
+
     this.$router.go(0);
   }
 

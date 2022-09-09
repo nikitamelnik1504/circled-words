@@ -48,14 +48,15 @@ export default class App extends Vue {
   @Provide({ to: "phantomWalletService", reactive: true })
   phantomWalletService: PhantomWalletService | false = false;
 
-  @wallet.Mutation
-  public setDefaultWalletState!: () => string;
-
-  private events = {
+  @Provide({ to: "walletEvents", reactive: true })
+  walletEvents = {
     metamask: {},
     walletConnect: {},
     phantomWallet: {},
   };
+
+  @wallet.Mutation
+  public setDefaultWalletState!: () => string;
 
   private $store!: Store<unknown>;
 
@@ -76,7 +77,7 @@ export default class App extends Vue {
   }
 
   created(): void {
-    this.events = {
+    this.walletEvents = {
       metamask: {
         accountsChanged: [
           {
@@ -99,7 +100,17 @@ export default class App extends Vue {
           },
         ],
       },
-      phantomWallet: {},
+      phantomWallet: {
+        disconnect: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+      },
     };
 
     // Ethereum.
@@ -110,7 +121,7 @@ export default class App extends Vue {
       MetamaskService.create(
         result as MetamaskProvider,
         this.$store,
-        this.events.metamask
+        this.walletEvents.metamask
       ).then((result) => (this.metamaskService = result));
     });
 
@@ -120,7 +131,7 @@ export default class App extends Vue {
         infuraId: "270dd5535d1344b2a5a507a081f3d45b",
       }),
       this.$store,
-      this.events.walletConnect
+      this.walletEvents.walletConnect
     ).then((result) => {
       this.walletConnectService = result;
     });
@@ -133,7 +144,7 @@ export default class App extends Vue {
         PhantomWalletService.create(
           provider,
           this.$store,
-          this.events.phantomWallet
+          this.walletEvents.phantomWallet
         ).then((result) => {
           this.phantomWalletService = result;
         });
@@ -143,7 +154,7 @@ export default class App extends Vue {
 
   unmounted(): void {
     if (this.metamaskService instanceof MetamaskService) {
-      this.metamaskService.removeEventsGroup(this.events.metamask);
+      this.metamaskService.removeEventsGroup(this.walletEvents.metamask);
     }
   }
 }

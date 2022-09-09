@@ -54,8 +54,9 @@ export default class PhantomWalletService extends WalletServiceBase {
       });
   }
 
-  disconnect(): void {
-    return;
+  public async disconnect(): Promise<void> {
+    this.store.commit("wallet/setDefaultWalletState");
+    return this.provider.disconnect();
   }
 
   isConnected(): boolean {

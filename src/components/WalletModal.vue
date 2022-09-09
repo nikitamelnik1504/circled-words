@@ -168,44 +168,17 @@ export default class WalletModal extends Vue {
     | PhantomWalletService
     | false = false;
 
-  @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
-
-  @wallet.Mutation
-  public setDefaultWalletState!: () => string;
-
-  private events = {
+  @Inject({ from: "walletEvents" })
+  walletEvents = {
     metamask: {},
     walletConnect: {},
     phantomWallet: {},
   };
 
-  created() {
-    this.events = {
-      metamask: {
-        accountsChanged: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
-      },
-      walletConnect: {
-        disconnect: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
-      },
-      phantomWallet: {},
-    };
-  }
+  @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
+
+  @wallet.Mutation
+  public setDefaultWalletState!: () => string;
 
   public async showPhantomWalletModal(event: Event): Promise<void> {
     if (!this.phantomWalletService) {
@@ -227,7 +200,7 @@ export default class WalletModal extends Vue {
 
     const connectionToWalletConnect = await this.walletConnectService.connect();
     if (connectionToWalletConnect === "connected") {
-      this.walletConnectService.addEventsGroup(this.events.walletConnect);
+      this.walletConnectService.addEventsGroup(this.walletEvents.walletConnect);
       this.closeWalletModal.click();
     }
   }
@@ -240,7 +213,7 @@ export default class WalletModal extends Vue {
     event.preventDefault();
     const connectionToMetamask = await this.metamaskService.connect();
     if (connectionToMetamask === "connected") {
-      this.metamaskService.addEventsGroup(this.events.metamask);
+      this.metamaskService.addEventsGroup(this.walletEvents.metamask);
       this.closeWalletModal.click();
     }
   }
