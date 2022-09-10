@@ -110,6 +110,15 @@ export default class App extends Vue {
             connected: true,
           },
         ],
+        accountChanged: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
       },
     };
 

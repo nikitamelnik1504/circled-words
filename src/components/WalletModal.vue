@@ -188,7 +188,7 @@ export default class WalletModal extends Vue {
     event.preventDefault();
     const connectionToPhantomWallet = await this.phantomWalletService.connect();
     if (connectionToPhantomWallet === "connected") {
-      // this.phantomWalletService.addEventsGroup(this.events.phantomWallet);
+      this.phantomWalletService.addEventsGroup(this.walletEvents.phantomWallet);
       this.closeWalletModal.click();
     }
   }

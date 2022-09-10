@@ -1,8 +1,12 @@
 import WalletServiceBase from "./WalletServiceBase";
 import type { Store } from "vuex";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
+import type { WalletAdapterEvents } from "@solana/wallet-adapter-base";
 
 export default class PhantomWalletService extends WalletServiceBase {
+  public connected = false;
+  public connectedToSite = false;
+
   constructor(
     public provider: PhantomWalletAdapter,
     public store: Store<unknown>,
@@ -24,15 +28,19 @@ export default class PhantomWalletService extends WalletServiceBase {
   ): Promise<PhantomWalletService> {
     const instance = new this(provider, store, events);
 
-    // Check if metamask was connected before page reload.
-    if (instance.isConnected()) {
+    // @ts-ignore
+    instance.connected = false; // @TODO Implement Eagerly Connecting.
+
+    // Check if phantomWallet was connected before page reload.
+    if (instance.store.getters["wallet/isPhantomWalletConnected"]) {
       store.commit("wallet/setDefaultWalletState");
       await instance.connect().then(() => {
-        // instance.addEventsGroup(events);
+        instance.addEventsGroup(events);
+        instance.connected = true;
+        instance.connectedToSite = true;
       });
     }
 
-    this.initialized = true;
     return instance;
   }
 
@@ -46,6 +54,8 @@ export default class PhantomWalletService extends WalletServiceBase {
         );
         this.store.commit("wallet/setWalletType", "phantomWallet");
         this.store.commit("wallet/setConnected", true);
+        this.connected = true;
+        this.connectedToSite = true;
         return "connected";
       })
       .catch((error) => {
@@ -54,15 +64,35 @@ export default class PhantomWalletService extends WalletServiceBase {
       });
   }
 
-  public async disconnect(): Promise<void> {
-    this.store.commit("wallet/setDefaultWalletState");
-    return this.provider.disconnect();
+  public addEvent(
+    name: string,
+    callback: () => void,
+    onConnected = false
+  ): void {
+    if (onConnected && !this.connectedToSite) {
+      return;
+    }
+    this.provider.on(name as keyof WalletAdapterEvents, callback);
   }
 
-  isConnected(): boolean {
-    return (
-      this.store.getters["wallet/getActiveType"] === "phantomWallet" &&
-      this.store.getters["wallet/getStatus"] === "connected"
-    );
+  public removeEvent(name: string, callback: () => void): void {
+    this.provider.removeListener(name as keyof WalletAdapterEvents, callback);
+  }
+
+  public removeEventsGroup(
+    events: Record<string, Array<{ callback: () => unknown }>>
+  ): void {
+    for (const event_type in events) {
+      events[event_type].forEach((item) => {
+        this.removeEvent(event_type, item.callback);
+      });
+    }
+  }
+
+  public async disconnect(): Promise<void> {
+    this.store.commit("wallet/setDefaultWalletState");
+    this.connected = false;
+    this.connectedToSite = false;
+    return this.provider.disconnect();
   }
 }
