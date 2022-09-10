@@ -104,4 +104,34 @@
       }
     }
   }
+
+  .circled-word {
+    @include media-breakpoint-up(sm) {
+      border-width: calc(1.5 * 4px);
+      padding: calc(1.5 * 30px) calc(1.5 * 44px);
+      font-size: calc(1.5 * 32px);
+      border-radius: calc(1.5 * 6px);
+    }
+
+    @include media-breakpoint-up(md) {
+      border-width: calc(2 * 4px);
+      padding: calc(2 * 30px) calc(2 * 44px);
+      font-size: calc(2 * 32px);
+      border-radius: calc(2 * 6px);
+    }
+
+    @include media-breakpoint-up(lg) {
+      border-width: calc(2.5 * 4px);
+      padding: calc(2.5 * 30px) calc(2.5 * 44px);
+      font-size: calc(2.5 * 32px);
+      border-radius: calc(2.5 * 6px);
+    }
+
+    @include media-breakpoint-up(xl) {
+      border-width: calc(3 * 4px);
+      padding: calc(3 * 30px) calc(3 * 44px);
+      font-size: calc(3 * 32px);
+      border-radius: calc(3 * 6px);
+    }
+  }
 }
