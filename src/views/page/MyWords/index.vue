@@ -92,13 +92,15 @@ const wallet = namespace("wallet");
   },
 })
 export default class MyWords extends PageBase {
-  @Inject({ from: "metamaskService" }) metamaskService?: MetamaskService;
+  @Inject({ from: "metamaskService" }) metamaskService:
+    | MetamaskService
+    | false = false;
 
   @Inject({ from: "walletConnectService" })
-  walletConnectService?: WalletConnectService;
+  walletConnectService: WalletConnectService | false = false;
 
   @Inject({ from: "phantomWalletService" })
-  phantomWalletService?: PhantomWalletService;
+  phantomWalletService: PhantomWalletService | false = false;
 
   assets: Array<object> = [];
   loadStatus = "not_loaded";

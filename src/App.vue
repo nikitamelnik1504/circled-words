@@ -165,6 +165,11 @@ export default class App extends Vue {
     if (this.metamaskService instanceof MetamaskService) {
       this.metamaskService.removeEventsGroup(this.walletEvents.metamask);
     }
+    if (this.phantomWalletService instanceof PhantomWalletService) {
+      this.phantomWalletService.removeEventsGroup(
+        this.walletEvents.phantomWallet
+      );
+    }
   }
 }
 </script>
