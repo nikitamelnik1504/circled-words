@@ -11,8 +11,7 @@
           <div class="mx-auto d-inline-block text-center text-lg-start">
             <h2 class="slogan">
               <span class="word-secondary">Circled</span>
-              <span class="word-primary"> word</span> is already waiting for
-              you!
+              <span class="word-primary">Word</span> is already waiting for you!
             </h2>
             <a
               href="https://opensea.io/collection/circledwords"

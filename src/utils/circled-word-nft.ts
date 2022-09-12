@@ -24,12 +24,15 @@ class CircledWordNft {
   private metadata: NFTMetadata;
   public properties?: FillInTrait;
   public name: string;
+  public text?: string;
 
   constructor(metadata: NFTMetadata) {
     this.metadata = metadata;
 
     const hash_position = metadata.name.indexOf("#");
     this.name = metadata.name.substring(hash_position);
+
+    this.text = metadata.text;
 
     const traits = this.getTraits();
     switch (traits["Animation Type"]) {
@@ -80,6 +83,7 @@ class CircledWordNft {
       elementClass: "",
       elementStyle: {},
       title: this.getTitle,
+      text: this.text,
     };
 
     const traits = this.properties;

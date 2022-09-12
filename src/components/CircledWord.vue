@@ -13,7 +13,7 @@
       },
     ]"
     :style="wordData.elementStyle"
-    >CIRCLED</a
+    >{{ wordData.text ? wordData.text : "CIRCLED" }}</a
   >
 </template>
 
