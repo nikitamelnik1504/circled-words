@@ -31,14 +31,16 @@
                   <div class="row">
                     <div class="mb-2">
                       <h3 class="blockchain-title solana">
-                        Solana<br />(coming soon)
-                        <!-- (recommended) -->
+                        Solana<br />(recommended)
                       </h3>
                     </div>
                     <div class="col-6 col-sm-10 mx-auto mb-sm-3">
                       <a
-                        href="#"
-                        class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2 disabled"
+                        :href="
+                          phantomWalletService ? '#' : 'https://phantom.app'
+                        "
+                        class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2"
+                        @click="showPhantomWalletModal($event)"
                       >
                         <div
                           class="image-wrapper d-flex justify-content-center py-2"
@@ -145,7 +147,9 @@
 <script lang="ts">
 import { Vue, Options, Ref, Inject } from "vue-property-decorator";
 import type MetamaskService from "@/utils/Service/MetamaskService";
-import type WalletConnectService from "@utils/Service/WalletConnectService";
+import type WalletConnectService from "@/utils/Service/WalletConnectService";
+import type PhantomWalletService from "@/utils/Service/PhantomWalletService";
+
 import { namespace } from "s-vuex-class";
 
 const wallet = namespace("wallet");
@@ -160,43 +164,33 @@ export default class WalletModal extends Vue {
     | WalletConnectService
     | false = false;
 
-  @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
+  @Inject({ from: "phantomWalletService" }) phantomWalletService:
+    | PhantomWalletService
+    | false = false;
 
-  @wallet.Mutation
-  public setDefaultWalletState!: () => string;
-
-  private events = {
+  @Inject({ from: "walletEvents" })
+  walletEvents = {
     metamask: {},
     walletConnect: {},
     phantomWallet: {},
   };
 
-  created() {
-    this.events = {
-      metamask: {
-        accountsChanged: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
-      },
-      walletConnect: {
-        disconnect: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
-      },
-      phantomWallet: {},
-    };
+  @Ref("CloseWalletModal") readonly closeWalletModal!: HTMLButtonElement;
+
+  @wallet.Mutation
+  public setDefaultWalletState!: () => string;
+
+  public async showPhantomWalletModal(event: Event): Promise<void> {
+    if (!this.phantomWalletService) {
+      return;
+    }
+
+    event.preventDefault();
+    const connectionToPhantomWallet = await this.phantomWalletService.connect();
+    if (connectionToPhantomWallet === "connected") {
+      this.phantomWalletService.addEventsGroup(this.walletEvents.phantomWallet);
+      this.closeWalletModal.click();
+    }
   }
 
   public async showWalletConnectModal(): Promise<void> {
@@ -206,7 +200,7 @@ export default class WalletModal extends Vue {
 
     const connectionToWalletConnect = await this.walletConnectService.connect();
     if (connectionToWalletConnect === "connected") {
-      this.walletConnectService.addEventsGroup(this.events.walletConnect);
+      this.walletConnectService.addEventsGroup(this.walletEvents.walletConnect);
       this.closeWalletModal.click();
     }
   }
@@ -219,7 +213,7 @@ export default class WalletModal extends Vue {
     event.preventDefault();
     const connectionToMetamask = await this.metamaskService.connect();
     if (connectionToMetamask === "connected") {
-      this.metamaskService.addEventsGroup(this.events.metamask);
+      this.metamaskService.addEventsGroup(this.walletEvents.metamask);
       this.closeWalletModal.click();
     }
   }

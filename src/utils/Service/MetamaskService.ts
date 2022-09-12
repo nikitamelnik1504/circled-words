@@ -20,6 +20,9 @@ export interface MetamaskProvider {
 }
 
 export default class MetamaskService extends WalletServiceBase {
+  public connected = false;
+  public connectedToSite = false;
+
   constructor(
     public provider: MetamaskProvider,
     public store: Store<unknown>,
@@ -41,23 +44,22 @@ export default class MetamaskService extends WalletServiceBase {
   ): Promise<MetamaskService> {
     const instance = new this(provider, store, events);
 
+    const connection = await instance.provider.request({
+      method: "eth_accounts",
+    });
+
+    instance.connected = !!connection;
+
     // Check if metamask was connected before page reload.
-    if (instance.isConnected()) {
+    if (store.getters["wallet/isMetamaskConnected"]) {
       store.commit("wallet/setDefaultWalletState");
       await instance.connect().then(() => {
         instance.addEventsGroup(events);
+        instance.connectedToSite = true;
       });
     }
 
-    this.initialized = true;
     return instance;
-  }
-
-  public isConnected(): boolean {
-    return (
-      this.store.getters["wallet/getActiveType"] === "metamask" &&
-      this.store.getters["wallet/getStatus"] === "connected"
-    );
   }
 
   public async connect(): Promise<string> {
@@ -71,6 +73,8 @@ export default class MetamaskService extends WalletServiceBase {
         );
         this.store.commit("wallet/setWalletType", "metamask");
         this.store.commit("wallet/setConnected", true);
+        this.connected = true;
+        this.connectedToSite = true;
         return "connected";
       })
       .catch((error) => {
@@ -84,7 +88,7 @@ export default class MetamaskService extends WalletServiceBase {
     callback: () => void,
     onConnected = false
   ): void {
-    if (onConnected && !this.isConnected()) {
+    if (onConnected && !this.connectedToSite) {
       return;
     }
     this.provider.on(name, callback);
@@ -123,5 +127,6 @@ export default class MetamaskService extends WalletServiceBase {
 
   public disconnect(): void {
     this.store.commit("wallet/setDefaultWalletState");
+    this.connectedToSite = false;
   }
 }

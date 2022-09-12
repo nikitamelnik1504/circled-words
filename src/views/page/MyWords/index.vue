@@ -4,12 +4,19 @@
       <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
         <div
           v-if="
-            (metamaskService && metamaskService.isConnected()) ||
-            (walletConnectService && walletConnectService.isConnected())
+            (metamaskService &&
+              metamaskService.connected &&
+              metamaskService.connectedToSite) ||
+            (walletConnectService &&
+              walletConnectService.connected &&
+              walletConnectService.connectedToSite) ||
+            (phantomWalletService &&
+              phantomWalletService.connected &&
+              phantomWalletService.connectedToSite)
           "
           class="h-100"
         >
-          <div v-if="loaded === true" class="h-100">
+          <div v-if="loadStatus === 'loaded'" class="h-100">
             <div
               v-if="assets.length !== 0"
               class="text-center my-4 my-lg-0 mt-lg-2"
@@ -74,6 +81,7 @@ import { namespace } from "s-vuex-class";
 import axios, { type AxiosResponse } from "axios";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
+import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 
 const wallet = namespace("wallet");
 
@@ -88,83 +96,96 @@ export default class MyWords extends PageBase {
     | MetamaskService
     | false = false;
 
-  @Inject({ from: "walletConnectService" }) walletConnectService:
-    | WalletConnectService
-    | false = false;
+  @Inject({ from: "walletConnectService" })
+  walletConnectService: WalletConnectService | false = false;
 
-  isMetamaskInitialized = false;
-  isWalletConnectInitialized = false;
+  @Inject({ from: "phantomWalletService" })
+  phantomWalletService: PhantomWalletService | false = false;
+
   assets: Array<object> = [];
-  loaded = false;
+  loadStatus = "not_loaded";
 
   @wallet.Getter
   public getWalletAddress!: string;
 
-  @wallet.Getter
-  public getStatus!: string;
-
   mounted(): void {
-    this.onMetamaskConnected(MetamaskService.initialized);
-    this.onWalletConnectConnected(WalletConnectService.initialized);
+    this.onMetamaskConnected(this.metamaskService);
+    this.onWalletConnectConnected(this.walletConnectService);
+    this.onPhantomWalletConnected(this.phantomWalletService);
   }
 
-  @Watch("isWalletConnectInitialized")
-  onWalletConnectConnected(status: boolean): void {
-    if (!status || this.loaded) {
+  @Watch("phantomWalletService", { deep: true })
+  onPhantomWalletConnected(service: unknown) {
+    if (!(service instanceof PhantomWalletService)) {
       return;
     }
 
-    if ((this.walletConnectService as WalletConnectService).isConnected()) {
-      this.loadAssetsFromWalletConnect();
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.loadStatus === "not_loaded"
+    ) {
+      this.loadAssetsFromPhantomWallet();
     }
   }
 
   @Watch("walletConnectService", { deep: true })
-  onWalletConnectLoaded(value: unknown) {
-    if (!(value instanceof WalletConnectService)) {
+  onWalletConnectConnected(service: unknown) {
+    if (!(service instanceof WalletConnectService)) {
       return;
     }
 
-    if (value.provider.connected) {
-      this.isWalletConnectInitialized = WalletConnectService.initialized;
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.loadStatus === "not_loaded"
+    ) {
+      this.loadAssetsFromWalletConnect();
     }
   }
 
   @Watch("metamaskService", { deep: true })
-  onMetamaskLoaded(value: unknown) {
-    if (!(value instanceof MetamaskService)) {
+  onMetamaskConnected(service: unknown) {
+    if (!(service instanceof MetamaskService)) {
       return;
     }
 
-    this.isMetamaskInitialized = MetamaskService.initialized;
-  }
-
-  @Watch("isMetamaskInitialized")
-  onMetamaskConnected(status: boolean) {
-    if (!status || this.loaded) {
-      return;
-    }
-
-    if ((this.metamaskService as MetamaskService).isConnected()) {
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.loadStatus === "not_loaded"
+    ) {
       this.loadAssetsFromMetamask();
     }
   }
 
   loadAssetsFromWalletConnect(): void {
+    this.loadStatus = "loading";
     this.loadAssets().then((result) => {
       result.data.assets.forEach((item: object) => {
         this.assets.push(item);
       });
-      this.loaded = true;
+      this.loadStatus = "loaded";
     });
   }
 
   loadAssetsFromMetamask(): void {
+    this.loadStatus = "loading";
     this.loadAssets().then((result) => {
       result.data.assets.forEach((item: object) => {
         this.assets.push(item);
       });
-      this.loaded = true;
+      this.loadStatus = "loaded";
+    });
+  }
+
+  loadAssetsFromPhantomWallet(): void {
+    this.loadStatus = "loading";
+    this.loadAssets().then((result) => {
+      result.data.assets.forEach((item: object) => {
+        this.assets.push(item);
+      });
+      this.loadStatus = "loaded";
     });
   }
 

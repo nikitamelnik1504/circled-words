@@ -32,6 +32,22 @@ class Wallet extends VuexModule {
     return this.wallet.chainId;
   }
 
+  public get isMetamaskConnected(): boolean {
+    return this.getActiveType === "metamask" && this.getStatus === "connected";
+  }
+
+  public get isWalletConnectConnected(): boolean {
+    return (
+      this.getActiveType === "walletConnect" && this.getStatus === "connected"
+    );
+  }
+
+  public get isPhantomWalletConnected(): boolean {
+    return (
+      this.getActiveType === "phantomWallet" && this.getStatus === "connected"
+    );
+  }
+
   @Mutation
   public setDefaultWalletState(): void {
     this.wallet = getDefaultWalletState();

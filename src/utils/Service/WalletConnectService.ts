@@ -3,6 +3,9 @@ import type { Store } from "vuex";
 import type WalletConnectProvider from "@walletconnect/web3-provider";
 
 export default class WalletConnectService extends WalletServiceBase {
+  public connected = false;
+  public connectedToSite = false;
+
   constructor(
     public provider: WalletConnectProvider,
     public store: Store<unknown>,
@@ -24,23 +27,18 @@ export default class WalletConnectService extends WalletServiceBase {
   ): Promise<WalletConnectService> {
     const instance = new this(provider, store, events);
 
+    instance.connected = true;
+
     // Check if metamask was connected before page reload.
-    if (instance.isConnected()) {
+    if (store.getters["wallet/isWalletConnectConnected"]) {
       store.commit("wallet/setDefaultWalletState");
       await instance.connect().then(() => {
         instance.addEventsGroup(events);
+        instance.connectedToSite = true;
       });
     }
 
-    this.initialized = true;
     return instance;
-  }
-
-  public isConnected(): boolean {
-    return (
-      this.store.getters["wallet/getActiveType"] === "walletConnect" &&
-      this.store.getters["wallet/getStatus"] === "connected"
-    );
   }
 
   public async connect(): Promise<string> {
@@ -48,6 +46,8 @@ export default class WalletConnectService extends WalletServiceBase {
       this.store.commit("wallet/setWalletAddress", this.provider.accounts[0]);
       this.store.commit("wallet/setWalletType", "walletConnect");
       this.store.commit("wallet/setConnected", true);
+      this.connected = true;
+      this.connectedToSite = true;
       return "connected";
     }
 
@@ -57,6 +57,8 @@ export default class WalletConnectService extends WalletServiceBase {
         this.store.commit("wallet/setWalletAddress", address[0]);
         this.store.commit("wallet/setWalletType", "walletConnect");
         this.store.commit("wallet/setConnected", true);
+        this.connected = true;
+        this.connectedToSite = true;
         return "connected";
       })
       .catch((error) => {
@@ -70,7 +72,7 @@ export default class WalletConnectService extends WalletServiceBase {
     callback: () => void,
     onConnected = false
   ): void {
-    if (onConnected && !this.isConnected()) {
+    if (onConnected && !this.connectedToSite) {
       return;
     }
 
@@ -96,6 +98,8 @@ export default class WalletConnectService extends WalletServiceBase {
 
   public async disconnect(): Promise<void> {
     this.store.commit("wallet/setDefaultWalletState");
+    this.connectedToSite = false;
+    this.connected = false;
     return this.provider.disconnect();
   }
 }

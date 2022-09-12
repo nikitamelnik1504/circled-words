@@ -21,8 +21,10 @@ import { loadFull } from "tsparticles";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
+import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 import { namespace } from "s-vuex-class";
 import type { Store } from "vuex";
+import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 
 const wallet = namespace("wallet");
 
@@ -43,14 +45,18 @@ export default class App extends Vue {
   @Provide({ to: "walletConnectService", reactive: true })
   walletConnectService: WalletConnectService | false = false;
 
-  @wallet.Mutation
-  public setDefaultWalletState!: () => string;
+  @Provide({ to: "phantomWalletService", reactive: true })
+  phantomWalletService: PhantomWalletService | false = false;
 
-  private events = {
+  @Provide({ to: "walletEvents", reactive: true })
+  walletEvents = {
     metamask: {},
     walletConnect: {},
     phantomWallet: {},
   };
+
+  @wallet.Mutation
+  public setDefaultWalletState!: () => string;
 
   private $store!: Store<unknown>;
 
@@ -71,7 +77,7 @@ export default class App extends Vue {
   }
 
   created(): void {
-    this.events = {
+    this.walletEvents = {
       metamask: {
         accountsChanged: [
           {
@@ -94,9 +100,29 @@ export default class App extends Vue {
           },
         ],
       },
-      phantomWallet: {},
+      phantomWallet: {
+        disconnect: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+        accountChanged: [
+          {
+            callback: () => {
+              this.setDefaultWalletState();
+              this.$router.go(0);
+            },
+            connected: true,
+          },
+        ],
+      },
     };
 
+    // Ethereum.
     detectEthereumProvider().then((result: MetamaskProvider | unknown) => {
       if (!(result as MetamaskProvider)) {
         return;
@@ -104,24 +130,45 @@ export default class App extends Vue {
       MetamaskService.create(
         result as MetamaskProvider,
         this.$store,
-        this.events.metamask
+        this.walletEvents.metamask
       ).then((result) => (this.metamaskService = result));
     });
 
+    // WalletConnect.
     WalletConnectService.create(
       new WalletConnectProvider({
         infuraId: "270dd5535d1344b2a5a507a081f3d45b",
       }),
       this.$store,
-      this.events.walletConnect
+      this.walletEvents.walletConnect
     ).then((result) => {
       this.walletConnectService = result;
     });
+
+    // PhantomWallet.
+    if ("phantom" in window) {
+      const provider = window.phantom?.solana;
+
+      if (provider?.isPhantom && (provider as PhantomWalletAdapter)) {
+        PhantomWalletService.create(
+          provider,
+          this.$store,
+          this.walletEvents.phantomWallet
+        ).then((result) => {
+          this.phantomWalletService = result;
+        });
+      }
+    }
   }
 
   unmounted(): void {
     if (this.metamaskService instanceof MetamaskService) {
-      this.metamaskService.removeEventsGroup(this.events.metamask);
+      this.metamaskService.removeEventsGroup(this.walletEvents.metamask);
+    }
+    if (this.phantomWalletService instanceof PhantomWalletService) {
+      this.phantomWalletService.removeEventsGroup(
+        this.walletEvents.phantomWallet
+      );
     }
   }
 }
