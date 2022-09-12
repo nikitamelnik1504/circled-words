@@ -5,6 +5,7 @@ interface CircledWordElement {
   elementStyle: object;
   title: string;
   link?: string;
+  text?: string;
 }
 
 interface NFTMetadata {
@@ -14,6 +15,7 @@ interface NFTMetadata {
   };
   link?: string;
   name: string;
+  text?: string;
   traits: { trait_type: string; value: string }[];
 }
 

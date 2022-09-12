@@ -11,15 +11,13 @@
           <div class="mx-auto d-inline-block text-center text-lg-start">
             <h2 class="slogan">
               <span class="word-secondary">Circled</span>
-              <span class="word-primary"> word</span> is already waiting for
-              you!
+              <span class="word-primary">Word</span> is already waiting for you!
             </h2>
-            <a
-              href="https://opensea.io/collection/circledwords"
-              target="_blank"
+            <router-link
+              to="/create-word"
               class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4"
-              >Start your journey!</a
-            >
+              >Start your journey!
+            </router-link>
           </div>
         </div>
         <div
