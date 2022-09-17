@@ -1,3 +1,145 @@
+.create-word {
+  .block-title {
+    font-size: 24px;
+    margin-bottom: 60px;
+
+    @include media-breakpoint-up(sm) {
+      font-size: 32px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      font-size: 36px;
+    }
+
+    @include media-breakpoint-up(xxl) {
+      font-size: 42px;
+    }
+
+    .primary-text {
+      color: #ffb229;
+    }
+
+    .secondary-text {
+      color: #b97a2a;
+    }
+  }
+
+  .create-word-wrapper {
+    @include media-breakpoint-up(xxl) {
+      max-width: 1199.98px;
+    }
+
+    .circled-properties-form {
+      .circled-property-field {
+        background-color: #51524b;
+
+        @include media-breakpoint-up(xxl) {
+          max-width: calc(2 * 250px);
+        }
+
+        .circled-property-field-label,
+        .circled-property-field-value {
+          color: #fff;
+          font-size: 16px;
+
+          @include media-breakpoint-up(md) {
+            font-size: 20px;
+          }
+        }
+
+        .circled-property-field-value {
+          outline: none;
+          background-color: #34352d;
+          border: none;
+          width: 35%;
+          padding: 5px 0;
+          transition: all 0.3s ease;
+
+          &.select-type {
+            appearance: none;
+            cursor: pointer;
+          }
+
+          &:hover,
+          &:focus {
+            box-shadow: inset 0 0 0 1px #b97a2a;
+          }
+        }
+
+        .number-type {
+          width: 35%;
+
+          input[type="number"] {
+            appearance: textfield;
+            width: 100%;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              appearance: none;
+            }
+          }
+
+          button {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+
+            &::before,
+            &::after {
+              content: "";
+              position: absolute;
+              width: 5px;
+              height: 1px;
+              background-color: #b97a2a;
+              transform: translate(-50%, -50%);
+
+              @include media-breakpoint-up(sm) {
+                width: 7px;
+                height: 2px;
+              }
+
+              @include media-breakpoint-up(md) {
+                width: 15px;
+                height: 3px;
+              }
+            }
+
+            &.plus::after {
+              transform: translate(-50%, -50%) rotate(90deg);
+            }
+          }
+        }
+      }
+    }
+
+    .circled-entity-preview {
+      .circled-word {
+        @include circled-word(1.3);
+
+        @include media-breakpoint-up(sm) {
+          @include circled-word(1.5);
+        }
+
+        @include media-breakpoint-up(md) {
+          @include circled-word(1.7);
+        }
+
+        @include media-breakpoint-up(lg) {
+          @include circled-word(1.7);
+        }
+
+        @include media-breakpoint-up(xl) {
+          @include circled-word(2);
+        }
+
+        @include media-breakpoint-up(xxl) {
+          @include circled-word(2.5);
+        }
+      }
+    }
+  }
+}
+
 .new-circled {
   width: 1080px !important;
   height: 520px !important;
@@ -7,92 +149,4 @@
   font-size: 160px !important;
   justify-content: center !important;
   align-items: center !important;
-}
-
-.create-circled {
-  .primary-text {
-    color: #ffb229;
-  }
-
-  .secondary-text {
-    color: #b97a2a;
-  }
-
-  .button-field {
-    background-color: #51524b;
-
-    .field-name,
-    .field-type {
-      color: #fff;
-      font-size: 13px;
-
-      @include media-breakpoint-up(md) {
-        font-size: 16px;
-      }
-    }
-
-    .field-type {
-      outline: none;
-      background-color: #34352d;
-      border: none;
-      width: 60px;
-      padding: 5px 0;
-      transition: all 0.3s ease;
-
-      @include media-breakpoint-up(md) {
-        width: 100px;
-      }
-
-      &.select-type {
-        appearance: none;
-        cursor: pointer;
-      }
-
-      &:hover,
-      &:focus {
-        box-shadow: inset 0 0 0 1px #b97a2a;
-      }
-    }
-
-    .number-input {
-      & input[type="number"]::-webkit-outer-spin-button,
-      & input[type="number"]::-webkit-inner-spin-button {
-        appearance: none;
-      }
-
-      & input[type="number"] {
-        appearance: textfield;
-      }
-
-      & button {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          width: 5px;
-          height: 1px;
-          background-color: #b97a2a;
-          transform: translate(-50%, -50%);
-
-          @include media-breakpoint-up(sm) {
-            width: 7px;
-            height: 2px;
-          }
-
-          @include media-breakpoint-up(md) {
-            width: 10px;
-            height: 2px;
-          }
-        }
-
-        &.plus::after {
-          transform: translate(-50%, -50%) rotate(90deg);
-        }
-      }
-    }
-  }
 }
