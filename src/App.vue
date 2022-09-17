@@ -101,15 +101,6 @@ export default class App extends Vue {
         ],
       },
       phantomWallet: {
-        disconnect: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
         accountChanged: [
           {
             callback: () => {
