@@ -1,76 +1,84 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid create-word">
     <div class="row">
       <div
-        class="col-10 mx-auto d-flex align-items-center justify-content-center"
+        class="col-md-11 col-lg-10 col-xl-10 col-xxl-12 mx-auto d-flex align-items-center justify-content-center"
         :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
           <div class="timer text-center">
             <h1 ref="startTimeElement" class="timer-value">{{ startTime }}</h1>
           </div>
-          <div>
-            <h2 class="title ps-2 mt-4 mb-5 text-center">
-              <span class="primary-text">Circled</span>
-              <span class="secondary-text">Word</span>
-            </h2>
-          </div>
+          <h2 class="block-title ps-2 mt-4 mb-3 text-center">
+            <span class="primary-text">Circled</span>
+            <span class="secondary-text">Word</span>
+          </h2>
           <div
-            class="create-circled d-flex justify-content-center flex-column-reverse flex-sm-row"
+            class="create-word-wrapper mx-auto d-flex justify-content-center flex-column-reverse flex-lg-row row"
           >
             <form
               ref="generateForm"
               action=""
-              class="mb-4 ms-sm-5 me-sm-3 me-md-4 me-lg-5"
+              class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto d-flex justify-content-center align-items-center flex-column mt-4"
             >
               <div
-                class="button-field d-flex ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Animation Type</p>
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Animation Type
+                </p>
                 <select
                   id="animationType"
                   v-model="wordProperties.traits[0].value"
-                  class="field-type select-type ms-2 ms-lg-3 py-2 px-2 py-sm-3 px-md-3 text-center"
+                  class="circled-property-field-value select-type py-2 px-2 py-sm-3 px-md-3 text-center"
                   name="animation_type"
                 >
                   <option value="Fill In">Fill In</option>
                 </select>
               </div>
               <div
-                class="button-field d-flex mt-2 ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Text Color</p>
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Text Color
+                </p>
                 <input
                   v-model="wordProperties.traits[1].value"
-                  class="field-type ms-2 ms-lg-5 py-2 px-2 py-sm-3 px-md-3 text-center"
+                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
               </div>
               <div
-                class="button-field d-flex mt-2 ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Border Color</p>
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Border Color
+                </p>
                 <input
                   v-model="wordProperties.traits[2].value"
-                  class="field-type ms-2 ms-lg-5 py-2 px-2 py-sm-3 px-md-3 text-center"
+                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
               </div>
               <div
-                class="button-field d-flex mt-2 ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Background Color</p>
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Background Color
+                </p>
                 <input
                   v-model="wordProperties.traits[3].value"
-                  class="field-type ms-2 ms-lg-5 py-2 px-2 py-sm-3 px-md-3 text-center"
+                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
               </div>
               <div
-                class="button-field d-flex mt-2 ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Animation Duration</p>
-                <div class="number-input ms-2 ms-lg-5 position-relative">
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Animation Duration
+                </p>
+                <div class="number-type ms-2 ms-lg-5 position-relative">
                   <button
                     type="button"
                     class="minus w-25 h-100 position-absolute start-0"
@@ -79,7 +87,7 @@
                   <input
                     ref="durationInput"
                     v-model="wordProperties.traits[4].value"
-                    class="field-type py-2 px-2 py-sm-3 px-md-3 text-center"
+                    class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                     type="number"
                     min="0"
                     max="3600"
@@ -94,22 +102,26 @@
                 </div>
               </div>
               <div
-                class="button-field d-flex mt-2 ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Second Text Color</p>
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Second Text Color
+                </p>
                 <input
                   v-model="wordProperties.traits[5].value"
-                  class="field-type ms-2 ms-lg-5 py-2 px-2 py-sm-3 px-md-3 text-center"
+                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
               </div>
               <div
-                class="button-field d-flex mt-2 ps-2 ps-sm-3 ps-md-4 align-items-center justify-content-between"
+                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="field-name m-0 me-md-3">Second Border Color</p>
+                <p class="circled-property-field-label m-0 me-md-3">
+                  Second Border Color
+                </p>
                 <input
                   v-model="wordProperties.traits[6].value"
-                  class="field-type ms-2 ms-lg-5 py-2 px-2 py-sm-3 px-md-3 text-center"
+                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
               </div>
@@ -122,17 +134,19 @@
               </div>
             </form>
             <div
-              class="d-flex mb-4 me-sm-5 justify-content-center align-items-center"
+              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto justify-content-center d-flex align-items-center"
             >
-              <CircledWord
-                :class="{
-                  disabled: startTime <= 2,
-                  'new-circled': startTime <= 2,
-                }"
-                :word-data="wordData"
-                :create-word-animation="runAnimation"
-                @animation-completed="finishAnimation"
-              />
+              <div>
+                <CircledWord
+                  :class="{
+                    disabled: startTime <= 2,
+                    'new-circled': startTime <= 2,
+                  }"
+                  :word-data="wordData"
+                  :create-word-animation="runAnimation"
+                  @animation-completed="finishAnimation"
+                />
+              </div>
             </div>
           </div>
         </div>
