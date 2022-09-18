@@ -6,10 +6,7 @@
         :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
-          <div class="timer text-center">
-            <h1 ref="startTimeElement" class="timer-value">{{ startTime }}</h1>
-          </div>
-          <h2 class="block-title ps-2 mt-4 mb-3 text-center">
+          <h2 class="block-title ps-2 mb-5 text-center">
             <span class="primary-text">Circled</span>
             <span class="secondary-text">Word</span>
           </h2>
@@ -19,7 +16,7 @@
             <form
               ref="generateForm"
               action=""
-              class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto d-flex justify-content-center align-items-center flex-column mt-4"
+              class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto d-flex justify-content-center align-items-center flex-column"
             >
               <div
                 class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
@@ -125,27 +122,31 @@
                   type="text"
                 />
               </div>
-              <div class="d-flex my-3 justify-content-center">
-                <input
-                  type="button"
-                  value="Start animation"
-                  @click="startAnimation()"
-                />
-              </div>
             </form>
             <div
               class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto justify-content-center d-flex align-items-center"
             >
               <div>
                 <CircledWord
-                  :class="{
-                    disabled: startTime <= 2,
-                    'new-circled': startTime <= 2,
-                  }"
+                  class="disabled"
                   :word-data="wordData"
                   :create-word-animation="runAnimation"
                   @animation-completed="finishAnimation"
                 />
+                <div
+                  class="actions mt-4 d-flex justify-content-center circled-entity-preview-actions mb-4 mb-lg-0"
+                >
+                  <a
+                    href="#"
+                    class="py-3 text-center me-3 text-decoration-none w-50 play-action"
+                    >Play</a
+                  >
+                  <a
+                    href="#"
+                    class="py-3 text-center text-decoration-none w-50 mint-action"
+                    >Mint</a
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -234,18 +235,7 @@ export default class CreateWord extends PageBase {
     return Number(value) === value && value % 1 !== 0;
   }
 
-  finishAnimation(): void {
-    this.generateForm.style.display = "block";
-    this.runAnimation = false;
-    this.startTimeElement.style.display = "block";
-    this.startTime = 3;
-  }
-
   startAnimation(): void {
-    this.generateForm.style.display = "none";
-    if (this.startTime <= 0) {
-      this.startTimeElement.style.display = "none";
-    }
     if (this.startTime > -1) {
       setTimeout((): void => {
         this.startTime -= 1;

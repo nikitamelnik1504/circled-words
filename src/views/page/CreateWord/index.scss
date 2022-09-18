@@ -136,17 +136,24 @@
           @include circled-word(2.5);
         }
       }
+
+      .circled-entity-preview-actions {
+        a {
+          font-size: 20px;
+          color: #FFB229;
+          background-color: #34352D;
+
+          &.play-action {
+            box-shadow: 0 0 15px rgba(255, 178, 41, 0.20);
+          }
+
+          &.mint-action {
+            background: none;
+            border: solid 1px #51524B;
+            color: #51524B;
+          }
+        }
+      }
     }
   }
-}
-
-.new-circled {
-  width: 1080px !important;
-  height: 520px !important;
-  border-width: 20px !important;
-  display: flex !important;
-  border-radius: 30px !important;
-  font-size: 160px !important;
-  justify-content: center !important;
-  align-items: center !important;
 }
