@@ -10,6 +10,7 @@
       },
     ]"
     :style="wordData.elementStyle"
+    @click="(event) => (locked ? event.preventDefault() : undefined)"
     >{{ wordData.text ? wordData.text : "CIRCLED" }}</a
   >
 </template>
@@ -25,7 +26,7 @@ export default class CircledWord extends Vue {
 
   @Prop({ required: true }) readonly wordData!: CircledWordElement;
   @Prop({ type: String, default: "#" }) readonly link!: string;
-  @Prop({ type: Boolean, default: false }) readonly autoplayAnimation!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly locked!: string;
   @Prop({ type: Boolean, default: false }) play!: boolean;
 
   @Ref("circledWord") readonly circledWord!: HTMLLinkElement;
@@ -83,12 +84,6 @@ export default class CircledWord extends Vue {
     this.afterAnimationEventTriggered = false;
     this.beforeAnimationEventTriggered = false;
     return true;
-  }
-
-  mounted(): void {
-    if (this.autoplayAnimation) {
-      // this.runAnimation();
-    }
   }
 }
 </script>

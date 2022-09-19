@@ -5,7 +5,7 @@
         <span class="primary">Circled</span><span class="secondary">Word</span>
         {{ name }}
       </h5>
-      <CircledWord :word-data="wordData" :autoplay-animation="true" />
+      <CircledWord :word-data="wordData" class="disabled" locked />
       <div class="text-start mt-3">
         <p
           v-for="(data, title) in sampleWordData.circledProperties"

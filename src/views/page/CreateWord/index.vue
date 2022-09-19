@@ -131,6 +131,7 @@
                   class="disabled"
                   :word-data="wordData"
                   :play="play"
+                  locked
                   @play-finished="onPlayFinished"
                 />
                 <div
