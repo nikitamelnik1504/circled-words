@@ -31,6 +31,14 @@ export default class CircledWord extends Vue {
 
   @Ref("circledWord") readonly circledWord!: HTMLLinkElement;
 
+  mounted() {
+    if (this.play) {
+      new Promise((resolve) => setTimeout(() => resolve(true), 1000)).then(() =>
+        this.onPlayStarted(true)
+      );
+    }
+  }
+
   @Watch("play")
   onPlayStarted(value: boolean): void {
     if (!value) {
