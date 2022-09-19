@@ -130,8 +130,8 @@
                 <CircledWord
                   class="disabled"
                   :word-data="wordData"
-                  :create-word-animation="runAnimation"
-                  @animation-completed="finishAnimation"
+                  :play="play"
+                  @play-finished="onPlayFinished"
                 />
                 <div
                   class="actions mt-4 d-flex justify-content-center circled-entity-preview-actions mb-4 mb-lg-0"
@@ -139,11 +139,15 @@
                   <a
                     href="#"
                     class="py-3 text-center me-3 text-decoration-none w-50 play-action"
+                    :class="{ disabled: play }"
+                    @click="
+                      (event) => (play ? event.preventDefault() : (play = true))
+                    "
                     >Play</a
                   >
                   <a
                     href="#"
-                    class="py-3 text-center text-decoration-none w-50 mint-action"
+                    class="py-3 text-center text-decoration-none w-50 mint-action disabled"
                     >Mint</a
                   >
                 </div>
@@ -181,19 +185,21 @@ export default class CreateWord extends PageBase {
       { trait_type: "Second Border Color", value: "White" },
     ],
   };
-  startTime = 3;
   wordData: CircledWordElement = new CircledWordNFT(
     this.wordProperties
   ).getElement();
-  runAnimation = false;
+  play = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
-  @Ref("startTimeElement") readonly startTimeElement!: HTMLHeadingElement;
   @Ref("durationInput") readonly durationInput!: HTMLInputElement;
 
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
     this.wordData = new CircledWordNFT(val).getElement();
+  }
+
+  onPlayFinished() {
+    this.play = false;
   }
 
   numberIncrement(): void {
@@ -233,17 +239,6 @@ export default class CreateWord extends PageBase {
 
   isFloat(value: number): boolean {
     return Number(value) === value && value % 1 !== 0;
-  }
-
-  startAnimation(): void {
-    if (this.startTime > -1) {
-      setTimeout((): void => {
-        this.startTime -= 1;
-        this.startAnimation();
-      }, 1000);
-    } else {
-      this.runAnimation = true;
-    }
   }
 }
 </script>

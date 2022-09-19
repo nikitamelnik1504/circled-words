@@ -142,15 +142,14 @@
           font-size: 20px;
           color: #FFB229;
           background-color: #34352D;
+          box-shadow: 0 0 15px rgba(255, 178, 41, 0.20);
 
-          &.play-action {
-            box-shadow: 0 0 15px rgba(255, 178, 41, 0.20);
-          }
-
-          &.mint-action {
+          &.disabled {
+            box-shadow: unset;
             background: none;
             border: solid 1px #51524B;
             color: #51524B;
+            cursor: default;
           }
         }
       }
