@@ -6,13 +6,11 @@
     :class="[
       wordData.elementClass,
       {
-        hover:
-          (!animationRunning && autoplayAnimation) ||
-          (!animationRunning && createAnimation),
-        disabled: autoplayAnimation,
+        hover: playStarted,
       },
     ]"
     :style="wordData.elementStyle"
+    @click="(event) => (locked ? event.preventDefault() : undefined)"
     >{{ wordData.text ? wordData.text : "CIRCLED" }}</a
   >
 </template>
@@ -22,65 +20,83 @@ import { Vue, Options, Prop, Ref, Watch, Emit } from "vue-property-decorator";
 
 @Options({})
 export default class CircledWord extends Vue {
-  public animationRunning = false;
-  public createAnimation = false;
+  protected playStarted = false;
+  private beforeAnimationEventTriggered = false;
+  private afterAnimationEventTriggered = false;
 
   @Prop({ required: true }) readonly wordData!: CircledWordElement;
   @Prop({ type: String, default: "#" }) readonly link!: string;
-  @Prop({ type: Boolean, default: false }) readonly autoplayAnimation!: boolean;
-  @Prop({ type: Boolean, default: false })
-  readonly createWordAnimation!: boolean;
+  @Prop({ type: Boolean, default: false }) readonly locked!: string;
+  @Prop({ type: Boolean, default: false }) play!: boolean;
 
   @Ref("circledWord") readonly circledWord!: HTMLLinkElement;
 
-  @Watch("createWordAnimation")
-  onCreateWordAnimation(value: boolean): void {
+  mounted() {
+    if (this.play) {
+      new Promise((resolve) => setTimeout(() => resolve(true), 1000)).then(() =>
+        this.onPlayStarted(true)
+      );
+    }
+  }
+
+  @Watch("play")
+  onPlayStarted(value: boolean): void {
     if (!value) {
       return;
     }
-    this.createAnimation = true;
-    const startTransitionEvent = () => {
-      setTimeout(() => {
-        this.createAnimation = false;
-        this.createWordAnimationCompleted();
-        this.circledWord.removeEventListener(
-          "transitionend",
-          startTransitionEvent
-        );
-      }, 2000);
-    };
-    this.circledWord.addEventListener("transitionend", startTransitionEvent);
-  }
 
-  @Emit()
-  animationCompleted(): void {
-    return;
-  }
-
-  mounted(): void {
-    if (this.autoplayAnimation) {
-      this.runAnimation();
+    if (!this.circledWord) {
+      return;
     }
+
+    this.playStarted = true;
+
+    this.circledWord.addEventListener(
+      "transitionend",
+      this.beforeAnimationCompletionEvent
+    );
   }
 
-  createWordAnimationCompleted(): void {
-    const endTransitionEvent = () => {
-      setTimeout(() => {
-        this.animationCompleted();
-        this.circledWord.removeEventListener(
-          "transitionend",
-          endTransitionEvent
-        );
-      }, 1000);
-    };
-    this.circledWord.addEventListener("transitionend", endTransitionEvent);
+  private async beforeAnimationCompletionEvent() {
+    if (this.beforeAnimationEventTriggered) {
+      return;
+    }
+    this.beforeAnimationEventTriggered = true;
+
+    // Timeout when hover event has been completed.
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(true), 1000); // @TODO: Move timeout value to separate var.
+    });
+
+    this.circledWord.removeEventListener(
+      "transitionend",
+      this.beforeAnimationCompletionEvent
+    );
+    this.playStarted = false;
+    this.circledWord.addEventListener(
+      "transitionend",
+      this.afterAnimationCompletionEvent
+    );
   }
 
-  runAnimation(): boolean {
-    setTimeout(() => {
-      this.runAnimation();
-    }, 3000);
-    return (this.animationRunning = !this.animationRunning);
+  private async afterAnimationCompletionEvent() {
+    if (this.afterAnimationEventTriggered) {
+      return;
+    }
+    this.afterAnimationEventTriggered = true;
+
+    this.onPlayFinished();
+    this.circledWord.removeEventListener(
+      "transitionend",
+      this.afterAnimationCompletionEvent
+    );
+  }
+
+  @Emit("playFinished")
+  onPlayFinished() {
+    this.afterAnimationEventTriggered = false;
+    this.beforeAnimationEventTriggered = false;
+    return true;
   }
 }
 </script>
