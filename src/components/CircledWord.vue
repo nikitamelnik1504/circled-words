@@ -44,6 +44,11 @@ export default class CircledWord extends Vue {
     if (!value) {
       return;
     }
+
+    if (!this.circledWord) {
+      return;
+    }
+
     this.playStarted = true;
 
     this.circledWord.addEventListener(
