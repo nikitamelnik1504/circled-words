@@ -76,17 +76,17 @@
       padding: 8px 21px;
       border: solid 2px #f1f2f2;
       border-radius: 4px;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #f1f2f2;
+        color: #17181c;
+      }
 
       @include media-breakpoint-up(lg) {
         font-size: 21px;
         border: solid 4px #f1f2f2;
         padding: 12px 27px;
-        transition: 0.3s;
-
-        &:hover {
-          background-color: #f1f2f2;
-          color: #17181c;
-        }
       }
 
       @include media-breakpoint-up(xxl) {
