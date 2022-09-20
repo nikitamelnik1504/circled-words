@@ -1,4 +1,3 @@
 User-agent: *
-Allow: /
-Disallow: /index.html
-Disallow: /my-words
+Allow: /$
+Disallow: /
