@@ -67,6 +67,20 @@ header {
         }
       }
 
+      .social-links {
+        list-style: none;
+
+        .social-link {
+          width: 35px;
+          height: 35px;
+        }
+
+        li a img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+
       .connect-wallet-link {
         button {
           transition: 0.3s;
