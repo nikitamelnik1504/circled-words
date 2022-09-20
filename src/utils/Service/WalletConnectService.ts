@@ -5,6 +5,7 @@ import type WalletConnectProvider from "@walletconnect/web3-provider";
 export default class WalletConnectService extends WalletServiceBase {
   public connected = false;
   public connectedToSite = false;
+  public initializer?: () => WalletConnectProvider;
 
   constructor(
     public provider: WalletConnectProvider,
@@ -23,7 +24,8 @@ export default class WalletConnectService extends WalletServiceBase {
     events: Record<
       string,
       Array<{ callback: () => unknown; connected: boolean }>
-    > = {}
+    > = {},
+    initializer: () => WalletConnectProvider
   ): Promise<WalletConnectService> {
     const instance = new this(provider, store, events);
 
@@ -38,6 +40,7 @@ export default class WalletConnectService extends WalletServiceBase {
       });
     }
 
+    instance.initializer = initializer;
     return instance;
   }
 
@@ -63,6 +66,7 @@ export default class WalletConnectService extends WalletServiceBase {
       })
       .catch((error) => {
         console.log(error);
+        this.provider = (this.initializer as () => WalletConnectProvider)();
         return "not_connected";
       });
   }

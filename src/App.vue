@@ -127,7 +127,8 @@ export default class App extends Vue {
     WalletConnectService.create(
       this.initializeWalletConnect(),
       this.$store,
-      this.walletEvents.walletConnect
+      this.walletEvents.walletConnect,
+      this.initializeWalletConnect
     ).then((result) => {
       this.walletConnectService = result;
     });
