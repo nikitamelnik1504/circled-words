@@ -2,68 +2,91 @@ header {
   z-index: 1;
 
   .navbar {
-    .navbar-brand {
-      font-size: 26px;
-
-      .logo-primary-text {
-        color: #ffb229;
+    .navbar-wrapper {
+      @include media-breakpoint-up(md) {
+        grid-template-columns: auto auto auto;
       }
 
-      .logo-secondary-text {
-        color: #b97a2a;
-      }
+      .navbar-brand {
+        font-size: 21px;
 
-      .logo-sub-text {
-        font-size: 12px;
-        color: #f1f2f2;
-        bottom: 0;
-        left: 190px;
-      }
-    }
+        img {
+          height: 21px;
 
-    .navbar-nav {
-      .nav-item {
-        a {
-          font-size: 16px;
-          color: #f1f2f2;
+          @include media-breakpoint-up(sm) {
+            height: unset;
+          }
         }
 
-        .nav-link {
-          transition: 0.3s;
+        @include media-breakpoint-up(sm) {
+          font-size: 26px;
+        }
 
-          &.disabled {
-            color: #51524b;
+        .logo-primary-text {
+          color: #ffb229;
+        }
+
+        .logo-secondary-text {
+          color: #b97a2a;
+        }
+
+        .logo-sub-text {
+          font-size: 12px;
+          color: #f1f2f2;
+          bottom: 0;
+          left: 158px;
+
+          @include media-breakpoint-up(sm) {
+            left: 190px;
           }
+        }
+      }
 
-          &:focus {
+      .navbar-nav {
+        .nav-item {
+          a {
+            font-size: 16px;
             color: #f1f2f2;
           }
 
-          &.router-link-active {
-            border-bottom: solid 2px #ffb229;
-          }
-        }
-
-        &.connect-wallet-link {
           .nav-link {
-            border: solid 4px #ffb229;
-            background: none;
-            color: #ffb229;
-            border-radius: 4px;
+            transition: 0.3s;
 
-            &:hover {
-              box-shadow: inset 0 0 0 2em #ffb229;
-              color: #17181c;
+            &.disabled {
+              color: #51524b;
             }
 
-            &.logged-in {
-              border-color: #dc962a;
-              color: #dc962a;
+            &:focus {
+              color: #f1f2f2;
+            }
 
-              &:hover {
-                box-shadow: inset 0 0 0 2em #dc962a;
-                color: #17181c;
-              }
+            &.router-link-active {
+              border-bottom: solid 2px #ffb229;
+            }
+          }
+        }
+      }
+
+      .connect-wallet-link {
+        button {
+          transition: 0.3s;
+          border: solid 4px #ffb229;
+          background: none;
+          color: #ffb229;
+          border-radius: 4px;
+
+          &:hover {
+            box-shadow: inset 0 0 0 2em #ffb229;
+            color: #17181c;
+          }
+
+          &.logged-in {
+            border-color: #dc962a;
+            color: #dc962a;
+
+            &:hover {
+              box-shadow: inset 0 0 0 2em #dc962a;
+              color: #17181c;
             }
           }
         }
