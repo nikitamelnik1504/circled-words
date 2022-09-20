@@ -16,14 +16,12 @@
             <form
               ref="generateForm"
               action=""
-              class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto d-flex justify-content-center align-items-center flex-column"
+              class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto mb-4 d-flex justify-content-center align-items-center flex-column"
             >
               <div
                 class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
-                  Animation Type
-                </p>
+                <p class="circled-property-field-label m-0">Animation Type</p>
                 <select
                   id="animationType"
                   v-model="wordProperties.traits[0].value"
@@ -36,9 +34,7 @@
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
-                  Text Color
-                </p>
+                <p class="circled-property-field-label m-0">Text Color</p>
                 <input
                   v-model="wordProperties.traits[1].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
@@ -48,9 +44,7 @@
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
-                  Border Color
-                </p>
+                <p class="circled-property-field-label m-0">Border Color</p>
                 <input
                   v-model="wordProperties.traits[2].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
@@ -60,9 +54,7 @@
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
-                  Background Color
-                </p>
+                <p class="circled-property-field-label m-0">Background Color</p>
                 <input
                   v-model="wordProperties.traits[3].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
@@ -72,10 +64,10 @@
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
+                <p class="circled-property-field-label m-0">
                   Animation Duration
                 </p>
-                <div class="number-type ms-2 ms-lg-5 position-relative">
+                <div class="number-type position-relative">
                   <button
                     type="button"
                     class="minus w-25 h-100 position-absolute start-0"
@@ -101,7 +93,7 @@
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
+                <p class="circled-property-field-label m-0">
                   Second Text Color
                 </p>
                 <input
@@ -113,7 +105,7 @@
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
-                <p class="circled-property-field-label m-0 me-md-3">
+                <p class="circled-property-field-label m-0">
                   Second Border Color
                 </p>
                 <input
@@ -124,7 +116,7 @@
               </div>
             </form>
             <div
-              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto justify-content-center d-flex align-items-center"
+              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto mb-lg-4 justify-content-center d-flex align-items-center"
             >
               <div>
                 <CircledWord
@@ -135,7 +127,7 @@
                   @play-finished="onPlayFinished"
                 />
                 <div
-                  class="actions mt-4 d-flex justify-content-center circled-entity-preview-actions mb-4 mb-lg-0"
+                  class="actions d-flex justify-content-center circled-entity-preview-actions my-4 mb-lg-0"
                 >
                   <a
                     href="#"
