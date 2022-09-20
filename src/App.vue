@@ -113,8 +113,7 @@ export default class App extends Vue {
       },
     };
 
-    // Ethereum.
-    detectEthereumProvider().then((result: MetamaskProvider | unknown) => {
+    this.initializeMetamask().then((result: MetamaskProvider | unknown) => {
       if (!(result as MetamaskProvider)) {
         return;
       }
@@ -125,31 +124,48 @@ export default class App extends Vue {
       ).then((result) => (this.metamaskService = result));
     });
 
-    // WalletConnect.
     WalletConnectService.create(
-      new WalletConnectProvider({
-        infuraId: "270dd5535d1344b2a5a507a081f3d45b",
-      }),
+      this.initializeWalletConnect(),
       this.$store,
-      this.walletEvents.walletConnect
+      this.walletEvents.walletConnect,
+      this.initializeWalletConnect
     ).then((result) => {
       this.walletConnectService = result;
     });
 
-    // PhantomWallet.
-    if ("phantom" in window) {
-      const provider = window.phantom?.solana;
-
-      if (provider?.isPhantom && (provider as PhantomWalletAdapter)) {
-        PhantomWalletService.create(
-          provider,
-          this.$store,
-          this.walletEvents.phantomWallet
-        ).then((result) => {
-          this.phantomWalletService = result;
-        });
-      }
+    const phantomWalletProvider = this.initializePhantomWallet();
+    if (phantomWalletProvider) {
+      PhantomWalletService.create(
+        phantomWalletProvider,
+        this.$store,
+        this.walletEvents.phantomWallet
+      ).then((result) => {
+        this.phantomWalletService = result;
+      });
     }
+  }
+
+  async initializeMetamask(): Promise<unknown> {
+    return detectEthereumProvider();
+  }
+
+  initializeWalletConnect(): WalletConnectProvider {
+    return new WalletConnectProvider({
+      infuraId: "270dd5535d1344b2a5a507a081f3d45b",
+    });
+  }
+
+  initializePhantomWallet(): PhantomWalletAdapter | false {
+    if (!("phantom" in window)) {
+      return false;
+    }
+    const provider = window.phantom?.solana;
+
+    if (!provider?.isPhantom || !(provider as PhantomWalletAdapter)) {
+      return false;
+    }
+
+    return provider;
   }
 
   unmounted(): void {
