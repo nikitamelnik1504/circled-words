@@ -8,7 +8,7 @@ import MyWords from "@/views/page/MyWords/index.vue";
 import Roadmap from "@/views/page/Roadmap/index.vue";
 import Error403 from "@/views/error-page/403/index.vue";
 import Error404 from "@/views/error-page/404/index.vue";
-import GenerateWord from "@/views/page/GenerateWord/index.vue";
+import CreateWord from "@/views/page/CreateWord/index.vue";
 
 if (process.env.IS_STAGING === undefined) {
   console.warn("Make sure you create .env file or declare a variable.");
@@ -33,9 +33,9 @@ const routes = [
     component: Roadmap,
   },
   {
-    path: "/generate-word",
-    name: "Generate word",
-    component: GenerateWord,
+    path: "/create-word",
+    name: "Create Word",
+    component: CreateWord,
   },
   {
     path: "/403-error",

@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid homepage">
-    <Slogan />
+    <Slogan :min-height-value="minHeightValue" />
     <Description />
     <Stats />
     <Benefits />
@@ -9,12 +9,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Options } from "vue-property-decorator";
+import PageBase from "@/views/page/PageBase";
 import Help from "./components/HelpBlock/index.vue";
 import Benefits from "./components/BenefitsBlock.vue";
 import Stats from "./components/StatsBlock/index.vue";
 import Description from "./components/DescriptionBlock/index.vue";
 import Slogan from "./components/SloganBlock.vue";
+import { computed } from "vue";
 
 @Options({
   name: "HomePage",
@@ -26,5 +28,12 @@ import Slogan from "./components/SloganBlock.vue";
     Help,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends PageBase {
+  constructor() {
+    super();
+    this.minHeightValue = computed(() => {
+      return this.heightValues.clientHeight - this.heightValues.headerHeight;
+    });
+  }
+}
 </script>

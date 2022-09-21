@@ -22,6 +22,7 @@ export default ({ mode }) => {
       },
     },
     build: {
+      target: "es2020",
       rollupOptions: {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -39,6 +40,7 @@ export default ({ mode }) => {
     },
     optimizeDeps: {
       esbuildOptions: {
+        target: "es2020",
         // Node.js global to browser globalThis
         define: {
           global: "globalThis",

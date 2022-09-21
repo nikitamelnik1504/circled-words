@@ -1,15 +1,22 @@
 <template>
   <div class="container-fluid my-words">
     <section class="row">
-      <div class="col-12" :style="{ 'min-height': freeHeight + 'px' }">
+      <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
         <div
           v-if="
-            isMetamaskConnected === 'connected' ||
-            isWalletConnectConnected === 'connected'
+            (metamaskService &&
+              metamaskService.connected &&
+              metamaskService.connectedToSite) ||
+            (walletConnectService &&
+              walletConnectService.connected &&
+              walletConnectService.connectedToSite) ||
+            (phantomWalletService &&
+              phantomWalletService.connected &&
+              phantomWalletService.connectedToSite)
           "
           class="h-100"
         >
-          <div v-if="loaded === true" class="h-100">
+          <div v-if="loadStatus === 'loaded'" class="h-100">
             <div
               v-if="assets.length !== 0"
               class="text-center my-4 my-lg-0 mt-lg-2"
@@ -68,15 +75,15 @@
 <script lang="ts">
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import { getFreeHeight } from "@/utils/layout-space";
-import { Vue, Options, Watch } from "vue-property-decorator";
+import PageBase from "@/views/page/PageBase";
+import { Inject, Options, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
+import axios, { type AxiosResponse } from "axios";
+import MetamaskService from "@/utils/Service/MetamaskService";
+import WalletConnectService from "@/utils/Service/WalletConnectService";
+import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 
 const wallet = namespace("wallet");
-const metamask = namespace("metamask");
-const walletConnect = namespace("walletConnect");
-
-import axios, { type AxiosResponse } from "axios";
 
 @Options({
   name: "MyWordsPage",
@@ -84,77 +91,101 @@ import axios, { type AxiosResponse } from "axios";
     MyWord,
   },
 })
-export default class MyWords extends Vue {
+export default class MyWords extends PageBase {
+  @Inject({ from: "metamaskService" }) metamaskService:
+    | MetamaskService
+    | false = false;
+
+  @Inject({ from: "walletConnectService" })
+  walletConnectService: WalletConnectService | false = false;
+
+  @Inject({ from: "phantomWalletService" })
+  phantomWalletService: PhantomWalletService | false = false;
+
   assets: Array<object> = [];
-  freeHeight = getFreeHeight(true);
-  loaded = false;
-
-  @wallet.Getter
-  public isMetamaskConnected!: string;
-
-  @wallet.Getter
-  public isWalletConnectConnected!: string;
+  loadStatus = "not_loaded";
 
   @wallet.Getter
   public getWalletAddress!: string;
 
-  @metamask.Action
-  public connectToMetamask!: () => Promise<string>;
-
-  @walletConnect.Action
-  public connectToWalletConnect!: () => Promise<string>;
-
   mounted(): void {
-    if (this.isMetamaskConnected === "connected") {
-      this.loadAssetsFromMetamask();
-    }
-    if (this.isWalletConnectConnected === "connected") {
-      this.loadAssetsFromWalletConnect();
-    }
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
+    this.onMetamaskConnected(this.metamaskService);
+    this.onWalletConnectConnected(this.walletConnectService);
+    this.onPhantomWalletConnected(this.phantomWalletService);
   }
 
-  @Watch("isWalletConnectConnected")
-  onWalletConnectConnected(newValue: string): void {
-    if (newValue === "connected") {
-      this.loadAssetsFromWalletConnect();
+  @Watch("phantomWalletService", { deep: true })
+  onPhantomWalletConnected(service: unknown) {
+    if (!(service instanceof PhantomWalletService)) {
+      return;
     }
-    if (newValue === "not_connected ") {
-      this.assets = [];
+
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.loadStatus === "not_loaded"
+    ) {
+      this.loadAssetsFromPhantomWallet();
     }
   }
 
-  @Watch("isMetamaskConnected")
-  onMetamaskConnected(newValue: string): void {
-    if (newValue === "connected") {
-      this.loadAssetsFromMetamask();
+  @Watch("walletConnectService", { deep: true })
+  onWalletConnectConnected(service: unknown) {
+    if (!(service instanceof WalletConnectService)) {
+      return;
     }
-    if (newValue === "not_connected") {
-      this.assets = [];
+
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.loadStatus === "not_loaded"
+    ) {
+      this.loadAssetsFromWalletConnect();
+    }
+  }
+
+  @Watch("metamaskService", { deep: true })
+  onMetamaskConnected(service: unknown) {
+    if (!(service instanceof MetamaskService)) {
+      return;
+    }
+
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.loadStatus === "not_loaded"
+    ) {
+      this.loadAssetsFromMetamask();
     }
   }
 
   loadAssetsFromWalletConnect(): void {
-    this.connectToWalletConnect().then(() => {
-      this.loadAssets().then((result) => {
-        result.data.assets.forEach((item: object) => {
-          this.assets.push(item);
-        });
-        this.loaded = true;
+    this.loadStatus = "loading";
+    this.loadAssets().then((result) => {
+      result.data.assets.forEach((item: object) => {
+        this.assets.push(item);
       });
+      this.loadStatus = "loaded";
     });
   }
 
   loadAssetsFromMetamask(): void {
-    this.connectToMetamask().then(() => {
-      this.loadAssets().then((result) => {
-        result.data.assets.forEach((item: object) => {
-          this.assets.push(item);
-        });
-        this.loaded = true;
+    this.loadStatus = "loading";
+    this.loadAssets().then((result) => {
+      result.data.assets.forEach((item: object) => {
+        this.assets.push(item);
       });
+      this.loadStatus = "loaded";
+    });
+  }
+
+  loadAssetsFromPhantomWallet(): void {
+    this.loadStatus = "loading";
+    this.loadAssets().then((result) => {
+      result.data.assets.forEach((item: object) => {
+        this.assets.push(item);
+      });
+      this.loadStatus = "loaded";
     });
   }
 
@@ -185,10 +216,6 @@ export default class MyWords extends Vue {
         "X-API-KEY": "c53720a2d2324aca85614b30e3000a83",
       },
     });
-  }
-
-  onResize(): void {
-    this.freeHeight = getFreeHeight(true);
   }
 }
 </script>

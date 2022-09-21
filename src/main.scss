@@ -1,4 +1,5 @@
 @import "scss/variables";
+@import "scss/mixins";
 @import "bootstrap";
 @import "scss/fonts";
 @import "scss/global";
@@ -9,5 +10,5 @@
 @import "views/error-page/404";
 @import "views/page/Home";
 @import "views/page/MyWords";
-@import "views/page/GenerateWord";
+@import "views/page/CreateWord";
 @import "components/TheFooter";

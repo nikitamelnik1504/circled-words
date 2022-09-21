@@ -1,7 +1,7 @@
 <template>
   <section
     class="row slogan-section"
-    :style="{ 'min-height': freeHeight + 'px' }"
+    :style="{ 'min-height': minHeightValue + 'px' }"
   >
     <div class="col-11 m-auto">
       <div
@@ -11,15 +11,13 @@
           <div class="mx-auto d-inline-block text-center text-lg-start">
             <h2 class="slogan">
               <span class="word-secondary">Circled</span>
-              <span class="word-primary"> word</span> is already waiting for
-              you!
+              <span class="word-primary">Word</span> is already waiting for you!
             </h2>
-            <a
-              href="https://opensea.io/collection/circledwords"
-              target="_blank"
+            <router-link
+              to="/create-word"
               class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4"
-              >Start your journey!</a
-            >
+              >Start your journey!
+            </router-link>
           </div>
         </div>
         <div
@@ -39,10 +37,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Prop } from "vue-property-decorator";
 import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
-import { getFreeHeight } from "@/utils/layout-space";
 import CircledWordNFT from "@/utils/circled-word-nft";
 
 @Options({
@@ -51,18 +48,9 @@ import CircledWordNFT from "@/utils/circled-word-nft";
   },
 })
 export default class SloganBlock extends Vue {
-  freeHeight = getFreeHeight();
+  @Prop({ type: Number }) readonly minHeightValue!: number;
+
   wordsData = this.getWordsData();
-
-  mounted(): void {
-    this.$nextTick((): void => {
-      window.addEventListener("resize", this.onResize);
-    });
-  }
-
-  onResize(): void {
-    this.freeHeight = getFreeHeight();
-  }
 
   getSloganWords(): NFTMetadata[] {
     return sloganWords as NFTMetadata[];

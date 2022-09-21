@@ -11,6 +11,10 @@ FROM nginx:stable-alpine as production
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Temporary.
+COPY --from=builder /app/src/assets/images/live-bg-icon.svg /usr/share/nginx/html/assets
+
 COPY --from=builder /app/robots.txt /usr/share/nginx/html
 COPY --from=builder /app/favicon.ico /usr/share/nginx/html
 EXPOSE 80

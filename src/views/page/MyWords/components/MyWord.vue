@@ -4,7 +4,7 @@
       <span class="primary">Circled</span><span class="secondary">Word</span>
       {{ wordData.title }}
     </h5>
-    <CircledWord :word-data="wordData" />
+    <CircledWord :word-data="wordData" locked />
   </div>
 </template>
 

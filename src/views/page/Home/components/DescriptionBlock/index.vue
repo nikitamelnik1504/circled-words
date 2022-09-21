@@ -26,6 +26,8 @@
             <SampleWord
               :metadata="word"
               class="col-10 col-sm-8 col-md-10 mb-4 mb-md-0 mx-auto mx-md-0 sample-word"
+              :play="play"
+              @sample-play-finished="finishedSamplePlaysCount += 1"
             />
           </div>
         </div>
@@ -35,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
+import { Vue, Options, Watch } from "vue-property-decorator";
 import SampleWord from "./components/SampleWord.vue";
 import sampleWords from "@/assets/json/homepage_circled_word_samples.json";
 
@@ -47,6 +49,22 @@ import sampleWords from "@/assets/json/homepage_circled_word_samples.json";
 })
 export default class DescriptionBlock extends Vue {
   sampleWordsData = this.getSampleWords();
+  play = true;
+
+  protected finishedSamplePlaysCount = 0;
+
+  @Watch("finishedSamplePlaysCount")
+  onFinishedSamplePlaysCountChanged(value: number) {
+    this.play = false;
+
+    if (value === Object.keys(sampleWords).length) {
+      new Promise((resolve) => {
+        setTimeout(() => (this.play = true), 1000);
+        this.finishedSamplePlaysCount = 0;
+        resolve(true);
+      });
+    }
+  }
 
   // Warning!!! Especial examples metadata differs from OpenSea.
   getSampleWords(): object {

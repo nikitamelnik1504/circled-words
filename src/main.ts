@@ -3,6 +3,7 @@ import App from "./App.vue";
 import store from "@/store";
 import router from "@/router";
 import "@popperjs/core/dist/umd/popper.min.js";
+import Particles from "vue3-particles";
 
 const app = createApp(App);
 router.beforeEach(async (to) => {
@@ -19,5 +20,6 @@ router.beforeEach(async (to) => {
 });
 app.use(router);
 app.use(store);
+app.use(Particles);
 
 app.mount("#app");

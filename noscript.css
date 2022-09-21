@@ -1,0 +1,10 @@
+body {
+  background-color: #17181c;
+}
+
+body noscript {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
