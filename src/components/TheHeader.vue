@@ -1,9 +1,9 @@
 <template>
   <header id="header" class="position-relative">
-    <nav class="navbar navbar-expand-md navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid mt-1">
         <div
-          class="row w-100 mx-auto d-md-grid navbar-wrapper align-items-center"
+          class="row w-100 mx-auto navbar-wrapper align-items-center justify-content-between"
         >
           <div class="order-1 col-6 col-md-auto d-flex align-items-center">
             <router-link
@@ -19,19 +19,19 @@
             </router-link>
           </div>
           <div
-            class="order-3 order-md-2 col-12 col-md-auto d-flex justify-content-center"
+            class="order-3 order-lg-2 col-12 col-lg-auto d-flex justify-content-center"
           >
             <div
               id="navbarNav"
               class="collapse navbar-collapse justify-content-center mt-3 mt-sm-0"
             >
               <ul class="navbar-nav d-flex align-items-center">
-                <li class="nav-item me-md-4">
+                <li class="nav-item me-lg-4">
                   <router-link to="/" class="nav-link" @click="toggleNavbar()">
                     Home
                   </router-link>
                 </li>
-                <li class="nav-item me-md-4">
+                <li class="nav-item me-lg-4">
                   <router-link
                     to="/my-words"
                     class="nav-link"
@@ -40,7 +40,7 @@
                     My Words
                   </router-link>
                 </li>
-                <li class="nav-item me-md-4">
+                <li class="nav-item me-lg-4">
                   <router-link
                     to="/create-word"
                     class="nav-link"
@@ -58,7 +58,38 @@
                     Roadmap
                   </router-link>
                 </li>
-                <li class="connect-wallet-link d-sm-none">
+                <li class="d-md-none">
+                  <ul class="nav-link social-links d-flex">
+                    <li>
+                      <a
+                        class="social-link d-flex justify-content-center align-items-center"
+                        href="https://twitter.com/Circled_Words"
+                        target="_blank"
+                      >
+                        <img src="../assets/images/twitter.svg" alt="twitter" />
+                      </a>
+                    </li>
+                    <li class="ms-3">
+                      <a
+                        class="social-link d-flex justify-content-center align-items-center"
+                        href="https://opensea.io/CircledWordsCompany"
+                        target="_blank"
+                      >
+                        <img src="../assets/images/opensea.svg" alt="opensea" />
+                      </a>
+                    </li>
+                    <li class="ms-3">
+                      <a
+                        class="social-link d-flex justify-content-center align-items-center"
+                        href="https://discord.com/invite/reRdPWgeh3"
+                        target="_blank"
+                      >
+                        <img src="../assets/images/discord.svg" alt="discord" />
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="connect-wallet-link d-sm-none mt-2 mt-sm-0">
                   <button
                     v-if="getStatus === 'not_connected'"
                     type="button"
@@ -83,7 +114,7 @@
             </div>
           </div>
           <div
-            class="order-2 order-md-3 col-6 col-md-auto text-end d-flex d-md-block align-items-center justify-content-start flex-row-reverse"
+            class="order-2 order-lg-3 col-6 col-md-auto text-end d-flex align-items-center justify-content-start flex-row-reverse"
           >
             <button
               class="navbar-toggler"
@@ -96,7 +127,7 @@
             >
               <span class="navbar-toggler-icon" />
             </button>
-            <div class="connect-wallet-link d-none d-sm-block me-sm-4 me-md-0">
+            <div class="connect-wallet-link d-none d-sm-block me-sm-4 me-lg-0">
               <button
                 v-if="getStatus === 'not_connected'"
                 type="button"
@@ -116,6 +147,43 @@
               >
                 Log out
               </button>
+            </div>
+            <div
+              class="social-links d-none d-md-flex me-md-4 me-lg-3 me-xl-4 justify-content-center align-items-center"
+            >
+              <a
+                href="https://twitter.com/Circled_Words"
+                class="social-link d-flex justify-content-center align-items-center"
+                target="_blank"
+              >
+                <img
+                  class="w-100"
+                  src="../assets/images/twitter.svg"
+                  alt="Twitter"
+                />
+              </a>
+              <a
+                href="https://opensea.io/collection/circledwords"
+                class="social-link d-flex justify-content-center align-items-center ms-md-3"
+                target="_blank"
+              >
+                <img
+                  class="w-100"
+                  src="../assets/images/opensea.svg"
+                  alt="OpenSea"
+                />
+              </a>
+              <a
+                href="https://discord.gg/8kE75RdUDh"
+                class="social-link d-flex justify-content-center align-items-center ms-md-3"
+                target="_blank"
+              >
+                <img
+                  class="w-100"
+                  src="../assets/images/discord.svg"
+                  alt="Discord"
+                />
+              </a>
             </div>
           </div>
         </div>

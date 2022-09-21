@@ -3,10 +3,6 @@ header {
 
   .navbar {
     .navbar-wrapper {
-      @include media-breakpoint-up(md) {
-        grid-template-columns: auto auto auto;
-      }
-
       .navbar-brand {
         font-size: 21px;
 
@@ -64,6 +60,20 @@ header {
               border-bottom: solid 2px #ffb229;
             }
           }
+        }
+      }
+
+      .social-links {
+        list-style: none;
+
+        .social-link {
+          width: 26px;
+          height: 26px;
+        }
+
+        li a img {
+          width: 26px;
+          height: 26px;
         }
       }
 
