@@ -4,7 +4,32 @@
     class="live-background"
     :particles-init="particlesInit"
     :particles-loaded="particlesLoaded"
-    url="src/assets/json/particles.json"
+    :options="{
+      fpsLimit: 60,
+      particles: {
+        color: { value: '#ffffff' },
+        collisions: { enable: true },
+        move: {
+          direction: 'none',
+          enable: true,
+          outMode: 'out',
+          random: true,
+          speed: 0.5,
+          straight: false,
+        },
+        number: {
+          density: { enable: false },
+          value: 20,
+        },
+        opacity: { value: 0.5 },
+        shape: {
+          type: 'image',
+          options: { image: { src: './assets/live-bg-icon.svg' } },
+        },
+        size: { random: true, value: 25 },
+      },
+      detectRetina: true,
+    }"
   />
   <Header />
   <router-view />
