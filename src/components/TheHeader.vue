@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid mt-1">
         <div
-          class="row w-100 mx-auto d-lg-grid navbar-wrapper align-items-center justify-content-between"
+          class="row w-100 mx-auto navbar-wrapper align-items-center justify-content-between"
         >
           <div class="order-1 col-6 col-md-auto d-flex align-items-center">
             <router-link
@@ -149,7 +149,7 @@
               </button>
             </div>
             <div
-              class="social-links d-none d-md-flex me-md-4 justify-content-center align-items-center"
+              class="social-links d-none d-md-flex me-md-4 me-lg-3 me-xl-4 justify-content-center align-items-center"
             >
               <a
                 href="https://twitter.com/Circled_Words"

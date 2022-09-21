@@ -3,10 +3,6 @@ header {
 
   .navbar {
     .navbar-wrapper {
-      @include media-breakpoint-up(md) {
-        grid-template-columns: auto auto auto;
-      }
-
       .navbar-brand {
         font-size: 21px;
 
