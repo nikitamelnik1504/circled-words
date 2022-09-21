@@ -3,9 +3,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid mt-1">
         <div
-          class="row w-100 mx-auto d-lg-grid navbar-wrapper align-items-center"
+          class="row w-100 mx-auto d-lg-grid navbar-wrapper align-items-center justify-content-between"
         >
-          <div class="order-1 col-6 col-lg-auto d-flex align-items-center">
+          <div class="order-1 col-6 col-md-auto d-flex align-items-center">
             <router-link
               to="/"
               class="navbar-brand d-flex align-items-center position-relative"
@@ -69,7 +69,7 @@
                         <img src="../assets/images/twitter.svg" alt="twitter" />
                       </a>
                     </li>
-                    <li class="ms-2">
+                    <li class="ms-3">
                       <a
                         class="social-link d-flex justify-content-center align-items-center"
                         href="https://opensea.io/CircledWordsCompany"
@@ -78,7 +78,7 @@
                         <img src="../assets/images/opensea.svg" alt="opensea" />
                       </a>
                     </li>
-                    <li class="ms-2">
+                    <li class="ms-3">
                       <a
                         class="social-link d-flex justify-content-center align-items-center"
                         href="https://discord.com/invite/reRdPWgeh3"
@@ -89,7 +89,7 @@
                     </li>
                   </ul>
                 </li>
-                <li class="connect-wallet-link d-sm-none">
+                <li class="connect-wallet-link d-sm-none mt-2 mt-sm-0">
                   <button
                     v-if="getStatus === 'not_connected'"
                     type="button"
@@ -114,7 +114,7 @@
             </div>
           </div>
           <div
-            class="order-2 order-lg-3 col-6 col-lg-auto text-end d-flex align-items-center justify-content-start flex-row-reverse"
+            class="order-2 order-lg-3 col-6 col-md-auto text-end d-flex align-items-center justify-content-start flex-row-reverse"
           >
             <button
               class="navbar-toggler"
@@ -149,28 +149,40 @@
               </button>
             </div>
             <div
-              class="social-links d-none d-md-flex me-md-3 justify-content-center align-items-center"
+              class="social-links d-none d-md-flex me-md-4 justify-content-center align-items-center"
             >
               <a
                 href="https://twitter.com/Circled_Words"
                 class="social-link d-flex justify-content-center align-items-center"
                 target="_blank"
               >
-                <img src="../assets/images/twitter.svg" alt="Twitter" />
+                <img
+                  class="w-100"
+                  src="../assets/images/twitter.svg"
+                  alt="Twitter"
+                />
               </a>
               <a
                 href="https://opensea.io/CircledWordsCompany"
-                class="social-link d-flex justify-content-center align-items-center ms-md-2"
+                class="social-link d-flex justify-content-center align-items-center ms-md-3"
                 target="_blank"
               >
-                <img src="../assets/images/opensea.svg" alt="OpenSea" />
+                <img
+                  class="w-100"
+                  src="../assets/images/opensea.svg"
+                  alt="OpenSea"
+                />
               </a>
               <a
                 href="https://discord.com/invite/reRdPWgeh3"
-                class="social-link d-flex justify-content-center align-items-center ms-md-2"
+                class="social-link d-flex justify-content-center align-items-center ms-md-3"
                 target="_blank"
               >
-                <img src="../assets/images/discord.svg" alt="Discord" />
+                <img
+                  class="w-100"
+                  src="../assets/images/discord.svg"
+                  alt="Discord"
+                />
               </a>
             </div>
           </div>
