@@ -163,7 +163,7 @@
                 />
               </a>
               <a
-                href="https://opensea.io/CircledWordsCompany"
+                href="https://opensea.io/collection/circledwords"
                 class="social-link d-flex justify-content-center align-items-center ms-md-3"
                 target="_blank"
               >
@@ -174,7 +174,7 @@
                 />
               </a>
               <a
-                href="https://discord.com/invite/reRdPWgeh3"
+                href="https://discord.gg/8kE75RdUDh"
                 class="social-link d-flex justify-content-center align-items-center ms-md-3"
                 target="_blank"
               >
