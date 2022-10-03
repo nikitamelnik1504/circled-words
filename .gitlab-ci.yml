@@ -9,7 +9,7 @@
 deploy_production:
   variables:
     REMOTE_HOST: "195.179.193.31"
-    PROJECT_ROOT: "/var/www/site"
+    PROJECT_ROOT: "/var/www/site/master"
   before_script:
     - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
     - eval $(ssh-agent -s)
@@ -19,9 +19,26 @@ deploy_production:
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/master -f;cd ..;sh install.sh -p;docker compose up --detach --build site_app"
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/master -f;cd ../..;./circledwords -p -y"
   only:
     - master
+
+deploy_staging:
+  variables:
+    REMOTE_HOST: "195.179.193.31"
+    PROJECT_ROOT: "/var/www/site/staging"
+  before_script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$PROD_SSH" | base64 -d)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/develop -f;cd ../..;./circledwords -p -y"
+  only:
+    - develop
 
 deploy_pages:
   image: node:16
