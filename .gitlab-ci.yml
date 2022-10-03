@@ -19,7 +19,7 @@ deploy_production:
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/master -f;cd ..;./circledwords -p -y"
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/master -f;cd ../..;./circledwords -p -y"
   only:
     - master
 
@@ -36,7 +36,7 @@ deploy_staging:
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/develop -f;cd ..;./circledwords -p -y"
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/develop -f;cd ../..;./circledwords -p -y"
   only:
     - develop
 
