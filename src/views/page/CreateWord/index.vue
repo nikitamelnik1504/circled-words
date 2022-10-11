@@ -116,7 +116,7 @@
               </div>
             </form>
             <div
-              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto mb-lg-4 justify-content-center d-flex align-items-center"
+              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto mt-4 mt-sm-0 mb-lg-4 justify-content-center d-flex align-items-center"
             >
               <div>
                 <CircledWord
