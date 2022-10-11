@@ -6,7 +6,7 @@
         :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
-          <h2 class="block-title ps-2 mb-5 text-center">
+          <h2 class="block-title ps-2 my-4 mt-lg-0 mb-lg-5 text-center d-none d-sm-block">
             <span class="primary-text">Circled</span>
             <span class="secondary-text">Word</span>
           </h2>
