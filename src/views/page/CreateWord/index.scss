@@ -1,7 +1,6 @@
 .create-word {
   .block-title {
     font-size: 24px;
-    margin-bottom: 60px;
 
     @include media-breakpoint-up(sm) {
       font-size: 32px;
