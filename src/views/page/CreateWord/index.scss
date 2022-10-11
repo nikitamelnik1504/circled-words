@@ -41,6 +41,8 @@
         .circled-property-field-value {
           color: #fff;
           font-size: 16px;
+          border-radius: 0;
+          text-align: center;
 
           @include media-breakpoint-up(md) {
             font-size: 20px;
