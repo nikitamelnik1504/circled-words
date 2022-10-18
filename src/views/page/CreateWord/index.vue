@@ -133,9 +133,7 @@
                     href="#"
                     class="py-3 text-center me-3 text-decoration-none w-50 play-action"
                     :class="{ disabled: play }"
-                    @click="
-                      (event) => (play ? event.preventDefault() : (play = true))
-                    "
+                    @click.prevent="() => (play ? undefined : (play = true))"
                     >Play</a
                   >
                   <a
