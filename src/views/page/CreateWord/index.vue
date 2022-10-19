@@ -6,7 +6,9 @@
         :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
-          <h2 class="block-title ps-2 my-4 mt-lg-0 mb-lg-5 text-center d-none d-sm-block">
+          <h2
+            class="block-title ps-2 my-4 mt-lg-0 mb-lg-5 text-center d-none d-sm-block"
+          >
             <span class="primary-text">Circled</span>
             <span class="secondary-text">Word</span>
           </h2>
@@ -22,14 +24,33 @@
                 class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
                 <p class="circled-property-field-label m-0">Animation Type</p>
-                <select
-                  id="animationType"
-                  v-model="wordProperties.traits[0].value"
-                  class="circled-property-field-value select-type py-2 px-2 py-sm-3 px-md-3 text-center"
-                  name="animation_type"
+                <div
+                  class="dropdown circled-property-field-value text-center p-0"
                 >
-                  <option value="Fill In">Fill In</option>
-                </select>
+                  <input
+                    id="animationType"
+                    v-model="wordProperties.traits[0].value"
+                    class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    name="animation_type"
+                  />
+                  <ul
+                    class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        href="#"
+                        @click.prevent="
+                          wordProperties.traits[0].value = 'Fill In'
+                        "
+                        >Fill In</a
+                      >
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div
                 class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
@@ -116,7 +137,7 @@
               </div>
             </form>
             <div
-              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto mb-lg-4 justify-content-center d-flex align-items-center"
+              class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto mt-4 mt-sm-0 mb-lg-4 justify-content-center d-flex align-items-center"
             >
               <div>
                 <CircledWord
@@ -133,9 +154,7 @@
                     href="#"
                     class="py-3 text-center me-3 text-decoration-none w-50 play-action"
                     :class="{ disabled: play }"
-                    @click="
-                      (event) => (play ? event.preventDefault() : (play = true))
-                    "
+                    @click.prevent="() => (play ? undefined : (play = true))"
                     >Play</a
                   >
                   <a
