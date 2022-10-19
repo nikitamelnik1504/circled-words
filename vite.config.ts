@@ -5,6 +5,7 @@ import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import eslintPlugin from "vite-plugin-eslint";
 import inject from "@rollup/plugin-inject";
+import autoprefixer from "autoprefixer";
 
 // https://vitejs.dev/config/
 // @ts-ignore
@@ -16,6 +17,13 @@ export default ({ mode }) => {
       "process.env": { ...process.env, ...loadEnv(mode, process.cwd(), "") },
     },
     plugins: [vue(), eslintPlugin()],
+    css: {
+      postcss: {
+        plugins: [
+            autoprefixer()
+        ],
+      }
+    },
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
