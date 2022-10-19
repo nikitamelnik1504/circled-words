@@ -30,7 +30,7 @@
                   <input
                     id="animationType"
                     v-model="wordProperties.traits[0].value"
-                    class="dropdown-toggle w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
+                    class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
