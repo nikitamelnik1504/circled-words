@@ -1,15 +1,13 @@
 import { fileURLToPath, URL } from "url";
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
-import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import eslintPlugin from "vite-plugin-eslint";
 import inject from "@rollup/plugin-inject";
 import autoprefixer from "autoprefixer";
 
-// https://vitejs.dev/config/
-// @ts-ignore
-export default ({ mode }) => {
+export default ({ mode }: { mode: string }) => {
   return defineConfig({
     base: "",
     define: {
@@ -19,23 +17,31 @@ export default ({ mode }) => {
     plugins: [vue(), eslintPlugin()],
     css: {
       postcss: {
-        plugins: [
-            autoprefixer()
-        ],
-      }
+        plugins: [autoprefixer()],
+      },
     },
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
+        stream: "rollup-plugin-node-polyfills/polyfills/stream",
+        http: "rollup-plugin-node-polyfills/polyfills/http",
+        url: "rollup-plugin-node-polyfills/polyfills/url",
+        https: "rollup-plugin-node-polyfills/polyfills/http",
+        querystring: "rollup-plugin-node-polyfills/polyfills/qs",
+        // @TODO: Complete events polyfill import.
+        // events: 'rollup-plugin-node-polyfills/polyfills/events',
+        assert: "assert",
+        crypto: "crypto-browserify",
+        util: "util",
       },
     },
     build: {
-      target: "es2020",
+      target: "esnext",
       rollupOptions: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        include: ["node_modules/@walletconnect/**"],
-        plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
+        plugins: [
+          inject({ Buffer: ["buffer", "Buffer"] }),
+          nodePolyfills({ crypto: true }) as never,
+        ],
       },
       commonjsOptions: {
         transformMixedEsModules: true,
@@ -48,7 +54,7 @@ export default ({ mode }) => {
     },
     optimizeDeps: {
       esbuildOptions: {
-        target: "es2020",
+        target: "esnext",
         // Node.js global to browser globalThis
         define: {
           global: "globalThis",
@@ -56,9 +62,9 @@ export default ({ mode }) => {
         // Enable esbuild polyfill plugins
         plugins: [
           NodeGlobalsPolyfillPlugin({
+            process: true,
             buffer: true,
           }),
-          NodeModulesPolyfillPlugin(),
         ],
       },
     },
