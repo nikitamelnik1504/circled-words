@@ -1,12 +1,15 @@
-import { Metaplex } from "@metaplex-foundation/js";
-import { clusterApiUrl, Connection, Keypair } from "@solana/web3.js";
+import { Metaplex, walletAdapterIdentity } from "@metaplex-foundation/js";
+import { clusterApiUrl, Connection } from "@solana/web3.js";
+import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 
 export default class MetaplexService {
-  protected metaplex?: Metaplex;
+  protected metaplex: Metaplex;
 
-  constructor() {
+  constructor(provider: PhantomWalletAdapter) {
     const connection = new Connection(clusterApiUrl("devnet"));
-    this.metaplex = Metaplex.make(connection);
-    console.log(Keypair.generate());
+    this.metaplex = Metaplex.make(connection).use(
+      walletAdapterIdentity(provider)
+    );
+    console.log("Metaplex is working!");
   }
 }

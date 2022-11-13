@@ -14,7 +14,7 @@
 <script lang="ts">
 import particlesJson from "./assets/json/particles.json";
 import particlesIcon from "./assets/images/live-bg-icon.svg";
-import { Vue, Options, Provide } from "vue-property-decorator";
+import { Vue, Options, Provide, Watch } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -24,6 +24,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import MetamaskService from "./utils/Service/MetamaskService";
 import WalletConnectService from "./utils/Service/WalletConnectService";
 import PhantomWalletService from "./utils/Service/PhantomWalletService";
+import MetaplexService from "@/utils/Service/NFT/MetaplexService";
 import { namespace } from "s-vuex-class";
 import type { Store } from "vuex";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
@@ -58,6 +59,9 @@ export default class App extends Vue {
     walletConnect: {},
     phantomWallet: {},
   };
+
+  @Provide({ to: "metaplexService", reactive: true })
+  metaplexService: MetaplexService | false = false;
 
   @wallet.Mutation
   public setDefaultWalletState!: () => string;
@@ -174,6 +178,23 @@ export default class App extends Vue {
     }
 
     return provider;
+  }
+
+  @Watch("phantomWalletService", { deep: true })
+  onPhantomWalletConnected(service: unknown) {
+    if (!(service instanceof PhantomWalletService)) {
+      return;
+    }
+
+    if (
+      service.connected &&
+      service.connectedToSite &&
+      this.metaplexService === false
+    ) {
+      this.metaplexService = new MetaplexService(
+        (this.phantomWalletService as PhantomWalletService).provider
+      );
+    }
   }
 
   unmounted(): void {
