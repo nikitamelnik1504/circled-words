@@ -4,32 +4,7 @@
     class="live-background"
     :particles-init="particlesInit"
     :particles-loaded="particlesLoaded"
-    :options="{
-      fpsLimit: 60,
-      particles: {
-        color: { value: '#ffffff' },
-        collisions: { enable: true },
-        move: {
-          direction: 'none',
-          enable: true,
-          outMode: 'out',
-          random: true,
-          speed: 0.5,
-          straight: false,
-        },
-        number: {
-          density: { enable: false },
-          value: 20,
-        },
-        opacity: { value: 0.5 },
-        shape: {
-          type: 'image',
-          options: { image: { src: './assets/live-bg-icon.svg' } },
-        },
-        size: { random: true, value: 25 },
-      },
-      detectRetina: true,
-    }"
+    :options="particlesConfig"
   />
   <Header />
   <router-view />
@@ -37,16 +12,18 @@
 </template>
 
 <script lang="ts">
+import particlesJson from "./assets/json/particles.json";
+import particlesIcon from "./assets/images/live-bg-icon.svg";
 import { Vue, Options, Provide } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import detectEthereumProvider from "@metamask/detect-provider";
-import type { MetamaskProvider } from "@/utils/Service/MetamaskService";
+import type { MetamaskProvider } from "./utils/Service/MetamaskService";
 import { loadFull } from "tsparticles";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import MetamaskService from "@/utils/Service/MetamaskService";
-import WalletConnectService from "@/utils/Service/WalletConnectService";
-import PhantomWalletService from "@/utils/Service/PhantomWalletService";
+import MetamaskService from "./utils/Service/MetamaskService";
+import WalletConnectService from "./utils/Service/WalletConnectService";
+import PhantomWalletService from "./utils/Service/PhantomWalletService";
 import { namespace } from "s-vuex-class";
 import type { Store } from "vuex";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
@@ -61,6 +38,8 @@ const wallet = namespace("wallet");
   },
 })
 export default class App extends Vue {
+  particlesConfig = particlesJson;
+
   @Provide({
     to: "metamaskService",
     reactive: true,
@@ -98,6 +77,10 @@ export default class App extends Vue {
   }
 
   beforeCreate(): void {
+    // Use particles image as relative path.
+    this.particlesConfig.particles.shape.options.image.src =
+      particlesIcon as string;
+
     this.$store.commit("initialiseStore");
   }
 

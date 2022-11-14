@@ -1,5 +1,10 @@
 declare module "bootstrap";
 
+declare module "*.svg" {
+  const value: unknown;
+  export = value;
+}
+
 interface CircledWordElement {
   elementClass: string;
   elementStyle: object;
