@@ -54,6 +54,10 @@ abstract class NFT {
         metadata.attributes[attribute_index].value;
     }
   }
+
+  public getProperties(): Array<Property> {
+    return (this.constructor as typeof NFT).properties;
+  }
 }
 
 class FillInNFT extends NFT {
@@ -97,9 +101,22 @@ class FillInNFT extends NFT {
 }
 
 export default class CircledWordService {
-  public nftTypes: Array<typeof NFT> = [FillInNFT];
+  protected nftTypes: Array<typeof NFT> = [FillInNFT];
 
-  getNFT(metadata: {
+  getNftTypeProperties(type: string): Array<Property> | null {
+    let properties = null;
+    for (const nft_type of this.nftTypes) {
+      if (nft_type.type !== type) {
+        continue;
+      }
+
+      properties = nft_type.properties;
+    }
+
+    return properties;
+  }
+
+  getNft(metadata: {
     name: string;
     attributes: Array<{ trait_type: string; value: string }>;
   }): NFT | null {
