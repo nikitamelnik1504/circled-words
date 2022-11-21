@@ -1,7 +1,14 @@
+import colors from "@/assets/libraries/colors.json";
+
+type TraitKeysMatching<T, V> = {
+  [K in keyof T]-?: T[K] extends V ? K : never;
+}[keyof T];
+
 interface Property {
   label: string;
   machine_name: string;
   value: unknown;
+  getValue: () => unknown;
 }
 
 type AnimationType = "Fill In" | "Close";
@@ -10,30 +17,50 @@ export abstract class AnimationTypeProperty implements Property {
   public label = "Animation Type";
   public machine_name = "animation_type";
   public abstract value: AnimationType;
+
+  public getValue() {
+    return this.value;
+  }
 }
 
 abstract class TextColorProperty implements Property {
   public label = "Text Color";
   public machine_name = "text_color";
   public abstract value: string;
+
+  public getValue(): string {
+    return "#" + colors[this.value as TraitKeysMatching<typeof colors, string>];
+  }
 }
 
 abstract class BorderColorProperty implements Property {
   public label = "Border Color";
   public machine_name = "border_color";
   public abstract value: string;
+
+  public getValue() {
+    return "#" + colors[this.value as TraitKeysMatching<typeof colors, string>];
+  }
 }
 
 abstract class BackgroundColorProperty implements Property {
   public label = "Background Color";
   public machine_name = "background_color";
   public abstract value: string;
+
+  public getValue() {
+    return "#" + colors[this.value as TraitKeysMatching<typeof colors, string>];
+  }
 }
 
 abstract class AnimationDurationProperty implements Property {
   public label = "Animation Duration";
   public machine_name = "animation_duration";
   public abstract value: number;
+
+  public getValue() {
+    return this.value + "s";
+  }
 }
 
 export abstract class NFT {

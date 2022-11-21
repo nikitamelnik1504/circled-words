@@ -56,7 +56,7 @@ export default class CircledWord extends Vue {
       }
 
       style["--" + trait.machine_name.replaceAll(/_/g, "-")] =
-        trait.value as string;
+        trait.getValue() as string;
     }
 
     return style;

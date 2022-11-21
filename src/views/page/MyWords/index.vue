@@ -167,8 +167,7 @@ export default class MyWords extends PageBase {
           // Legacy implementation of Ethereum NFTs.
           const property_indexes: Record<string, number> = {};
           for (const [trait_index, trait] of item.traits.entries()) {
-            property_indexes[trait.trait_type] =
-              trait_index;
+            property_indexes[trait.trait_type] = trait_index;
           }
 
           item.traits = [
