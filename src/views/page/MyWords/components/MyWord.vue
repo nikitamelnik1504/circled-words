@@ -2,16 +2,17 @@
   <div class="button-item text-center pt-4 pb-5">
     <h5 class="button-title mb-5">
       <span class="primary">Circled</span><span class="secondary">Word</span>
-      {{ wordData.title }}
+      <!--      {{ wordData.title }}-->
     </h5>
-    <CircledWord :word-data="wordData" locked />
+    <CircledWord :nft="nft" locked />
   </div>
 </template>
 
 <script lang="ts">
 import CircledWord from "@/components/CircledWord.vue";
-import CircledWordNFT from "@/utils/circled-word-nft";
+import CircledWordService from "@/utils/Service/CircledWordService";
 import { Vue, Options, Prop } from "vue-property-decorator";
+import type { NFT } from "@/utils/Service/CircledWordService";
 
 @Options({
   components: {
@@ -21,6 +22,8 @@ import { Vue, Options, Prop } from "vue-property-decorator";
 export default class MyWord extends Vue {
   @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
 
-  wordData: CircledWordElement = new CircledWordNFT(this.metadata).getElement();
+  protected nft: NFT = new CircledWordService().getNft(
+    this.metadata as NFTMetadata
+  ) as NFT;
 }
 </script>

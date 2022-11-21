@@ -6,7 +6,7 @@ interface Property {
 
 type AnimationType = "Fill In" | "Close";
 
-abstract class AnimationTypeProperty implements Property {
+export abstract class AnimationTypeProperty implements Property {
   public label = "Animation Type";
   public machine_name = "animation_type";
   public abstract value: AnimationType;
@@ -36,27 +36,50 @@ abstract class AnimationDurationProperty implements Property {
   public abstract value: number;
 }
 
-abstract class NFT {
+export abstract class NFT {
   public name: string;
   public static readonly type: AnimationType;
   public static properties: Array<Property>;
 
   // @todo Implement metadata interface from https://docs.metaplex.com/programs/token-metadata/token-standard#the-non-fungible-standard .
-  constructor(metadata: {
-    name: string;
-    attributes: Array<{ trait_type: string; value: string }>;
-  }) {
+  constructor(metadata: NFTMetadata) {
     this.name = metadata.name;
     const static_instance: typeof NFT = this.constructor as typeof NFT;
-    for (const attribute_index of metadata.attributes.keys()) {
+    const attributes = (
+      metadata.attributes !== undefined ? metadata.attributes : metadata.traits
+    ) as Array<{ trait_type: string; value: string }>;
+    for (const attribute_index of attributes.keys()) {
       // @todo Check on the internet if is possible to change order of traits in json file.
       static_instance.properties[attribute_index].value =
-        metadata.attributes[attribute_index].value;
+        attributes[attribute_index].value;
     }
   }
 
   public getProperties(): Array<Property> {
     return (this.constructor as typeof NFT).properties;
+  }
+
+  public getType(): AnimationType {
+    return (this.constructor as typeof NFT).type;
+  }
+}
+
+export abstract class SampleNFT extends NFT {
+  public label?: string;
+  public link?: string;
+  public sampleData?: Record<string, Array<string> | string>;
+
+  protected constructor(metadata: {
+    name: string;
+    label?: string;
+    link?: string;
+    sampleData?: Record<string, Array<string> | string>;
+    attributes: Array<{ trait_type: string; value: string }>;
+  }) {
+    super(metadata);
+    this.label = metadata.label;
+    this.link = metadata.link;
+    this.sampleData = metadata.sampleData;
   }
 }
 
@@ -116,11 +139,17 @@ export default class CircledWordService {
     return properties;
   }
 
-  getNft(metadata: {
-    name: string;
-    attributes: Array<{ trait_type: string; value: string }>;
-  }): NFT | null {
-    const type_attribute = metadata.attributes.filter((attribute) => {
+  getSampleNft(): SampleNFT | null {
+    return null;
+  }
+
+  getNft(metadata: NFTMetadata): NFT | null {
+    const attributes =
+      metadata.attributes !== undefined ? metadata.attributes : metadata.traits;
+
+    const type_attribute = (
+      attributes as Array<{ trait_type: string; value: string }>
+    ).filter((attribute) => {
       if (attribute.trait_type === "Animation Type") {
         return attribute;
       }

@@ -4,19 +4,21 @@
     :href="link"
     class="circled-word text-decoration-none d-inline-block text-center user-select-none"
     :class="[
-      wordData.elementClass,
+      getClass(),
       {
         hover: playStarted,
       },
     ]"
-    :style="wordData.elementStyle"
+    :style="getStyle()"
     @click="(event) => (locked ? event.preventDefault() : undefined)"
-    >{{ wordData.text ? wordData.text : "CIRCLED" }}</a
+    >Circled</a
   >
 </template>
 
 <script lang="ts">
 import { Vue, Options, Prop, Ref, Watch, Emit } from "vue-property-decorator";
+import type { NFT, SampleNFT } from "@/utils/Service/CircledWordService";
+import { AnimationTypeProperty } from "@/utils/Service/CircledWordService";
 
 @Options({})
 export default class CircledWord extends Vue {
@@ -24,7 +26,7 @@ export default class CircledWord extends Vue {
   private beforeAnimationEventTriggered = false;
   private afterAnimationEventTriggered = false;
 
-  @Prop({ required: true }) readonly wordData!: CircledWordElement;
+  @Prop({ required: true }) readonly nft!: NFT | SampleNFT;
   @Prop({ type: String, default: "#" }) readonly link!: string;
   @Prop({ type: Boolean, default: false }) readonly locked!: string;
   @Prop({ type: Boolean, default: false }) play!: boolean;
@@ -37,6 +39,29 @@ export default class CircledWord extends Vue {
         this.onPlayStarted(true)
       );
     }
+  }
+
+  getClass(): string {
+    // const nft_type = this.nft.getType();
+    // console.log(this.nft);
+    return "";
+  }
+
+  getStyle() {
+    const style: Record<string, string> = {};
+    const traits = this.nft.getProperties();
+    console.log(traits);
+    for (const trait of traits) {
+      if (trait instanceof AnimationTypeProperty) {
+        continue;
+      }
+
+      style["--" + trait.machine_name.replace(/_/, "-")] =
+        trait.value as string;
+    }
+    // console.log(style);
+
+    return style;
   }
 
   @Watch("play")

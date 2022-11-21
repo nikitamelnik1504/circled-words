@@ -21,7 +21,8 @@ interface NFTMetadata {
   link?: string;
   name: string;
   text?: string;
-  traits: { trait_type: string; value: string }[];
+  attributes?: { trait_type: string; value: string }[];
+  traits?: { trait_type: string; value: string }[];
 }
 
 type SampleWordData = {
