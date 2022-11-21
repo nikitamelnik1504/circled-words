@@ -125,7 +125,7 @@ export default class MyWords extends PageBase {
       service.connectedToSite &&
       this.loadStatus === "not_loaded"
     ) {
-      this.loadAssetsFromPhantomWallet();
+      this.loadAssetsFromSolana();
     }
   }
 
@@ -140,7 +140,7 @@ export default class MyWords extends PageBase {
       service.connectedToSite &&
       this.loadStatus === "not_loaded"
     ) {
-      this.loadAssetsFromWalletConnect();
+      this.loadAssetsFromEthereum();
     }
   }
 
@@ -155,11 +155,11 @@ export default class MyWords extends PageBase {
       service.connectedToSite &&
       this.loadStatus === "not_loaded"
     ) {
-      this.loadAssetsFromMetamask();
+      this.loadAssetsFromEthereum();
     }
   }
 
-  loadAssetsFromWalletConnect(): void {
+  loadAssetsFromEthereum(): void {
     this.loadStatus = "loading";
     this.loadAssets().then((result) => {
       result.data.assets.forEach((item: object) => {
@@ -169,17 +169,7 @@ export default class MyWords extends PageBase {
     });
   }
 
-  loadAssetsFromMetamask(): void {
-    this.loadStatus = "loading";
-    this.loadAssets().then((result) => {
-      result.data.assets.forEach((item: object) => {
-        this.assets.push(item);
-      });
-      this.loadStatus = "loaded";
-    });
-  }
-
-  loadAssetsFromPhantomWallet(): void {
+  loadAssetsFromSolana(): void {
     this.loadStatus = "loading";
     this.loadAssets().then((result) => {
       result.data.assets.forEach((item: object) => {

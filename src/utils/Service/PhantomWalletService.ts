@@ -34,10 +34,12 @@ export default class PhantomWalletService extends WalletServiceBase {
     // Check if phantomWallet was connected before page reload.
     if (instance.store.getters["wallet/isPhantomWalletConnected"]) {
       store.commit("wallet/setDefaultWalletState");
-      await instance.connect().then(() => {
-        instance.addEventsGroup(events);
-        instance.connected = true;
-        instance.connectedToSite = true;
+      await instance.connect().then((status) => {
+        if (status === "connected") {
+          instance.addEventsGroup(events);
+          instance.connected = true;
+          instance.connectedToSite = true;
+        }
       });
     }
 
