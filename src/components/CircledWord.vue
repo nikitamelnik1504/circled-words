@@ -11,7 +11,7 @@
     ]"
     :style="getStyle()"
     @click="(event) => (locked ? event.preventDefault() : undefined)"
-    >Circled</a
+    >CIRCLED</a
   >
 </template>
 
@@ -42,9 +42,8 @@ export default class CircledWord extends Vue {
   }
 
   getClass(): string {
-    // const nft_type = this.nft.getType();
-    // console.log(this.nft);
-    return "";
+    const nft_type = this.nft.getType();
+    return nft_type.toLowerCase().replaceAll(/ /g, "-");
   }
 
   getStyle() {
