@@ -1,7 +1,7 @@
 [
   {
     "name": "CircledWord Sample #1",
-    "text": "What is it?",
+    "label": "What is it?",
     "attributes": [
       {
         "trait_type": "Animation Type",
@@ -36,7 +36,7 @@
   },
   {
     "name": "CircledWord Sample #2",
-    "text": "Stats",
+    "label": "Stats",
     "attributes": [
       {
         "trait_type": "Animation Type",
@@ -71,7 +71,7 @@
   },
   {
     "name": "CircledWord Sample #3",
-    "text": "Benefits",
+    "label": "Benefits",
     "attributes": [
       {
         "trait_type": "Animation Type",
@@ -106,7 +106,7 @@
   },
   {
     "name": "CircledWord Sample #4",
-    "text": "Help",
+    "label": "Help",
     "attributes": [
       {
         "trait_type": "Animation Type",

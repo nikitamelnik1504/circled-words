@@ -105,14 +105,19 @@ export abstract class NFT {
 }
 
 export abstract class SampleNFT extends NFT {
-  public label?: string;
+  private _label?: string;
   public link?: string;
   public _sampleData?: Record<string, Array<string> | string>;
 
   public load(metadata: NFTMetadata): SampleNFT {
     super.load(metadata);
     this._sampleData = metadata.sample_data;
+    this._label = metadata.label;
     return this;
+  }
+
+  get label(): string | undefined {
+    return this._label;
   }
 
   public get sampleData(): Record<string, Array<string> | string> | undefined {

@@ -5,14 +5,6 @@ declare module "*.svg" {
   export = value;
 }
 
-interface CircledWordElement {
-  elementClass: string;
-  elementStyle: object;
-  title: string;
-  link?: string;
-  text?: string;
-}
-
 interface NFTMetadata {
   sample_data?: {
     updated: string[] | [];

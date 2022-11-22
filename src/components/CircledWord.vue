@@ -11,7 +11,7 @@
     ]"
     :style="getStyle()"
     @click="(event) => (locked ? event.preventDefault() : undefined)"
-    >CIRCLED</a
+    >{{ nft.label ? nft.label : "CIRCLED" }}</a
   >
 </template>
 
