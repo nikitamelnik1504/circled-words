@@ -20,6 +20,9 @@
               action=""
               class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto mb-4 d-flex justify-content-center align-items-center flex-column"
             >
+              <div v-for="(asset, index) in nft.properties" :key="index">
+                <div>{{ asset }}</div>
+              </div>
               <div
                 class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
               >
@@ -29,7 +32,7 @@
                 >
                   <input
                     id="animationType"
-                    v-model="wordProperties.traits[0].value"
+                    v-model="wordProperties.attributes[0].value"
                     class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
                     type="button"
                     data-bs-toggle="dropdown"
@@ -44,7 +47,7 @@
                         class="dropdown-item"
                         href="#"
                         @click.prevent="
-                          wordProperties.traits[0].value = 'Fill In'
+                          wordProperties.attributes[0].value = 'Fill In'
                         "
                         >Fill In</a
                       >
@@ -57,7 +60,7 @@
               >
                 <p class="circled-property-field-label m-0">Text Color</p>
                 <input
-                  v-model="wordProperties.traits[1].value"
+                  v-model="wordProperties.attributes[1].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
@@ -67,7 +70,7 @@
               >
                 <p class="circled-property-field-label m-0">Border Color</p>
                 <input
-                  v-model="wordProperties.traits[2].value"
+                  v-model="wordProperties.attributes[2].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
@@ -77,7 +80,7 @@
               >
                 <p class="circled-property-field-label m-0">Background Color</p>
                 <input
-                  v-model="wordProperties.traits[3].value"
+                  v-model="wordProperties.attributes[3].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
@@ -96,7 +99,7 @@
                   ></button>
                   <input
                     ref="durationInput"
-                    v-model="wordProperties.traits[4].value"
+                    v-model="wordProperties.attributes[4].value"
                     class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                     type="number"
                     min="0"
@@ -118,7 +121,7 @@
                   Second Text Color
                 </p>
                 <input
-                  v-model="wordProperties.traits[5].value"
+                  v-model="wordProperties.attributes[5].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
@@ -130,7 +133,7 @@
                   Second Border Color
                 </p>
                 <input
-                  v-model="wordProperties.traits[6].value"
+                  v-model="wordProperties.attributes[6].value"
                   class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                   type="text"
                 />
@@ -142,7 +145,7 @@
               <div>
                 <CircledWord
                   class="disabled"
-                  :word-data="wordData"
+                  :nft="nft"
                   :play="play"
                   locked
                   @play-finished="onPlayFinished"
@@ -176,7 +179,7 @@
 import { Options, Ref, Watch } from "vue-property-decorator";
 import PageBase from "@/views/page/PageBase";
 import CircledWord from "@/components/CircledWord.vue";
-import CircledWordNFT from "@/utils/circled-word-nft";
+import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 
 @Options({
   name: "CreateWordPage",
@@ -187,7 +190,7 @@ import CircledWordNFT from "@/utils/circled-word-nft";
 export default class CreateWord extends PageBase {
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
-    traits: [
+    attributes: [
       { trait_type: "Animation Type", value: "Fill In" },
       { trait_type: "Text Color", value: "White" },
       { trait_type: "Border Color", value: "White" },
@@ -197,9 +200,7 @@ export default class CreateWord extends PageBase {
       { trait_type: "Second Border Color", value: "White" },
     ],
   };
-  wordData: CircledWordElement = new CircledWordNFT(
-    this.wordProperties
-  ).getElement();
+  nft: NFT | null = new CircledWordService().getNft(this.wordProperties);
   play = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
@@ -207,7 +208,7 @@ export default class CreateWord extends PageBase {
 
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
-    this.wordData = new CircledWordNFT(val).getElement();
+    this.nft = new CircledWordService().getNft(val);
   }
 
   onPlayFinished() {

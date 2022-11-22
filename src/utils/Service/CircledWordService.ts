@@ -1,5 +1,7 @@
 import colors from "@/assets/libraries/colors.json";
 
+type Widget = "select" | "text" | "time";
+
 type TraitKeysMatching<T, V> = {
   [K in keyof T]-?: T[K] extends V ? K : never;
 }[keyof T];
@@ -8,6 +10,7 @@ interface Property {
   label: string;
   machine_name: string;
   value: unknown;
+  widget: Widget;
   getValue: () => unknown;
 }
 
@@ -16,6 +19,7 @@ type AnimationType = "Fill In" | "Close";
 export abstract class AnimationTypeProperty implements Property {
   public label = "Animation Type";
   public machine_name = "animation_type";
+  public widget: Widget = "select";
   public abstract value: AnimationType;
 
   public getValue() {
@@ -26,6 +30,7 @@ export abstract class AnimationTypeProperty implements Property {
 abstract class TextColorProperty implements Property {
   public label = "Text Color";
   public machine_name = "text_color";
+  public widget: Widget = "text";
   public abstract value: string;
 
   public getValue(): { hex: string; name: string } {
@@ -39,6 +44,7 @@ abstract class TextColorProperty implements Property {
 abstract class BorderColorProperty implements Property {
   public label = "Border Color";
   public machine_name = "border_color";
+  public widget: Widget = "text";
   public abstract value: string;
 
   public getValue(): { hex: string; name: string } {
@@ -52,6 +58,7 @@ abstract class BorderColorProperty implements Property {
 abstract class BackgroundColorProperty implements Property {
   public label = "Background Color";
   public machine_name = "background_color";
+  public widget: Widget = "text";
   public abstract value: string;
 
   public getValue(): { hex: string; name: string } {
@@ -65,6 +72,7 @@ abstract class BackgroundColorProperty implements Property {
 abstract class AnimationDurationProperty implements Property {
   public label = "Animation Duration";
   public machine_name = "animation_duration";
+  public widget: Widget = "time";
   public abstract value: number;
 
   public getValue() {
@@ -173,20 +181,6 @@ class FillInSampleNFT extends SampleNFT {
 export default class CircledWordService {
   protected nftTypes: Array<typeof NFT> = [FillInNFT];
   protected sampleNftTypes: Array<typeof SampleNFT> = [FillInSampleNFT];
-
-  getNftTypeProperties(type: string): Array<Property> | null {
-    let properties = null;
-    const nft_interface = class extends SampleNFT {};
-    for (const nft_type of this.nftTypes) {
-      if (nft_type.type !== type) {
-        continue;
-      }
-
-      properties = new (nft_type as typeof nft_interface)();
-    }
-
-    return (properties as NFT).properties;
-  }
 
   getSampleNft(metadata: NFTMetadata): SampleNFT {
     const type_attribute = (
