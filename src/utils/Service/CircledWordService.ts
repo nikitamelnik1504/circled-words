@@ -28,8 +28,11 @@ abstract class TextColorProperty implements Property {
   public machine_name = "text_color";
   public abstract value: string;
 
-  public getValue(): string {
-    return "#" + colors[this.value as TraitKeysMatching<typeof colors, string>];
+  public getValue(): { hex: string; name: string } {
+    return {
+      hex: "#" + colors[this.value as TraitKeysMatching<typeof colors, string>],
+      name: this.value,
+    };
   }
 }
 
@@ -38,8 +41,11 @@ abstract class BorderColorProperty implements Property {
   public machine_name = "border_color";
   public abstract value: string;
 
-  public getValue() {
-    return "#" + colors[this.value as TraitKeysMatching<typeof colors, string>];
+  public getValue(): { hex: string; name: string } {
+    return {
+      hex: "#" + colors[this.value as TraitKeysMatching<typeof colors, string>],
+      name: this.value,
+    };
   }
 }
 
@@ -48,8 +54,11 @@ abstract class BackgroundColorProperty implements Property {
   public machine_name = "background_color";
   public abstract value: string;
 
-  public getValue() {
-    return "#" + colors[this.value as TraitKeysMatching<typeof colors, string>];
+  public getValue(): { hex: string; name: string } {
+    return {
+      hex: "#" + colors[this.value as TraitKeysMatching<typeof colors, string>],
+      name: this.value,
+    };
   }
 }
 
@@ -64,24 +73,30 @@ abstract class AnimationDurationProperty implements Property {
 }
 
 export abstract class NFT {
-  public name!: string;
+  private _name = "";
+  protected _properties: Array<Property> = [];
   public static readonly type: AnimationType;
-  protected properties: Array<Property> = [];
+
+  get name(): string {
+    const hash_position = this._name.indexOf("#");
+    return this._name.substring(hash_position);
+  }
 
   public load(metadata: NFTMetadata): NFT {
+    this._name = metadata.name;
     const attributes = (
       metadata.attributes !== undefined ? metadata.attributes : metadata.traits
     ) as Array<{ trait_type: string; value: string }>;
     for (const attribute_index of attributes.keys()) {
       // @todo Check on the internet if is possible to change order of traits in json file.
-      this.properties[attribute_index].value =
+      this._properties[attribute_index].value =
         attributes[attribute_index].value;
     }
     return this;
   }
 
-  public get getProperties(): Array<Property> {
-    return this.properties;
+  public get properties(): Array<Property> {
+    return this._properties;
   }
 
   public getType(): AnimationType {
@@ -92,13 +107,23 @@ export abstract class NFT {
 export abstract class SampleNFT extends NFT {
   public label?: string;
   public link?: string;
-  public sampleData?: Record<string, Array<string> | string>;
+  public _sampleData?: Record<string, Array<string> | string>;
+
+  public load(metadata: NFTMetadata): SampleNFT {
+    super.load(metadata);
+    this._sampleData = metadata.sample_data;
+    return this;
+  }
+
+  public get sampleData(): Record<string, Array<string> | string> | undefined {
+    return this._sampleData;
+  }
 }
 
 class FillInNFT extends NFT {
   public static readonly type: AnimationType = "Fill In";
 
-  protected properties: [
+  protected _properties: [
     AnimationTypeProperty,
     TextColorProperty,
     BorderColorProperty,
@@ -137,7 +162,7 @@ class FillInNFT extends NFT {
 
 class FillInSampleNFT extends SampleNFT {
   public static readonly type = FillInNFT.type;
-  protected properties = new FillInNFT().getProperties;
+  protected _properties = new FillInNFT().properties;
 }
 
 export default class CircledWordService {
@@ -155,10 +180,10 @@ export default class CircledWordService {
       properties = new (nft_type as typeof nft_interface)();
     }
 
-    return (properties as NFT).getProperties;
+    return (properties as NFT).properties;
   }
 
-  getSampleNft(metadata: NFTMetadata): SampleNFT | null {
+  getSampleNft(metadata: NFTMetadata): SampleNFT {
     const type_attribute = (
       metadata.attributes as Array<{ trait_type: string; value: string }>
     ).filter((attribute) => {
@@ -168,7 +193,7 @@ export default class CircledWordService {
     });
     const type = type_attribute[0].value;
 
-    let instance: SampleNFT | null = null;
+    let instance!: SampleNFT;
     const nft_interface = class extends SampleNFT {};
     const nft_types = this.sampleNftTypes;
 
@@ -196,7 +221,7 @@ export default class CircledWordService {
     });
     const type = type_attribute[0].value;
 
-    let instance: NFT | null = null;
+    let instance!: NFT;
     const nft_interface = class extends NFT {};
     for (const nft of this.nftTypes) {
       if (nft.type !== type) {

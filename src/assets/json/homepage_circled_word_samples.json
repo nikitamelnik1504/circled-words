@@ -5,7 +5,11 @@
       "adventure_text": "As you can see - we have simple background filling animation and text color change."
     },
     "name": "CircledWord #1",
-    "traits": [
+    "attributes": [
+      {
+        "trait_type": "Animation Type",
+        "value": "Fill In"
+      },
       {
         "trait_type": "Text Color",
         "value": "Clay Creek"
@@ -15,24 +19,20 @@
         "value": "Clay Creek"
       },
       {
-        "trait_type": "Second Border Color",
+        "trait_type": "Background Color",
         "value": "Clay Creek"
-      },
-      {
-        "trait_type": "Animation Type",
-        "value": "Fill In"
       },
       {
         "trait_type": "Animation Duration",
         "value": 1
       },
       {
-        "trait_type": "Background Color",
-        "value": "Clay Creek"
-      },
-      {
         "trait_type": "Second Text Color",
         "value": "Black Haze"
+      },
+      {
+        "trait_type": "Second Border Color",
+        "value": "Clay Creek"
       }
     ]
   },
@@ -47,7 +47,11 @@
       "adventure_text": "Not bad. We have pulse background filling animation, and it takes little bit longer, because we have changed Animation duration param."
     },
     "name": "CircledWord #2",
-    "traits": [
+    "attributes": [
+      {
+        "trait_type": "Animation Type",
+        "value": "Fill In"
+      },
       {
         "trait_type": "Text Color",
         "value": "Clay Creek"
@@ -57,24 +61,20 @@
         "value": "Clay Creek"
       },
       {
-        "trait_type": "Second Border Color",
+        "trait_type": "Background Color",
         "value": "My Sin"
-      },
-      {
-        "trait_type": "Animation Type",
-        "value": "Fill In"
       },
       {
         "trait_type": "Animation Duration",
         "value": 2
       },
       {
-        "trait_type": "Background Color",
-        "value": "My Sin"
-      },
-      {
         "trait_type": "Second Text Color",
         "value": "Woodsmoke"
+      },
+      {
+        "trait_type": "Second Border Color",
+        "value": "My Sin"
       }
     ]
   },
@@ -91,7 +91,11 @@
       "adventure_text": "WOW! We have new text color and new border color at the start."
     },
     "name": "CircledWord #3",
-    "traits": [
+    "attributes": [
+      {
+        "trait_type": "Animation Type",
+        "value": "Fill In"
+      },
       {
         "trait_type": "Text Color",
         "value": "Persian Pink"
@@ -101,24 +105,20 @@
         "value": "Persian Pink"
       },
       {
-        "trait_type": "Second Border Color",
-        "value": "Geraldine"
-      },
-      {
-        "trait_type": "Animation Type",
-        "value": "Fill In"
+        "trait_type": "Background Color",
+        "value": "Amethyst"
       },
       {
         "trait_type": "Animation Duration",
         "value": 3
       },
       {
-        "trait_type": "Background Color",
-        "value": "Amethyst"
-      },
-      {
         "trait_type": "Second Text Color",
         "value": "White"
+      },
+      {
+        "trait_type": "Second Border Color",
+        "value": "Geraldine"
       }
     ]
   }

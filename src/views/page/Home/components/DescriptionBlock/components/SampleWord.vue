@@ -3,10 +3,10 @@
     <div>
       <h5 class="sample-word-name text-center mb-4">
         <span class="primary">Circled</span><span class="secondary">Word</span>
-        {{ name }}
+        {{ nft.name }}
       </h5>
       <CircledWord
-        :word-data="wordData"
+        :nft="nft"
         class="disabled"
         locked
         :play="play"
@@ -40,8 +40,9 @@
 <script lang="ts">
 import { Vue, Options, Prop, Emit } from "vue-property-decorator";
 import CircledWord from "@/components/CircledWord.vue";
-import CircledWordNFT from "@/utils/circled-word-nft";
-import colors from "@/assets/libraries/colors.json";
+import CircledWordService, {
+  SampleNFT,
+} from "@/utils/Service/CircledWordService";
 
 @Options({
   components: {
@@ -52,10 +53,10 @@ export default class SampleWord extends Vue {
   @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
   @Prop({ type: Boolean, default: false }) readonly play!: boolean;
 
-  circledWordNFT: CircledWordNFT = new CircledWordNFT(this.metadata);
-  wordData: CircledWordElement = this.circledWordNFT.getElement();
+  nft: SampleNFT = new CircledWordService().getSampleNft(
+    this.metadata
+  ) as SampleNFT;
   sampleWordData = this.getSampleWordData() as SampleWordData;
-  name = this.circledWordNFT.name;
 
   @Emit("samplePlayFinished")
   onSamplePlayFinished() {
@@ -66,22 +67,35 @@ export default class SampleWord extends Vue {
     if (this.metadata.sample_data === undefined) {
       return false;
     }
-    const updated_circled_properties = this.metadata.sample_data.updated;
-
-    const traits = this.circledWordNFT.getTraits();
+    const updated_circled_properties = (
+      this.nft.sampleData as { updated: Array<string> }
+    ).updated;
+    const traits = this.nft.properties;
 
     const result: { [key: string]: Record<string, string | boolean> } = {};
-    for (const property in traits) {
-      result[property] = {
-        value: traits[property],
-        updated: updated_circled_properties.includes(property as never),
+    for (const [property_index, property] of traits.entries()) {
+      result[property.label] = {
+        value:
+          typeof traits[property_index].getValue() === "object"
+            ? (
+                traits[property_index].getValue() as {
+                  hex: string;
+                  name: string;
+                }
+              ).name
+            : (traits[property_index].getValue() as string),
+        updated: updated_circled_properties.includes(property.label as never),
       };
 
-      if (traits[property] in colors) {
-        result[property].color = this.circledWordNFT.getColor(traits[property]);
-      } else {
-        result[property].color = "#948561";
-      }
+      result[property.label].color =
+        typeof traits[property_index].getValue() === "object"
+          ? (
+              traits[property_index].getValue() as {
+                hex: string;
+                name: string;
+              }
+            ).hex
+          : "#948561";
     }
 
     return {
