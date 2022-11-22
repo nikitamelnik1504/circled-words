@@ -2,30 +2,30 @@
   {
     "name": "CircledWord Sample #1",
     "text": "What is it?",
-    "traits": [
+    "attributes": [
+      {
+        "trait_type": "Animation Type",
+        "value": "Fill In"
+      },
       {
         "trait_type": "Text Color",
         "value": "Amethyst"
       },
       {
-        "trait_type": "Animation Type",
-        "value": "Fill In"
+        "trait_type": "Border Color",
+        "value": "Amethyst"
       },
       {
         "trait_type": "Background Color",
         "value": "Amethyst"
       },
       {
-        "trait_type": "Second Text Color",
-        "value": "White"
-      },
-      {
         "trait_type": "Animation Duration",
         "value": 0.5
       },
       {
-        "trait_type": "Border Color",
-        "value": "Amethyst"
+        "trait_type": "Second Text Color",
+        "value": "White"
       },
       {
         "trait_type": "Second Border Color",
@@ -37,14 +37,18 @@
   {
     "name": "CircledWord Sample #2",
     "text": "Stats",
-    "traits": [
+    "attributes": [
+      {
+        "trait_type": "Animation Type",
+        "value": "Fill In"
+      },
       {
         "trait_type": "Text Color",
         "value": "Persian Pink"
       },
       {
-        "trait_type": "Animation Type",
-        "value": "Fill In"
+        "trait_type": "Border Color",
+        "value": "Persian Pink"
       },
       {
         "trait_type": "Background Color",
@@ -55,16 +59,12 @@
         "value": 0.5
       },
       {
-        "trait_type": "Border Color",
-        "value": "Persian Pink"
+        "trait_type": "Second Text Color",
+        "value": "White"
       },
       {
         "trait_type": "Second Border Color",
         "value": "Persian Pink"
-      },
-      {
-        "trait_type": "Second Text Color",
-        "value": "White"
       }
     ],
     "link": "#stats"
@@ -72,17 +72,13 @@
   {
     "name": "CircledWord Sample #3",
     "text": "Benefits",
-    "traits": [
-      {
-        "trait_type": "Text Color",
-        "value": "Geraldine"
-      },
+    "attributes": [
       {
         "trait_type": "Animation Type",
         "value": "Fill In"
       },
       {
-        "trait_type": "Background Color",
+        "trait_type": "Text Color",
         "value": "Geraldine"
       },
       {
@@ -90,7 +86,7 @@
         "value": "Geraldine"
       },
       {
-        "trait_type": "Second Border Color",
+        "trait_type": "Background Color",
         "value": "Geraldine"
       },
       {
@@ -100,6 +96,10 @@
       {
         "trait_type": "Second Text Color",
         "value": "White"
+      },
+      {
+        "trait_type": "Second Border Color",
+        "value": "Geraldine"
       }
     ],
     "link": "#benefits"
@@ -107,21 +107,21 @@
   {
     "name": "CircledWord Sample #4",
     "text": "Help",
-    "traits": [
-      {
-        "trait_type": "Text Color",
-        "value": "Atomic Tangerine"
-      },
+    "attributes": [
       {
         "trait_type": "Animation Type",
         "value": "Fill In"
+      },
+      {
+        "trait_type": "Text Color",
+        "value": "Atomic Tangerine"
       },
       {
         "trait_type": "Border Color",
         "value": "Atomic Tangerine"
       },
       {
-        "trait_type": "Second Border Color",
+        "trait_type": "Background Color",
         "value": "Atomic Tangerine"
       },
       {
@@ -129,12 +129,12 @@
         "value": 0.5
       },
       {
-        "trait_type": "Background Color",
-        "value": "Atomic Tangerine"
-      },
-      {
         "trait_type": "Second Text Color",
         "value": "White"
+      },
+      {
+        "trait_type": "Second Border Color",
+        "value": "Atomic Tangerine"
       }
     ],
     "link": "#help"

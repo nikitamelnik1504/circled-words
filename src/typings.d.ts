@@ -20,7 +20,7 @@ interface NFTMetadata {
   };
   link?: string;
   name: string;
-  text?: string;
+  label?: string;
   attributes?: { trait_type: string; value: string }[];
   traits?: { trait_type: string; value: string }[];
 }

@@ -64,26 +64,24 @@ abstract class AnimationDurationProperty implements Property {
 }
 
 export abstract class NFT {
-  public name: string;
+  public name!: string;
   public static readonly type: AnimationType;
-  public static properties: Array<Property>;
+  protected properties: Array<Property> = [];
 
-  // @todo Implement metadata interface from https://docs.metaplex.com/programs/token-metadata/token-standard#the-non-fungible-standard .
-  constructor(metadata: NFTMetadata) {
-    this.name = metadata.name;
-    const static_instance: typeof NFT = this.constructor as typeof NFT;
+  public load(metadata: NFTMetadata): NFT {
     const attributes = (
       metadata.attributes !== undefined ? metadata.attributes : metadata.traits
     ) as Array<{ trait_type: string; value: string }>;
     for (const attribute_index of attributes.keys()) {
       // @todo Check on the internet if is possible to change order of traits in json file.
-      static_instance.properties[attribute_index].value =
+      this.properties[attribute_index].value =
         attributes[attribute_index].value;
     }
+    return this;
   }
 
-  public getProperties(): Array<Property> {
-    return (this.constructor as typeof NFT).properties;
+  public get getProperties(): Array<Property> {
+    return this.properties;
   }
 
   public getType(): AnimationType {
@@ -95,25 +93,12 @@ export abstract class SampleNFT extends NFT {
   public label?: string;
   public link?: string;
   public sampleData?: Record<string, Array<string> | string>;
-
-  protected constructor(metadata: {
-    name: string;
-    label?: string;
-    link?: string;
-    sampleData?: Record<string, Array<string> | string>;
-    attributes: Array<{ trait_type: string; value: string }>;
-  }) {
-    super(metadata);
-    this.label = metadata.label;
-    this.link = metadata.link;
-    this.sampleData = metadata.sampleData;
-  }
 }
 
 class FillInNFT extends NFT {
   public static readonly type: AnimationType = "Fill In";
 
-  public static properties: [
+  protected properties: [
     AnimationTypeProperty,
     TextColorProperty,
     BorderColorProperty,
@@ -150,24 +135,52 @@ class FillInNFT extends NFT {
   ];
 }
 
+class FillInSampleNFT extends SampleNFT {
+  public static readonly type = FillInNFT.type;
+  protected properties = new FillInNFT().getProperties;
+}
+
 export default class CircledWordService {
   protected nftTypes: Array<typeof NFT> = [FillInNFT];
+  protected sampleNftTypes: Array<typeof SampleNFT> = [FillInSampleNFT];
 
   getNftTypeProperties(type: string): Array<Property> | null {
     let properties = null;
+    const nft_interface = class extends SampleNFT {};
     for (const nft_type of this.nftTypes) {
       if (nft_type.type !== type) {
         continue;
       }
 
-      properties = nft_type.properties;
+      properties = new (nft_type as typeof nft_interface)();
     }
 
-    return properties;
+    return (properties as NFT).getProperties;
   }
 
-  getSampleNft(): SampleNFT | null {
-    return null;
+  getSampleNft(metadata: NFTMetadata): SampleNFT | null {
+    const type_attribute = (
+      metadata.attributes as Array<{ trait_type: string; value: string }>
+    ).filter((attribute) => {
+      if (attribute.trait_type === "Animation Type") {
+        return attribute;
+      }
+    });
+    const type = type_attribute[0].value;
+
+    let instance: SampleNFT | null = null;
+    const nft_interface = class extends SampleNFT {};
+    const nft_types = this.sampleNftTypes;
+
+    for (const nft of nft_types) {
+      if (nft.type !== type) {
+        continue;
+      }
+
+      instance = new (nft as typeof nft_interface)();
+    }
+
+    return (instance as SampleNFT).load(metadata);
   }
 
   getNft(metadata: NFTMetadata): NFT | null {
@@ -190,9 +203,9 @@ export default class CircledWordService {
         continue;
       }
 
-      instance = new (nft as typeof nft_interface)(metadata);
+      instance = new (nft as typeof nft_interface)();
     }
 
-    return instance;
+    return (instance as NFT).load(metadata);
   }
 }

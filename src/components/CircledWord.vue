@@ -48,7 +48,7 @@ export default class CircledWord extends Vue {
 
   getStyle() {
     const style: Record<string, string> = {};
-    const traits = this.nft.getProperties();
+    const traits = this.nft.getProperties;
     for (const trait of traits) {
       if (trait instanceof AnimationTypeProperty) {
         continue;
