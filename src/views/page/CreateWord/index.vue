@@ -20,123 +20,81 @@
               action=""
               class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto mb-4 d-flex justify-content-center align-items-center flex-column"
             >
-              <div v-for="(asset, index) in nft.properties" :key="index">
-                <div>{{ asset }}</div>
-              </div>
               <div
-                class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
+                v-for="(asset, index) in nft.properties" :key="index"
+                class="w-100"
               >
-                <p class="circled-property-field-label m-0">Animation Type</p>
                 <div
-                  class="dropdown circled-property-field-value text-center p-0"
+                  v-if="asset.widget === 'select'"
+                  class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
                 >
-                  <input
-                    id="animationType"
-                    v-model="wordProperties.attributes[0].value"
-                    class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    name="animation_type"
-                  />
-                  <ul
-                    class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                  <p class="circled-property-field-label m-0">{{ asset.label }}</p>
+                  <div
+                    class="dropdown circled-property-field-value text-center p-0"
                   >
-                    <li>
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="
-                          wordProperties.attributes[0].value = 'Fill In'
-                        "
-                        >Fill In</a
-                      >
-                    </li>
-                  </ul>
+                    <input
+                      id="animationType"
+                      v-model="asset.value"
+                      class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      name="animation_type"
+                    />
+                    <ul
+                      class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                    >
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          @click.prevent="
+                            asset.value = 'Fill In'
+                          "
+                          >Fill In</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">Text Color</p>
-                <input
-                  v-model="wordProperties.attributes[1].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">Border Color</p>
-                <input
-                  v-model="wordProperties.attributes[2].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">Background Color</p>
-                <input
-                  v-model="wordProperties.attributes[3].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">
-                  Animation Duration
-                </p>
-                <div class="number-type position-relative">
-                  <button
-                    type="button"
-                    class="minus w-25 h-100 position-absolute start-0"
-                    @click="numberDecrement"
-                  ></button>
+                <div
+                  v-else-if="asset.widget === 'time'"
+                  class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                >
+                  <p class="circled-property-field-label m-0">{{ asset.label }}</p>
+                  <div class="number-type position-relative">
+                    <button
+                      type="button"
+                      class="minus w-25 h-100 position-absolute start-0"
+                      @click="numberDecrement"
+                    ></button>
+                    <input
+                      ref="durationInput"
+                      v-model="asset.value"
+                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                      type="number"
+                      min="0"
+                      max="3600"
+                      step="0.1"
+                      @input="restrictInput"
+                    />
+                    <button
+                      type="button"
+                      class="plus w-25 h-100 position-absolute end-0"
+                      @click="numberIncrement"
+                    ></button>
+                  </div>
+                </div>
+                <div
+                  v-else
+                  class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                >
+                  <p class="circled-property-field-label m-0">{{ asset.label }}</p>
                   <input
-                    ref="durationInput"
-                    v-model="wordProperties.attributes[4].value"
-                    class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                    type="number"
-                    min="0"
-                    max="3600"
-                    step="0.1"
-                    @input="restrictInput"
-                  />
-                  <button
-                    type="button"
-                    class="plus w-25 h-100 position-absolute end-0"
-                    @click="numberIncrement"
-                  ></button>
+                      v-model="asset.value"
+                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                      type="text">
                 </div>
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">
-                  Second Text Color
-                </p>
-                <input
-                  v-model="wordProperties.attributes[5].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">
-                  Second Border Color
-                </p>
-                <input
-                  v-model="wordProperties.attributes[6].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
               </div>
             </form>
             <div
