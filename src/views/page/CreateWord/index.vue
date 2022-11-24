@@ -21,14 +21,17 @@
               class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto mb-4 d-flex justify-content-center align-items-center flex-column"
             >
               <div
-                v-for="(asset, index) in nft.properties" :key="index"
+                v-for="(asset, index) in nft.properties"
+                :key="index"
                 class="w-100"
               >
                 <div
                   v-if="asset.widget === 'select'"
                   class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
                 >
-                  <p class="circled-property-field-label m-0">{{ asset.label }}</p>
+                  <p class="circled-property-field-label m-0">
+                    {{ asset.label }}
+                  </p>
                   <div
                     class="dropdown circled-property-field-value text-center p-0"
                   >
@@ -48,9 +51,7 @@
                         <a
                           class="dropdown-item"
                           href="#"
-                          @click.prevent="
-                            asset.value = 'Fill In'
-                          "
+                          @click.prevent="asset.value = 'Fill In'"
                           >Fill In</a
                         >
                       </li>
@@ -61,27 +62,31 @@
                   v-else-if="asset.widget === 'time'"
                   class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
                 >
-                  <p class="circled-property-field-label m-0">{{ asset.label }}</p>
+                  <p class="circled-property-field-label m-0">
+                    {{ asset.label }}
+                  </p>
                   <div class="number-type position-relative">
                     <button
                       type="button"
-                      class="minus w-25 h-100 position-absolute start-0"
-                      @click="numberDecrement"
+                      class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
+                      :disabled="asset.value < 0.1"
+                      @click="asset.value = (Number(asset.value) - 0.1).toFixed(1)"
                     ></button>
                     <input
-                      ref="durationInput"
+                      ref="input${index}"
                       v-model="asset.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                       type="number"
-                      min="0"
-                      max="3600"
-                      step="0.1"
+                      :min="0"
+                      :max="3600"
+                      :step="0.1"
                       @input="restrictInput"
                     />
                     <button
                       type="button"
-                      class="plus w-25 h-100 position-absolute end-0"
-                      @click="numberIncrement"
+                      class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
+                      :disabled="asset.value >= 3600"
+                      @click="asset.value = (Number(asset.value) + 0.1).toFixed(1)"
                     ></button>
                   </div>
                 </div>
@@ -89,11 +94,14 @@
                   v-else
                   class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
                 >
-                  <p class="circled-property-field-label m-0">{{ asset.label }}</p>
+                  <p class="circled-property-field-label m-0">
+                    {{ asset.label }}
+                  </p>
                   <input
-                      v-model="asset.value"
-                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                      type="text">
+                    v-model="asset.value"
+                    class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                    type="text"
+                  />
                 </div>
               </div>
             </form>
@@ -162,7 +170,7 @@ export default class CreateWord extends PageBase {
   play = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
-  @Ref("durationInput") readonly durationInput!: HTMLInputElement;
+  @Ref("input${index}") readonly durationInput!: HTMLInputElement[];
 
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
@@ -173,38 +181,30 @@ export default class CreateWord extends PageBase {
     this.play = false;
   }
 
-  numberIncrement(): void {
-    this.durationInput.stepUp();
-  }
-
-  numberDecrement(): void {
-    this.durationInput.stepDown();
-  }
-
   restrictInput(): void {
     const floatLength: number | null = this.isFloat(
-      Number(this.durationInput.value)
+      this.durationInput[0].valueAsNumber
     )
-      ? this.durationInput.value.length
+      ? this.durationInput[0].value.length
       : null;
     const integerLength: number | null = !this.isFloat(
-      Number(this.durationInput.value)
+      this.durationInput[0].valueAsNumber
     )
-      ? this.durationInput.value.length
+      ? this.durationInput[0].value.length
       : null;
 
     if (!floatLength && (integerLength as number) > 4) {
-      this.durationInput.value = this.durationInput.value.slice(0, 4);
-    } else if (!integerLength && (floatLength as number) > 5) {
-      this.durationInput.value = this.durationInput.value.slice(0, 5);
+      this.durationInput[0].value = this.durationInput[0].value.slice(0, 4);
+    } else if (!integerLength && (floatLength as number) > 6) {
+      this.durationInput[0].value = this.durationInput[0].value.slice(0, 6);
     } else if (
-      Number(this.durationInput.value) < Number(this.durationInput.min)
+      this.durationInput[0].valueAsNumber < Number(this.durationInput[0].min)
     ) {
-      this.durationInput.value = "1";
+      this.durationInput[0].value = "1";
     } else if (
-      Number(this.durationInput.value) > Number(this.durationInput.max)
+      this.durationInput[0].valueAsNumber > Number(this.durationInput[0].max)
     ) {
-      this.durationInput.value = "3600";
+      this.durationInput[0].value = "3600";
     }
   }
 

@@ -84,6 +84,10 @@
         .number-type {
           width: 35%;
 
+          &:hover > input[type="number"] {
+            box-shadow: inset 0 0 0 1px #b97a2a;
+          }
+
           input[type="number"] {
             appearance: textfield;
             width: 100%;
@@ -106,7 +110,6 @@
               width: 5px;
               height: 1px;
               background-color: #b97a2a;
-              transform: translate(-50%, -50%);
 
               @include media-breakpoint-up(sm) {
                 width: 7px;
@@ -120,7 +123,7 @@
             }
 
             &.plus::after {
-              transform: translate(-50%, -50%) rotate(90deg);
+              transform: rotate(90deg);
             }
           }
         }
