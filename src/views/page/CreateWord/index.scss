@@ -101,7 +101,6 @@
           button {
             border: none;
             background-color: transparent;
-            cursor: pointer;
 
             &::before,
             &::after {
@@ -120,6 +119,16 @@
                 width: 15px;
                 height: 3px;
               }
+            }
+
+            &.disabled {
+              cursor: default;
+              pointer-events: none;
+            }
+
+            &.disabled::before,
+            &.disabled::after {
+              background-color: #724b1a;
             }
 
             &.plus::after {
