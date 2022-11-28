@@ -69,29 +69,41 @@
                     <button
                       type="button"
                       class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
-                      :class="{ disabled : asset.value < 0.1}"
+                      :class="{ disabled: asset.value < 0.1 }"
                       :disabled="asset.value < 0.1"
                       @click="
-                        asset.value = (Number(asset.value) - 0.1).toFixed(1)
+                        () => {
+                          asset.value = (Number(asset.value) - 0.1).toFixed(1);
+                          restrictInput(
+                            $refs['number_field_' + index][0],
+                            index
+                          );
+                        }
                       "
                     ></button>
                     <input
-                      ref="input${index}"
+                      :ref="'number_field_' + index"
                       v-model="asset.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                       type="number"
-                      :min="0"
-                      :max="3600"
+                      :min="0.1"
+                      :max="100"
                       :step="0.1"
-                      @input="restrictInput"
+                      @input="restrictInput($event.target, index)"
                     />
                     <button
                       type="button"
                       class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
-                      :class="{ disabled : asset.value >= 3600}"
-                      :disabled="asset.value >= 3600"
+                      :class="{ disabled: asset.value >= 100 }"
+                      :disabled="asset.value >= 100"
                       @click="
-                        asset.value = (Number(asset.value) + 0.1).toFixed(1)
+                        () => {
+                          asset.value = (Number(asset.value) + 0.1).toFixed(1);
+                          restrictInput(
+                            $refs['number_field_' + index][0],
+                            index
+                          );
+                        }
                       "
                     ></button>
                   </div>
@@ -176,7 +188,6 @@ export default class CreateWord extends PageBase {
   play = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
-  @Ref("input${index}") readonly durationInput!: HTMLInputElement[];
 
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
@@ -187,35 +198,8 @@ export default class CreateWord extends PageBase {
     this.play = false;
   }
 
-  restrictInput(): void {
-    const floatLength: number | null = this.isFloat(
-      this.durationInput[0].valueAsNumber
-    )
-      ? this.durationInput[0].value.length
-      : null;
-    const integerLength: number | null = !this.isFloat(
-      this.durationInput[0].valueAsNumber
-    )
-      ? this.durationInput[0].value.length
-      : null;
-
-    if (!floatLength && (integerLength as number) > 4) {
-      this.durationInput[0].value = this.durationInput[0].value.slice(0, 4);
-    } else if (!integerLength && (floatLength as number) > 6) {
-      this.durationInput[0].value = this.durationInput[0].value.slice(0, 6);
-    } else if (
-      this.durationInput[0].valueAsNumber < Number(this.durationInput[0].min)
-    ) {
-      this.durationInput[0].value = "1";
-    } else if (
-      this.durationInput[0].valueAsNumber > Number(this.durationInput[0].max)
-    ) {
-      this.durationInput[0].value = "3600";
-    }
-  }
-
-  isFloat(value: number): boolean {
-    return Number(value) === value && value % 1 !== 0;
+  restrictInput(element: HTMLInputElement, property_index: number): void {
+    // (this.nft as NFT).properties[property_index].value = 12;
   }
 }
 </script>
