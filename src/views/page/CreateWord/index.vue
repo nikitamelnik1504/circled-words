@@ -69,27 +69,23 @@
                     <button
                       type="button"
                       class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
-                      :class="{ disabled: asset.value < 0.1 }"
-                      :disabled="asset.value < 0.1"
+                      :class="{ disabled: +asset.value === 0.1 }"
+                      :disabled="+asset.value === 0.1"
                       @click="
                         () => {
-                          asset.value = (Number(asset.value) - 0.1).toFixed(1);
-                          restrictInput(
-                            $refs['number_field_' + index][0],
-                            index
-                          );
+                          asset.value = (+asset.value - 0.1).toFixed(1);
+                          restrictInput(index, asset.value.toString());
                         }
                       "
                     ></button>
                     <input
-                      :ref="'number_field_' + index"
                       v-model="asset.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                       type="number"
                       :min="0.1"
                       :max="100"
                       :step="0.1"
-                      @input="restrictInput($event.target, index)"
+                      @input="restrictInput(index, asset.value.toString())"
                     />
                     <button
                       type="button"
@@ -98,11 +94,8 @@
                       :disabled="asset.value >= 100"
                       @click="
                         () => {
-                          asset.value = (Number(asset.value) + 0.1).toFixed(1);
-                          restrictInput(
-                            $refs['number_field_' + index][0],
-                            index
-                          );
+                          asset.value = (+asset.value + 0.1).toFixed(1);
+                          restrictInput(index, asset.value.toString());
                         }
                       "
                     ></button>
@@ -198,8 +191,22 @@ export default class CreateWord extends PageBase {
     this.play = false;
   }
 
-  restrictInput(element: HTMLInputElement, property_index: number): void {
-    // (this.nft as NFT).properties[property_index].value = 12;
+  restrictInput(property_index: number, value: string): void {
+    let updated_string = value;
+
+    if (value.includes(".") && value.split(".")[1].length > 1) {
+      updated_string = value.slice(0, value.indexOf("."));
+    }
+
+    if (+updated_string > 100) {
+      updated_string = "100";
+    }
+
+    if (+updated_string <= 0) {
+      updated_string = "0.1";
+    }
+
+    (this.nft as NFT).properties[property_index].value = updated_string;
   }
 }
 </script>
