@@ -49,12 +49,16 @@
                     <ul
                       class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
                     >
-                      <li>
+                      <li
+                        v-for="(nftType, nftTypeIndex) in nftTypes"
+                        :key="nftTypeIndex"
+                      >
                         <a
                           class="dropdown-item"
                           href="#"
-                          @click.prevent="asset.value = 'Fill In'"
-                          >Fill In</a
+                          @click.prevent="asset.value = nftType.type"
+                        >
+                          {{ nftType.type }}</a
                         >
                       </li>
                     </ul>
@@ -184,6 +188,7 @@ export default class CreateWord extends PageBase {
     ],
   };
   nft: NFT | null = new CircledWordService().getNft(this.wordProperties);
+  nftTypes: Array<typeof NFT> = new CircledWordService().getNftTypes();
   play = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;

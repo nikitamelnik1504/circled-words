@@ -232,4 +232,8 @@ export default class CircledWordService {
 
     return (instance as NFT).load(metadata);
   }
+
+  getNftTypes(): Array<typeof NFT> {
+    return this.nftTypes;
+  }
 }
