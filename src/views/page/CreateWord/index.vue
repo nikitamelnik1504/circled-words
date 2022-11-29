@@ -81,6 +81,18 @@
                         }
                       "
                     ></button>
+                    <button
+                      type="button"
+                      class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
+                      :class="{ disabled: asset.value >= 100 }"
+                      :disabled="((+asset.value >= 100) | play)"
+                      @click="
+                        () => {
+                          asset.value = (+asset.value + 0.1).toFixed(1);
+                          restrictInput(index, asset.value.toString());
+                        }
+                      "
+                    ></button>
                     <input
                       v-model="asset.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
@@ -91,18 +103,6 @@
                       :step="0.1"
                       @input="restrictInput(index, asset.value.toString())"
                     />
-                    <button
-                      type="button"
-                      class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
-                      :class="{ disabled: asset.value >= 100 }"
-                      :disabled="((asset.value >= 100) | play)"
-                      @click="
-                        () => {
-                          asset.value = (+asset.value + 0.1).toFixed(1);
-                          restrictInput(index, asset.value.toString());
-                        }
-                      "
-                    ></button>
                   </div>
                 </div>
                 <div

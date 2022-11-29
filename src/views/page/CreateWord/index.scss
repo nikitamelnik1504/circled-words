@@ -36,6 +36,18 @@
           max-width: calc(2 * 250px);
         }
 
+        &.disabled {
+          & > .circled-property-field-value {
+            opacity: 0.5;
+          }
+
+          .number-type {
+            & > .circled-property-field-value {
+              opacity: 0.5;
+            }
+          }
+        }
+
         .circled-property-field-label,
         .circled-property-field-value {
           color: #fff;
