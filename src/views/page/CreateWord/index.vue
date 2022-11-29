@@ -21,119 +21,109 @@
               class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto mb-4 d-flex justify-content-center align-items-center flex-column"
             >
               <div
-                class="circled-property-field d-flex ps-3 ps-md-4 align-items-center justify-content-between w-100"
+                v-for="(asset, index) in nft.properties"
+                :key="index"
+                class="w-100"
               >
-                <p class="circled-property-field-label m-0">Animation Type</p>
                 <div
-                  class="dropdown circled-property-field-value text-center p-0"
+                  v-if="asset.widget === 'select'"
+                  class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                  :class="{ disabled: play }"
                 >
-                  <input
-                    id="animationType"
-                    v-model="wordProperties.traits[0].value"
-                    class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    name="animation_type"
-                  />
-                  <ul
-                    class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                  <p class="circled-property-field-label m-0">
+                    {{ asset.label }}
+                  </p>
+                  <div
+                    class="dropdown circled-property-field-value text-center p-0"
                   >
-                    <li>
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        @click.prevent="
-                          wordProperties.traits[0].value = 'Fill In'
-                        "
-                        >Fill In</a
+                    <input
+                      id="animationType"
+                      v-model="asset.value"
+                      class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
+                      :disabled="play"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      name="animation_type"
+                    />
+                    <ul
+                      class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                    >
+                      <li
+                        v-for="(nftType, nftTypeIndex) in nftTypes"
+                        :key="nftTypeIndex"
                       >
-                    </li>
-                  </ul>
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          @click.prevent="asset.value = nftType.type"
+                        >
+                          {{ nftType.type }}</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">Text Color</p>
-                <input
-                  v-model="wordProperties.traits[1].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">Border Color</p>
-                <input
-                  v-model="wordProperties.traits[2].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">Background Color</p>
-                <input
-                  v-model="wordProperties.traits[3].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">
-                  Animation Duration
-                </p>
-                <div class="number-type position-relative">
-                  <button
-                    type="button"
-                    class="minus w-25 h-100 position-absolute start-0"
-                    @click="numberDecrement"
-                  ></button>
+                <div
+                  v-else-if="asset.widget === 'time'"
+                  class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                  :class="{ disabled: play }"
+                >
+                  <p class="circled-property-field-label m-0">
+                    {{ asset.label }}
+                  </p>
+                  <div class="number-type position-relative">
+                    <button
+                      type="button"
+                      class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
+                      :class="{ disabled: +asset.value === 0.1 }"
+                      :disabled="((+asset.value === 0.1) | play)"
+                      @click="
+                        () => {
+                          asset.value = (+asset.value - 0.1).toFixed(1);
+                          restrictInput(index, asset.value.toString());
+                        }
+                      "
+                    ></button>
+                    <button
+                      type="button"
+                      class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
+                      :class="{ disabled: asset.value >= 100 }"
+                      :disabled="((+asset.value >= 100) | play)"
+                      @click="
+                        () => {
+                          asset.value = (+asset.value + 0.1).toFixed(1);
+                          restrictInput(index, asset.value.toString());
+                        }
+                      "
+                    ></button>
+                    <input
+                      v-model="asset.value"
+                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                      :disabled="play"
+                      type="number"
+                      :min="0.1"
+                      :max="100"
+                      :step="0.1"
+                      @input="restrictInput(index, asset.value.toString())"
+                    />
+                  </div>
+                </div>
+                <div
+                  v-else
+                  class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                  :class="{ disabled: play }"
+                >
+                  <p class="circled-property-field-label m-0">
+                    {{ asset.label }}
+                  </p>
                   <input
-                    ref="durationInput"
-                    v-model="wordProperties.traits[4].value"
+                    v-model="asset.value"
                     class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                    type="number"
-                    min="0"
-                    max="3600"
-                    step="0.1"
-                    @input="restrictInput"
+                    :disabled="play"
+                    type="text"
                   />
-                  <button
-                    type="button"
-                    class="plus w-25 h-100 position-absolute end-0"
-                    @click="numberIncrement"
-                  ></button>
                 </div>
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">
-                  Second Text Color
-                </p>
-                <input
-                  v-model="wordProperties.traits[5].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
-              </div>
-              <div
-                class="circled-property-field d-flex mt-2 ps-3 ps-md-4 align-items-center justify-content-between w-100"
-              >
-                <p class="circled-property-field-label m-0">
-                  Second Border Color
-                </p>
-                <input
-                  v-model="wordProperties.traits[6].value"
-                  class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                  type="text"
-                />
               </div>
             </form>
             <div
@@ -142,7 +132,7 @@
               <div>
                 <CircledWord
                   class="disabled"
-                  :word-data="wordData"
+                  :nft="nft"
                   :play="play"
                   locked
                   @play-finished="onPlayFinished"
@@ -176,7 +166,7 @@
 import { Options, Ref, Watch } from "vue-property-decorator";
 import PageBase from "@/views/page/PageBase";
 import CircledWord from "@/components/CircledWord.vue";
-import CircledWordNFT from "@/utils/circled-word-nft";
+import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 
 @Options({
   name: "CreateWordPage",
@@ -187,7 +177,7 @@ import CircledWordNFT from "@/utils/circled-word-nft";
 export default class CreateWord extends PageBase {
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
-    traits: [
+    attributes: [
       { trait_type: "Animation Type", value: "Fill In" },
       { trait_type: "Text Color", value: "White" },
       { trait_type: "Border Color", value: "White" },
@@ -197,60 +187,37 @@ export default class CreateWord extends PageBase {
       { trait_type: "Second Border Color", value: "White" },
     ],
   };
-  wordData: CircledWordElement = new CircledWordNFT(
-    this.wordProperties
-  ).getElement();
+  nft: NFT | null = new CircledWordService().getNft(this.wordProperties);
+  nftTypes: Array<typeof NFT> = new CircledWordService().getNftTypes();
   play = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
-  @Ref("durationInput") readonly durationInput!: HTMLInputElement;
 
   @Watch("wordProperties", { deep: true })
   handler(val: NFTMetadata): void {
-    this.wordData = new CircledWordNFT(val).getElement();
+    this.nft = new CircledWordService().getNft(val);
   }
 
   onPlayFinished() {
     this.play = false;
   }
 
-  numberIncrement(): void {
-    this.durationInput.stepUp();
-  }
+  restrictInput(property_index: number, value: string): void {
+    let updated_string = value;
 
-  numberDecrement(): void {
-    this.durationInput.stepDown();
-  }
-
-  restrictInput(): void {
-    const floatLength: number | null = this.isFloat(
-      Number(this.durationInput.value)
-    )
-      ? this.durationInput.value.length
-      : null;
-    const integerLength: number | null = !this.isFloat(
-      Number(this.durationInput.value)
-    )
-      ? this.durationInput.value.length
-      : null;
-
-    if (!floatLength && (integerLength as number) > 4) {
-      this.durationInput.value = this.durationInput.value.slice(0, 4);
-    } else if (!integerLength && (floatLength as number) > 5) {
-      this.durationInput.value = this.durationInput.value.slice(0, 5);
-    } else if (
-      Number(this.durationInput.value) < Number(this.durationInput.min)
-    ) {
-      this.durationInput.value = "1";
-    } else if (
-      Number(this.durationInput.value) > Number(this.durationInput.max)
-    ) {
-      this.durationInput.value = "3600";
+    if (value.includes(".") && value.split(".")[1].length > 1) {
+      updated_string = value.slice(0, value.indexOf("."));
     }
-  }
 
-  isFloat(value: number): boolean {
-    return Number(value) === value && value % 1 !== 0;
+    if (+updated_string > 100) {
+      updated_string = "100";
+    }
+
+    if (+updated_string <= 0) {
+      updated_string = "0.1";
+    }
+
+    (this.nft as NFT).properties[property_index].value = updated_string;
   }
 }
 </script>

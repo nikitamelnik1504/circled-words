@@ -36,6 +36,18 @@
           max-width: calc(2 * 250px);
         }
 
+        &.disabled {
+          & > .circled-property-field-value {
+            opacity: 0.5;
+          }
+
+          .number-type {
+            & > .circled-property-field-value {
+              opacity: 0.5;
+            }
+          }
+        }
+
         .circled-property-field-label,
         .circled-property-field-value {
           color: #fff;
@@ -84,6 +96,10 @@
         .number-type {
           width: 35%;
 
+          &:hover > input[type="number"] {
+            box-shadow: inset 0 0 0 1px #b97a2a;
+          }
+
           input[type="number"] {
             appearance: textfield;
             width: 100%;
@@ -97,7 +113,6 @@
           button {
             border: none;
             background-color: transparent;
-            cursor: pointer;
 
             &::before,
             &::after {
@@ -106,7 +121,6 @@
               width: 5px;
               height: 1px;
               background-color: #b97a2a;
-              transform: translate(-50%, -50%);
 
               @include media-breakpoint-up(sm) {
                 width: 7px;
@@ -119,8 +133,18 @@
               }
             }
 
+            &.disabled {
+              cursor: default;
+              pointer-events: none;
+            }
+
+            &.disabled::before,
+            &.disabled::after {
+              background-color: #724b1a;
+            }
+
             &.plus::after {
-              transform: translate(-50%, -50%) rotate(90deg);
+              transform: rotate(90deg);
             }
           }
         }
