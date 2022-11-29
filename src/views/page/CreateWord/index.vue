@@ -28,6 +28,7 @@
                 <div
                   v-if="asset.widget === 'select'"
                   class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                  :class="{ disabled: play }"
                 >
                   <p class="circled-property-field-label m-0">
                     {{ asset.label }}
@@ -39,6 +40,7 @@
                       id="animationType"
                       v-model="asset.value"
                       class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
+                      :disabled="play"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
@@ -61,6 +63,7 @@
                 <div
                   v-else-if="asset.widget === 'time'"
                   class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                  :class="{ disabled: play }"
                 >
                   <p class="circled-property-field-label m-0">
                     {{ asset.label }}
@@ -70,7 +73,7 @@
                       type="button"
                       class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
                       :class="{ disabled: +asset.value === 0.1 }"
-                      :disabled="+asset.value === 0.1"
+                      :disabled="((+asset.value === 0.1) | play)"
                       @click="
                         () => {
                           asset.value = (+asset.value - 0.1).toFixed(1);
@@ -81,6 +84,7 @@
                     <input
                       v-model="asset.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                      :disabled="play"
                       type="number"
                       :min="0.1"
                       :max="100"
@@ -91,7 +95,7 @@
                       type="button"
                       class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
                       :class="{ disabled: asset.value >= 100 }"
-                      :disabled="asset.value >= 100"
+                      :disabled="((asset.value >= 100) | play)"
                       @click="
                         () => {
                           asset.value = (+asset.value + 0.1).toFixed(1);
@@ -104,6 +108,7 @@
                 <div
                   v-else
                   class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                  :class="{ disabled: play }"
                 >
                   <p class="circled-property-field-label m-0">
                     {{ asset.label }}
@@ -111,6 +116,7 @@
                   <input
                     v-model="asset.value"
                     class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                    :disabled="play"
                     type="text"
                   />
                 </div>
