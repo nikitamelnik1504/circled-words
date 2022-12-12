@@ -125,7 +125,7 @@ export default class MyWords extends PageBase {
       service.connectedToSite &&
       this.loadStatus === "not_loaded"
     ) {
-      this.loadAssetsFromPhantomWallet();
+      this.loadAssetsFromSolana();
     }
   }
 
@@ -140,7 +140,7 @@ export default class MyWords extends PageBase {
       service.connectedToSite &&
       this.loadStatus === "not_loaded"
     ) {
-      this.loadAssetsFromWalletConnect();
+      this.loadAssetsFromEthereum();
     }
   }
 
@@ -155,41 +155,42 @@ export default class MyWords extends PageBase {
       service.connectedToSite &&
       this.loadStatus === "not_loaded"
     ) {
-      this.loadAssetsFromMetamask();
+      this.loadAssetsFromEthereum();
     }
   }
 
-  loadAssetsFromWalletConnect(): void {
+  loadAssetsFromEthereum(): void {
     this.loadStatus = "loading";
-    this.loadAssets().then((result) => {
-      result.data.assets.forEach((item: object) => {
-        this.assets.push(item);
-      });
+    this.loadAssetsFromOpenSea().then((result) => {
+      result.data.assets.forEach(
+        (item: { traits: Array<{ trait_type: string; value: string }> }) => {
+          // Legacy implementation of Ethereum NFTs.
+          const property_indexes: Record<string, number> = {};
+          for (const [trait_index, trait] of item.traits.entries()) {
+            property_indexes[trait.trait_type] = trait_index;
+          }
+
+          item.traits = [
+            item.traits[property_indexes["Animation Type"]],
+            item.traits[property_indexes["Text Color"]],
+            item.traits[property_indexes["Border Color"]],
+            item.traits[property_indexes["Background Color"]],
+            item.traits[property_indexes["Animation Duration"]],
+            item.traits[property_indexes["Second Text Color"]],
+            item.traits[property_indexes["Second Border Color"]],
+          ];
+          this.assets.push(item);
+        }
+      );
       this.loadStatus = "loaded";
     });
   }
 
-  loadAssetsFromMetamask(): void {
-    this.loadStatus = "loading";
-    this.loadAssets().then((result) => {
-      result.data.assets.forEach((item: object) => {
-        this.assets.push(item);
-      });
-      this.loadStatus = "loaded";
-    });
+  loadAssetsFromSolana(): void {
+    this.loadStatus = "loaded";
   }
 
-  loadAssetsFromPhantomWallet(): void {
-    this.loadStatus = "loading";
-    this.loadAssets().then((result) => {
-      result.data.assets.forEach((item: object) => {
-        this.assets.push(item);
-      });
-      this.loadStatus = "loaded";
-    });
-  }
-
-  loadAssets(): Promise<
+  loadAssetsFromOpenSea(): Promise<
     AxiosResponse<{ assets: [] }, string | number | boolean>
   > {
     const request_params: Record<string, string | number | boolean> = {

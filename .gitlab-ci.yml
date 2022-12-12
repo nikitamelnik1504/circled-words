@@ -6,27 +6,30 @@
 
 # Full project: https://gitlab.com/pages/plain-html
 
-deploy_production:
+stages:
+  - build
+  - deploy
+
+production_build:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  stage: build
   variables:
-    REMOTE_HOST: "195.179.193.31"
-    PROJECT_ROOT: "/var/www/site/master"
-  before_script:
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$PROD_SSH" | base64 -d)
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
   script:
-    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/master -f;cd ../..;./circledwords -p -y"
+    - mv Dockerfile.production Dockerfile
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   only:
     - master
 
-deploy_staging:
+production_deploy:
+  stage: deploy
   variables:
     REMOTE_HOST: "195.179.193.31"
-    PROJECT_ROOT: "/var/www/site/staging"
+    PROJECT_ROOT: "/var/www"
   before_script:
     - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
     - eval $(ssh-agent -s)
@@ -36,26 +39,42 @@ deploy_staging:
     - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};git fetch;git checkout origin/develop -f;cd ../..;./circledwords -p -y"
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};./circledwords -p -y"
+  only:
+    - master
+
+staging_build:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:staging-latest
+  before_script:
+    - apk update && apk add rsync
+  script:
+    - mv Dockerfile.production Dockerfile
+    - rsync .staging/ .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   only:
     - develop
 
-deploy_pages:
-  image: node:16
-  cache:
-    paths:
-      - node_modules/
-  before_script:
-    - npm install
+staging_deploy:
   stage: deploy
+  variables:
+    REMOTE_HOST: "195.179.193.31"
+    PROJECT_ROOT: "/var/www"
+  before_script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$PROD_SSH" | base64 -d)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan ${REMOTE_HOST} >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
   script:
-    - mkdir .public
-    - npm run build
-    - cp -r ./dist/* .public
-    - rm -rf public
-    - mv .public public
-  artifacts:
-    paths:
-      - public
+    - ssh root@${REMOTE_HOST} "cd ${PROJECT_ROOT};./circledwords -p -y"
   only:
-    - pages
+    - develop

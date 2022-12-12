@@ -6,8 +6,12 @@
   }
 
   .description-text {
-    font-size: 21px;
+    font-size: 18px;
     color: #f1f2f2;
+
+    @include media-breakpoint-up(md) {
+      font-size: 21px;
+    }
 
     @include media-breakpoint-up(xl) {
       font-size: 26px;

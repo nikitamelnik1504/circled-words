@@ -28,7 +28,7 @@
             :key="index"
             class="slogan-link d-flex justify-content-center"
           >
-            <CircledWord :word-data="word" :link="word.link" />
+            <CircledWord :nft="word" :link="word.link" />
           </div>
         </div>
       </div>
@@ -40,7 +40,9 @@
 import { Vue, Options, Prop } from "vue-property-decorator";
 import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
-import CircledWordNFT from "@/utils/circled-word-nft";
+import CircledWordService, {
+  SampleNFT,
+} from "@/utils/Service/CircledWordService";
 
 @Options({
   components: {
@@ -56,10 +58,11 @@ export default class SloganBlock extends Vue {
     return sloganWords as NFTMetadata[];
   }
 
-  getWordsData(): CircledWordElement[] {
-    const data: CircledWordElement[] = [];
+  getWordsData(): SampleNFT[] {
+    const data: SampleNFT[] = [];
+    const circled_word_service = new CircledWordService();
     this.getSloganWords().forEach((word: NFTMetadata) => {
-      const current_word = new CircledWordNFT(word).getElement();
+      const current_word = circled_word_service.getSampleNft(word) as SampleNFT;
       current_word.link = word.link;
       data.push(current_word);
     });
