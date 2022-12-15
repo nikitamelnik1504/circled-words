@@ -4,7 +4,14 @@
       <span class="primary">Circled</span><span class="secondary">Word</span>
       {{ nft.name }}
     </h5>
-    <CircledWord :nft="nft" locked />
+    <CircledWord
+      class="clickable"
+      :nft="nft"
+      :play="play"
+      locked
+      @click.prevent="() => (play ? undefined : (play = true))"
+      @play-finished="onPlayFinished"
+    />
   </div>
 </template>
 
@@ -20,10 +27,16 @@ import type { NFT } from "@/utils/Service/CircledWordService";
   },
 })
 export default class MyWord extends Vue {
+  play = false;
+
   @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
 
   protected nft: NFT = new CircledWordService().getNft(
     this.metadata as NFTMetadata
   ) as NFT;
+
+  onPlayFinished() {
+    this.play = false;
+  }
 }
 </script>
