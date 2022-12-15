@@ -6,7 +6,7 @@ type TraitKeysMatching<T, V> = {
   [K in keyof T]-?: T[K] extends V ? K : never;
 }[keyof T];
 
-interface Property {
+export interface Property {
   label: string;
   machine_name: string;
   value: unknown;

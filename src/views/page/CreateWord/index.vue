@@ -149,7 +149,8 @@
                   >
                   <a
                     href="#"
-                    class="py-3 text-center text-decoration-none w-50 mint-action disabled"
+                    class="py-3 text-center text-decoration-none w-50 mint-action"
+                    @click.prevent="mint"
                     >Mint</a
                   >
                 </div>
@@ -163,10 +164,11 @@
 </template>
 
 <script lang="ts">
-import { Options, Ref, Watch } from "vue-property-decorator";
+import { Inject, Options, Ref, Watch } from "vue-property-decorator";
 import PageBase from "@/views/page/PageBase";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
+import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
 
 @Options({
   name: "CreateWordPage",
@@ -198,8 +200,17 @@ export default class CreateWord extends PageBase {
     this.nft = new CircledWordService().getNft(val);
   }
 
+  @Inject({ from: "metaplexService" })
+  metaplexService: MetaplexService | false = false;
+
   onPlayFinished() {
     this.play = false;
+  }
+
+  mint() {
+    (this.metaplexService as MetaplexService).createNFT(
+      (this.nft as NFT).properties
+    );
   }
 
   restrictInput(property_index: number, value: string): void {
