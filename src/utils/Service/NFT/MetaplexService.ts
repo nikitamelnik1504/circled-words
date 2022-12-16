@@ -1,8 +1,6 @@
 import {
   Metaplex,
   walletAdapterIdentity,
-  toMetaplexFileFromJson,
-  BundlrStorageDriver,
   bundlrStorage,
 } from "@metaplex-foundation/js";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
@@ -42,8 +40,8 @@ export default class MetaplexService {
       return result;
     })();
 
-    const nft = {
-      name: "CircledWord #1",
+    const nft_json = {
+      name: "CircledWord #DEV",
       symbol: "CW",
       description: "",
       image: "",
@@ -52,19 +50,18 @@ export default class MetaplexService {
       attributes,
     };
 
-    const file = toMetaplexFileFromJson(nft);
+    const json_link = await this.metaplex.storage().uploadJson(nft_json);
 
-    const bs = this.metaplex.storage().driver() as BundlrStorageDriver;
-    await bs.upload(file);
+    const { nft } = await this.metaplex.nfts().create({
+      uri: json_link,
+      name: "CircledWord #DEV",
+      symbol: "CW",
+      collection: this.collectionAddress,
+      sellerFeeBasisPoints: 500,
+      isCollection: false,
+    });
 
-    // const { nft } = await this.metaplex.nfts().create({
-    //   uri: '',
-    //   name: 'CircledWord #1',
-    //   symbol: 'CW',
-    //   collection: this.collectionAddress,
-    //   sellerFeeBasisPoints: 500,
-    //   isCollection: false,
-    // });
+    console.log(nft);
   }
 
   async loadNFTs() {

@@ -150,6 +150,7 @@
                   <a
                     href="#"
                     class="py-3 text-center text-decoration-none w-50 mint-action"
+                    :class="{ disabled: mintRunning }"
                     @click.prevent="mint"
                     >Mint</a
                   >
@@ -192,6 +193,7 @@ export default class CreateWord extends PageBase {
   nft: NFT | null = new CircledWordService().getNft(this.wordProperties);
   nftTypes: Array<typeof NFT> = new CircledWordService().getNftTypes();
   play = false;
+  mintRunning = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
 
@@ -207,10 +209,12 @@ export default class CreateWord extends PageBase {
     this.play = false;
   }
 
-  mint() {
-    (this.metaplexService as MetaplexService).createNFT(
-      (this.nft as NFT).properties
-    );
+  async mint() {
+    this.mintRunning = true;
+    await (this.metaplexService as MetaplexService)
+      .createNFT((this.nft as NFT).properties)
+      .catch();
+    this.mintRunning = false;
   }
 
   restrictInput(property_index: number, value: string): void {
