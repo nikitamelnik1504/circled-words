@@ -9,6 +9,7 @@ import type { Property } from "@/utils/Service/CircledWordService";
 
 export default class MetaplexService {
   protected metaplex: Metaplex;
+  public nftStage: "JSON Upload" | "Create" | null = null;
 
   private collectionAddress = new PublicKey(
     "8wAXCzCiLpsbBN3WM3cba7fALnFytNRjkDGLe16YfUtb"
@@ -29,6 +30,8 @@ export default class MetaplexService {
   }
 
   async createNFT(properties: Array<Property>) {
+    this.nftStage = "JSON Upload";
+
     const attributes = (() => {
       const result: { trait_type: string; value: string }[] = [];
       for (const property of properties) {
@@ -52,7 +55,9 @@ export default class MetaplexService {
 
     const json_link = await this.metaplex.storage().uploadJson(nft_json);
 
-    const { nft } = await this.metaplex.nfts().create({
+    this.nftStage = "Create";
+
+    await this.metaplex.nfts().create({
       uri: json_link,
       name: "CircledWord #DEV",
       symbol: "CW",
@@ -61,7 +66,7 @@ export default class MetaplexService {
       isCollection: false,
     });
 
-    console.log(nft);
+    this.nftStage = null;
   }
 
   async loadNFTs() {
