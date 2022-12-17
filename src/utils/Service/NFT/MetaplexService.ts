@@ -2,7 +2,9 @@ import {
   Metaplex,
   walletAdapterIdentity,
   bundlrStorage,
+  toMetaplexFile,
 } from "@metaplex-foundation/js";
+import nftImage from "@/assets/images/nft-default-icon.png";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { Property } from "@/utils/Service/CircledWordService";
@@ -14,6 +16,9 @@ export default class MetaplexService {
   private collectionAddress = new PublicKey(
     "8wAXCzCiLpsbBN3WM3cba7fALnFytNRjkDGLe16YfUtb"
   );
+
+  private nftImageUrl =
+    "https://eccr4vp5qxmhn4nixbdah44hci7picmgjxwtnuxdp2yokh573c6a.arweave.net/IIUeVf2F2HbxqLhGA_OHEj70CYZN7TbS436w5R-_2Lw";
 
   constructor(provider: PhantomWalletAdapter) {
     const connection = new Connection(clusterApiUrl("devnet"));
@@ -47,7 +52,7 @@ export default class MetaplexService {
       name: "CircledWord #DEV",
       symbol: "CW",
       description: "",
-      image: "",
+      image: this.nftImageUrl,
       animation_url: "",
       external_url: "",
       attributes,
@@ -85,5 +90,13 @@ export default class MetaplexService {
       sellerFeeBasisPoints: 250,
       isCollection: true,
     });
+  }
+
+  async uploadNFTImage() {
+    const image = await fetch(nftImage as string).then((result) =>
+      result.arrayBuffer()
+    );
+    const image_file = await toMetaplexFile(image, "circled.png");
+    await this.metaplex.storage().upload(image_file);
   }
 }
