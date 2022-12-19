@@ -10,9 +10,7 @@
             (walletConnectService &&
               walletConnectService.connected &&
               walletConnectService.connectedToSite) ||
-            (phantomWalletService &&
-              phantomWalletService.connected &&
-              phantomWalletService.connectedToSite)
+            metaplexService
           "
           class="h-100"
         >
@@ -81,7 +79,7 @@ import { namespace } from "s-vuex-class";
 import axios, { type AxiosResponse } from "axios";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
-import PhantomWalletService from "@/utils/Service/PhantomWalletService";
+import MetaplexService from "@/utils/Service/NFT/MetaplexService";
 
 const wallet = namespace("wallet");
 
@@ -99,8 +97,8 @@ export default class MyWords extends PageBase {
   @Inject({ from: "walletConnectService" })
   walletConnectService: WalletConnectService | false = false;
 
-  @Inject({ from: "phantomWalletService" })
-  phantomWalletService: PhantomWalletService | false = false;
+  @Inject({ from: "metaplexService" })
+  metaplexService: MetaplexService | false = false;
 
   assets: Array<object> = [];
   loadStatus = "not_loaded";
@@ -111,20 +109,16 @@ export default class MyWords extends PageBase {
   mounted(): void {
     this.onMetamaskConnected(this.metamaskService);
     this.onWalletConnectConnected(this.walletConnectService);
-    this.onPhantomWalletConnected(this.phantomWalletService);
+    this.onMetaplexConnected(this.metaplexService);
   }
 
-  @Watch("phantomWalletService", { deep: true })
-  onPhantomWalletConnected(service: unknown) {
-    if (!(service instanceof PhantomWalletService)) {
+  @Watch("metaplexService", { deep: true })
+  onMetaplexConnected(service: unknown) {
+    if (!(service instanceof MetaplexService)) {
       return;
     }
 
-    if (
-      service.connected &&
-      service.connectedToSite &&
-      this.loadStatus === "not_loaded"
-    ) {
+    if (this.loadStatus === "not_loaded") {
       this.loadAssetsFromSolana();
     }
   }
@@ -186,8 +180,11 @@ export default class MyWords extends PageBase {
     });
   }
 
-  loadAssetsFromSolana(): void {
-    this.loadStatus = "loaded";
+  loadAssetsFromSolana() {
+    this.loadStatus = "loading";
+    (this.metaplexService as MetaplexService).loadNFTs().then(() => {
+      this.loadStatus = "loaded";
+    });
   }
 
   loadAssetsFromOpenSea(): Promise<

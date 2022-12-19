@@ -1,4 +1,5 @@
 <template>
+  <MintLoaderModal :nft-stage="metaplexService.nftStage" />
   <div class="container-fluid create-word">
     <div class="row">
       <div
@@ -28,7 +29,7 @@
                 <div
                   v-if="asset.widget === 'select'"
                   class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
-                  :class="{ disabled: play }"
+                  :class="{ disabled: playRunning }"
                 >
                   <p class="circled-property-field-label m-0">
                     {{ asset.label }}
@@ -40,7 +41,7 @@
                       id="animationType"
                       v-model="asset.value"
                       class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
-                      :disabled="play"
+                      :disabled="playRunning"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
@@ -67,7 +68,7 @@
                 <div
                   v-else-if="asset.widget === 'time'"
                   class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
-                  :class="{ disabled: play }"
+                  :class="{ disabled: playRunning }"
                 >
                   <p class="circled-property-field-label m-0">
                     {{ asset.label }}
@@ -77,7 +78,7 @@
                       type="button"
                       class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
                       :class="{ disabled: +asset.value === 0.1 }"
-                      :disabled="((+asset.value === 0.1) | play)"
+                      :disabled="(+asset.value === 0.1) | playRunning"
                       @click="
                         () => {
                           asset.value = (+asset.value - 0.1).toFixed(1);
@@ -89,7 +90,7 @@
                       type="button"
                       class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
                       :class="{ disabled: asset.value >= 100 }"
-                      :disabled="((+asset.value >= 100) | play)"
+                      :disabled="(+asset.value >= 100) | playRunning"
                       @click="
                         () => {
                           asset.value = (+asset.value + 0.1).toFixed(1);
@@ -100,7 +101,7 @@
                     <input
                       v-model="asset.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                      :disabled="play"
+                      :disabled="playRunning"
                       type="number"
                       :min="0.1"
                       :max="100"
@@ -112,7 +113,7 @@
                 <div
                   v-else
                   class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
-                  :class="{ disabled: play }"
+                  :class="{ disabled: playRunning }"
                 >
                   <p class="circled-property-field-label m-0">
                     {{ asset.label }}
@@ -120,7 +121,7 @@
                   <input
                     v-model="asset.value"
                     class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                    :disabled="play"
+                    :disabled="playRunning"
                     type="text"
                   />
                 </div>
@@ -133,7 +134,7 @@
                 <CircledWord
                   class="disabled"
                   :nft="nft"
-                  :play="play"
+                  :play="playRunning"
                   locked
                   @play-finished="onPlayFinished"
                 />
@@ -143,13 +144,17 @@
                   <a
                     href="#"
                     class="py-3 text-center me-3 text-decoration-none w-50 play-action"
-                    :class="{ disabled: play }"
-                    @click.prevent="() => (play ? undefined : (play = true))"
+                    :class="{ disabled: playRunning }"
+                    @click.prevent="
+                      () => (playRunning ? undefined : (playRunning = true))
+                    "
                     >Play</a
                   >
                   <a
                     href="#"
                     class="py-3 text-center text-decoration-none w-50 mint-action disabled"
+                    :class="{ disabled: mintRunning || !metaplexService }"
+                    @click.prevent="() => (mintRunning ? undefined : mint())"
                     >Mint</a
                   >
                 </div>
@@ -163,15 +168,18 @@
 </template>
 
 <script lang="ts">
-import { Options, Ref, Watch } from "vue-property-decorator";
+import { Inject, Options, Ref, Watch } from "vue-property-decorator";
 import PageBase from "@/views/page/PageBase";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
+import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
+import MintLoaderModal from "./components/MintLoaderModal.vue";
 
 @Options({
   name: "CreateWordPage",
   components: {
     CircledWord,
+    MintLoaderModal,
   },
 })
 export default class CreateWord extends PageBase {
@@ -189,7 +197,8 @@ export default class CreateWord extends PageBase {
   };
   nft: NFT | null = new CircledWordService().getNft(this.wordProperties);
   nftTypes: Array<typeof NFT> = new CircledWordService().getNftTypes();
-  play = false;
+  playRunning = false;
+  mintRunning = false;
 
   @Ref("generateForm") readonly generateForm!: HTMLFormElement;
 
@@ -198,8 +207,24 @@ export default class CreateWord extends PageBase {
     this.nft = new CircledWordService().getNft(val);
   }
 
+  @Inject({ from: "metaplexService" })
+  metaplexService: MetaplexService | false = false;
+
   onPlayFinished() {
-    this.play = false;
+    this.playRunning = false;
+  }
+
+  async mint() {
+    this.mintRunning = true;
+    try {
+      await (this.metaplexService as MetaplexService).createNFT(
+        (this.nft as NFT).properties
+      );
+    } catch (e) {
+      (this.metaplexService as MetaplexService).nftStage = null;
+    } finally {
+      this.mintRunning = false;
+    }
   }
 
   restrictInput(property_index: number, value: string): void {
