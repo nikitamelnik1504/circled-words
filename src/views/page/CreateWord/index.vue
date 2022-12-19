@@ -216,10 +216,15 @@ export default class CreateWord extends PageBase {
 
   async mint() {
     this.mintRunning = true;
-    await (this.metaplexService as MetaplexService)
-      .createNFT((this.nft as NFT).properties)
-      .catch();
-    this.mintRunning = false;
+    try {
+      await (this.metaplexService as MetaplexService).createNFT(
+        (this.nft as NFT).properties
+      );
+    } catch (e) {
+      (this.metaplexService as MetaplexService).nftStage = null;
+    } finally {
+      this.mintRunning = false;
+    }
   }
 
   restrictInput(property_index: number, value: string): void {
