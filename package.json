@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@bundlr-network/client": "https://github.com/nikitamelnik1504/js-sdk.git#release",
     "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@metamask/detect-provider": "^1.2.0",
     "@metaplex-foundation/js": "^0.17.5",

@@ -5,6 +5,11 @@ declare module "*.svg" {
   export = value;
 }
 
+declare module "*.png" {
+  const value: unknown;
+  export = value;
+}
+
 interface NFTMetadata {
   sample_data?: {
     updated: string[] | [];
