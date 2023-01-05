@@ -1,0 +1,45 @@
+name: Deploy staging release
+on:
+  push:
+    branches: ["develop"]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: staging-latest
+
+jobs:
+  build-and-push-image:
+    name: Docker image build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: mv Dockerfile.production Dockerfile
+      - uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ env.IMAGE_NAME }}
+  remote-host-load-image:
+    needs: build-and-push-image
+    name: Docker image installation on remote host
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+    steps:
+      - uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.REMOTE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd /var/www
+            ./circledwords -p -y
