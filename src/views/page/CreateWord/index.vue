@@ -78,7 +78,7 @@
                       type="button"
                       class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
                       :class="{ disabled: +asset.value === 0.1 }"
-                      :disabled="(+asset.value === 0.1) | playRunning"
+                      :disabled="+asset.value === 0.1 || playRunning"
                       @click="
                         () => {
                           asset.value = (+asset.value - 0.1).toFixed(1);
@@ -90,7 +90,7 @@
                       type="button"
                       class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
                       :class="{ disabled: asset.value >= 100 }"
-                      :disabled="(+asset.value >= 100) | playRunning"
+                      :disabled="+asset.value >= 100 || playRunning"
                       @click="
                         () => {
                           asset.value = (+asset.value + 0.1).toFixed(1);
