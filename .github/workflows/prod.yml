@@ -27,3 +27,19 @@ jobs:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ env.IMAGE_NAME }}
+  remote-host-load-image:
+    needs: build-and-push-image
+    name: Docker image installation on remote host
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+    steps:
+      - uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.REMOTE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd /var/www
+            ./circledwords -p -y

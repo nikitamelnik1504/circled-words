@@ -1,7 +1,7 @@
 name: Deploy staging release
 on:
   push:
-    branches: ["CW-86"]
+    branches: ["develop"]
 
 env:
   REGISTRY: ghcr.io
