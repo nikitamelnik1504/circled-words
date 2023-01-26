@@ -33,6 +33,15 @@
                 </li>
                 <li class="nav-item me-lg-4">
                   <router-link
+                    to="/create-word"
+                    class="nav-link"
+                    @click="toggleNavbar()"
+                  >
+                    Create Word
+                  </router-link>
+                </li>
+                <li class="nav-item me-lg-4">
+                  <router-link
                     to="/my-words"
                     class="nav-link"
                     @click="toggleNavbar()"
@@ -42,11 +51,20 @@
                 </li>
                 <li class="nav-item me-lg-4">
                   <router-link
-                    to="/create-word"
-                    class="nav-link"
+                    to="/inventory"
+                    class="nav-link disabled"
                     @click="toggleNavbar()"
                   >
-                    Create Word
+                    Inventory
+                  </router-link>
+                </li>
+                <li class="nav-item me-lg-4">
+                  <router-link
+                    to="/store"
+                    class="nav-link disabled"
+                    @click="toggleNavbar()"
+                  >
+                    Store
                   </router-link>
                 </li>
                 <li class="nav-item">
