@@ -61,9 +61,9 @@
           v-else
           class="h-100 text-center d-flex align-items-center justify-content-center"
         >
-          <h1 class="error-text">
+          <h3>
             Please connect your wallet to see this page
-          </h1>
+          </h3>
         </div>
       </div>
     </section>
