@@ -19,7 +19,7 @@
               v-if="assets.length !== 0"
               class="text-center my-4 my-lg-0 mt-lg-2"
             >
-              <h1 class="my-words-title">My Words</h1>
+              <h3 class="my-words-title">My Words</h3>
             </div>
             <div
               v-if="assets.length !== 0"
@@ -44,7 +44,7 @@
                 <div
                   class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
                 >
-                  <h1>You don't have any CircledWords</h1>
+                  <h3>You don't have any Circled</h3>
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@
             <div
               class="col-12 h-100 d-flex align-items-center justify-content-center"
             >
-              <h1>Loading...</h1>
+              <h3>Loading...</h3>
             </div>
           </div>
         </div>
@@ -61,9 +61,7 @@
           v-else
           class="h-100 text-center d-flex align-items-center justify-content-center"
         >
-          <h3>
-            Please connect your wallet to see this page
-          </h3>
+          <h3>Please connect your wallet to see this page</h3>
         </div>
       </div>
     </section>
