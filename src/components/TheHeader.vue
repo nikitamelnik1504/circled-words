@@ -70,7 +70,7 @@
                 <li class="nav-item">
                   <router-link
                     to="/roadmap"
-                    class="nav-link disabled"
+                    class="nav-link"
                     @click="toggleNavbar()"
                   >
                     Roadmap

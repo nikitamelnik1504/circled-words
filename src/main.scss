@@ -16,6 +16,7 @@
 @import "bootstrap/scss/accordion";
 @import "bootstrap/scss/modal";
 @import "bootstrap/scss/spinners";
+@import "bootstrap/scss/helpers";
 @import "bootstrap/scss/utilities/api";
 
 @import "scss/fonts";
@@ -28,4 +29,5 @@
 @import "views/page/Home";
 @import "views/page/MyWords";
 @import "views/page/CreateWord";
+@import "views/page/Roadmap";
 @import "components/TheFooter";
