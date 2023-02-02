@@ -12,7 +12,11 @@
   }
 
   .changes {
-    font-size: 21px;
+    font-size: 18px;
     list-style: none;
+
+    @include media-breakpoint-up(md) {
+      font-size: 21px;
+    }
   }
 }

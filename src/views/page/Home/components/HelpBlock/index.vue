@@ -49,11 +49,6 @@ const help = [
     answer:
       "Join our Discord channel. We will do there all interesting stuff like: CircledWord generation via bot, airdrops and etc. We still working with News page on our site.",
   },
-  {
-    question: "Why Roadmap page still not available yet?",
-    answer:
-      "We have too much ideas what to do next. We need to group some things to show you this.",
-  },
 ];
 
 @Options({

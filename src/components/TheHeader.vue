@@ -76,7 +76,7 @@
                     Roadmap
                   </router-link>
                 </li>
-                <li class="d-md-none">
+                <li class="d-md-none mt-2 mt-md-0">
                   <ul class="nav-link social-links d-flex">
                     <li>
                       <a
@@ -132,7 +132,7 @@
             </div>
           </div>
           <div
-            class="order-2 order-lg-3 col-6 col-md-auto text-end d-flex align-items-center justify-content-start flex-row-reverse"
+            class="order-2 order-lg-3 col-6 col-md-auto col-lg-12 col-xl-auto text-end mt-lg-3 mt-xl-0 d-flex align-items-center justify-content-start flex-row-reverse"
           >
             <button
               class="navbar-toggler"
