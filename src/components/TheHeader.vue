@@ -1,11 +1,13 @@
 <template>
   <header id="header" class="position-relative">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark">
       <div class="container-fluid mt-1">
         <div
           class="row w-100 mx-auto navbar-wrapper align-items-center justify-content-between"
         >
-          <div class="order-1 col-6 col-md-auto d-flex align-items-center">
+          <div
+            class="order-1 col-6 col-sm-5 col-md-auto d-flex align-items-center"
+          >
             <router-link
               to="/"
               class="navbar-brand d-flex align-items-center position-relative"
@@ -19,19 +21,19 @@
             </router-link>
           </div>
           <div
-            class="order-3 order-lg-2 col-12 col-lg-auto d-flex justify-content-center"
+            class="order-3 order-xl-2 col-12 col-xl-auto d-flex justify-content-center"
           >
             <div
               id="navbarNav"
-              class="collapse navbar-collapse justify-content-center mt-3 mt-sm-0"
+              class="collapse navbar-collapse justify-content-center mt-3 mt-sm-0 pt-sm-2 pt-xl-0"
             >
               <ul class="navbar-nav d-flex align-items-center">
-                <li class="nav-item me-lg-4">
+                <li class="nav-item me-sm-3 me-md-4">
                   <router-link to="/" class="nav-link" @click="toggleNavbar()">
                     Home
                   </router-link>
                 </li>
-                <li class="nav-item me-lg-4">
+                <li class="nav-item me-sm-3 me-md-4">
                   <router-link
                     to="/create-word"
                     class="nav-link"
@@ -40,7 +42,7 @@
                     Create Word
                   </router-link>
                 </li>
-                <li class="nav-item me-lg-4">
+                <li class="nav-item me-sm-3 me-md-4">
                   <router-link
                     to="/my-words"
                     class="nav-link"
@@ -49,7 +51,7 @@
                     My Words
                   </router-link>
                 </li>
-                <li class="nav-item me-lg-4">
+                <li class="nav-item me-sm-3 me-md-4">
                   <router-link
                     to="/inventory"
                     class="nav-link disabled"
@@ -58,7 +60,7 @@
                     Inventory
                   </router-link>
                 </li>
-                <li class="nav-item me-lg-4">
+                <li class="nav-item me-sm-3 me-md-4">
                   <router-link
                     to="/store"
                     class="nav-link disabled"
@@ -76,7 +78,7 @@
                     Roadmap
                   </router-link>
                 </li>
-                <li class="d-md-none mt-2 mt-md-0">
+                <li class="d-sm-none mt-2 mt-md-0">
                   <ul class="nav-link social-links d-flex">
                     <li>
                       <a
@@ -132,7 +134,7 @@
             </div>
           </div>
           <div
-            class="order-2 order-lg-3 col-6 col-md-auto col-lg-12 col-xl-auto text-end mt-lg-3 mt-xl-0 d-flex align-items-center justify-content-start flex-row-reverse"
+            class="order-2 order-xl-3 col-6 col-sm-7 col-md-auto text-end d-flex align-items-center justify-content-start flex-row-reverse"
           >
             <button
               class="navbar-toggler"
@@ -145,7 +147,7 @@
             >
               <span class="navbar-toggler-icon" />
             </button>
-            <div class="connect-wallet-link d-none d-sm-block me-sm-4 me-lg-0">
+            <div class="connect-wallet-link d-none d-sm-block">
               <button
                 v-if="getStatus === 'not_connected'"
                 type="button"
@@ -167,7 +169,7 @@
               </button>
             </div>
             <div
-              class="social-links d-none d-md-flex me-md-4 me-lg-3 me-xl-4 justify-content-center align-items-center"
+              class="social-links d-none d-sm-flex me-sm-4 me-lg-3 me-xl-4 justify-content-center align-items-center"
             >
               <a
                 href="https://twitter.com/Circled_Words"
@@ -182,7 +184,7 @@
               </a>
               <a
                 href="https://opensea.io/collection/circledwords"
-                class="social-link d-flex justify-content-center align-items-center ms-md-3"
+                class="social-link d-flex justify-content-center align-items-center ms-sm-3"
                 target="_blank"
               >
                 <img
@@ -193,7 +195,7 @@
               </a>
               <a
                 href="https://discord.gg/8kE75RdUDh"
-                class="social-link d-flex justify-content-center align-items-center ms-md-3"
+                class="social-link d-flex justify-content-center align-items-center ms-sm-3"
                 target="_blank"
               >
                 <img
