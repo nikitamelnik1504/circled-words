@@ -25,9 +25,22 @@
           >
             <div
               id="navbarNav"
-              class="collapse navbar-collapse justify-content-center mt-3 mt-sm-0 pt-sm-2 pt-xl-0"
+              class="collapse collapse-horizontal navbar-collapse justify-content-center pt-sm-2 pt-xl-0"
             >
-              <ul class="navbar-nav d-flex align-items-center">
+              <button
+                class="navbar-toggler btn-close-white btn-close"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <ul
+                class="navbar-nav d-flex justify-content-center align-items-center"
+              >
                 <li class="nav-item me-sm-3 me-md-4">
                   <router-link to="/" class="nav-link" @click="toggleNavbar()">
                     Home
