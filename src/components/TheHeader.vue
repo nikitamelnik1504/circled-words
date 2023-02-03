@@ -28,7 +28,7 @@
               class="collapse collapse-horizontal navbar-collapse justify-content-center pt-sm-2 pt-xl-0"
             >
               <button
-                class="navbar-toggler btn-close-white btn-close"
+                class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarNav"
@@ -36,7 +36,7 @@
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="width: 21px"></span>
               </button>
               <ul
                 class="navbar-nav d-flex justify-content-center align-items-center"
