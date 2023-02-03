@@ -12,6 +12,10 @@ footer {
       top: -14px;
       font-size: 10px;
       color: $black-haze;
+
+      @include media-breakpoint-up(md) {
+        top: -10px;
+      }
     }
   }
 }
