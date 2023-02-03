@@ -1,10 +1,9 @@
 <template>
   <MintLoaderModal :nft-stage="metaplexService.nftStage" />
-  <div class="container-fluid create-word">
-    <div class="row">
+  <div class="page create-word container-fluid">
+    <div class="row h-100">
       <div
         class="col-md-11 col-lg-10 col-xl-10 col-xxl-12 mx-auto d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
           <h2

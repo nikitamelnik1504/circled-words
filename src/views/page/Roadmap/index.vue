@@ -1,10 +1,7 @@
 <template>
-  <div class="container-fluid roadmap">
+  <div class="page container-fluid roadmap">
     <div class="row">
-      <div
-        :style="{ 'min-height': minHeightValue + 'px' }"
-        class="col-11 mx-auto mb-4 mb-md-5"
-      >
+      <div class="col-11 mx-auto mb-4 mb-md-5">
         <h3 class="text-center my-4 my-lg-0 mt-lg-2">Roadmap</h3>
         <div class="row mt-md-5 justify-content-center">
           <div class="col-md-5 text-start text-md-end">

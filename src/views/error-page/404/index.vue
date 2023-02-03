@@ -1,11 +1,8 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div
-        class="text-center d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': minHeightValue + 'px' }"
-      >
-        <h1 class="error-text">Error 404. Page not found</h1>
+  <div class="page container-fluid">
+    <div class="row h-100">
+      <div class="text-center d-flex align-items-center justify-content-center">
+        <h3 class="error-text">Error 404. Page not found</h3>
       </div>
     </div>
   </div>

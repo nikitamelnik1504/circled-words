@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid my-words">
-    <section class="row">
-      <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
+  <div class="page container-fluid my-words">
+    <section class="row h-100">
+      <div class="col-12">
         <div
           v-if="
             (metamaskService &&

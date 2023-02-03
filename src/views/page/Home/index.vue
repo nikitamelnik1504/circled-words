@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid homepage">
-    <Slogan :min-height-value="minHeightValue" />
+  <div class="page container-fluid homepage">
+    <Slogan />
     <Description />
     <Stats />
     <Benefits />
@@ -16,7 +16,6 @@ import Benefits from "./components/BenefitsBlock.vue";
 import Stats from "./components/StatsBlock/index.vue";
 import Description from "./components/DescriptionBlock/index.vue";
 import Slogan from "./components/SloganBlock.vue";
-import { computed } from "vue";
 
 @Options({
   name: "HomePage",
@@ -28,12 +27,5 @@ import { computed } from "vue";
     Help,
   },
 })
-export default class Home extends PageBase {
-  constructor() {
-    super();
-    this.minHeightValue = computed(() => {
-      return this.heightValues.clientHeight - this.heightValues.headerHeight;
-    });
-  }
-}
+export default class Home extends PageBase {}
 </script>

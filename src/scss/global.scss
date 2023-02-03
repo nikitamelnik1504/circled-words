@@ -4,6 +4,16 @@ body {
   font-family: Alata, sans-serif;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page {
+  flex: 1;
+}
+
 h1 {
   font-size: 64px;
 }

@@ -14,7 +14,7 @@
             Developed with using technologies of
           </h3>
           <div class="row justify-content-center">
-            <div class="col-auto text-center">
+            <div class="col-auto text-center partners-item">
               <a href="https://www.metaplex.com" target="_blank">
                 <img
                   src="../assets/images/metaplex.svg"

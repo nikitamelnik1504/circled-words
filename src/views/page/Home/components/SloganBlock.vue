@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="row slogan-section"
-    :style="{ 'min-height': minHeightValue + 'px' }"
-  >
+  <section class="row slogan-section">
     <div class="col-11 m-auto">
       <div
         class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5"
@@ -37,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, Prop } from "vue-property-decorator";
+import { Vue, Options } from "vue-property-decorator";
 import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, {
@@ -50,8 +47,6 @@ import CircledWordService, {
   },
 })
 export default class SloganBlock extends Vue {
-  @Prop({ type: Number }) readonly minHeightValue!: number;
-
   wordsData = this.getWordsData();
 
   getSloganWords(): NFTMetadata[] {
