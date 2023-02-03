@@ -5,14 +5,14 @@
         <div
           class="col-md-auto col-xl-4 px-lg-5 me-auto mx-lg-auto d-flex align-items-center justify-content-center justify-content-md-start order-1 order-md-0"
         >
-          <h3 class="m-0 copyright">© 2022 CircledWords</h3>
+          <h6 class="m-0 copyright">© 2022 CircledWords</h6>
         </div>
         <div
           class="col-md-auto col-xl-4 col-xxl-3 position-relative partners pt-md-1 my-3 my-md-0 order-0 order-md-2"
         >
-          <h3 class="mb-0 position-absolute start-0 end-0 text-center">
+          <p class="mb-0 position-absolute start-0 end-0 text-center">
             Developed with using technologies of
-          </h3>
+          </p>
           <div class="row justify-content-center">
             <div class="col-auto text-center partners-item">
               <a href="https://www.metaplex.com" target="_blank">
@@ -37,7 +37,7 @@
         <div
           class="col-md-auto col-xl-4 px-lg-5 ms-auto mx-lg-auto text-end d-flex align-items-center justify-content-center justify-content-md-end mt-1 mt-md-0 order-2"
         >
-          <h3 class="m-0 version">Version: {{ version }}</h3>
+          <h6 class="m-0 version">Version: {{ version }}</h6>
         </div>
       </div>
     </div>

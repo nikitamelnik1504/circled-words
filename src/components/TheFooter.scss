@@ -1,20 +1,15 @@
 footer {
-  font-size: 16px;
   border-top: solid 1px #34352d;
   color: #f1f2f2;
 
-  h3 {
-    font-size: 16px;
-  }
-
   .partners {
-    h3 {
-      top: -14px;
+    p {
+      top: -15px;
       font-size: 10px;
       color: $black-haze;
 
       @include media-breakpoint-up(md) {
-        top: -10px;
+        top: -11px;
       }
     }
   }
