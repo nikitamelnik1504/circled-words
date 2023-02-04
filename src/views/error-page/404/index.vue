@@ -9,11 +9,10 @@
 </template>
 
 <script lang="ts">
-import { Options } from "vue-property-decorator";
-import PageBase from "@/views/page/PageBase";
+import { Options, Vue } from "vue-property-decorator";
 
 @Options({
   name: "404Page",
 })
-export default class Error404Page extends PageBase {}
+export default class Error404Page extends Vue {}
 </script>

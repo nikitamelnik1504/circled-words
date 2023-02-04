@@ -71,8 +71,7 @@
 <script lang="ts">
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import PageBase from "@/views/page/PageBase";
-import { Inject, Options, Watch } from "vue-property-decorator";
+import { Inject, Options, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 import axios, { type AxiosResponse } from "axios";
 import MetamaskService from "@/utils/Service/MetamaskService";
@@ -87,7 +86,7 @@ const wallet = namespace("wallet");
     MyWord,
   },
 })
-export default class MyWords extends PageBase {
+export default class MyWords extends Vue {
   @Inject({ from: "metamaskService" }) metamaskService:
     | MetamaskService
     | false = false;

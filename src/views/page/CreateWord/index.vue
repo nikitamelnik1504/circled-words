@@ -167,8 +167,7 @@
 </template>
 
 <script lang="ts">
-import { Inject, Options, Ref, Watch } from "vue-property-decorator";
-import PageBase from "@/views/page/PageBase";
+import { Inject, Options, Ref, Vue, Watch } from "vue-property-decorator";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
@@ -181,7 +180,7 @@ import MintLoaderModal from "./components/MintLoaderModal.vue";
     MintLoaderModal,
   },
 })
-export default class CreateWord extends PageBase {
+export default class CreateWord extends Vue {
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
     attributes: [

@@ -9,8 +9,7 @@
 </template>
 
 <script lang="ts">
-import { Options } from "vue-property-decorator";
-import PageBase from "@/views/page/PageBase";
+import { Options, Vue } from "vue-property-decorator";
 import Help from "./components/HelpBlock/index.vue";
 import Benefits from "./components/BenefitsBlock.vue";
 import Stats from "./components/StatsBlock/index.vue";
@@ -27,5 +26,5 @@ import Slogan from "./components/SloganBlock.vue";
     Help,
   },
 })
-export default class Home extends PageBase {}
+export default class Home extends Vue {}
 </script>
