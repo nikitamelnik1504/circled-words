@@ -1,5 +1,8 @@
 <template>
-  <section class="row slogan-section">
+  <section
+    class="row slogan-section"
+    :style="{ 'min-height': minHeightValue + 'px' }"
+  >
     <div class="col-11 m-auto">
       <div
         class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5"
@@ -40,6 +43,9 @@ import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, {
   SampleNFT,
 } from "@/utils/Service/CircledWordService";
+import { getFreeHeight } from "@/utils/layout-space";
+import type { ComputedRef } from "vue";
+import { computed } from "vue";
 
 @Options({
   components: {
@@ -48,6 +54,18 @@ import CircledWordService, {
 })
 export default class SloganBlock extends Vue {
   wordsData = this.getWordsData();
+
+  heightValues: { [key: string]: number } = getFreeHeight();
+
+  minHeightValue: ComputedRef<number> = computed(() => {
+    return this.heightValues.clientHeight - this.heightValues.headerHeight;
+  });
+
+  mounted(): void {
+    this.$nextTick((): void => {
+      window.addEventListener("resize", this.onResize);
+    });
+  }
 
   getSloganWords(): NFTMetadata[] {
     return sloganWords as NFTMetadata[];
@@ -62,6 +80,10 @@ export default class SloganBlock extends Vue {
       data.push(current_word);
     });
     return data;
+  }
+
+  onResize(): void {
+    this.heightValues = getFreeHeight();
   }
 }
 </script>
