@@ -1,8 +1,7 @@
 [
   {
     "sample_data": {
-      "updated": [],
-      "adventure_text": "As you can see - we have simple background filling animation and text color change."
+      "updated": []
     },
     "name": "CircledWord #1",
     "attributes": [
@@ -43,8 +42,7 @@
         "Background Color",
         "Second Border Color",
         "Second Text Color"
-      ],
-      "adventure_text": "Not bad. We have pulse background filling animation, and it takes little bit longer, because we have changed Animation duration param."
+      ]
     },
     "name": "CircledWord #2",
     "attributes": [
@@ -87,8 +85,7 @@
         "Animation Duration",
         "Background Color",
         "Second Text Color"
-      ],
-      "adventure_text": "WOW! We have new text color and new border color at the start."
+      ]
     },
     "name": "CircledWord #3",
     "attributes": [

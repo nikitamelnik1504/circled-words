@@ -1,6 +1,5 @@
 .sample-word {
   .sample-word-name {
-    font-size: 26px;
     color: #51524b;
 
     .primary {
@@ -13,16 +12,32 @@
   }
 
   .circled-word {
-    width: 100%;
-    padding: 17px 0 !important;
-    border-radius: 6px;
+    @include circled-word(1);
   }
 
-  .sample-word-property-name {
-    font-size: 18px;
+  .level-wrapper {
+    border: solid 1px $heavy-metal;
+    color: $black-haze;
+    border-radius: 4px;
 
-    .sample-word-property-value {
-      text-decoration-color: #f1f2f2 !important;
+    .level {
+      h5 {
+        border-bottom: solid 2px $black-haze;
+      }
+    }
+
+    .property {
+      .label {
+        font-size: 16px;
+        color: $secondary;
+      }
+
+      .value {
+        color: $primary;
+        font-size: 16px;
+        border: solid 1px $primary;
+        border-radius: 4px;
+      }
     }
   }
 

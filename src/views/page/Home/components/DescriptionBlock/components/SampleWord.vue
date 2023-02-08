@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex flex-column justify-content-between">
-    <div>
-      <h5 class="sample-word-name text-center mb-4">
+    <div class="text-center">
+      <h4 class="sample-word-name text-center mb-3">
         <span class="primary">Circled</span><span class="secondary">Word</span>
         {{ nft.name }}
-      </h5>
+      </h4>
       <CircledWord
         :nft="nft"
         class="disabled"
@@ -12,27 +12,39 @@
         :play="play"
         @play-finished="onSamplePlayFinished"
       />
-      <div class="text-start mt-3">
-        <p
-          v-for="(data, title) in sampleWordData.circledProperties"
-          :key="title"
-          class="sample-word-property-name mb-1"
-        >
-          {{ title }}:
-          <span
-            class="sample-word-property-value"
-            :class="data.updated ? 'text-decoration-underline' : false"
-            :style="'color:' + data.color"
-            >{{ data.value }}</span
-          >
-        </p>
+      <div class="text-center mt-4">
+        <div class="row level-wrapper pt-3 pb-3 mb-3 justify-content-center">
+          <div class="col-12 level">
+            <h5 class="d-inline-block pb-2">Level 1</h5>
+          </div>
+          <div class="col-8 col-md-6 property">
+            <span class="label"> Animation Type </span>
+            <div class="value py-2 mt-2">Fill In</div>
+          </div>
+        </div>
+        <div class="row level-wrapper pt-3 pb-3 mb-3 justify-content-center">
+          <div class="col-12 level">
+            <h5 class="d-inline-block pb-2">Level 2</h5>
+          </div>
+          <div class="col-8 col-md-6 property">
+            <span class="label"> Text Color </span>
+            <div class="value py-2 mt-2">#ffffff</div>
+          </div>
+        </div>
+        <div class="row level-wrapper pt-3 pb-3 mb-3 justify-content-center">
+          <div class="col-12 level">
+            <h5 class="d-inline-block pb-2">Level 3</h5>
+          </div>
+          <div class="col-8 col-md-6 property">
+            <span class="label"> Text Color </span>
+            <div class="value py-2 mt-2">Red</div>
+          </div>
+          <div class="col-6 property">
+            <span class="label"> Background Color </span>
+            <div class="value py-2 mt-2">Blue</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="text-start sample-word-adventure-text">
-      <p class="mt-5">
-        {{ sampleWordData.adventureText }}
-      </p>
-      <p>HERE IS A MAGIC</p>
     </div>
   </div>
 </template>
