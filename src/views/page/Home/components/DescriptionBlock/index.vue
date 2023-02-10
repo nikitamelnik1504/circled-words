@@ -3,14 +3,12 @@
     <div class="col-11 col-sm-11 m-auto">
       <h3 class="section-title mb-3 d-inline-block">What is it?</h3>
       <p class="description-text mt-2">
-        Circled word - is label in a border with unique animation. It can be
-        very simple and difficult at the same time. For example:
+        CircledWord - is label in a border with unique animation. It can be very
+        simple and difficult at the same time. For example:
       </p>
       <ul>
-        <li>
-          Fade transition of text color with background impulse animation.
-        </li>
-        <li>Background color transition without text color change.</li>
+        <li>Text color fade transition with background impulse animation.</li>
+        <li>Transition of background color without changing text color.</li>
         <li>
           Infinity looped color change of all elements (border, text,
           background, shadow).

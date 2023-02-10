@@ -3,7 +3,7 @@
     class="row slogan-section"
     :style="{ 'min-height': minHeightValue + 'px' }"
   >
-    <div class="col-11 m-auto">
+    <div class="col-12 col-sm-11 m-auto">
       <div
         class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5"
       >

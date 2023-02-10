@@ -29,7 +29,7 @@
         .circled-word {
           width: 90%;
           margin-top: 10%;
-          padding: 20px 12px;
+          padding: 20px 10px;
           border-width: 2px;
           border-radius: 6px;
           font-size: 21px;
@@ -40,7 +40,7 @@
           }
 
           @include media-breakpoint-up(sm) {
-            padding: 26px 24px;
+            padding: 25px 10px;
             font-size: 24px;
           }
 
