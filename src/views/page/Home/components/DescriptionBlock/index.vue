@@ -19,16 +19,15 @@
         <div
           v-for="(word, index) in sampleWordsData"
           :key="index"
-          class="col-md-6 col-lg-5 col-xl-4 sample-word-wrapper"
+          class="col-md-6 col-lg-5 col-xl-12 sample-word-wrapper"
         >
           <div
             class="row h-100 justify-content-center justify-content-md-start"
           >
-            <div class="col-11 py-4 sample-word-item">
+            <div class="col-12 py-4 sample-word-item">
               <div class="row justify-content-center">
                 <SampleWord
                   :metadata="word"
-                  class="col-10 col-sm-8 col-md-10 mb-4 mb-md-0 mx-auto mx-md-0 sample-word"
                   :play="play"
                   @sample-play-finished="finishedSamplePlaysCount += 1"
                 />
