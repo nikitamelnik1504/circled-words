@@ -1,7 +1,7 @@
 <template>
   <section id="stats" class="row stats-section mt-5">
-    <div class="col-11 col-sm-10 col-xxl-9 mx-auto">
-      <h3 class="section-title my-3 text-center">Some stats?</h3>
+    <div class="col-11 col-sm-10 col-xxl-9 m-auto">
+      <h3 class="d-inline-block section-title my-3">Stats</h3>
       <div class="row justify-content-between">
         <div
           v-for="(stat, index) in statsData"

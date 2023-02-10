@@ -5,6 +5,13 @@
 @import "./components/HelpBlock";
 
 .homepage {
+  .section-title {
+    border-bottom: solid 4px;
+    border-left: solid 4px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+  }
+
   .help-description {
     font-size: 21px;
     color: #f1f2f2;
