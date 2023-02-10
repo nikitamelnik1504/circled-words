@@ -49,15 +49,17 @@ export default class CircledWord extends Vue {
   getStyle() {
     const style: Record<string, string> = {};
     const traits = this.nft.properties;
-    for (const trait of traits) {
-      if (trait instanceof AnimationTypeProperty) {
-        continue;
-      }
+    for (const level_traits of traits) {
+      for (const [, trait] of level_traits.entries()) {
+        if (trait instanceof AnimationTypeProperty) {
+          continue;
+        }
 
-      style["--" + trait.machine_name.replaceAll(/_/g, "-")] =
-        typeof trait.getValue() === "object"
-          ? (trait.getValue() as { hex: string; name: string }).hex
-          : (trait.getValue() as string);
+        style["--" + trait.machine_name.replaceAll(/_/g, "-")] =
+          typeof trait.getValue() === "object"
+            ? (trait.getValue() as { hex: string; name: string }).hex
+            : (trait.getValue() as string);
+      }
     }
 
     return style;

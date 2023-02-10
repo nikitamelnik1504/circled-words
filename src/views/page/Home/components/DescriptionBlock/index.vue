@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { Vue, Options, Watch } from "vue-property-decorator";
-import SampleWord from "./components/SampleWord.vue";
+import SampleWord from "./components/SampleWord/index.vue";
 import sampleWords from "@/assets/json/homepage_circled_word_samples.json";
 
 @Options({
