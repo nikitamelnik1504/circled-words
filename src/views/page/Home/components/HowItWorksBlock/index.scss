@@ -25,12 +25,6 @@
         }
 
         .row {
-          justify-content: center;
-
-          @include media-breakpoint-up(md) {
-            margin-top: 30px;
-          }
-
           @include media-breakpoint-up(xl) {
             margin-top: unset;
             justify-content: unset;

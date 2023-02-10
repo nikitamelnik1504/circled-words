@@ -15,6 +15,22 @@
     @include circled-word(1);
   }
 
+  .carousel {
+    .carousel-inner {
+      .carousel-item {
+        flex: 0 0 100%;
+
+        @include media-breakpoint-up(lg) {
+          flex: 0 0 50%;
+        }
+
+        @include media-breakpoint-up(xl) {
+          flex: 0 0 33.33%;
+        }
+      }
+    }
+  }
+
   .level-wrapper {
     border: solid 1px $heavy-metal;
     color: $black-haze;

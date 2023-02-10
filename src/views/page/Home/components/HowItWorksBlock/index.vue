@@ -1,6 +1,6 @@
 <template>
   <section id="how-it-works" class="row how-it-works-section pt-4">
-    <div class="col-11 col-sm-10 col-xxl-11 mx-auto">
+    <div class="col-11 col-sm-11 mx-auto">
       <h3 class="section-title d-inline-block mb-3 text-start">
         How it works?
       </h3>
@@ -10,12 +10,12 @@
         <div
           v-for="(word, index) in sampleWordsData"
           :key="index"
-          class="col-md-6 col-lg-5 col-xl-12 sample-word-wrapper"
+          class="col-md-12 sample-word-wrapper"
         >
           <div
             class="row h-100 justify-content-center justify-content-md-start"
           >
-            <div class="col-12 py-4 sample-word-item">
+            <div class="col-12 p-4 sample-word-item">
               <div class="row justify-content-center">
                 <SampleWord
                   :metadata="word"

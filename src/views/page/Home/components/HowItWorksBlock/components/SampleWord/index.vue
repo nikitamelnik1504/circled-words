@@ -1,9 +1,9 @@
 <template>
   <div
-    class="col-10 col-sm-8 col-md-12 mb-4 mb-md-0 mx-auto mx-md-0 sample-word align-items-center px-4"
+    class="col-10 col-sm-12 mb-4 mb-md-0 mx-auto mx-md-0 sample-word align-items-center"
   >
     <div class="row">
-      <div class="text-center col-3 my-auto">
+      <div class="text-center col-5 col-md-5 col-lg-4 col-xl-3 my-auto">
         <h4 class="sample-word-name text-center mb-3">
           <span class="primary">Circled</span
           ><span class="secondary">Word</span>
@@ -17,39 +17,104 @@
           @play-finished="onSamplePlayFinished"
         />
       </div>
-      <LevelBlock
-        v-for="(level_properties, level) in nft.properties"
-        :key="level"
-        :level="level + 1"
-        :properties="level_properties"
-      />
+      <div class="col-7 col-md-7 col-lg-8 col-xl-9">
+        <div id="carouselExampleControls" class="carousel">
+          <div
+            ref="carouselInner"
+            class="carousel-inner m-0 row flex-nowrap flex-xl-wrap"
+          >
+            <div
+              v-for="(level_properties, level) in nft.properties"
+              :key="level"
+              ref="carouselItems"
+              class="carousel-item col-12 col-lg-6 col-xl-4 px-md-4 d-block me-0"
+              :class="{ active: level === 0 }"
+              style=""
+            >
+              <LevelBlock :level="level + 1" :properties="level_properties" />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev d-xl-none"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+            @click="carouselControlPrev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            ref="controlNext"
+            class="carousel-control-next d-xl-none"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+            @click="carouselControlNext"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options, Prop, Emit } from "vue-property-decorator";
+export default {
+  name: "SampleWord",
+};
+</script>
+
+<script lang="ts" setup>
 import CircledWord from "@/components/CircledWord.vue";
-import CircledWordService, {
-  SampleNFT,
-} from "@/utils/Service/CircledWordService";
+import CircledWordService from "@/utils/Service/CircledWordService";
 import LevelBlock from "./components/LevelBlock.vue";
+import { onMounted, ref } from "vue";
 
-@Options({
-  components: {
-    CircledWord,
-    LevelBlock,
-  },
-})
-export default class SampleWord extends Vue {
-  @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
-  @Prop({ type: Boolean, default: false }) readonly play!: boolean;
-
-  nft: SampleNFT = new CircledWordService().getSampleNft(this.metadata);
-
-  @Emit("samplePlayFinished")
-  onSamplePlayFinished() {
-    return true;
-  }
+interface Props {
+  metadata: NFTMetadata;
+  play: boolean;
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  play: false,
+});
+
+const onSamplePlayFinished = () => {
+  return true;
+};
+
+const carouselInner = ref();
+const carouselItems = ref([]);
+
+let scrollPosition = 0;
+let cardWidth = 0;
+
+onMounted(() => {
+  cardWidth = (carouselItems.value[0] as HTMLElement).scrollWidth;
+});
+
+const carouselControlNext = () => {
+  if (scrollPosition < cardWidth * (carouselItems.value.length - 1)) {
+    scrollPosition += cardWidth;
+    carouselInner.value.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
+const carouselControlPrev = () => {
+  if (scrollPosition > 0) {
+    scrollPosition -= cardWidth;
+    carouselInner.value.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
+const nft = ref(new CircledWordService().getSampleNft(props.metadata));
 </script>
