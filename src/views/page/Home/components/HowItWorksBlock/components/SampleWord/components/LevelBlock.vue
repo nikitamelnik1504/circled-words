@@ -19,7 +19,7 @@ const props = defineProps<Props>();
         <div
           v-for="(property, index) in props.properties"
           :key="index"
-          class="col-8 col-md-12 property mb-2"
+          class="col-12 property mb-2"
         >
           <div class="row align-items-center mt-2">
             <span class="label ps-0 col-6">{{ property.label }}</span>

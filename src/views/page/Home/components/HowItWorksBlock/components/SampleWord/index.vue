@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="col-10 col-sm-12 mb-4 mb-md-0 mx-auto mx-md-0 sample-word align-items-center"
-  >
-    <div class="row">
-      <div class="text-center col-5 col-md-5 col-lg-4 col-xl-3 my-auto">
+  <div class="col-12 mx-auto mx-md-0 sample-word align-items-center">
+    <div class="row justify-content-center">
+      <div class="text-center col-md-5 col-lg-4 col-xl-3 my-auto">
         <h4 class="sample-word-name text-center mb-3">
           <span class="primary">Circled</span
           ><span class="secondary">Word</span>
@@ -17,7 +15,7 @@
           @play-finished="onSamplePlayFinished"
         />
       </div>
-      <div class="col-7 col-md-7 col-lg-8 col-xl-9">
+      <div class="col-sm-8 col-md-7 col-lg-8 col-xl-9 mt-2 mt-md-0">
         <div id="carouselExampleControls" class="carousel">
           <div
             ref="carouselInner"
@@ -27,7 +25,7 @@
               v-for="(level_properties, level) in nft.properties"
               :key="level"
               ref="carouselItems"
-              class="carousel-item col-12 col-lg-6 col-xl-4 px-md-4 d-block me-0"
+              class="carousel-item col-12 col-lg-6 col-xl-4 px-4 d-block me-0"
               :class="{ active: level === 0 }"
               style=""
             >
