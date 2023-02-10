@@ -23,7 +23,7 @@ const props = defineProps<Props>();
             class="col-8 col-md-12 property mb-2"
           >
             <div class="row align-items-center mt-2">
-              <span class="label col-6">{{ property.label }}</span>
+              <span class="label ps-0 col-6">{{ property.label }}</span>
               <div class="value col-6 py-2 text-center">
                 {{ property.value }}
               </div>

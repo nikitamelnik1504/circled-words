@@ -7,12 +7,12 @@
       <div
         class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5"
       >
-        <div class="col-lg-6 d-flex justify-content-center">
+        <div class="col-11 col-sm-12 col-lg-6 d-flex justify-content-center">
           <div class="mx-auto d-inline-block text-center text-lg-start">
-            <h2 class="slogan">
+            <h1 class="slogan">
               <span class="word-secondary">Circled</span>
               <span class="word-primary">Word</span> is already waiting for you!
-            </h2>
+            </h1>
             <router-link
               to="/create-word"
               class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4"
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div
-          class="col-12 col-sm-9 col-md-8 col-lg-6 slogan-links d-flex flex-wrap"
+          class="col-12 col-sm-11 col-md-9 col-lg-6 slogan-links d-flex flex-wrap mt-4 mt-lg-0"
         >
           <div
             v-for="(word, index) in wordsData"

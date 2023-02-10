@@ -1,0 +1,46 @@
+@import "components/SampleWord";
+
+.how-it-works-section {
+  .section-title {
+    border-left: solid 4px;
+    border-bottom: solid 4px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    color: #ff7f82;
+  }
+
+  .sample-words {
+    .sample-word-wrapper {
+      .sample-word-item {
+        border: solid 1px $heavy-metal;
+      }
+
+      &:first-child {
+        .sample-word-item {
+          border-radius: 4px 4px 0 0;
+          border-bottom: unset;
+        }
+      }
+
+      &:last-child {
+        .sample-word-item {
+          border-top: unset;
+          border-radius: 0 0 4px 4px;
+        }
+
+        .row {
+          justify-content: center;
+
+          @include media-breakpoint-up(md) {
+            margin-top: 30px;
+          }
+
+          @include media-breakpoint-up(xl) {
+            margin-top: unset;
+            justify-content: unset;
+          }
+        }
+      }
+    }
+  }
+}

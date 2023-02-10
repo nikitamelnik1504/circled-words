@@ -1,36 +1,23 @@
-@import "components/SampleWord";
-
 .description-section {
-  color: #96c;
+  height: 100vh;
 
   .section-title {
+    color: #96c;
     border-bottom: solid 4px;
     border-left: solid 4px;
     padding-left: 15px;
     padding-bottom: 10px;
   }
 
-  .sample-words {
-    .sample-word-wrapper {
-      .sample-word-item {
-        border: solid 1px $heavy-metal;
-        border-radius: 4px;
-      }
+  ul {
+    font-size: 16px;
 
-      &:last-child {
-        .row {
-          justify-content: center;
+    @include media-breakpoint-up(md) {
+      font-size: 18px;
+    }
 
-          @include media-breakpoint-up(md) {
-            margin-top: 30px;
-          }
-
-          @include media-breakpoint-up(xl) {
-            margin-top: unset;
-            justify-content: unset;
-          }
-        }
-      }
+    @include media-breakpoint-up(lg) {
+      font-size: 21px;
     }
   }
 }

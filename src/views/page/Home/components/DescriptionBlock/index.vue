@@ -1,78 +1,33 @@
 <template>
   <section id="description" class="row description-section">
-    <div class="col-11 col-sm-10 mx-auto">
-      <h3 class="section-title text-start mb-3 d-inline-block">What is it?</h3>
-      <p class="description-text mt-2 text-start">
-        Circled word - is a label in border with unique animation. It could be
-        very simple, like fade transition of text color, and it could be very
-        difficult, like pulse animation with multiple colors. It’s very similar
-        to button, let’s call it button. <br />
-        Each button has own animation(transition) duration, start text color,
-        start border color and etc. Our project wants to show you, how simple
-        web animation can do something especial and beautiful.<br /><br />
-
-        We did some examples for you to show how it works:
+    <div class="col-11 col-sm-11 m-auto">
+      <h3 class="section-title mb-3 d-inline-block">What is it?</h3>
+      <p class="description-text mt-2">
+        Circled word - is label in a border with unique animation. It can be
+        very simple and difficult at the same time. For example:
       </p>
-      <div
-        class="row mt-4 mt-md-5 justify-content-xl-between justify-content-center sample-words"
-      >
-        <div
-          v-for="(word, index) in sampleWordsData"
-          :key="index"
-          class="col-md-6 col-lg-5 col-xl-12 sample-word-wrapper"
-        >
-          <div
-            class="row h-100 justify-content-center justify-content-md-start"
-          >
-            <div class="col-12 py-4 sample-word-item">
-              <div class="row justify-content-center">
-                <SampleWord
-                  :metadata="word"
-                  :play="play"
-                  @sample-play-finished="finishedSamplePlaysCount += 1"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ul>
+        <li>
+          Fade transition of text color with background impulse animation.
+        </li>
+        <li>Background color transition without text color change.</li>
+        <li>
+          Infinity looped color change of all elements (border, text,
+          background, shadow).
+        </li>
+      </ul>
+      <p class="description-text">
+        Each button has own animation(transition) duration, start text color,
+        start border color and much more...<br /><br />
+        Our project wants to show you, how simple web animation can do something
+        especial and beautiful.<br /><br />
+      </p>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { Vue, Options, Watch } from "vue-property-decorator";
-import SampleWord from "./components/SampleWord/index.vue";
-import sampleWords from "@/assets/json/homepage_circled_word_samples.json";
-
-@Options({
+export default {
   name: "DescriptionBlock",
-  components: {
-    SampleWord,
-  },
-})
-export default class DescriptionBlock extends Vue {
-  sampleWordsData = this.getSampleWords();
-  play = true;
-
-  protected finishedSamplePlaysCount = 0;
-
-  @Watch("finishedSamplePlaysCount")
-  onFinishedSamplePlaysCountChanged(value: number) {
-    this.play = false;
-
-    if (value === Object.keys(sampleWords).length) {
-      new Promise((resolve) => {
-        setTimeout(() => (this.play = true), 1000);
-        this.finishedSamplePlaysCount = 0;
-        resolve(true);
-      });
-    }
-  }
-
-  // Warning!!! Especial examples metadata differs from OpenSea.
-  getSampleWords(): object {
-    return sampleWords;
-  }
-}
+};
 </script>
