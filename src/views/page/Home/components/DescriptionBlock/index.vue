@@ -4,7 +4,8 @@
       <h3 class="section-title mb-3 d-inline-block">What is it?</h3>
       <p class="description-text mt-2">
         CircledWord - is label in a border with unique animation. It can be very
-        simple and difficult at the same time. For example:
+        simple and difficult at the same time. <br /><br />
+        For example:
       </p>
       <ul>
         <li>Text color fade transition with background impulse animation.</li>
