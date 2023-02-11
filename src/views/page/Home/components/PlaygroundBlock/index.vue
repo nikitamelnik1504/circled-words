@@ -1,5 +1,5 @@
 <template>
-  <section id="how-it-works" class="row how-it-works-section pt-4">
+  <section id="playground" class="row playground-section pt-4">
     <div class="col-11 col-sm-11 mx-auto">
       <h3 class="section-title d-inline-block mb-3 text-start">
         How it works?
@@ -41,7 +41,7 @@ import SampleWord from "./components/SampleWord/index.vue";
     SampleWord,
   },
 })
-export default class BenefitsBlock extends Vue {
+export default class PlaygroundBlock extends Vue {
   play = true;
   sampleWordsData = this.getSampleWords();
   protected finishedSamplePlaysCount = 0;
