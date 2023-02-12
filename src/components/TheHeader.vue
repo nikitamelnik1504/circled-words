@@ -25,6 +25,7 @@
           >
             <div
               id="navbarNav"
+              ref="navbar"
               class="collapse collapse-horizontal navbar-collapse justify-content-center pt-sm-2 pt-xl-0"
             >
               <button
@@ -226,61 +227,66 @@
   <WalletModal />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { computed, inject, isRef, ref } from "vue";
 import WalletModal from "@/components/WalletModal.vue";
 import { Collapse } from "bootstrap";
-import { Vue, Options, Inject } from "vue-property-decorator";
-import { namespace } from "s-vuex-class";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
 import PhantomWalletService from "@/utils/Service/PhantomWalletService";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
-const wallet = namespace("wallet");
+const store = useStore();
 
-@Options({
-  components: {
-    WalletModal,
-  },
-})
-export default class TheHeader extends Vue {
-  @Inject({ from: "metamaskService" }) metamaskService:
-    | MetamaskService
-    | false = false;
+const getStatus = computed(() => store.getters["wallet/getStatus"]);
 
-  @Inject({ from: "walletConnectService" }) walletConnectService:
-    | WalletConnectService
-    | false = false;
+const router = useRouter();
 
-  @Inject({ from: "phantomWalletService" }) phantomWalletService:
-    | PhantomWalletService
-    | false = false;
+// @TODO Add Ref<> type declaration.
+const metamaskService = inject("metamaskService");
 
-  @wallet.Getter
-  public getStatus!: string;
+// @TODO Add Ref<> type declaration.
+const walletConnectService = inject("walletConnectService");
 
-  async logOut() {
-    if (this.metamaskService instanceof MetamaskService) {
-      this.metamaskService.disconnect();
-    }
-    if (this.walletConnectService instanceof WalletConnectService) {
-      await this.walletConnectService.disconnect();
-    }
-    if (this.phantomWalletService instanceof PhantomWalletService) {
-      await this.phantomWalletService.disconnect();
-    }
+// @TODO Add Ref<> type declaration.
+const phantomWalletService = inject("phantomWalletService");
 
-    this.$router.go(0);
+const navbar = ref();
+const toggleNavbar = () => {
+  if (!navbar.value) {
+    return;
   }
 
-  toggleNavbar(): void {
-    const menuToggle = document.getElementById("navbarNav");
-    if (!menuToggle) {
-      return;
-    }
-    if (menuToggle.classList.contains("show")) {
-      const bsCollapse = new Collapse(menuToggle);
-      bsCollapse.toggle();
-    }
+  if (navbar.value.classList.contains("show")) {
+    const bsCollapse = new Collapse(navbar.value);
+    bsCollapse.toggle();
   }
-}
+};
+
+const logOut = async () => {
+  if (
+    isRef(metamaskService) &&
+    metamaskService.value instanceof MetamaskService &&
+    metamaskService.value.connectedToSite
+  ) {
+    metamaskService.value.disconnect();
+  }
+  if (
+    isRef(walletConnectService) &&
+    walletConnectService.value instanceof WalletConnectService &&
+    walletConnectService.value.connectedToSite
+  ) {
+    await walletConnectService.value.disconnect();
+  }
+  if (
+    isRef(phantomWalletService) &&
+    phantomWalletService.value instanceof PhantomWalletService &&
+    phantomWalletService.value.connectedToSite
+  ) {
+    await phantomWalletService.value.disconnect();
+  }
+
+  router.go(0);
+};
 </script>
