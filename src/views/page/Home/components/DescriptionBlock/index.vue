@@ -3,7 +3,7 @@
     <div class="col-11 col-sm-11 m-auto">
       <h3 class="section-title mb-3 d-inline-block">What is it?</h3>
       <p class="description-text mt-2">
-        CircledWord - is label in a border with unique animation. It can be very
+        CircledWord - is a bordered label with unique animation. It can be very
         simple and difficult at the same time. <br /><br />
         For example:
       </p>
@@ -19,7 +19,7 @@
         Each button has own animation(transition) duration, start text color,
         start border color and much more...<br /><br />
         Our project wants to show you, how simple web animation can do something
-        especial and beautiful.<br /><br />
+        special and beautiful.<br /><br />
       </p>
     </div>
   </section>

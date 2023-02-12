@@ -1,8 +1,10 @@
 @import "components/SampleWord";
 
 .playground-section {
+  min-height: 100vh;
+
   .section-title {
-    color: #ff7f82;
+    color: #ef6eae;
   }
 
   .sample-words {

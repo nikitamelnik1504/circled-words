@@ -1,6 +1,6 @@
 <template>
   <section id="playground" class="row playground-section pt-4">
-    <div class="col-11 col-sm-11 mx-auto">
+    <div class="col-11 col-sm-11 m-auto">
       <h3 class="section-title d-inline-block mb-3 text-start">
         How it works?
       </h3>
