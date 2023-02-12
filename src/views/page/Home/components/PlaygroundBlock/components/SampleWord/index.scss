@@ -29,6 +29,38 @@
         }
       }
     }
+
+    .carousel-control-prev {
+      left: -30px;
+
+      @include media-breakpoint-up(sm) {
+        left: -35px;
+      }
+
+      @include media-breakpoint-up(md) {
+        left: -45px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        left: -60px;
+      }
+    }
+
+    .carousel-control-next {
+      right: -30px;
+
+      @include media-breakpoint-up(sm) {
+        right: -35px;
+      }
+
+      @include media-breakpoint-up(md) {
+        right: -40px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        right: -55px;
+      }
+    }
   }
 
   .level-wrapper {
