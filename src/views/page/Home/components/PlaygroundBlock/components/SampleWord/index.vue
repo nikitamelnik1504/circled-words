@@ -12,7 +12,7 @@
           class="disabled mb-3"
           locked
           :play="play"
-          @play-finished="onSamplePlayFinished"
+          @play-finished="emit('samplePlayFinished')"
         />
       </div>
       <div class="col-sm-8 col-md-7 col-lg-8 col-xl-9 mt-2 mt-md-0">
@@ -80,9 +80,11 @@ const props = withDefaults(defineProps<Props>(), {
   play: false,
 });
 
-const onSamplePlayFinished = () => {
-  return true;
-};
+const emit = defineEmits({
+  samplePlayFinished: () => {
+    return true;
+  },
+});
 
 const carouselInner = ref();
 const carouselItems = ref([]);
