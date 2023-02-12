@@ -1,6 +1,6 @@
 <template>
   <section id="stats" class="row stats-section mt-5">
-    <div class="col-11 col-sm-10 col-xxl-9 m-auto">
+    <div class="col-11 m-auto">
       <h3 class="d-inline-block section-title my-3">Stats</h3>
       <div class="row justify-content-between">
         <div
@@ -36,17 +36,17 @@ import StatBlock from "./components/StatBlock.vue";
 
 const stats = [
   {
-    value: 10,
-    title: "Words was created",
-    description: "Over 1000 words was created and available in OpenSea",
+    value: 12,
+    title: "Words were minted",
+    description: "Over 10 words was created and available in OpenSea",
   },
   {
-    value: 2,
-    title: "Words have 2-3 step animation",
+    value: 12,
+    title: "Words have 3-level animation",
     description: "New look for animations, new colors",
   },
   {
-    value: 20,
+    value: 3,
     title: "Users received enjoy",
     description: "Match own favourite colors and transitions",
   },
