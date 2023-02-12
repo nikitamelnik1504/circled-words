@@ -44,10 +44,6 @@
   </footer>
 </template>
 
-<script>
-import { Vue } from "vue-property-decorator";
-
-export default class TheFooter extends Vue {
-  version = process.env.npm_package_version;
-}
+<script lang="ts" setup>
+const version = process.env.npm_package_version;
 </script>
