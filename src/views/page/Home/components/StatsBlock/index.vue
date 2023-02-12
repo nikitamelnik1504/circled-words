@@ -1,12 +1,13 @@
 <template>
-  <section id="stats" class="row stats-section mt-5">
+  <section id="stats" class="row stats-section pt-4">
     <div class="col-11 m-auto">
       <h3 class="d-inline-block section-title my-3">Stats</h3>
-      <div class="row justify-content-between">
+      <div class="row justify-content-between mt-2 mt-md-3">
         <div
           v-for="(stat, index) in statsData"
           :key="index"
-          class="col-md-6 col-lg-4 stat-item-wrapper mt-4 mx-md-auto mx-lg-0"
+          class="col-md-6 col-lg-4 stat-item-wrapper mt-lg-0 mx-md-auto mx-lg-0"
+          :class="{ 'mt-md-4': index !== 3, 'mt-4': index !== 0 }"
         >
           <div class="row h-100">
             <div class="col-xxl-11 mx-auto">

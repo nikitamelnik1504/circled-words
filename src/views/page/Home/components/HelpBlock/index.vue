@@ -1,8 +1,8 @@
 <template>
-  <section id="help" class="row help-section mt-3">
-    <div class="col-11 col-sm-10 col-xxl-8 m-auto accordion-wrapper">
-      <h3 class="d-inline-block section-title my-3">Need help?</h3>
-      <div id="helpAccordion" class="accordion">
+  <section id="help" class="row help-section pt-4">
+    <div class="col-11 m-auto accordion-wrapper">
+      <h3 class="d-inline-block section-title my-3">Help</h3>
+      <div id="helpAccordion" class="accordion mt-2 mt-md-3">
         <HelpAccordionItem
           v-for="(item, index) in helpData"
           :key="index"
