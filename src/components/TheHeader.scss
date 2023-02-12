@@ -10,6 +10,7 @@ header {
         background: #17181c;
 
         @include media-breakpoint-up(sm) {
+          background: unset;
           position: relative;
         }
 
