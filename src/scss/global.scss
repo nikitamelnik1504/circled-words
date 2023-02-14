@@ -77,3 +77,21 @@ p {
 a {
   text-decoration: none;
 }
+
+.animate__animated {
+  @include media-breakpoint-down(lg) {
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+html.js {
+  @include media-breakpoint-down(md) {
+    .animated.animated__initial,
+    .animated.animated__active {
+      visibility: visible;
+      animation-duration: 0ms;
+    }
+  }
+}

@@ -8,7 +8,9 @@
         class="row slogan-wrapper d-flex justify-content-center align-items-center pb-3 pb-md-4 pb-lg-5"
       >
         <div class="col-11 col-sm-12 col-lg-6 d-flex justify-content-center">
-          <div class="mx-auto d-inline-block text-center text-lg-start">
+          <div
+            class="mx-auto d-inline-block text-center text-lg-start animate__animated animate__pulse"
+          >
             <h1 class="slogan">
               <span class="word-secondary">Circled</span>
               <span class="word-primary">Word</span> is already waiting for you!
@@ -26,7 +28,11 @@
           <div
             v-for="(word, index) in wordsData"
             :key="index"
-            class="slogan-link d-flex justify-content-center"
+            class="slogan-link d-flex justify-content-center animate__animated animate__zoomIn animate__fast"
+            :style="{
+              '-webkit-animation-delay': index * 0.05 + 's',
+              'animation-delay': index * 0.05 + 's',
+            }"
           >
             <CircledWord :nft="word" :link="word.link" />
           </div>
