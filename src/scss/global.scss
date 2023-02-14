@@ -1,5 +1,97 @@
 body {
   background-color: #17181c;
-  color: #d6d7cf;
+  color: $black-haze;
   font-family: Alata, sans-serif;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page {
+  flex: 1;
+}
+
+h1 {
+  font-size: 36px;
+
+  @include media-breakpoint-up(xl) {
+    font-size: 48px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    font-size: 56px;
+  }
+}
+
+h2 {
+  font-size: 48px;
+}
+
+h3 {
+  font-size: 28px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 36px;
+  }
+}
+
+h4 {
+  font-size: 24px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 28px;
+  }
+}
+
+h5 {
+  font-size: 21px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 24px;
+  }
+}
+
+h6 {
+  font-size: 14px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 16px;
+  }
+}
+
+p {
+  font-size: 16px;
+
+  @include media-breakpoint-up(md) {
+    font-size: 18px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 21px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.animate__animated {
+  @include media-breakpoint-down(lg) {
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+html.js {
+  @include media-breakpoint-down(md) {
+    .animated.animated__initial,
+    .animated.animated__active {
+      visibility: visible;
+      animation-duration: 0ms;
+    }
+  }
 }

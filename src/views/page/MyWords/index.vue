@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid my-words">
-    <section class="row">
-      <div class="col-12" :style="{ 'min-height': minHeightValue + 'px' }">
+  <div class="page container-fluid my-words">
+    <section class="row h-100">
+      <div class="col-12">
         <div
           v-if="
             (metamaskService &&
@@ -19,7 +19,7 @@
               v-if="assets.length !== 0"
               class="text-center my-4 my-lg-0 mt-lg-2"
             >
-              <h1 class="my-words-title">My Words</h1>
+              <h3 class="my-words-title">My Words</h3>
             </div>
             <div
               v-if="assets.length !== 0"
@@ -44,7 +44,7 @@
                 <div
                   class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
                 >
-                  <h1>You don't have any CircledWords</h1>
+                  <h3>You don't have any Circled</h3>
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@
             <div
               class="col-12 h-100 d-flex align-items-center justify-content-center"
             >
-              <h1>Loading...</h1>
+              <h3>Loading...</h3>
             </div>
           </div>
         </div>
@@ -61,9 +61,7 @@
           v-else
           class="h-100 text-center d-flex align-items-center justify-content-center"
         >
-          <h1 class="error-text">
-            Please connect your wallet to see this page
-          </h1>
+          <h3>Please connect your wallet to see this page</h3>
         </div>
       </div>
     </section>
@@ -73,8 +71,7 @@
 <script lang="ts">
 import "vue";
 import MyWord from "./components/MyWord.vue";
-import PageBase from "@/views/page/PageBase";
-import { Inject, Options, Watch } from "vue-property-decorator";
+import { Inject, Options, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
 import axios, { type AxiosResponse } from "axios";
 import MetamaskService from "@/utils/Service/MetamaskService";
@@ -89,7 +86,7 @@ const wallet = namespace("wallet");
     MyWord,
   },
 })
-export default class MyWords extends PageBase {
+export default class MyWords extends Vue {
   @Inject({ from: "metamaskService" }) metamaskService:
     | MetamaskService
     | false = false;

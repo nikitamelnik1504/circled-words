@@ -1,10 +1,8 @@
 <template>
-  <section id="help" class="row help-section mt-3">
-    <div class="col-12">
-      <h3 class="section-title my-3 text-center">Need help?</h3>
-    </div>
-    <div class="col-11 col-sm-10 col-xxl-8 mx-auto my-4 accordion-wrapper">
-      <div id="helpAccordion" class="accordion">
+  <section id="help" class="row help-section pt-4">
+    <div class="col-11 m-auto accordion-wrapper">
+      <h3 class="d-inline-block section-title my-3">Help</h3>
+      <div id="helpAccordion" class="accordion mt-2 mt-md-3">
         <HelpAccordionItem
           v-for="(item, index) in helpData"
           :key="index"
@@ -48,11 +46,6 @@ const help = [
     question: "Where I should check news about the project?",
     answer:
       "Join our Discord channel. We will do there all interesting stuff like: CircledWord generation via bot, airdrops and etc. We still working with News page on our site.",
-  },
-  {
-    question: "Why Roadmap page still not available yet?",
-    answer:
-      "We have too much ideas what to do next. We need to group some things to show you this.",
   },
 ];
 

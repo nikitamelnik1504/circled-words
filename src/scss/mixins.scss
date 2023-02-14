@@ -1,6 +1,6 @@
 @mixin circled-word($scale) {
   border-width: calc(4px * $scale);
-  padding: calc(30px * $scale) calc(44px * $scale);
+  padding: calc(26px * $scale) calc(43.39px * $scale);
   font-size: calc(32px * $scale);
   border-radius: calc(6px * $scale);
 }

@@ -1,39 +1,19 @@
-@import "components/SampleWord";
-
 .description-section {
+  min-height: 100vh;
+
   .section-title {
     color: #96c;
   }
 
-  .description-text {
-    font-size: 18px;
-    color: #f1f2f2;
+  ul {
+    font-size: 16px;
 
     @include media-breakpoint-up(md) {
+      font-size: 18px;
+    }
+
+    @include media-breakpoint-up(lg) {
       font-size: 21px;
-    }
-
-    @include media-breakpoint-up(xl) {
-      font-size: 26px;
-    }
-  }
-
-  .sample-words {
-    .sample-word-wrapper {
-      &:last-child {
-        .row {
-          justify-content: center;
-
-          @include media-breakpoint-up(md) {
-            margin-top: 30px;
-          }
-
-          @include media-breakpoint-up(xl) {
-            margin-top: unset;
-            justify-content: unset;
-          }
-        }
-      }
     }
   }
 }

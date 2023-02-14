@@ -1,0 +1,96 @@
+.sample-word {
+  .sample-word-name {
+    color: #51524b;
+
+    .primary {
+      color: #ffb229;
+    }
+
+    .secondary {
+      color: #b97a2a;
+    }
+  }
+
+  .circled-word {
+    @include circled-word(1);
+  }
+
+  .carousel {
+    .carousel-inner {
+      .carousel-item {
+        flex: 0 0 100%;
+
+        @include media-breakpoint-up(lg) {
+          flex: 0 0 50%;
+        }
+
+        @include media-breakpoint-up(xl) {
+          flex: 0 0 33.33%;
+        }
+      }
+    }
+
+    .carousel-control-prev {
+      left: -30px;
+
+      @include media-breakpoint-up(sm) {
+        left: -35px;
+      }
+
+      @include media-breakpoint-up(md) {
+        left: -45px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        left: -60px;
+      }
+    }
+
+    .carousel-control-next {
+      right: -30px;
+
+      @include media-breakpoint-up(sm) {
+        right: -35px;
+      }
+
+      @include media-breakpoint-up(md) {
+        right: -40px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        right: -55px;
+      }
+    }
+  }
+
+  .level-wrapper {
+    border: solid 1px $heavy-metal;
+    color: $black-haze;
+    border-radius: 4px;
+
+    .level {
+      h5 {
+        border-bottom: solid 2px $black-haze;
+      }
+    }
+
+    .property {
+      .label {
+        font-size: 16px;
+        color: $secondary;
+      }
+
+      .value {
+        color: $primary;
+        font-size: 16px;
+        border: solid 1px $primary;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .sample-word-adventure-text {
+    color: #ffb229;
+    font-size: 16px;
+  }
+}

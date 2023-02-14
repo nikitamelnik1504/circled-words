@@ -81,8 +81,8 @@ abstract class AnimationDurationProperty implements Property {
 }
 
 export abstract class NFT {
-  private _name = "";
-  protected _properties: Array<Property> = [];
+  protected _name = "";
+  protected abstract _properties: Array<Array<Property>>;
   public static readonly type: AnimationType;
 
   get name(): string {
@@ -92,34 +92,43 @@ export abstract class NFT {
 
   public load(metadata: NFTMetadata): NFT {
     this._name = metadata.name;
-    const attributes = (
-      metadata.attributes !== undefined ? metadata.attributes : metadata.traits
-    ) as Array<{ trait_type: string; value: string }>;
-    for (const attribute_index of attributes.keys()) {
-      // @todo Check on the internet if is possible to change order of traits in json file.
-      this._properties[attribute_index].value =
-        attributes[attribute_index].value;
+    const attributes =
+      metadata.attributes !== undefined
+        ? <NFTMetadata["attributes"]>metadata.attributes
+        : <NFTMetadata["traits"]>metadata.traits;
+
+    for (const [attribute_index, attribute_value] of attributes.entries()) {
+      const attribute = (() => {
+        for (const [, level_attributes] of this.properties.entries()) {
+          for (const [, level_attribute_value] of level_attributes.entries()) {
+            if (level_attribute_value.label === attribute_value.trait_type) {
+              return level_attribute_value;
+            }
+          }
+        }
+      })();
+
+      (<Property>attribute).value = attributes[attribute_index].value;
     }
+
     return this;
   }
 
-  public get properties(): Array<Property> {
+  public get properties() {
     return this._properties;
   }
 
-  public getType(): AnimationType {
-    return (this.constructor as typeof NFT).type;
+  public getType() {
+    return (<typeof NFT>this.constructor).type;
   }
 }
 
 export abstract class SampleNFT extends NFT {
   private _label?: string;
   public link?: string;
-  public _sampleData?: Record<string, Array<string> | string>;
 
   public load(metadata: NFTMetadata): SampleNFT {
     super.load(metadata);
-    this._sampleData = metadata.sample_data;
     this._label = metadata.label;
     return this;
   }
@@ -127,49 +136,47 @@ export abstract class SampleNFT extends NFT {
   get label(): string | undefined {
     return this._label;
   }
-
-  public get sampleData(): Record<string, Array<string> | string> | undefined {
-    return this._sampleData;
-  }
 }
 
 class FillInNFT extends NFT {
   public static readonly type: AnimationType = "Fill In";
 
   protected _properties: [
-    AnimationTypeProperty,
-    TextColorProperty,
-    BorderColorProperty,
-    BackgroundColorProperty,
-    AnimationDurationProperty,
-    TextColorProperty,
-    BorderColorProperty
+    [AnimationTypeProperty],
+    [TextColorProperty, BorderColorProperty, BackgroundColorProperty],
+    [AnimationDurationProperty, TextColorProperty, BorderColorProperty]
   ] = [
-    new (class extends AnimationTypeProperty {
-      value: AnimationType = "Fill In";
-    })(),
-    new (class extends TextColorProperty {
-      value = "White";
-    })(),
-    new (class extends BorderColorProperty {
-      value = "White";
-    })(),
-    new (class extends BackgroundColorProperty {
-      value = "White";
-    })(),
-    new (class extends AnimationDurationProperty {
-      value = 1;
-    })(),
-    new (class extends TextColorProperty {
-      label = "Second Text Color";
-      machine_name = "second_text_color";
-      value = "Black";
-    })(),
-    new (class extends BorderColorProperty {
-      label = "Second Border Color";
-      machine_name = "second_border_color";
-      value = "White";
-    })(),
+    [
+      new (class extends AnimationTypeProperty {
+        value: AnimationType = "Fill In";
+      })(),
+    ],
+    [
+      new (class extends TextColorProperty {
+        value = "White";
+      })(),
+      new (class extends BorderColorProperty {
+        value = "White";
+      })(),
+      new (class extends BackgroundColorProperty {
+        value = "White";
+      })(),
+    ],
+    [
+      new (class extends AnimationDurationProperty {
+        value = 1;
+      })(),
+      new (class extends TextColorProperty {
+        label = "Second Text Color";
+        machine_name = "second_text_color";
+        value = "Black";
+      })(),
+      new (class extends BorderColorProperty {
+        label = "Second Border Color";
+        machine_name = "second_border_color";
+        value = "White";
+      })(),
+    ],
   ];
 }
 
@@ -179,21 +186,20 @@ class FillInSampleNFT extends SampleNFT {
 }
 
 export default class CircledWordService {
-  protected nftTypes: Array<typeof NFT> = [FillInNFT];
-  protected sampleNftTypes: Array<typeof SampleNFT> = [FillInSampleNFT];
+  protected nftTypes = [FillInNFT];
+  protected sampleNftTypes = [FillInSampleNFT];
 
   getSampleNft(metadata: NFTMetadata): SampleNFT {
-    const type_attribute = (
-      metadata.attributes as Array<{ trait_type: string; value: string }>
-    ).filter((attribute) => {
+    const type_attribute = (<NFTMetadata["attributes"]>(
+      metadata.attributes
+    )).find((attribute) => {
       if (attribute.trait_type === "Animation Type") {
         return attribute;
       }
     });
-    const type = type_attribute[0].value;
+    const type = type_attribute?.value;
 
     let instance!: SampleNFT;
-    const nft_interface = class extends SampleNFT {};
     const nft_types = this.sampleNftTypes;
 
     for (const nft of nft_types) {
@@ -201,36 +207,36 @@ export default class CircledWordService {
         continue;
       }
 
-      instance = new (nft as typeof nft_interface)();
+      instance = new nft();
     }
 
-    return (instance as SampleNFT).load(metadata);
+    return instance.load(metadata);
   }
 
-  getNft(metadata: NFTMetadata): NFT | null {
+  getNft(metadata: NFTMetadata): NFT {
     const attributes =
       metadata.attributes !== undefined ? metadata.attributes : metadata.traits;
 
-    const type_attribute = (
-      attributes as Array<{ trait_type: string; value: string }>
-    ).filter((attribute) => {
-      if (attribute.trait_type === "Animation Type") {
-        return attribute;
+    const type_attribute = (<NFTMetadata["attributes"]>attributes).find(
+      (attribute) => {
+        if (attribute.trait_type === "Animation Type") {
+          return attribute;
+        }
       }
-    });
-    const type = type_attribute[0].value;
+    );
+    const type = type_attribute?.value;
 
     let instance!: NFT;
-    const nft_interface = class extends NFT {};
+
     for (const nft of this.nftTypes) {
       if (nft.type !== type) {
         continue;
       }
 
-      instance = new (nft as typeof nft_interface)();
+      instance = new nft();
     }
 
-    return (instance as NFT).load(metadata);
+    return instance.load(metadata);
   }
 
   getNftTypes(): Array<typeof NFT> {

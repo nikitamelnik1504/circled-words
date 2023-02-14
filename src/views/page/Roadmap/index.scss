@@ -1,0 +1,22 @@
+.roadmap {
+  .indicator {
+    font-size: 14px;
+    color: $primary;
+  }
+
+  .version {
+    color: $primary;
+  }
+
+  .vr {
+  }
+
+  .changes {
+    font-size: 18px;
+    list-style: none;
+
+    @include media-breakpoint-up(md) {
+      font-size: 21px;
+    }
+  }
+}

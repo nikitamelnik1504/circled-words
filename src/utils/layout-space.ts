@@ -17,19 +17,7 @@ function getFooterHeight(): number {
 }
 
 function getHeaderHeight(): number {
-  const header = document.getElementById("header");
-  const navbar = document.getElementById("navbarNav");
-
-  if (!header || !navbar) {
-    return 0;
-  }
-
-  if (
-    navbar.classList.contains("collapsing") ||
-    navbar.classList.contains("show")
-  ) {
-    return header.clientHeight - navbar.clientHeight;
-  } else {
-    return header.clientHeight;
-  }
+  const header = <HTMLElement>document.getElementById("header");
+  const navbar = <HTMLElement>header.getElementsByClassName("navbar")[0];
+  return navbar.clientHeight;
 }

@@ -1,8 +1,7 @@
 .circled-word {
+  @include circled-word(1);
+
   border: solid 4px var(--border-color);
-  padding: 30px 44px;
-  font-size: 32px;
-  border-radius: 6px;
   transition: var(--animation-duration);
 
   &.disabled {

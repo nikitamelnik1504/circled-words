@@ -1,0 +1,38 @@
+@import "components/SampleWord";
+
+.playground-section {
+  min-height: 100vh;
+
+  .section-title {
+    color: #ef6eae;
+  }
+
+  .sample-words {
+    .sample-word-wrapper {
+      .sample-word-item {
+        border: solid 1px $heavy-metal;
+      }
+
+      &:first-child {
+        .sample-word-item {
+          border-radius: 4px 4px 0 0;
+          border-bottom: unset;
+        }
+      }
+
+      &:last-child {
+        .sample-word-item {
+          border-top: unset;
+          border-radius: 0 0 4px 4px;
+        }
+
+        .row {
+          @include media-breakpoint-up(xl) {
+            margin-top: unset;
+            justify-content: unset;
+          }
+        }
+      }
+    }
+  }
+}

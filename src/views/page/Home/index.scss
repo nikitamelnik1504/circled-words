@@ -1,16 +1,15 @@
 @import "./components/SloganBlock";
 @import "./components/DescriptionBlock";
 @import "./components/StatsBlock";
-@import "./components/BenefitsBlock";
+@import "./components/PlaygroundBlock";
 @import "./components/HelpBlock";
 
 .homepage {
   .section-title {
-    font-size: 36px;
-
-    @include media-breakpoint-up(xl) {
-      font-size: 48px;
-    }
+    border-bottom: solid 4px;
+    border-left: solid 4px;
+    padding-left: 15px;
+    padding-bottom: 10px;
   }
 
   .help-description {

@@ -1,10 +1,9 @@
 <template>
   <MintLoaderModal :nft-stage="metaplexService.nftStage" />
-  <div class="container-fluid create-word">
-    <div class="row">
+  <div class="page create-word container-fluid">
+    <div class="row h-100">
       <div
         class="col-md-11 col-lg-10 col-xl-10 col-xxl-12 mx-auto d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': minHeightValue + 'px' }"
       >
         <div class="w-100">
           <h2
@@ -22,108 +21,110 @@
               class="circled-properties-form col-11 col-sm-8 col-lg-6 col-xl-6 mx-auto mb-4 d-flex justify-content-center align-items-center flex-column"
             >
               <div
-                v-for="(asset, index) in nft.properties"
-                :key="index"
+                v-for="(level_properties, level) in nft.properties"
+                :key="level"
                 class="w-100"
               >
-                <div
-                  v-if="asset.widget === 'select'"
-                  class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
-                  :class="{ disabled: playRunning }"
-                >
-                  <p class="circled-property-field-label m-0">
-                    {{ asset.label }}
-                  </p>
+                <div v-for="(property, index) in level_properties" :key="index">
                   <div
-                    class="dropdown circled-property-field-value text-center p-0"
+                    v-if="property.widget === 'select'"
+                    class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                    :class="{ disabled: playRunning }"
                   >
-                    <input
-                      id="animationType"
-                      v-model="asset.value"
-                      class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
-                      :disabled="playRunning"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      name="animation_type"
-                    />
-                    <ul
-                      class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                    <p class="circled-property-field-label m-0">
+                      {{ property.label }}
+                    </p>
+                    <div
+                      class="dropdown circled-property-field-value text-center p-0"
                     >
-                      <li
-                        v-for="(nftType, nftTypeIndex) in nftTypes"
-                        :key="nftTypeIndex"
+                      <input
+                        id="animationType"
+                        v-model="property.value"
+                        class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
+                        :disabled="playRunning"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        name="animation_type"
+                      />
+                      <ul
+                        class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
                       >
-                        <a
-                          class="dropdown-item"
-                          href="#"
-                          @click.prevent="asset.value = nftType.type"
+                        <li
+                          v-for="(nftType, nftTypeIndex) in nftTypes"
+                          :key="nftTypeIndex"
                         >
-                          {{ nftType.type }}</a
-                        >
-                      </li>
-                    </ul>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            @click.prevent="property.value = nftType.type"
+                          >
+                            {{ nftType.type }}</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
-                <div
-                  v-else-if="asset.widget === 'time'"
-                  class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
-                  :class="{ disabled: playRunning }"
-                >
-                  <p class="circled-property-field-label m-0">
-                    {{ asset.label }}
-                  </p>
-                  <div class="number-type position-relative">
-                    <button
-                      type="button"
-                      class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
-                      :class="{ disabled: +asset.value === 0.1 }"
-                      :disabled="(+asset.value === 0.1) | playRunning"
-                      @click="
-                        () => {
-                          asset.value = (+asset.value - 0.1).toFixed(1);
-                          restrictInput(index, asset.value.toString());
-                        }
-                      "
-                    ></button>
-                    <button
-                      type="button"
-                      class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
-                      :class="{ disabled: asset.value >= 100 }"
-                      :disabled="(+asset.value >= 100) | playRunning"
-                      @click="
-                        () => {
-                          asset.value = (+asset.value + 0.1).toFixed(1);
-                          restrictInput(index, asset.value.toString());
-                        }
-                      "
-                    ></button>
+                  <div
+                    v-else-if="property.widget === 'time'"
+                    class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                    :class="{ disabled: playRunning }"
+                  >
+                    <p class="circled-property-field-label m-0">
+                      {{ property.label }}
+                    </p>
+                    <div class="number-type position-relative">
+                      <button
+                        type="button"
+                        class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
+                        :class="{ disabled: +property.value === 0.1 }"
+                        :disabled="+property.value === 0.1 || playRunning"
+                        @click="
+                          () => {
+                            property.value = (+property.value - 0.1).toFixed(1);
+                            restrictInput(index, property.value.toString());
+                          }
+                        "
+                      ></button>
+                      <button
+                        type="button"
+                        class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
+                        :class="{ disabled: property.value >= 100 }"
+                        :disabled="+property.value >= 100 || playRunning"
+                        @click="
+                          () => {
+                            property.value = (+property.value + 0.1).toFixed(1);
+                            restrictInput(index, property.value.toString());
+                          }
+                        "
+                      ></button>
+                      <input
+                        v-model="property.value"
+                        class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                        :disabled="playRunning"
+                        type="number"
+                        :min="0.1"
+                        :max="100"
+                        :step="0.1"
+                        @input="restrictInput(index, property.value.toString())"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    v-else
+                    class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                    :class="{ disabled: playRunning }"
+                  >
+                    <p class="circled-property-field-label m-0">
+                      {{ property.label }}
+                    </p>
                     <input
-                      v-model="asset.value"
+                      v-model="property.value"
                       class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
                       :disabled="playRunning"
-                      type="number"
-                      :min="0.1"
-                      :max="100"
-                      :step="0.1"
-                      @input="restrictInput(index, asset.value.toString())"
+                      type="text"
                     />
                   </div>
-                </div>
-                <div
-                  v-else
-                  class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
-                  :class="{ disabled: playRunning }"
-                >
-                  <p class="circled-property-field-label m-0">
-                    {{ asset.label }}
-                  </p>
-                  <input
-                    v-model="asset.value"
-                    class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                    :disabled="playRunning"
-                    type="text"
-                  />
                 </div>
               </div>
             </form>
@@ -168,8 +169,7 @@
 </template>
 
 <script lang="ts">
-import { Inject, Options, Ref, Watch } from "vue-property-decorator";
-import PageBase from "@/views/page/PageBase";
+import { Inject, Options, Ref, Vue, Watch } from "vue-property-decorator";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
@@ -182,7 +182,7 @@ import MintLoaderModal from "./components/MintLoaderModal.vue";
     MintLoaderModal,
   },
 })
-export default class CreateWord extends PageBase {
+export default class CreateWord extends Vue {
   wordProperties: NFTMetadata = {
     name: "CircledWord #1",
     attributes: [

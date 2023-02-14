@@ -1,22 +1,18 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div
-        class="text-center d-flex align-items-center justify-content-center"
-        :style="{ 'min-height': minHeightValue + 'px' }"
-      >
-        <h1 class="error-text">Please connect your wallet to see this page</h1>
+    <div class="row h-100">
+      <div class="text-center d-flex align-items-center justify-content-center">
+        <h3 class="error-text">Please connect your wallet to see this page</h3>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options } from "vue-property-decorator";
-import PageBase from "@/views/page/PageBase";
+import { Options, Vue } from "vue-property-decorator";
 
 @Options({
   name: "403Page",
 })
-export default class Error403Page extends PageBase {}
+export default class Error403Page extends Vue {}
 </script>

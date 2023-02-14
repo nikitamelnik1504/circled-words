@@ -11,10 +11,9 @@
   <Footer />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import particlesJson from "./assets/json/particles.json";
 import particlesIcon from "./assets/images/live-bg-icon.svg";
-import { Vue, Options, Provide, Watch } from "vue-property-decorator";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -25,163 +24,142 @@ import MetamaskService from "./utils/Service/MetamaskService";
 import WalletConnectService from "./utils/Service/WalletConnectService";
 import PhantomWalletService from "./utils/Service/PhantomWalletService";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
-import { namespace } from "s-vuex-class";
-import type { Store } from "vuex";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
+import { onUnmounted, provide, ref, watch } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-const wallet = namespace("wallet");
+const store = useStore();
 
-@Options({
-  name: "App",
-  components: {
-    Header,
-    Footer,
+const router = useRouter();
+
+const particlesConfig = particlesJson;
+// Use particles image as relative path.
+particlesConfig.particles.shape.options.image.src = particlesIcon as string;
+store.commit("initialiseStore");
+
+const particlesInit = async (engine: never) => {
+  await loadFull(engine);
+};
+
+const particlesLoaded = async (container: {
+  canvas: { element: HTMLCanvasElement };
+}) => {
+  container.canvas.element.style.zIndex = "-1";
+  container.canvas.element.style.width = "100vw";
+  container.canvas.element.style.height = "100vh";
+};
+
+const setDefaultWalletState = () => {
+  store.commit("wallet/setDefaultWalletState");
+};
+
+const walletEvents = {
+  metamask: {
+    accountsChanged: [
+      {
+        callback: () => {
+          setDefaultWalletState();
+          router.go(0);
+        },
+        connected: true,
+      },
+    ],
   },
-})
-export default class App extends Vue {
-  particlesConfig = particlesJson;
-
-  @Provide({
-    to: "metamaskService",
-    reactive: true,
-  })
-  metamaskService: MetamaskService | false = false;
-
-  @Provide({ to: "walletConnectService", reactive: true })
-  walletConnectService: WalletConnectService | false = false;
-
-  @Provide({ to: "phantomWalletService", reactive: true })
-  phantomWalletService: PhantomWalletService | false = false;
-
-  @Provide({ to: "walletEvents", reactive: true })
-  walletEvents = {
-    metamask: {},
-    walletConnect: {},
-    phantomWallet: {},
-  };
-
-  @Provide({ to: "metaplexService", reactive: true })
-  metaplexService: MetaplexService | false = false;
-
-  @wallet.Mutation
-  public setDefaultWalletState!: () => string;
-
-  private $store!: Store<unknown>;
-
-  public async particlesInit(engine: never): Promise<void> {
-    await loadFull(engine);
-  }
-
-  public async particlesLoaded(container: {
-    canvas: { element: HTMLCanvasElement };
-  }): Promise<void> {
-    container.canvas.element.style.zIndex = "-1";
-    container.canvas.element.style.width = "100vw";
-    container.canvas.element.style.height = "100vh";
-  }
-
-  beforeCreate(): void {
-    // Use particles image as relative path.
-    this.particlesConfig.particles.shape.options.image.src =
-      particlesIcon as string;
-
-    this.$store.commit("initialiseStore");
-  }
-
-  created(): void {
-    this.walletEvents = {
-      metamask: {
-        accountsChanged: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
+  walletConnect: {
+    disconnect: [
+      {
+        callback: () => {
+          setDefaultWalletState();
+          router.go(0);
+        },
+        connected: true,
       },
-      walletConnect: {
-        disconnect: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
+    ],
+  },
+  phantomWallet: {
+    accountChanged: [
+      {
+        callback: () => {
+          setDefaultWalletState();
+          router.go(0);
+        },
+        connected: true,
       },
-      phantomWallet: {
-        accountChanged: [
-          {
-            callback: () => {
-              this.setDefaultWalletState();
-              this.$router.go(0);
-            },
-            connected: true,
-          },
-        ],
-      },
-    };
+    ],
+  },
+};
+provide("walletEvents", walletEvents);
 
-    this.initializeMetamask().then((result: MetamaskProvider | unknown) => {
-      if (!(result as MetamaskProvider)) {
-        return;
-      }
-      MetamaskService.create(
-        result as MetamaskProvider,
-        this.$store,
-        this.walletEvents.metamask
-      ).then((result) => (this.metamaskService = result));
-    });
+const metamaskService = ref<MetamaskService | false>(false);
+provide("metamaskService", metamaskService);
 
-    WalletConnectService.create(
-      this.initializeWalletConnect(),
-      this.$store,
-      this.walletEvents.walletConnect,
-      this.initializeWalletConnect
-    ).then((result) => {
-      this.walletConnectService = result;
-    });
+const walletConnectService = ref<WalletConnectService | false>(false);
+provide("walletConnectService", walletConnectService);
 
-    const phantomWalletProvider = this.initializePhantomWallet();
-    if (phantomWalletProvider) {
-      PhantomWalletService.create(
-        phantomWalletProvider,
-        this.$store,
-        this.walletEvents.phantomWallet
-      ).then((result) => {
-        this.phantomWalletService = result;
-      });
-    }
+const phantomWalletService = ref<PhantomWalletService | false>(false);
+provide("phantomWalletService", phantomWalletService);
+
+const metaplexService = ref<MetaplexService | false>(false);
+provide("metaplexService", metaplexService);
+
+const initializeMetamask = async () => {
+  return detectEthereumProvider();
+};
+
+const initializeWalletConnect = () => {
+  return new WalletConnectProvider({
+    infuraId: "270dd5535d1344b2a5a507a081f3d45b",
+  });
+};
+
+const initializePhantomWallet = () => {
+  if (!("phantom" in window)) {
+    return false;
+  }
+  const provider = window.phantom?.solana;
+
+  if (!provider?.isPhantom || !(provider as PhantomWalletAdapter)) {
+    return false;
   }
 
-  async initializeMetamask(): Promise<unknown> {
-    return detectEthereumProvider();
+  return provider;
+};
+
+initializeMetamask().then((result: MetamaskProvider | unknown) => {
+  if (!(result as MetamaskProvider)) {
+    return;
   }
+  MetamaskService.create(
+    result as MetamaskProvider,
+    store,
+    walletEvents.metamask
+  ).then((result) => (metamaskService.value = result));
+});
 
-  initializeWalletConnect(): WalletConnectProvider {
-    return new WalletConnectProvider({
-      infuraId: "270dd5535d1344b2a5a507a081f3d45b",
-    });
-  }
+WalletConnectService.create(
+  initializeWalletConnect(),
+  store,
+  walletEvents.walletConnect,
+  initializeWalletConnect
+).then((result) => {
+  walletConnectService.value = result;
+});
 
-  initializePhantomWallet(): PhantomWalletAdapter | false {
-    if (!("phantom" in window)) {
-      return false;
-    }
-    const provider = window.phantom?.solana;
+const phantomWalletProvider = initializePhantomWallet();
+if (phantomWalletProvider) {
+  PhantomWalletService.create(
+    phantomWalletProvider,
+    store,
+    walletEvents.phantomWallet
+  ).then((result) => {
+    phantomWalletService.value = result;
+  });
+}
 
-    if (!provider?.isPhantom || !(provider as PhantomWalletAdapter)) {
-      return false;
-    }
-
-    return provider;
-  }
-
-  @Watch("phantomWalletService", { deep: true })
-  onPhantomWalletConnected(service: unknown) {
+watch(
+  phantomWalletService,
+  (service: unknown) => {
     if (!(service instanceof PhantomWalletService)) {
       return;
     }
@@ -189,25 +167,24 @@ export default class App extends Vue {
     if (
       service.connected &&
       service.connectedToSite &&
-      this.metaplexService === false
+      metaplexService.value === false
     ) {
-      this.metaplexService = new MetaplexService(
-        (this.phantomWalletService as PhantomWalletService).provider
+      metaplexService.value = new MetaplexService(
+        (phantomWalletService.value as PhantomWalletService).provider
       );
     }
-  }
+  },
+  { deep: true }
+);
 
-  unmounted(): void {
-    if (this.metamaskService instanceof MetamaskService) {
-      this.metamaskService.removeEventsGroup(this.walletEvents.metamask);
-    }
-    if (this.phantomWalletService instanceof PhantomWalletService) {
-      this.phantomWalletService.removeEventsGroup(
-        this.walletEvents.phantomWallet
-      );
-    }
+onUnmounted(() => {
+  if (metamaskService.value instanceof MetamaskService) {
+    metamaskService.value.removeEventsGroup(walletEvents.metamask);
   }
-}
+  if (phantomWalletService.value instanceof PhantomWalletService) {
+    phantomWalletService.value.removeEventsGroup(walletEvents.phantomWallet);
+  }
+});
 </script>
 
 <style lang="scss">
