@@ -1,19 +1,19 @@
 <template>
-  <div class="page container-fluid my-words">
+  <div
+    v-if="
+      (metamaskService &&
+        metamaskService.connected &&
+        metamaskService.connectedToSite) ||
+      (walletConnectService &&
+        walletConnectService.connected &&
+        walletConnectService.connectedToSite) ||
+      metaplexService
+    "
+    class="page container-fluid my-words"
+  >
     <section class="row h-100">
       <div class="col-12">
-        <div
-          v-if="
-            (metamaskService &&
-              metamaskService.connected &&
-              metamaskService.connectedToSite) ||
-            (walletConnectService &&
-              walletConnectService.connected &&
-              walletConnectService.connectedToSite) ||
-            metaplexService
-          "
-          class="h-100"
-        >
+        <div class="h-100">
           <div v-if="loadStatus === 'loaded'" class="h-100">
             <div
               v-if="assets.length !== 0"
@@ -57,19 +57,13 @@
             </div>
           </div>
         </div>
-        <div
-          v-else
-          class="h-100 text-center d-flex align-items-center justify-content-center"
-        >
-          <h3>Please connect your wallet to see this page</h3>
-        </div>
       </div>
     </section>
   </div>
+  <ErrorPage403 v-else />
 </template>
 
 <script lang="ts">
-import "vue";
 import MyWord from "./components/MyWord.vue";
 import { Inject, Options, Vue, Watch } from "vue-property-decorator";
 import { namespace } from "s-vuex-class";
@@ -77,6 +71,7 @@ import axios, { type AxiosResponse } from "axios";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
+import ErrorPage403 from "@/views/error-page/403/index.vue";
 
 const wallet = namespace("wallet");
 
@@ -84,6 +79,7 @@ const wallet = namespace("wallet");
   name: "MyWordsPage",
   components: {
     MyWord,
+    ErrorPage403,
   },
 })
 export default class MyWords extends Vue {
