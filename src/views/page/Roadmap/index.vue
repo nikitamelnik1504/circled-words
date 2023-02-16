@@ -2,8 +2,14 @@
   <div class="page container-fluid roadmap">
     <div class="row">
       <div class="col-11 mx-auto mb-4 mb-md-5">
-        <h3 class="text-center my-4 my-lg-0 mt-lg-2">Roadmap</h3>
-        <div class="row mt-md-5 justify-content-center">
+        <h3
+          class="text-center my-4 my-lg-0 mt-lg-2 animate__animated animate__fadeIn"
+        >
+          Roadmap
+        </h3>
+        <div
+          class="row mt-md-5 justify-content-center animate__animated animate__fadeInLeft"
+        >
           <div class="col-md-5 text-start text-md-end">
             <h4 class="mb-0">Q1 2023</h4>
             <span class="indicator d-block">Current</span>
@@ -21,7 +27,9 @@
           </div>
           <div class="col-5"></div>
         </div>
-        <div class="row mt-2 mt-md-0 justify-content-center">
+        <div
+          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInRight"
+        >
           <div class="col-5"></div>
           <div class="col-1 d-none d-md-block text-center">
             <div class="vr" style="height: 100%"></div>
@@ -44,7 +52,9 @@
             </ul>
           </div>
         </div>
-        <div class="row mt-2 mt-md-0 justify-content-center">
+        <div
+          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInLeft"
+        >
           <div class="col-md-5 text-start text-md-end">
             <h4 class="mb-0">Q3 2023</h4>
             <h6 class="version mt-1">3.1.0</h6>
@@ -68,7 +78,9 @@
           </div>
           <div class="col-5"></div>
         </div>
-        <div class="row mt-2 mt-md-0 justify-content-center">
+        <div
+          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInRight"
+        >
           <div class="col-5"></div>
           <div class="col-1 d-none d-md-block text-center">
             <div class="vr" style="height: 100%"></div>
@@ -93,7 +105,9 @@
             </ul>
           </div>
         </div>
-        <div class="row mt-2 mt-md-0 justify-content-center">
+        <div
+          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInLeft"
+        >
           <div class="col-md-5 text-start text-md-end">
             <h4 class="mb-0">Q1 2024</h4>
             <h6 class="version mt-1">4.1.0</h6>
@@ -121,10 +135,7 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-property-decorator";
-
-@Options({
+export default {
   name: "RoadmapPage",
-})
-export default class Roadmap extends Vue {}
+};
 </script>

@@ -19,7 +19,7 @@
               v-if="assets.length !== 0"
               class="text-center my-4 my-lg-0 mt-lg-2"
             >
-              <h3 class="my-words-title animate__animated animate__fadeInDown">
+              <h3 class="my-words-title animate__animated animate__fadeIn">
                 My Words
               </h3>
             </div>
@@ -71,7 +71,7 @@
 
 <script lang="ts">
 export default {
-  name: "MyWords",
+  name: "MyWordsPage",
 };
 </script>
 
