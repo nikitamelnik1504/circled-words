@@ -1,5 +1,4 @@
 <template>
-  <MintLoaderModal :nft-stage="metaplexService.nftStage" />
   <div class="page create-word container-fluid">
     <div class="row h-100">
       <div
@@ -7,7 +6,7 @@
       >
         <div class="w-100">
           <h2
-            class="block-title ps-2 my-4 mt-lg-0 mb-lg-5 text-center d-none d-sm-block"
+            class="block-title ps-2 my-4 mt-lg-0 mb-lg-5 text-center d-none d-sm-block animate__animated animate__fadeInDown"
           >
             <span class="primary-text">Circled</span>
             <span class="secondary-text">Word</span>
@@ -25,7 +24,21 @@
                 :key="level"
                 class="w-100"
               >
-                <div v-for="(property, index) in level_properties" :key="index">
+                <div
+                  v-for="(property, index) in level_properties"
+                  :key="index"
+                  class="animate__animated property-wrapper animate__fast"
+                  :class="{
+                    animate__fadeInLeft: (index + level + 1) % 2 !== 0,
+                    animate__fadeInRight: (index + level + 1) % 2 === 0,
+                  }"
+                  :style="{
+                    '-webkit-animation-delay':
+                      level * ((index + level + 1) * 0.03) + 's',
+                    'animation-delay':
+                      level * ((index + level + 1) * 0.03) + 's',
+                  }"
+                >
                   <div
                     v-if="property.widget === 'select'"
                     class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
@@ -133,7 +146,7 @@
             >
               <div>
                 <CircledWord
-                  class="disabled"
+                  class="disabled animate__animated animate__zoomIn"
                   :nft="nft"
                   :play="playRunning"
                   locked
@@ -144,7 +157,7 @@
                 >
                   <a
                     href="#"
-                    class="py-3 text-center me-3 text-decoration-none w-50 play-action"
+                    class="py-3 text-center me-3 text-decoration-none w-50 play-action animate__animated animate__fadeInUp"
                     :class="{ disabled: playRunning }"
                     @click.prevent="
                       () => (playRunning ? undefined : (playRunning = true))
@@ -153,7 +166,7 @@
                   >
                   <a
                     href="#"
-                    class="py-3 text-center text-decoration-none w-50 mint-action pe-none disabled"
+                    class="py-3 text-center text-decoration-none w-50 mint-action pe-none disabled animate__animated animate__fadeInUp"
                     :class="{ disabled: mintRunning || !metaplexService }"
                     @click.prevent="() => (mintRunning ? undefined : mint())"
                     >Mint</a
@@ -165,6 +178,7 @@
         </div>
       </div>
     </div>
+    <MintLoaderModal :nft-stage="metaplexService.nftStage" />
   </div>
 </template>
 

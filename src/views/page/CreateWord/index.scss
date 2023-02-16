@@ -31,6 +31,22 @@
     }
 
     .circled-properties-form {
+      .property-wrapper {
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-200px);
+          }
+        }
+
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(200px);
+          }
+        }
+      }
+
       .circled-property-field {
         background-color: #51524b;
 
