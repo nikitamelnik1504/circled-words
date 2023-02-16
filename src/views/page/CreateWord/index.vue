@@ -22,7 +22,7 @@
               <div
                 v-for="(level_properties, level) in nft.properties"
                 :key="level"
-                class="w-100"
+                class="w-100 level-wrapper"
               >
                 <div
                   v-for="(property, index) in level_properties"
