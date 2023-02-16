@@ -16,6 +16,10 @@
           <div
             v-if="(index + 2) % 2 === 0"
             class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft"
+            :style="{
+              '-webkit-animation-delay': index * 0.2 + 's',
+              'animation-delay': index * 0.2 + 's',
+            }"
           >
             <h4 class="mb-0">{{ value.quarter }}</h4>
             <span v-if="value.active" class="indicator d-block">Current</span>
@@ -30,7 +34,7 @@
               </li>
             </ul>
           </div>
-          <div v-else class="col-5"></div>
+          <div v-else class="col-5" />
 
           <div class="col-1 d-none d-md-block text-center">
             <div class="vr" style="height: 100%"></div>
@@ -39,6 +43,10 @@
           <div
             v-if="(index + 2) % 2 !== 0"
             class="col-md-5 text-start animate__animated animate__fadeInRight"
+            :style="{
+              '-webkit-animation-delay': index * 0.2 + 's',
+              'animation-delay': index * 0.2 + 's',
+            }"
           >
             <h4 class="mb-0">{{ value.quarter }}</h4>
             <span v-if="value.active" class="indicator d-block">Current</span>
@@ -53,7 +61,7 @@
               </li>
             </ul>
           </div>
-          <div v-else class="col-5"></div>
+          <div v-else class="col-5" />
         </div>
       </div>
     </div>
