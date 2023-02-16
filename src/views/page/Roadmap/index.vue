@@ -7,10 +7,10 @@
         >
           Roadmap
         </h3>
-        <div
-          class="row mt-md-5 justify-content-center animate__animated animate__fadeInLeft"
-        >
-          <div class="col-md-5 text-start text-md-end">
+        <div class="row mt-md-5 justify-content-center">
+          <div
+            class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft"
+          >
             <h4 class="mb-0">Q1 2023</h4>
             <span class="indicator d-block">Current</span>
             <h6 class="version mt-1">2.1.0</h6>
@@ -27,14 +27,14 @@
           </div>
           <div class="col-5"></div>
         </div>
-        <div
-          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInRight"
-        >
+        <div class="row mt-2 mt-md-0 justify-content-center">
           <div class="col-5"></div>
           <div class="col-1 d-none d-md-block text-center">
             <div class="vr" style="height: 100%"></div>
           </div>
-          <div class="col-md-5 text-start">
+          <div
+            class="col-md-5 text-start animate__animated animate__fadeInRight"
+          >
             <h4 class="mb-0">Q2 2023</h4>
             <h6 class="version mt-1">3.0.0</h6>
             <ul class="changes p-0">
@@ -52,10 +52,10 @@
             </ul>
           </div>
         </div>
-        <div
-          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInLeft"
-        >
-          <div class="col-md-5 text-start text-md-end">
+        <div class="row mt-2 mt-md-0 justify-content-center">
+          <div
+            class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft"
+          >
             <h4 class="mb-0">Q3 2023</h4>
             <h6 class="version mt-1">3.1.0</h6>
             <ul class="changes p-0">
@@ -78,14 +78,14 @@
           </div>
           <div class="col-5"></div>
         </div>
-        <div
-          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInRight"
-        >
+        <div class="row mt-2 mt-md-0 justify-content-center">
           <div class="col-5"></div>
           <div class="col-1 d-none d-md-block text-center">
             <div class="vr" style="height: 100%"></div>
           </div>
-          <div class="col-md-5 text-start">
+          <div
+            class="col-md-5 text-start animate__animated animate__fadeInRight"
+          >
             <h4 class="mb-0">Q4 2023</h4>
             <h6 class="version mt-1">4.0.0</h6>
             <ul class="changes p-0">
@@ -105,10 +105,10 @@
             </ul>
           </div>
         </div>
-        <div
-          class="row mt-2 mt-md-0 justify-content-center animate__animated animate__fadeInLeft"
-        >
-          <div class="col-md-5 text-start text-md-end">
+        <div class="row mt-2 mt-md-0 justify-content-center">
+          <div
+            class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft"
+          >
             <h4 class="mb-0">Q1 2024</h4>
             <h6 class="version mt-1">4.1.0</h6>
             <ul class="changes p-0">
