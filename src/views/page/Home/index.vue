@@ -46,7 +46,7 @@ const handleScroll = () => {
 
 const isElemVisible = (el: HTMLElement) => {
   const rect = el.getBoundingClientRect();
-  const elemTop = rect.top + el.scrollHeight * 0.7;
+  const elemTop = rect.top + window.innerHeight * 0.7;
   const elemBottom = rect.bottom;
   return elemTop < window.innerHeight && elemBottom >= 0;
 };
