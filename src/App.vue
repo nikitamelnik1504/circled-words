@@ -39,7 +39,9 @@ particlesConfig.particles.shape.options.image.src = particlesIcon as string;
 store.commit("initialiseStore");
 
 const particlesInit = async (engine: never) => {
-  await loadFull(engine);
+  if (document.documentElement.clientWidth >= 576) {
+    await loadFull(engine);
+  }
 };
 
 const particlesLoaded = async (container: {

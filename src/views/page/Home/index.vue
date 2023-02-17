@@ -35,7 +35,7 @@ const handleScroll = () => {
     elem.style.animation = "none";
     elem.style.opacity = "0";
 
-    if (isElemVisible(elem) || window.innerWidth < 992) {
+    if (isElemVisible(elem) || document.documentElement.clientWidth < 992) {
       elem.style.opacity = "1";
       // @ts-ignore
       elem.style.animation = null;
