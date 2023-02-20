@@ -17,8 +17,8 @@
             v-if="(index + 2) % 2 === 0"
             class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft"
             :style="{
-              '-webkit-animation-delay': index * 0.2 + 's',
-              'animation-delay': index * 0.2 + 's',
+              '-webkit-animation-delay': index * 0.1 + 's',
+              'animation-delay': index * 0.1 + 's',
             }"
           >
             <h4 class="mb-0">{{ value.quarter }}</h4>
@@ -44,8 +44,8 @@
             v-if="(index + 2) % 2 !== 0"
             class="col-md-5 text-start animate__animated animate__fadeInRight"
             :style="{
-              '-webkit-animation-delay': index * 0.2 + 's',
-              'animation-delay': index * 0.2 + 's',
+              '-webkit-animation-delay': index * 0.1 + 's',
+              'animation-delay': index * 0.1 + 's',
             }"
           >
             <h4 class="mb-0">{{ value.quarter }}</h4>
