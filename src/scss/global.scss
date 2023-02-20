@@ -80,9 +80,9 @@ a {
 
 .animate__animated {
   @include media-breakpoint-down(lg) {
-    transition-property: none !important;
-    transform: none !important;
-    animation: none !important;
+    transition-property: none;
+    transform: none;
+    animation: none;
   }
 }
 
