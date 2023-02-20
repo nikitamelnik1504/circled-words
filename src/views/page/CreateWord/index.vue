@@ -95,7 +95,11 @@
                         @click="
                           () => {
                             property.value = (+property.value - 0.1).toFixed(1);
-                            restrictInput(index, property.value.toString());
+                            restrictInput(
+                              level,
+                              index,
+                              property.value.toString()
+                            );
                           }
                         "
                       ></button>
@@ -107,7 +111,11 @@
                         @click="
                           () => {
                             property.value = (+property.value + 0.1).toFixed(1);
-                            restrictInput(index, property.value.toString());
+                            restrictInput(
+                              level,
+                              index,
+                              property.value.toString()
+                            );
                           }
                         "
                       ></button>
@@ -119,7 +127,9 @@
                         :min="0.1"
                         :max="100"
                         :step="0.1"
-                        @input="restrictInput(index, property.value.toString())"
+                        @input="
+                          restrictInput(level, index, property.value.toString())
+                        "
                       />
                     </div>
                   </div>
@@ -166,7 +176,7 @@
                   >
                   <a
                     href="#"
-                    class="py-3 text-center text-decoration-none w-50 mint-action pe-none disabled animate__animated animate__fadeInUp"
+                    class="py-3 text-center text-decoration-none w-50 mint-action animate__animated animate__fadeInUp"
                     :class="{ disabled: mintRunning || !metaplexService }"
                     @click.prevent="() => (mintRunning ? undefined : mint())"
                     >Mint</a
@@ -183,80 +193,86 @@
 </template>
 
 <script lang="ts">
-import { Inject, Options, Ref, Vue, Watch } from "vue-property-decorator";
+export default {
+  name: "CreateWordPage",
+};
+</script>
+
+<script lang="ts" setup>
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
 import MintLoaderModal from "./components/MintLoaderModal.vue";
+import { inject, ref, watch } from "vue";
 
-@Options({
-  name: "CreateWordPage",
-  components: {
-    CircledWord,
-    MintLoaderModal,
+const wordProperties: Ref<NFTMetadata> = ref({
+  name: "CircledWord #1",
+  attributes: [
+    { trait_type: "Animation Type", value: "Fill In" },
+    { trait_type: "Text Color", value: "White" },
+    { trait_type: "Border Color", value: "White" },
+    { trait_type: "Background Color", value: "White" },
+    { trait_type: "Animation Duration", value: "1" },
+    { trait_type: "Second Text Color", value: "Black" },
+    { trait_type: "Second Border Color", value: "White" },
+  ],
+});
+
+const nft = ref(new CircledWordService().getNft(wordProperties.value));
+const nftTypes: Array<typeof NFT> = new CircledWordService().getNftTypes();
+
+const playRunning = ref(false);
+const mintRunning = ref(false);
+
+const generateForm: Ref<HTMLFormElement | null> = ref(null);
+
+const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
+
+const onPlayFinished = () => {
+  playRunning.value = false;
+};
+
+const mint = async () => {
+  mintRunning.value = true;
+  try {
+    await (metaplexService?.value as MetaplexService).createNFT(
+      (nft.value as NFT).properties
+    );
+  } catch (e) {
+    (metaplexService?.value as MetaplexService).nftStage = null;
+  } finally {
+    mintRunning.value = false;
+  }
+};
+
+const restrictInput = (
+  property_level: number,
+  property_index: number,
+  value: string
+) => {
+  let updated_string = value;
+
+  if (value.includes(".") && value.split(".")[1].length > 1) {
+    updated_string = value.slice(0, value.indexOf("."));
+  }
+
+  if (+updated_string > 100) {
+    updated_string = "100";
+  }
+
+  if (+updated_string <= 0) {
+    updated_string = "0.1";
+  }
+
+  (nft.value as NFT).properties[property_level][property_index].value =
+    updated_string;
+};
+
+watch(
+  wordProperties,
+  (newValue: unknown) => {
+    nft.value = new CircledWordService().getNft(newValue as NFTMetadata);
   },
-})
-export default class CreateWord extends Vue {
-  wordProperties: NFTMetadata = {
-    name: "CircledWord #1",
-    attributes: [
-      { trait_type: "Animation Type", value: "Fill In" },
-      { trait_type: "Text Color", value: "White" },
-      { trait_type: "Border Color", value: "White" },
-      { trait_type: "Background Color", value: "White" },
-      { trait_type: "Animation Duration", value: "1" },
-      { trait_type: "Second Text Color", value: "Black" },
-      { trait_type: "Second Border Color", value: "White" },
-    ],
-  };
-  nft: NFT | null = new CircledWordService().getNft(this.wordProperties);
-  nftTypes: Array<typeof NFT> = new CircledWordService().getNftTypes();
-  playRunning = false;
-  mintRunning = false;
-
-  @Ref("generateForm") readonly generateForm!: HTMLFormElement;
-
-  @Watch("wordProperties", { deep: true })
-  handler(val: NFTMetadata): void {
-    this.nft = new CircledWordService().getNft(val);
-  }
-
-  @Inject({ from: "metaplexService" })
-  metaplexService: MetaplexService | false = false;
-
-  onPlayFinished() {
-    this.playRunning = false;
-  }
-
-  async mint() {
-    this.mintRunning = true;
-    try {
-      await (this.metaplexService as MetaplexService).createNFT(
-        (this.nft as NFT).properties
-      );
-    } catch (e) {
-      (this.metaplexService as MetaplexService).nftStage = null;
-    } finally {
-      this.mintRunning = false;
-    }
-  }
-
-  restrictInput(property_index: number, value: string): void {
-    let updated_string = value;
-
-    if (value.includes(".") && value.split(".")[1].length > 1) {
-      updated_string = value.slice(0, value.indexOf("."));
-    }
-
-    if (+updated_string > 100) {
-      updated_string = "100";
-    }
-
-    if (+updated_string <= 0) {
-      updated_string = "0.1";
-    }
-
-    (this.nft as NFT).properties[property_index].value = updated_string;
-  }
-}
+  { deep: true }
+);
 </script>

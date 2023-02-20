@@ -99,9 +99,7 @@ export abstract class NFT {
   public load(metadata: NFTMetadata): NFT {
     this._name = metadata.name;
     const attributes =
-      metadata.attributes !== undefined
-        ? <NFTMetadata["attributes"]>metadata.attributes
-        : <NFTMetadata["traits"]>metadata.traits;
+      metadata.traits !== undefined ? metadata.traits : metadata.attributes;
 
     for (const [attribute_index, attribute_value] of attributes.entries()) {
       const attribute = (() => {
