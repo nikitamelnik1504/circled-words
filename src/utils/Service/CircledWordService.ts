@@ -8,6 +8,7 @@ type TraitKeysMatching<T, V> = {
 
 export interface Property {
   label: string;
+  originLabel: string;
   machine_name: string;
   value: unknown;
   widget: Widget;
@@ -18,6 +19,7 @@ type AnimationType = "Fill In" | "Close";
 
 export abstract class AnimationTypeProperty implements Property {
   public label = "Animation Type";
+  public originLabel = this.label;
   public machine_name = "animation_type";
   public widget: Widget = "select";
   public abstract value: AnimationType;
@@ -29,6 +31,7 @@ export abstract class AnimationTypeProperty implements Property {
 
 abstract class TextColorProperty implements Property {
   public label = "Text Color";
+  public originLabel = this.label;
   public machine_name = "text_color";
   public widget: Widget = "text";
   public abstract value: string;
@@ -43,6 +46,7 @@ abstract class TextColorProperty implements Property {
 
 abstract class BorderColorProperty implements Property {
   public label = "Border Color";
+  public originLabel = this.label;
   public machine_name = "border_color";
   public widget: Widget = "text";
   public abstract value: string;
@@ -57,6 +61,7 @@ abstract class BorderColorProperty implements Property {
 
 abstract class BackgroundColorProperty implements Property {
   public label = "Background Color";
+  public originLabel = this.label;
   public machine_name = "background_color";
   public widget: Widget = "text";
   public abstract value: string;
@@ -71,6 +76,7 @@ abstract class BackgroundColorProperty implements Property {
 
 abstract class AnimationDurationProperty implements Property {
   public label = "Animation Duration";
+  public originLabel = this.label;
   public machine_name = "animation_duration";
   public widget: Widget = "time";
   public abstract value: number;
