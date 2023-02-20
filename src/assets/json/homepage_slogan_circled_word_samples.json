@@ -9,15 +9,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "Amethyst"
+        "value": "#9966CC"
       },
       {
         "trait_type": "Border Color",
-        "value": "Amethyst"
+        "value": "#9966CC"
       },
       {
         "trait_type": "Background Color",
-        "value": "Amethyst"
+        "value": "#9966CC"
       },
       {
         "trait_type": "Animation Duration",
@@ -25,11 +25,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "Amethyst"
+        "value": "#9966CC"
       }
     ],
     "link": "#description"
@@ -44,15 +44,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "Persian Pink"
+        "value": "#F77FBE"
       },
       {
         "trait_type": "Border Color",
-        "value": "Persian Pink"
+        "value": "#F77FBE"
       },
       {
         "trait_type": "Background Color",
-        "value": "Persian Pink"
+        "value": "#F77FBE"
       },
       {
         "trait_type": "Animation Duration",
@@ -60,11 +60,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "Persian Pink"
+        "value": "#F77FBE"
       }
     ],
     "link": "#playground"
@@ -79,15 +79,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "Geraldine"
+        "value": "#FB8989"
       },
       {
         "trait_type": "Border Color",
-        "value": "Geraldine"
+        "value": "#FB8989"
       },
       {
         "trait_type": "Background Color",
-        "value": "Geraldine"
+        "value": "#FB8989"
       },
       {
         "trait_type": "Animation Duration",
@@ -95,11 +95,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "Geraldine"
+        "value": "#FB8989"
       }
     ],
     "link": "#stats"
@@ -114,15 +114,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "Atomic Tangerine"
+        "value": "#FF9966"
       },
       {
         "trait_type": "Border Color",
-        "value": "Atomic Tangerine"
+        "value": "#FF9966"
       },
       {
         "trait_type": "Background Color",
-        "value": "Atomic Tangerine"
+        "value": "#FF9966"
       },
       {
         "trait_type": "Animation Duration",
@@ -130,11 +130,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "Atomic Tangerine"
+        "value": "#FF9966"
       }
     ],
     "link": "#help"

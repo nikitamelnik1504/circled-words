@@ -141,11 +141,13 @@
                     <p class="circled-property-field-label m-0">
                       {{ property.label }}
                     </p>
-                    <input
+                    <LvColorpicker
                       v-model="property.value"
-                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
+                      :value="property.value"
+                      :hide-palette="true"
+                      :without-input="true"
+                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center d-flex justify-content-center align-items-center"
                       :disabled="playRunning"
-                      type="text"
                     />
                   </div>
                 </div>
@@ -155,13 +157,15 @@
               class="circled-entity-preview col-11 col-md-8 col-lg-6 col-xxl-6 mx-auto mt-4 mt-sm-0 mb-lg-4 justify-content-center d-flex align-items-center"
             >
               <div>
-                <CircledWord
-                  class="disabled animate__animated animate__zoomIn"
-                  :nft="nft"
-                  :play="playRunning"
-                  locked
-                  @play-finished="onPlayFinished"
-                />
+                <div class="animate__animated animate__zoomIn">
+                  <CircledWord
+                    class="disabled"
+                    :nft="nft"
+                    :play="playRunning"
+                    locked
+                    @play-finished="onPlayFinished"
+                  />
+                </div>
                 <div
                   class="actions d-flex justify-content-center circled-entity-preview-actions my-4 mb-lg-0"
                 >
@@ -199,6 +203,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import LvColorpicker from "lightvue/color-picker";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
@@ -209,12 +214,12 @@ const wordProperties: Ref<NFTMetadata> = ref({
   name: "CircledWord #1",
   attributes: [
     { trait_type: "Animation Type", value: "Fill In" },
-    { trait_type: "Text Color", value: "White" },
-    { trait_type: "Border Color", value: "White" },
-    { trait_type: "Background Color", value: "White" },
+    { trait_type: "Text Color", value: "#ffffff" },
+    { trait_type: "Border Color", value: "#ffffff" },
+    { trait_type: "Background Color", value: "#ffffff" },
     { trait_type: "Animation Duration", value: "1" },
-    { trait_type: "Second Text Color", value: "Black" },
-    { trait_type: "Second Border Color", value: "White" },
+    { trait_type: "Second Text Color", value: "#000000" },
+    { trait_type: "Second Border Color", value: "#000000" },
   ],
 });
 

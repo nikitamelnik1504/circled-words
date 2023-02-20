@@ -95,3 +95,23 @@ html.js {
     }
   }
 }
+
+.lv-overlaypanel {
+  background: #17181c !important;
+
+  .vc-chrome {
+    background: #17181c !important;
+
+    .vc-chrome-body {
+      background: #17181c !important;
+
+      .vc-chrome-fields {
+        .vc-input__input {
+          box-shadow: inset 0 0 0 1px $primary;
+          color: $primary;
+          background: #17181c !important;
+        }
+      }
+    }
+  }
+}

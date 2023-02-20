@@ -1,10 +1,4 @@
-import colors from "@/assets/libraries/colors.json";
-
 type Widget = "select" | "text" | "time";
-
-type TraitKeysMatching<T, V> = {
-  [K in keyof T]-?: T[K] extends V ? K : never;
-}[keyof T];
 
 export interface Property {
   label: string;
@@ -36,11 +30,8 @@ abstract class TextColorProperty implements Property {
   public widget: Widget = "text";
   public abstract value: string;
 
-  public getValue(): { hex: string; name: string } {
-    return {
-      hex: "#" + colors[this.value as TraitKeysMatching<typeof colors, string>],
-      name: this.value,
-    };
+  public getValue() {
+    return this.value;
   }
 }
 
@@ -51,11 +42,8 @@ abstract class BorderColorProperty implements Property {
   public widget: Widget = "text";
   public abstract value: string;
 
-  public getValue(): { hex: string; name: string } {
-    return {
-      hex: "#" + colors[this.value as TraitKeysMatching<typeof colors, string>],
-      name: this.value,
-    };
+  public getValue() {
+    return this.value;
   }
 }
 
@@ -66,11 +54,8 @@ abstract class BackgroundColorProperty implements Property {
   public widget: Widget = "text";
   public abstract value: string;
 
-  public getValue(): { hex: string; name: string } {
-    return {
-      hex: "#" + colors[this.value as TraitKeysMatching<typeof colors, string>],
-      name: this.value,
-    };
+  public getValue() {
+    return this.value;
   }
 }
 
@@ -157,13 +142,13 @@ class FillInNFT extends NFT {
     ],
     [
       new (class extends TextColorProperty {
-        value = "White";
+        value = "#ffffff";
       })(),
       new (class extends BorderColorProperty {
-        value = "White";
+        value = "#ffffff";
       })(),
       new (class extends BackgroundColorProperty {
-        value = "White";
+        value = "#ffffff";
       })(),
     ],
     [
@@ -173,12 +158,12 @@ class FillInNFT extends NFT {
       new (class extends TextColorProperty {
         label = "Second Text Color";
         machine_name = "second_text_color";
-        value = "Black";
+        value = "#000000";
       })(),
       new (class extends BorderColorProperty {
         label = "Second Border Color";
         machine_name = "second_border_color";
-        value = "White";
+        value = "#ffffff";
       })(),
     ],
   ];
