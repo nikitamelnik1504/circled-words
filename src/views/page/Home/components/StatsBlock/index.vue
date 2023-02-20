@@ -1,10 +1,14 @@
 <template>
-  <section id="stats" class="row stats-section pt-4">
+  <section
+    id="stats"
+    ref="section"
+    class="row stats-section pt-4 animate__animated animate__fadeIn"
+  >
     <div class="col-11 m-auto">
       <h3 class="d-inline-block section-title my-3">Stats</h3>
       <div class="row justify-content-between mt-2 mt-md-3">
         <div
-          v-for="(stat, index) in statsData"
+          v-for="(stat, index) in data"
           :key="index"
           class="col-md-6 col-lg-4 stat-item-wrapper mt-lg-0 mx-md-auto mx-lg-0"
           :class="{ 'mt-md-4': index !== 3, 'mt-4': index !== 0 }"
@@ -32,10 +36,18 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
-import StatBlock from "./components/StatBlock.vue";
+export default {
+  name: "StatsBlock",
+};
+</script>
 
-const stats = [
+<script lang="ts" setup>
+import StatBlock from "./components/StatBlock.vue";
+import { ref } from "vue";
+
+const section = ref();
+
+const data = [
   {
     value: 12,
     title: "Words were minted",
@@ -52,18 +64,4 @@ const stats = [
     description: "Match own favourite colors and transitions",
   },
 ];
-
-@Options({
-  name: "StatsBlock",
-  components: {
-    StatBlock,
-  },
-})
-export default class StatsBlock extends Vue {
-  statsData = this.getStatsData();
-
-  getStatsData(): object {
-    return stats;
-  }
-}
 </script>

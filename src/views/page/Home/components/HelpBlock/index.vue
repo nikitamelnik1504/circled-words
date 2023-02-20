@@ -1,10 +1,14 @@
 <template>
-  <section id="help" class="row help-section pt-4">
+  <section
+    id="help"
+    ref="section"
+    class="row help-section pt-4 animate__animated animate__fadeIn"
+  >
     <div class="col-11 m-auto accordion-wrapper">
       <h3 class="d-inline-block section-title my-3">Help</h3>
       <div id="helpAccordion" class="accordion mt-2 mt-md-3">
         <HelpAccordionItem
-          v-for="(item, index) in helpData"
+          v-for="(item, index) in data"
           :key="index"
           :question="item.question"
           :answer="item.answer"
@@ -15,10 +19,18 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
-import HelpAccordionItem from "./components/HelpAccordionItem.vue";
+export default {
+  name: "HelpBlock",
+};
+</script>
 
-const help = [
+<script lang="ts" setup>
+import HelpAccordionItem from "./components/HelpAccordionItem.vue";
+import { ref } from "vue";
+
+const section = ref();
+
+const data = [
   {
     question: "What I can do with NFTs on your site?",
     answer:
@@ -48,18 +60,4 @@ const help = [
       "Join our Discord channel. We will do there all interesting stuff like: CircledWord generation via bot, airdrops and etc. We still working with News page on our site.",
   },
 ];
-
-@Options({
-  name: "HelpBlock",
-  components: {
-    HelpAccordionItem,
-  },
-})
-export default class HelpBlock extends Vue {
-  helpData = this.getHelpData();
-
-  getHelpData(): object {
-    return help;
-  }
-}
 </script>

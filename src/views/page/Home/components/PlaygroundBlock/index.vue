@@ -1,5 +1,9 @@
 <template>
-  <section id="playground" class="row playground-section pt-4">
+  <section
+    id="playground"
+    ref="section"
+    class="row playground-section pt-4 animate__animated animate__fadeIn"
+  >
     <div class="col-11 col-sm-11 m-auto">
       <h3 class="section-title d-inline-block mb-3 text-start">
         How it works?
@@ -32,36 +36,32 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, Watch } from "vue-property-decorator";
+export default {
+  name: "PlaygroundBlock",
+};
+</script>
+
+<script lang="ts" setup>
 import sampleWords from "@/assets/json/homepage_circled_word_samples.json";
 import SampleWord from "./components/SampleWord/index.vue";
+import { ref, watch } from "vue";
 
-@Options({
-  components: {
-    SampleWord,
-  },
-})
-export default class PlaygroundBlock extends Vue {
-  play = true;
-  sampleWordsData = this.getSampleWords();
-  protected finishedSamplePlaysCount = 0;
+const section = ref();
+const play = ref(true);
+const sampleWordsData = sampleWords;
+const finishedSamplePlaysCount = ref(0);
 
-  @Watch("finishedSamplePlaysCount")
-  onFinishedSamplePlaysCountChanged(value: number) {
-    this.play = false;
+const onFinishedSamplePlaysCountChanged = (value: number) => {
+  play.value = false;
 
-    if (value === Object.keys(sampleWords).length) {
-      new Promise((resolve) => {
-        setTimeout(() => (this.play = true), 1000);
-        this.finishedSamplePlaysCount = 0;
-        resolve(true);
-      });
-    }
+  if (value === Object.keys(sampleWordsData).length) {
+    new Promise((resolve) => {
+      setTimeout(() => (play.value = true), 1000);
+      finishedSamplePlaysCount.value = 0;
+      resolve(true);
+    });
   }
+};
 
-  // Warning!!! Especial examples metadata differs from OpenSea.
-  getSampleWords(): object {
-    return sampleWords;
-  }
-}
+watch(finishedSamplePlaysCount, onFinishedSamplePlaysCountChanged);
 </script>

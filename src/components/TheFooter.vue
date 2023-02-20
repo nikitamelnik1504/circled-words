@@ -5,7 +5,7 @@
         <div
           class="col-md-auto col-xl-4 px-lg-5 me-auto mx-lg-auto d-flex align-items-center justify-content-center justify-content-md-start order-1 order-md-0"
         >
-          <h6 class="m-0 copyright">© 2023 CircledWords</h6>
+          <h6 class="m-0 copyright">©2022 CircledWords</h6>
         </div>
         <div
           class="col-md-auto col-xl-4 col-xxl-3 position-relative partners pt-md-1 my-3 my-md-0 order-0 order-md-2"

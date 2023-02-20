@@ -1,5 +1,9 @@
 <template>
-  <section id="description" class="row description-section">
+  <section
+    id="description"
+    ref="section"
+    class="row description-section animate__animated animate__fadeIn"
+  >
     <div class="col-11 col-sm-11 m-auto">
       <h3 class="section-title mb-3 d-inline-block">What is it?</h3>
       <p class="description-text mt-2">
@@ -29,4 +33,10 @@
 export default {
   name: "DescriptionBlock",
 };
+</script>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+
+const section = ref();
 </script>
