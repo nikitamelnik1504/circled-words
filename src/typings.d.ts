@@ -14,8 +14,8 @@ interface NFTMetadata {
   link?: string;
   name: string;
   label?: string;
+  traits?: { trait_type: string; value: string }[];
   attributes: { trait_type: string; value: string }[];
-  traits: { trait_type: string; value: string }[];
 }
 
 // @todo Remove extended ref.

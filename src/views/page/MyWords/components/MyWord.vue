@@ -15,28 +15,25 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService from "@/utils/Service/CircledWordService";
-import { Vue, Options, Prop } from "vue-property-decorator";
 import type { NFT } from "@/utils/Service/CircledWordService";
+import { ref } from "vue";
 
-@Options({
-  components: {
-    CircledWord,
-  },
-})
-export default class MyWord extends Vue {
-  play = false;
-
-  @Prop({ type: Object, required: true }) readonly metadata!: NFTMetadata;
-
-  protected nft: NFT = new CircledWordService().getNft(
-    this.metadata as NFTMetadata
-  ) as NFT;
-
-  onPlayFinished() {
-    this.play = false;
-  }
+interface Props {
+  metadata: NFTMetadata;
 }
+
+const props = defineProps<Props>();
+
+const play = ref(false);
+
+const onPlayFinished = () => {
+  play.value = false;
+};
+
+const nft: NFT = new CircledWordService().getNft(
+  props.metadata as NFTMetadata
+) as NFT;
 </script>

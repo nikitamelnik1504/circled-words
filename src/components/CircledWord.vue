@@ -19,6 +19,11 @@
 import { Vue, Options, Prop, Ref, Watch, Emit } from "vue-property-decorator";
 import type { NFT, SampleNFT } from "@/utils/Service/CircledWordService";
 import { AnimationTypeProperty } from "@/utils/Service/CircledWordService";
+import colors from "@/assets/libraries/colors.json";
+
+type TraitKeysMatching<T, V> = {
+  [K in keyof T]-?: T[K] extends V ? K : never;
+}[keyof T];
 
 @Options({})
 export default class CircledWord extends Vue {
@@ -55,10 +60,18 @@ export default class CircledWord extends Vue {
           continue;
         }
 
-        style["--" + trait.machine_name.replaceAll(/_/g, "-")] =
-          typeof trait.getValue() === "object"
-            ? (trait.getValue() as { hex: string; name: string }).hex
-            : (trait.getValue() as string);
+        let value = trait.getValue() as string;
+
+        // Ethereum NFTs support.
+        if (
+          colors[value as TraitKeysMatching<typeof colors, string>] !==
+          undefined
+        ) {
+          value =
+            "#" + colors[value as TraitKeysMatching<typeof colors, string>];
+        }
+
+        style["--" + trait.machine_name.replaceAll(/_/g, "-")] = value;
       }
     }
 

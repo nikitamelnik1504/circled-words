@@ -49,10 +49,53 @@
         }
 
         .circled-property-field {
+          border-radius: 4px;
           background-color: #51524b;
+          height: 38px;
+
+          @include media-breakpoint-up(md) {
+            height: 54px;
+          }
+
+          @include media-breakpoint-up(lg) {
+            height: 59.5px;
+          }
 
           @include media-breakpoint-up(xxl) {
             max-width: calc(2 * 250px);
+          }
+
+          .property-field-value-wrapper {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+
+            background: #34352d;
+
+            .clr-field {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+
+              & > input {
+                cursor: pointer;
+              }
+
+              & > button {
+                transform: unset;
+                top: 0;
+                background: none;
+                border-radius: 5px;
+                position: relative !important;
+                height: 20px;
+                width: 20px;
+
+                @include media-breakpoint-up(md) {
+                  height: 27.5px;
+                  width: 27.5px;
+                }
+              }
+            }
           }
 
           .circled-property-field-label,
@@ -67,10 +110,9 @@
           }
 
           .circled-property-field-value {
+            background: none;
             outline: none;
-            background-color: #34352d;
             border: none;
-            width: 35%;
             padding: 5px 0;
             transition: all 0.3s ease;
             text-align: -webkit-center;
@@ -101,8 +143,6 @@
           }
 
           .number-type {
-            width: 35%;
-
             input[type="number"] {
               appearance: textfield;
               width: 100%;
@@ -202,6 +242,7 @@
 
       .circled-entity-preview-actions {
         a {
+          border-radius: 4px;
           font-size: 20px;
           color: #ffb229;
           background-color: #34352d;

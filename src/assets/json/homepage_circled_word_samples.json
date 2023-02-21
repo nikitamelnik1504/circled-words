@@ -8,15 +8,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Border Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Background Color",
-        "value": "White"
+        "value": "#FFFFFF"
       },
       {
         "trait_type": "Animation Duration",
@@ -24,11 +24,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "Black"
+        "value": "#000000"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "White"
+        "value": "#FFFFFF"
       }
     ]
   },
@@ -41,15 +41,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "Alabaster"
+        "value": "#FAFAFA"
       },
       {
         "trait_type": "Border Color",
-        "value": "Turquoise"
+        "value": "#30D5C8"
       },
       {
         "trait_type": "Background Color",
-        "value": "Vivid Violet"
+        "value": "#803790"
       },
       {
         "trait_type": "Animation Duration",
@@ -57,11 +57,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "Turquoise"
+        "value": "#30D5C8"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "Vivid Violet"
+        "value": "#803790"
       }
     ]
   },
@@ -74,15 +74,15 @@
       },
       {
         "trait_type": "Text Color",
-        "value": "Turquoise"
+        "value": "#30D5C8"
       },
       {
         "trait_type": "Border Color",
-        "value": "Turquoise"
+        "value": "#30D5C8"
       },
       {
         "trait_type": "Background Color",
-        "value": "Vivid Violet"
+        "value": "#803790"
       },
       {
         "trait_type": "Animation Duration",
@@ -90,11 +90,11 @@
       },
       {
         "trait_type": "Second Text Color",
-        "value": "Turquoise"
+        "value": "#30D5C8"
       },
       {
         "trait_type": "Second Border Color",
-        "value": "Turquoise"
+        "value": "#30D5C8"
       }
     ]
   }

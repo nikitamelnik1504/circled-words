@@ -80,9 +80,9 @@ a {
 
 .animate__animated {
   @include media-breakpoint-down(lg) {
-    transition-property: none !important;
-    transform: none !important;
-    animation: none !important;
+    transition-property: none;
+    transform: none;
+    animation: none;
   }
 }
 
@@ -92,6 +92,25 @@ html.js {
     .animated.animated__active {
       visibility: visible;
       animation-duration: 0ms;
+    }
+  }
+}
+
+.clr-picker.clr-dark {
+  box-shadow:
+    0 11px 15px -7px rgb(0 0 0 / 20%),
+    0 24px 38px 3px rgb(0 0 0 / 14%),
+    0 9px 46px 8px rgb(0 0 0 / 12%);
+  background: #17181c;
+
+  input.clr-color {
+    border-radius: 4px;
+    background-color: #17181c;
+    color: $primary;
+    border-color: $primary;
+
+    &:focus {
+      border-color: $primary;
     }
   }
 }

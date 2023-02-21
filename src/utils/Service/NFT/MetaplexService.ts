@@ -34,16 +34,18 @@ export default class MetaplexService {
     );
   }
 
-  async createNFT(properties: Array<Property>) {
+  async createNFT(properties: Array<Array<Property>>) {
     this.nftStage = "JSON Upload";
 
     const attributes = (() => {
       const result: { trait_type: string; value: string }[] = [];
-      for (const property of properties) {
-        result.push({
-          trait_type: property.label,
-          value: property.value as string,
-        });
+      for (const level_properties of properties) {
+        for (const property of level_properties) {
+          result.push({
+            trait_type: property.label,
+            value: property.value as string,
+          });
+        }
       }
       return result;
     })();
