@@ -167,6 +167,7 @@
                       <input
                         v-model="property.value"
                         type="text"
+                        readonly
                         class="circled-property-field-value w-100 h-100 py-0 text-center color-input position-absolute opacity-0"
                         :disabled="playRunning"
                       />
