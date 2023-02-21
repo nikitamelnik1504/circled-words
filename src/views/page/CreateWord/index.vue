@@ -304,6 +304,7 @@ onMounted(() => {
     el: ".color-input",
     themeMode: "dark",
     alpha: false,
+    focusInput: false,
   });
 });
 
