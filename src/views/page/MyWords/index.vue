@@ -151,29 +151,33 @@ const loadAssetsFromSolana = () => {
 
 const loadAssetsFromEthereum = () => {
   loadStatus.value = "loading";
-  loadAssetsFromOpenSea().then((result) => {
-    result.data.assets.forEach(
-      (item: { traits: Array<{ trait_type: string; value: string }> }) => {
-        // Legacy implementation of Ethereum NFTs.
-        const property_indexes: Record<string, number> = {};
-        for (const [trait_index, trait] of item.traits.entries()) {
-          property_indexes[trait.trait_type] = trait_index;
-        }
+  loadAssetsFromOpenSea()
+    .then((result) => {
+      result.data.assets.forEach(
+        (item: { traits: Array<{ trait_type: string; value: string }> }) => {
+          // Legacy implementation of Ethereum NFTs.
+          const property_indexes: Record<string, number> = {};
+          for (const [trait_index, trait] of item.traits.entries()) {
+            property_indexes[trait.trait_type] = trait_index;
+          }
 
-        item.traits = [
-          item.traits[property_indexes["Animation Type"]],
-          item.traits[property_indexes["Text Color"]],
-          item.traits[property_indexes["Border Color"]],
-          item.traits[property_indexes["Background Color"]],
-          item.traits[property_indexes["Animation Duration"]],
-          item.traits[property_indexes["Second Text Color"]],
-          item.traits[property_indexes["Second Border Color"]],
-        ];
-        assets.value.push(item as never);
-      }
-    );
-    loadStatus.value = "loaded";
-  });
+          item.traits = [
+            item.traits[property_indexes["Animation Type"]],
+            item.traits[property_indexes["Text Color"]],
+            item.traits[property_indexes["Border Color"]],
+            item.traits[property_indexes["Background Color"]],
+            item.traits[property_indexes["Animation Duration"]],
+            item.traits[property_indexes["Second Text Color"]],
+            item.traits[property_indexes["Second Border Color"]],
+          ];
+          assets.value.push(item as never);
+        }
+      );
+      loadStatus.value = "loaded";
+    })
+    .catch(() => {
+      loadAssetsFromOpenSea();
+    });
 };
 
 const loadAssetsFromOpenSea = async () => {
@@ -184,6 +188,7 @@ const loadAssetsFromOpenSea = async () => {
     limit: 50,
     include_orders: false,
   };
+
   let request_string = "";
   for (const param in request_params) {
     if (request_string !== "") {
