@@ -41,114 +41,136 @@
                 >
                   <div
                     v-if="property.widget === 'select'"
-                    class="circled-property-field d-flex mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                    class="circled-property-field mx-auto ps-3 align-items-center justify-content-between row"
                     :class="{ disabled: playRunning }"
                   >
-                    <p class="circled-property-field-label m-0">
-                      {{ property.label }}
-                    </p>
                     <div
-                      class="dropdown circled-property-field-value text-center p-0"
+                      class="col-8 h-100 d-flex align-items-center left-side"
                     >
-                      <input
-                        id="animationType"
-                        v-model="property.value"
-                        class="dropdown-toggle circled-property-field-value w-100 py-2 px-2 py-sm-3 px-md-3 border-0 bg-transparent"
-                        :disabled="playRunning"
-                        type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        name="animation_type"
-                      />
-                      <ul
-                        class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                      <p class="circled-property-field-label m-0">
+                        {{ property.label }}
+                      </p>
+                    </div>
+                    <div class="col-4 px-0 h-100 property-field-value-wrapper">
+                      <div
+                        class="dropdown circled-property-field-value text-center p-0 w-100 h-100 d-flex"
                       >
-                        <li
-                          v-for="(nftType, nftTypeIndex) in nftTypes"
-                          :key="nftTypeIndex"
+                        <input
+                          id="animationType"
+                          v-model="property.value"
+                          class="dropdown-toggle circled-property-field-value w-100 border-0 bg-transparent p-0"
+                          :disabled="playRunning"
+                          type="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          name="animation_type"
+                        />
+                        <ul
+                          class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
                         >
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            @click.prevent="property.value = nftType.type"
+                          <li
+                            v-for="(nftType, nftTypeIndex) in nftTypes"
+                            :key="nftTypeIndex"
                           >
-                            {{ nftType.type }}</a
-                          >
-                        </li>
-                      </ul>
+                            <a
+                              class="dropdown-item"
+                              href="#"
+                              @click.prevent="property.value = nftType.type"
+                            >
+                              {{ nftType.type }}</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   <div
                     v-else-if="property.widget === 'time'"
-                    class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                    class="circled-property-field d-flex mt-2 mx-auto ps-3 align-items-center justify-content-between row"
                     :class="{ disabled: playRunning }"
                   >
-                    <p class="circled-property-field-label m-0">
-                      {{ property.label }}
-                    </p>
-                    <div class="number-type position-relative">
-                      <button
-                        type="button"
-                        class="minus w-25 h-100 position-absolute start-0 d-flex justify-content-center align-items-center"
-                        :class="{ disabled: +property.value === 0.1 }"
-                        :disabled="+property.value === 0.1 || playRunning"
-                        @click="
-                          () => {
-                            property.value = (+property.value - 0.1).toFixed(1);
+                    <div
+                      class="col-8 h-100 d-flex align-items-center left-side"
+                    >
+                      <p class="circled-property-field-label m-0">
+                        {{ property.label }}
+                      </p>
+                    </div>
+                    <div class="col-4 px-0 h-100 property-field-value-wrapper">
+                      <div class="number-type position-relative h-100 d-flex">
+                        <button
+                          type="button"
+                          class="minus w-25 h-100 position-absolute top-0 start-0 d-flex justify-content-center align-items-center"
+                          :class="{ disabled: +property.value === 0.1 }"
+                          :disabled="+property.value === 0.1 || playRunning"
+                          @click="
+                            () => {
+                              property.value = (+property.value - 0.1).toFixed(
+                                1
+                              );
+                              restrictInput(
+                                level,
+                                index,
+                                property.value.toString()
+                              );
+                            }
+                          "
+                        ></button>
+                        <button
+                          type="button"
+                          class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
+                          :class="{ disabled: property.value >= 100 }"
+                          :disabled="+property.value >= 100 || playRunning"
+                          @click="
+                            () => {
+                              property.value = (+property.value + 0.1).toFixed(
+                                1
+                              );
+                              restrictInput(
+                                level,
+                                index,
+                                property.value.toString()
+                              );
+                            }
+                          "
+                        ></button>
+                        <input
+                          v-model="property.value"
+                          class="circled-property-field-value text-center w-100"
+                          :disabled="playRunning"
+                          type="number"
+                          :min="0.1"
+                          :max="100"
+                          :step="0.1"
+                          @input="
                             restrictInput(
                               level,
                               index,
                               property.value.toString()
-                            );
-                          }
-                        "
-                      ></button>
-                      <button
-                        type="button"
-                        class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
-                        :class="{ disabled: property.value >= 100 }"
-                        :disabled="+property.value >= 100 || playRunning"
-                        @click="
-                          () => {
-                            property.value = (+property.value + 0.1).toFixed(1);
-                            restrictInput(
-                              level,
-                              index,
-                              property.value.toString()
-                            );
-                          }
-                        "
-                      ></button>
-                      <input
-                        v-model="property.value"
-                        class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center"
-                        :disabled="playRunning"
-                        type="number"
-                        :min="0.1"
-                        :max="100"
-                        :step="0.1"
-                        @input="
-                          restrictInput(level, index, property.value.toString())
-                        "
-                      />
+                            )
+                          "
+                        />
+                      </div>
                     </div>
                   </div>
                   <div
                     v-else
-                    class="circled-property-field d-flex mt-2 mx-auto ps-3 ps-md-4 align-items-center justify-content-between"
+                    class="circled-property-field row mt-2 mx-auto ps-3 align-items-center justify-content-between"
                     :class="{ disabled: playRunning }"
                   >
-                    <p class="circled-property-field-label m-0">
-                      {{ property.label }}
-                    </p>
-                    <LvColorpicker
-                      v-model="property.value"
-                      :value="property.value"
-                      :hide-palette="true"
-                      :without-input="true"
-                      class="circled-property-field-value py-2 px-2 py-sm-3 px-md-3 text-center d-flex justify-content-center align-items-center"
-                      :disabled="playRunning"
-                    />
+                    <div class="col-8 h-100 d-flex align-items-center">
+                      <p class="circled-property-field-label m-0">
+                        {{ property.label }}
+                      </p>
+                    </div>
+                    <div class="col-4 property-field-value-wrapper px-0 h-100">
+                      <input
+                        v-model="property.value"
+                        type="text"
+                        class="circled-property-field-value w-100 h-100 py-0 text-center color-input position-absolute opacity-0"
+                        :disabled="playRunning"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,18 +219,20 @@
 </template>
 
 <script lang="ts">
+import "@melloware/coloris/dist/coloris.css";
+
 export default {
   name: "CreateWordPage",
 };
 </script>
 
 <script lang="ts" setup>
-import LvColorpicker from "lightvue/color-picker";
 import CircledWord from "@/components/CircledWord.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import type MetaplexService from "@/utils/Service/NFT/MetaplexService";
 import MintLoaderModal from "./components/MintLoaderModal.vue";
-import { inject, ref, watch } from "vue";
+import { inject, onMounted, ref, watch } from "vue";
+import Coloris from "@melloware/coloris";
 
 const wordProperties: Ref<NFTMetadata> = ref({
   name: "CircledWord #1",
@@ -272,6 +296,15 @@ const restrictInput = (
   (nft.value as NFT).properties[property_level][property_index].value =
     updated_string;
 };
+
+onMounted(() => {
+  Coloris.init();
+  Coloris({
+    el: ".color-input",
+    themeMode: "dark",
+    alpha: false,
+  });
+});
 
 watch(
   wordProperties,
