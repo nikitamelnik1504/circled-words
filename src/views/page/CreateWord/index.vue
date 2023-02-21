@@ -41,12 +41,10 @@
                 >
                   <div
                     v-if="property.widget === 'select'"
-                    class="circled-property-field mx-auto ps-3 align-items-center justify-content-between row"
+                    class="circled-property-field mx-auto ps-2 ps-md-3 align-items-center justify-content-between row"
                     :class="{ disabled: playRunning }"
                   >
-                    <div
-                      class="col-8 h-100 d-flex align-items-center left-side"
-                    >
+                    <div class="col-8 h-100 d-flex align-items-center">
                       <p class="circled-property-field-label m-0">
                         {{ property.label }}
                       </p>
@@ -86,12 +84,10 @@
                   </div>
                   <div
                     v-else-if="property.widget === 'time'"
-                    class="circled-property-field d-flex mt-2 mx-auto ps-3 align-items-center justify-content-between row"
+                    class="circled-property-field d-flex mt-2 mx-auto ps-2 ps-md-3 align-items-center justify-content-between row"
                     :class="{ disabled: playRunning }"
                   >
-                    <div
-                      class="col-8 h-100 d-flex align-items-center left-side"
-                    >
+                    <div class="col-8 h-100 d-flex align-items-center">
                       <p class="circled-property-field-label m-0">
                         {{ property.label }}
                       </p>
@@ -155,7 +151,7 @@
                   </div>
                   <div
                     v-else
-                    class="circled-property-field row mt-2 mx-auto ps-3 align-items-center justify-content-between"
+                    class="circled-property-field row mt-2 mx-auto ps-2 ps-md-3 align-items-center justify-content-between"
                     :class="{ disabled: playRunning }"
                   >
                     <div class="col-8 h-100 d-flex align-items-center">
