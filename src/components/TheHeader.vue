@@ -243,14 +243,15 @@ const getStatus = computed(() => store.getters["wallet/getStatus"]);
 
 const router = useRouter();
 
-// @TODO Add Ref<> type declaration.
-const metamaskService = inject("metamaskService");
+const metamaskService = inject<Ref<MetamaskService | false>>("metamaskService");
 
-// @TODO Add Ref<> type declaration.
-const walletConnectService = inject("walletConnectService");
+const walletConnectService = inject<Ref<WalletConnectService | false>>(
+  "walletConnectService"
+);
 
-// @TODO Add Ref<> type declaration.
-const phantomWalletService = inject("phantomWalletService");
+const phantomWalletService = inject<Ref<PhantomWalletService | false>>(
+  "phantomWalletService"
+);
 
 const navbar = ref();
 const toggleNavbar = () => {
