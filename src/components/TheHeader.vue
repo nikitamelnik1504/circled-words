@@ -204,18 +204,25 @@
       </div>
     </nav>
   </header>
-  <WalletModal />
+  <SolanaWalletModal v-if="isSolana" :toggle-wallet-state="toggleWalletState" />
+  <EthereumWalletModal v-else :toggle-wallet-state="toggleWalletState" />
 </template>
 
 <script lang="ts" setup>
 import { computed, inject, isRef, ref } from "vue";
-import WalletModal from "@/components/WalletModal.vue";
+import SolanaWalletModal from "@/components/SolanaWalletModal.vue";
+import EthereumWalletModal from "@/components/EthereumWalletModal.vue";
 import { Collapse } from "bootstrap";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
 import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+
+const isSolana = ref(true);
+const toggleWalletState = () => {
+  isSolana.value = !isSolana.value;
+};
 
 const store = useStore();
 
