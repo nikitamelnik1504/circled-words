@@ -39,11 +39,18 @@ export default class MetaplexService {
 
     const attributes = (() => {
       const result: { trait_type: string; value: string }[] = [];
+
+      const isHexColor = (value: string) => {
+        return /^#[0-9A-F]{6}$/i.test(value);
+      };
+
       for (const level_properties of properties) {
         for (const property of level_properties) {
           result.push({
             trait_type: property.label,
-            value: property.value as string,
+            value: isHexColor(<string>property.value)
+              ? (<string>property.value).toUpperCase()
+              : <string>property.value,
           });
         }
       }
