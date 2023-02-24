@@ -79,7 +79,21 @@ export default class MetaplexService {
   async loadNFTs() {
     return this.metaplex
       .nfts()
-      .findAllByOwner({ owner: this.metaplex.identity().publicKey });
+      .findAllByOwner({ owner: this.metaplex.identity().publicKey })
+      .then((result) => {
+        const nfts = [];
+        for (let i = 0; i < result.length; i++) {
+          // @TODO Implement check for verified collection item.
+          if (
+            result[i].collection !== null &&
+            result[i].collection!.address.toString() ===
+              this.collectionAddress.toString()
+          ) {
+            nfts.push(result[i]);
+          }
+        }
+        return nfts;
+      });
   }
 
   async createCollection() {
