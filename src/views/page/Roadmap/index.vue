@@ -34,13 +34,13 @@
           <div
             v-else
             class="col-md-5 order-2 order-md-0 text-end d-flex align-items-center my-auto image-wrapper"
-            :style="animationStyle(index)"
           >
             <img
               ref="images"
               :src="value.image.src"
               :alt="value.image.alt"
               class="w-100 animate__animated animate__zoomIn"
+              :style="animationStyle(index)"
             />
           </div>
           <div class="col-1 d-none d-md-block text-center">
@@ -67,13 +67,13 @@
           <div
             v-else
             class="col-md-5 d-flex align-items-center my-auto image-wrapper"
-            :style="animationStyle(index)"
           >
             <img
               ref="images"
               :src="value.image.src"
               :alt="value.image.alt"
               class="w-100 animate__animated animate__zoomIn"
+              :style="animationStyle(index)"
             />
           </div>
         </div>
