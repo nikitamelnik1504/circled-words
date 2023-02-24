@@ -89,7 +89,8 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import roadmapCreateWordImage from "@/assets/images/roadmap-create-word.png";
+import roadmapCreateWordImageV1 from "@/assets/images/roadmap-create-word-V1.png";
+import roadmapCreateWordImageV2 from "@/assets/images/roadmap-create-word-V2.png";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const animationDelay = 0.1;
@@ -117,7 +118,7 @@ const data = [
     image: {
       width: 3360,
       height: 1878,
-      src: roadmapCreateWordImage,
+      src: roadmapCreateWordImageV1,
       alt: "roadmap-create-word-v2",
     },
   },
@@ -135,7 +136,7 @@ const data = [
     image: {
       width: 3360,
       height: 1878,
-      src: roadmapCreateWordImage,
+      src: roadmapCreateWordImageV2,
       alt: "roadmap-create-word-v2",
     },
   },
@@ -152,7 +153,7 @@ const data = [
     image: {
       width: 3360,
       height: 1878,
-      src: roadmapCreateWordImage,
+      src: roadmapCreateWordImageV1,
       alt: "roadmap-create-word-v2",
     },
   },
@@ -170,7 +171,7 @@ const data = [
     image: {
       width: 3360,
       height: 1878,
-      src: roadmapCreateWordImage,
+      src: roadmapCreateWordImageV1,
       alt: "roadmap-create-word-v2",
     },
   },
@@ -186,7 +187,7 @@ const data = [
     image: {
       width: 3360,
       height: 1878,
-      src: roadmapCreateWordImage,
+      src: roadmapCreateWordImageV1,
       alt: "roadmap-create-word-v2",
     },
   },
