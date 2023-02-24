@@ -77,9 +77,9 @@ export default class MetaplexService {
   }
 
   async loadNFTs() {
-    await this.metaplex
+    return this.metaplex
       .nfts()
-      .findAllByCreator({ creator: this.metaplex.identity().publicKey });
+      .findAllByOwner({ owner: this.metaplex.identity().publicKey });
   }
 
   async createCollection() {

@@ -100,7 +100,7 @@ const walletConnectService = inject<Ref<WalletConnectService | false>>(
 
 const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
 
-const assets = ref([]);
+const assets = ref<Array<NFTMetadata>>([]);
 
 const loadStatus = ref("not_loaded");
 
@@ -142,11 +142,19 @@ const onMetaplexConnected = (newValue: unknown) => {
   }
 };
 
-const loadAssetsFromSolana = () => {
+const loadAssetsFromSolana = async () => {
   loadStatus.value = "loading";
-  (metaplexService?.value as MetaplexService).loadNFTs().then(() => {
-    loadStatus.value = "loaded";
-  });
+  (metaplexService?.value as MetaplexService)
+    .loadNFTs()
+    .then(async (result) => {
+      for await (const nft of result) {
+        const json = await fetch(nft.uri).then(
+          async (result) => await result.json()
+        );
+        assets.value.push(json);
+      }
+      loadStatus.value = "loaded";
+    });
 };
 
 const loadAssetsFromEthereum = () => {
