@@ -59,9 +59,9 @@
           </div>
           <div v-else class="row h-100">
             <div
-              class="col-12 h-100 d-flex align-items-center justify-content-center animate__animated animate__pulse animate__infinite"
+              class="col-12 h-100 d-flex align-items-center justify-content-center animate__animated animate__fadeIn"
             >
-              <h3 class="animate__animated animate__fadeIn">Loading...</h3>
+              <h3 class="animate__animated animate__pulse animate__infinite">Loading...</h3>
             </div>
           </div>
         </div>
