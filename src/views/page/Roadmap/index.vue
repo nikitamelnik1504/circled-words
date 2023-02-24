@@ -184,7 +184,11 @@ const data = [
 
 const setImageWrapperHeight = () => {
   for (const [key, image] of images.value.entries()) {
-    const image_ratio = data[key].image.width / data[key].image.height;
+    if (data[key].image === null) {
+      continue;
+    }
+
+    const image_ratio = data[key].image!.width / data[key].image!.height;
     image.parentElement!.style.height =
       image.parentElement!.offsetWidth / image_ratio + "px";
   }
