@@ -204,8 +204,17 @@
       </div>
     </nav>
   </header>
-  <SolanaWalletModal v-if="isSolana" :toggle-wallet-state="toggleWalletState" />
-  <EthereumWalletModal v-else :toggle-wallet-state="toggleWalletState" />
+  <div
+    id="connectWalletModal"
+    ref="connectWalletModal"
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <SolanaWalletModal v-if="isSolana" :toggle-wallet-state="toggleWalletState" />
+    <EthereumWalletModal v-else :toggle-wallet-state="toggleWalletState" />
+  </div>
 </template>
 
 <script lang="ts" setup>

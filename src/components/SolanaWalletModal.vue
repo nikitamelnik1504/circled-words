@@ -1,13 +1,5 @@
 <template>
   <div
-    id="connectWalletModal"
-    ref="connectWalletModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div
       class="modal-dialog position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center"
     >
       <div class="modal-content px-md-3">
@@ -82,7 +74,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts" setup>
