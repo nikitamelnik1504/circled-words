@@ -33,9 +33,11 @@
           </div>
           <div
             v-else
-            class="col-md-5 order-2 order-md-0 text-end d-flex align-items-center my-auto image-wrapper"
+            class="col-md-5 order-2 order-md-0 text-end d-flex align-items-center my-auto"
+            :class="{ 'image-wrapper': value.image }"
           >
             <img
+              v-if="value.image"
               ref="images"
               :src="value.image.src"
               :alt="value.image.alt"
@@ -66,9 +68,11 @@
           </div>
           <div
             v-else
-            class="col-md-5 d-flex align-items-center my-auto image-wrapper"
+            class="col-md-5 d-flex align-items-center my-auto"
+            :class="{ 'image-wrapper': value.image }"
           >
             <img
+              v-if="value.image"
               ref="images"
               :src="value.image.src"
               :alt="value.image.alt"
@@ -119,7 +123,7 @@ const data = [
       width: 3360,
       height: 1878,
       src: roadmapCreateWordImageV1,
-      alt: "roadmap-create-word-v2",
+      alt: "roadmap-create-word-v1",
     },
   },
   {
@@ -150,12 +154,7 @@ const data = [
       "Enabled Search page with information about owners, mint and properties.",
       "Connected Solflare and many of Solana based wallets.",
     ],
-    image: {
-      width: 3360,
-      height: 1878,
-      src: roadmapCreateWordImageV1,
-      alt: "roadmap-create-word-v2",
-    },
+    image: null,
   },
   {
     quarter: "Q4 2023",
@@ -168,12 +167,7 @@ const data = [
       "Created partnership premium NFTs, collaborations.",
       "Enabled rewards for NFT (crafted Circled, not inventory items) holdings.",
     ],
-    image: {
-      width: 3360,
-      height: 1878,
-      src: roadmapCreateWordImageV1,
-      alt: "roadmap-create-word-v2",
-    },
+    image: null,
   },
   {
     quarter: "Q1 2024",
@@ -184,12 +178,7 @@ const data = [
       "Removed WalletConnect implementation. For Metamask owners that did mint of NFTs from OpenSea - functionallity still available.",
       "Implemented possibility to place Circled you own on your site out of circledwords.io. (Something like watermark, iframe implementation)",
     ],
-    image: {
-      width: 3360,
-      height: 1878,
-      src: roadmapCreateWordImageV1,
-      alt: "roadmap-create-word-v2",
-    },
+    image: null,
   },
 ];
 
