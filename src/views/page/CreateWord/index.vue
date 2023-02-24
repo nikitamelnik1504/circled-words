@@ -199,7 +199,7 @@
                   >
                   <a
                     href="#"
-                    class="py-3 text-center text-decoration-none w-50 mint-action animate__animated animate__fadeInUp disabled pe-none"
+                    class="py-3 text-center text-decoration-none w-50 mint-action animate__animated animate__fadeInUp"
                     :class="{ disabled: mintRunning || !metaplexService }"
                     @click.prevent="() => (mintRunning ? undefined : mint())"
                     >Mint</a
