@@ -10,7 +10,7 @@
         <div
           v-for="(value, index) in data"
           :key="index"
-          class="row mt-2 mt-md-5 justify-content-center"
+          class="row mt-4 mt-md-5 justify-content-center"
           :class="{ 'mt-md-5': index === 0 }"
         >
           <div
@@ -33,7 +33,7 @@
           </div>
           <div
             v-else
-            class="col-md-5 text-end d-flex align-items-center my-auto image-wrapper"
+            class="col-md-5 order-2 order-md-0 text-end d-flex align-items-center my-auto image-wrapper"
             :style="animationStyle(index)"
           >
             <img
