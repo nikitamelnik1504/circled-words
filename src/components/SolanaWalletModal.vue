@@ -1,10 +1,9 @@
 <template>
   <div
     id="connectSolanaWalletModal"
-    ref="connectSolanaWalletModal"
     class="modal fade"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="connectSolanaWalletModal"
     aria-hidden="true"
   >
     <div
@@ -12,7 +11,7 @@
     >
       <div class="modal-content px-md-3">
         <div class="modal-header justify-content-center">
-          <h5 id="exampleModalLabel" class="modal-title">Select your wallet</h5>
+          <h5 id="modalLabel" class="modal-title">Select your wallet</h5>
           <button
             ref="closeWalletModal"
             type="button"
@@ -38,7 +37,7 @@
                           phantomWalletService ? '#' : 'https://phantom.app'
                         "
                         class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2"
-                        @click="showPhantomWalletModal($event)"
+                        @click.prevent="showPhantomWalletModal()"
                       >
                         <div
                           class="image-wrapper d-flex justify-content-center py-2"
@@ -81,7 +80,6 @@
             class="px-5 py-2"
             data-bs-toggle="modal"
             data-bs-target="#connectEthereumWalletModal"
-            @click="props.toggleWalletState()"
           >
             I'm Ethereum user
           </button>
@@ -95,12 +93,6 @@
 import type PhantomWalletService from "@/utils/Service/PhantomWalletService";
 import { ref, inject } from "vue";
 
-interface Props {
-  toggleWalletState: void;
-}
-
-const props = defineProps<Props>();
-
 const phantomWalletService = inject<Ref<PhantomWalletService | false>>(
   "phantomWalletService"
 );
@@ -111,12 +103,11 @@ const walletEvents = inject("walletEvents", {
 
 const closeWalletModal = ref<HTMLButtonElement | null>(null);
 
-const showPhantomWalletModal = async (event: Event) => {
+const showPhantomWalletModal = async () => {
   if (!phantomWalletService?.value) {
     return;
   }
 
-  event.preventDefault();
   const connectionToPhantomWallet = await phantomWalletService.value.connect();
   if (connectionToPhantomWallet === "connected") {
     phantomWalletService.value.addEventsGroup(walletEvents.phantomWallet);

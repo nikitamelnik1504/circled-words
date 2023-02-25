@@ -163,11 +163,7 @@
                 href="#"
                 class="px-3 py-2 ms-auto"
                 data-bs-toggle="modal"
-                :data-bs-target="
-                  isSolana
-                    ? '#connectSolanaWalletModal'
-                    : '#connectEthereumWalletModal'
-                "
+                data-bs-target="#connectSolanaWalletModal"
               >
                 Connect Wallet
               </button>
@@ -212,8 +208,8 @@
       </div>
     </nav>
   </header>
-  <SolanaWalletModal :toggle-wallet-state="toggleWalletState" />
-  <EthereumWalletModal :toggle-wallet-state="toggleWalletState" />
+  <SolanaWalletModal />
+  <EthereumWalletModal />
 </template>
 
 <script lang="ts" setup>
@@ -226,11 +222,6 @@ import WalletConnectService from "@/utils/Service/WalletConnectService";
 import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-
-const isSolana = ref(true);
-const toggleWalletState = () => {
-  isSolana.value = !isSolana.value;
-};
 
 const store = useStore();
 

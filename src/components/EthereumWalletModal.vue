@@ -1,10 +1,9 @@
 <template>
   <div
     id="connectEthereumWalletModal"
-    ref="connectEthereumWalletModal"
     class="modal fade"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="connectEthereumWalletModal"
     aria-hidden="true"
   >
     <div
@@ -12,7 +11,7 @@
     >
       <div class="modal-content px-md-3">
         <div class="modal-header justify-content-center">
-          <h5 id="exampleModalLabel" class="modal-title">Select your wallet</h5>
+          <h5 id="modalLabel" class="modal-title">Select your wallet</h5>
           <button
             ref="closeWalletModal"
             type="button"
@@ -40,7 +39,7 @@
                             : 'https://metamask.io/download/'
                         "
                         class="wallet-link metamask-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative py-2"
-                        @click="showMetamaskModal($event)"
+                        @click.prevent="showMetamaskModal()"
                       >
                         <!--            <span class="position-absolute wallet-network-error-background"-->
                         <!--                 ></span>-->
@@ -93,7 +92,6 @@
             class="px-5 py-2"
             data-bs-toggle="modal"
             data-bs-target="#connectSolanaWalletModal"
-            @click="props.toggleWalletState()"
           >
             I'm Solana user
           </button>
@@ -107,12 +105,6 @@
 import type MetamaskService from "@/utils/Service/MetamaskService";
 import type WalletConnectService from "@/utils/Service/WalletConnectService";
 import { ref, inject } from "vue";
-
-interface Props {
-  toggleWalletState: void;
-}
-
-const props = defineProps<Props>();
 
 const metamaskService = inject<Ref<MetamaskService | false>>("metamaskService");
 
@@ -139,12 +131,11 @@ const showWalletConnectModal = async (): Promise<void> => {
   }
 };
 
-const showMetamaskModal = async (event: Event): Promise<void> => {
+const showMetamaskModal = async (): Promise<void> => {
   if (!metamaskService?.value) {
     return;
   }
 
-  event.preventDefault();
   const connectionToMetamask = await metamaskService.value.connect();
   if (connectionToMetamask === "connected") {
     metamaskService.value.addEventsGroup(walletEvents.metamask);
