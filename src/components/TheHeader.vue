@@ -121,11 +121,7 @@
                     href="#"
                     class="nav-link px-3 me-sm-4 ms-auto"
                     data-bs-toggle="modal"
-                    :data-bs-target="
-                      isSolana
-                        ? '#connectSolanaWalletModal'
-                        : '#connectEthereumWalletModal'
-                    "
+                    data-bs-target="#connectSolanaWalletModal"
                   >
                     Connect Wallet
                   </button>

@@ -4,7 +4,7 @@
 
     .modal-content {
       background-color: #17181c;
-      border: solid 1px #51524b;
+      border: solid 1px #34352d;
       border-radius: 4px;
       width: 92%;
 
@@ -14,29 +14,46 @@
 
       .modal-header {
         border: none;
-
-        .modal-title {
-          font-size: 26px;
-          color: #f1f2f2;
-        }
       }
 
       .modal-body {
         .blockchain-wrapper {
           .wallet-links-wrapper {
-            border: solid 1px #51524b;
+            border: solid 1px #34352d;
             border-radius: 4px;
 
             .blockchain-title {
-              font-size: 18px;
+              font-size: 21px;
+
+              span {
+                font-size: 14px;
+              }
 
               &.solana {
-                color: #f1f2f2;
+                background:
+                  linear-gradient(
+                    90deg,
+                    rgb(153 69 255 / 100%) 0%,
+                    rgb(20 241 149 / 100%) 80%
+                  );
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+              }
+
+              &.ethereum {
+                background:
+                  linear-gradient(
+                    90deg,
+                    rgb(136 147 178 / 100%) 0%,
+                    rgb(67 74 118 / 100%) 100%
+                  );
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
               }
             }
 
             .wallet-link {
-              border: solid 1px #51524b;
+              border: solid 1px #34352d;
               border-radius: 4px;
               max-width: 340px;
               text-decoration: none;

@@ -9,7 +9,7 @@
     <div
       class="modal-dialog position-absolute top-0 bottom-0 start-0 end-0 d-flex justify-content-center align-items-center"
     >
-      <div class="modal-content px-md-3">
+      <div class="modal-content">
         <div class="modal-header justify-content-center">
           <h5 id="modalLabel" class="modal-title">Select your wallet</h5>
           <button
@@ -20,16 +20,18 @@
             aria-label="Close"
           />
         </div>
-        <div class="modal-body d-flex justify-content-center">
+        <div class="modal-body d-flex justify-content-center py-0">
           <div class="row flex-column flex-sm-row w-100">
             <div class="blockchain-wrapper">
               <div class="row text-center h-100">
-                <div class="col-sm-11 wallet-links-wrapper mx-auto p-3 p-sm-4">
+                <div
+                  class="col-sm-11 wallet-links-wrapper mx-auto p-3 px-sm-4 pb-sm-4"
+                >
                   <div class="row">
                     <div class="mb-2">
-                      <h3 class="blockchain-title solana">
-                        Solana<br />(recommended)
-                      </h3>
+                      <h6 class="blockchain-title solana d-inline-block">
+                        Solana
+                      </h6>
                     </div>
                     <div class="col-6 mx-auto">
                       <a
@@ -75,14 +77,13 @@
           </div>
         </div>
         <div class="modal-footer justify-content-center">
-          <button
-            type="button"
-            class="px-5 py-2"
+          <a
+            href="#"
             data-bs-toggle="modal"
             data-bs-target="#connectEthereumWalletModal"
           >
             I'm Ethereum user
-          </button>
+          </a>
         </div>
       </div>
     </div>
