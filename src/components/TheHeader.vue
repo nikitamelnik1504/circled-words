@@ -121,7 +121,7 @@
                     href="#"
                     class="nav-link px-3 me-sm-4 ms-auto"
                     data-bs-toggle="modal"
-                    data-bs-target="#connectWalletModal"
+                    data-bs-target="#connectSolanaWalletModal"
                   >
                     Connect Wallet
                   </button>
@@ -159,7 +159,7 @@
                 href="#"
                 class="px-3 py-2 ms-auto"
                 data-bs-toggle="modal"
-                data-bs-target="#connectWalletModal"
+                data-bs-target="#connectSolanaWalletModal"
               >
                 Connect Wallet
               </button>
@@ -204,12 +204,14 @@
       </div>
     </nav>
   </header>
-  <WalletModal />
+  <SolanaWalletModal />
+  <EthereumWalletModal />
 </template>
 
 <script lang="ts" setup>
 import { computed, inject, isRef, ref } from "vue";
-import WalletModal from "@/components/WalletModal.vue";
+import SolanaWalletModal from "@/components/SolanaWalletModal.vue";
+import EthereumWalletModal from "@/components/EthereumWalletModal.vue";
 import { Collapse } from "bootstrap";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
