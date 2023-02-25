@@ -39,11 +39,18 @@ export default class MetaplexService {
 
     const attributes = (() => {
       const result: { trait_type: string; value: string }[] = [];
+
+      const isHexColor = (value: string) => {
+        return /^#[0-9A-F]{6}$/i.test(value);
+      };
+
       for (const level_properties of properties) {
         for (const property of level_properties) {
           result.push({
             trait_type: property.label,
-            value: property.value as string,
+            value: isHexColor(<string>property.value)
+              ? (<string>property.value).toUpperCase()
+              : <string>property.value,
           });
         }
       }
@@ -77,9 +84,23 @@ export default class MetaplexService {
   }
 
   async loadNFTs() {
-    await this.metaplex
+    return this.metaplex
       .nfts()
-      .findAllByCreator({ creator: this.metaplex.identity().publicKey });
+      .findAllByOwner({ owner: this.metaplex.identity().publicKey })
+      .then((result) => {
+        const nfts = [];
+        for (let i = 0; i < result.length; i++) {
+          // @TODO Implement check for verified collection item.
+          if (
+            result[i].collection !== null &&
+            result[i].collection!.address.toString() ===
+              this.collectionAddress.toString()
+          ) {
+            nfts.push(result[i]);
+          }
+        }
+        return nfts;
+      });
   }
 
   async createCollection() {

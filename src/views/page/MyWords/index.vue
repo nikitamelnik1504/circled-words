@@ -50,16 +50,20 @@
                 <div
                   class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
                 >
-                  <h3>You don't have any Circled</h3>
+                  <h3 class="animate__animated animate__headShake">
+                    You don't have any Circled
+                  </h3>
                 </div>
               </div>
             </div>
           </div>
           <div v-else class="row h-100">
             <div
-              class="col-12 h-100 d-flex align-items-center justify-content-center animate__animated animate__pulse animate__infinite"
+              class="col-12 h-100 d-flex align-items-center justify-content-center"
             >
-              <h3 class="animate__animated animate__fadeIn">Loading...</h3>
+              <h3 class="animate__animated animate__pulse animate__infinite">
+                Loading...
+              </h3>
             </div>
           </div>
         </div>
@@ -100,7 +104,7 @@ const walletConnectService = inject<Ref<WalletConnectService | false>>(
 
 const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
 
-const assets = ref([]);
+const assets = ref<Array<NFTMetadata>>([]);
 
 const loadStatus = ref("not_loaded");
 
@@ -142,11 +146,19 @@ const onMetaplexConnected = (newValue: unknown) => {
   }
 };
 
-const loadAssetsFromSolana = () => {
+const loadAssetsFromSolana = async () => {
   loadStatus.value = "loading";
-  (metaplexService?.value as MetaplexService).loadNFTs().then(() => {
-    loadStatus.value = "loaded";
-  });
+  (metaplexService?.value as MetaplexService)
+    .loadNFTs()
+    .then(async (result) => {
+      for await (const nft of result) {
+        const json = await fetch(nft.uri).then(
+          async (result) => await result.json()
+        );
+        assets.value.push(json);
+      }
+      loadStatus.value = "loaded";
+    });
 };
 
 const loadAssetsFromEthereum = () => {

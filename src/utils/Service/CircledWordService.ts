@@ -142,13 +142,13 @@ class FillInNFT extends NFT {
     ],
     [
       new (class extends TextColorProperty {
-        value = "#ffffff";
+        value = "#FFFFFF";
       })(),
       new (class extends BorderColorProperty {
-        value = "#ffffff";
+        value = "#FFFFFF";
       })(),
       new (class extends BackgroundColorProperty {
-        value = "#ffffff";
+        value = "#FFFFFF";
       })(),
     ],
     [
@@ -163,7 +163,7 @@ class FillInNFT extends NFT {
       new (class extends BorderColorProperty {
         label = "Second Border Color";
         machine_name = "second_border_color";
-        value = "#ffffff";
+        value = "#FFFFFF";
       })(),
     ],
   ];

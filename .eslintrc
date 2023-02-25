@@ -11,7 +11,8 @@
   ],
   "ignorePatterns": ["src/assets/libraries"],
   "rules": {
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   },
   "parser": "vue-eslint-parser",
   "parserOptions": {

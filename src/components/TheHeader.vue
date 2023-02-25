@@ -106,15 +106,6 @@
                     <li class="ms-3">
                       <a
                         class="social-link d-flex justify-content-center align-items-center"
-                        href="https://opensea.io/CircledWordsCompany"
-                        target="_blank"
-                      >
-                        <img src="../assets/images/opensea.svg" alt="opensea" />
-                      </a>
-                    </li>
-                    <li class="ms-3">
-                      <a
-                        class="social-link d-flex justify-content-center align-items-center"
                         href="https://discord.com/invite/reRdPWgeh3"
                         target="_blank"
                       >
@@ -130,7 +121,7 @@
                     href="#"
                     class="nav-link px-3 me-sm-4 ms-auto"
                     data-bs-toggle="modal"
-                    data-bs-target="#connectWalletModal"
+                    data-bs-target="#connectSolanaWalletModal"
                   >
                     Connect Wallet
                   </button>
@@ -168,7 +159,7 @@
                 href="#"
                 class="px-3 py-2 ms-auto"
                 data-bs-toggle="modal"
-                data-bs-target="#connectWalletModal"
+                data-bs-target="#connectSolanaWalletModal"
               >
                 Connect Wallet
               </button>
@@ -197,17 +188,6 @@
                 />
               </a>
               <a
-                href="https://opensea.io/collection/circledwords"
-                class="social-link d-flex justify-content-center align-items-center ms-sm-3"
-                target="_blank"
-              >
-                <img
-                  class="w-100"
-                  src="../assets/images/opensea.svg"
-                  alt="OpenSea"
-                />
-              </a>
-              <a
                 href="https://discord.gg/8kE75RdUDh"
                 class="social-link d-flex justify-content-center align-items-center ms-sm-3"
                 target="_blank"
@@ -224,12 +204,14 @@
       </div>
     </nav>
   </header>
-  <WalletModal />
+  <SolanaWalletModal />
+  <EthereumWalletModal />
 </template>
 
 <script lang="ts" setup>
 import { computed, inject, isRef, ref } from "vue";
-import WalletModal from "@/components/WalletModal.vue";
+import SolanaWalletModal from "@/components/SolanaWalletModal.vue";
+import EthereumWalletModal from "@/components/EthereumWalletModal.vue";
 import { Collapse } from "bootstrap";
 import MetamaskService from "@/utils/Service/MetamaskService";
 import WalletConnectService from "@/utils/Service/WalletConnectService";
@@ -243,14 +225,15 @@ const getStatus = computed(() => store.getters["wallet/getStatus"]);
 
 const router = useRouter();
 
-// @TODO Add Ref<> type declaration.
-const metamaskService = inject("metamaskService");
+const metamaskService = inject<Ref<MetamaskService | false>>("metamaskService");
 
-// @TODO Add Ref<> type declaration.
-const walletConnectService = inject("walletConnectService");
+const walletConnectService = inject<Ref<WalletConnectService | false>>(
+  "walletConnectService"
+);
 
-// @TODO Add Ref<> type declaration.
-const phantomWalletService = inject("phantomWalletService");
+const phantomWalletService = inject<Ref<PhantomWalletService | false>>(
+  "phantomWalletService"
+);
 
 const navbar = ref();
 const toggleNavbar = () => {

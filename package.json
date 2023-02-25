@@ -1,6 +1,6 @@
 {
   "name": "circledwords",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "productName": "CircledWords",
   "description": "Web3 app that allows you to create your own Circled",
   "repository": {
@@ -52,6 +52,7 @@
     "bootstrap": "^5.1.3",
     "ethers": "^5.6.4",
     "graphql": "^16.6.0",
+    "invert-color": "^2.0.0",
     "s-vuex-class": "^0.4.1",
     "stylelint-config-recommended": "^8.0.0",
     "stylelint-config-standard": "^26.0.0",

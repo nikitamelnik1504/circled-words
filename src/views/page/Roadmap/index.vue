@@ -10,16 +10,13 @@
         <div
           v-for="(value, index) in data"
           :key="index"
-          class="row mt-2 mt-md-0 justify-content-center"
+          class="row mt-4 mt-md-5 justify-content-center"
           :class="{ 'mt-md-5': index === 0 }"
         >
           <div
             v-if="(index + 2) % 2 === 0"
-            class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft"
-            :style="{
-              '-webkit-animation-delay': index * 0.1 + 's',
-              'animation-delay': index * 0.1 + 's',
-            }"
+            class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft my-auto"
+            :style="animationStyle(index)"
           >
             <h4 class="mb-0">{{ value.quarter }}</h4>
             <span v-if="value.active" class="indicator d-block">Current</span>
@@ -34,19 +31,27 @@
               </li>
             </ul>
           </div>
-          <div v-else class="col-5" />
-
+          <div
+            v-else
+            class="col-md-5 order-2 order-md-0 text-end d-flex align-items-center my-auto"
+            :class="{ 'image-wrapper': value.image }"
+          >
+            <img
+              v-if="value.image"
+              ref="images"
+              :src="value.image.src"
+              :alt="value.image.alt"
+              class="w-100 animate__animated animate__zoomIn"
+              :style="animationStyle(index)"
+            />
+          </div>
           <div class="col-1 d-none d-md-block text-center">
             <div class="vr" style="height: 100%"></div>
           </div>
-
           <div
             v-if="(index + 2) % 2 !== 0"
-            class="col-md-5 text-start animate__animated animate__fadeInRight"
-            :style="{
-              '-webkit-animation-delay': index * 0.1 + 's',
-              'animation-delay': index * 0.1 + 's',
-            }"
+            class="col-md-5 text-start animate__animated animate__fadeInRight my-auto"
+            :style="animationStyle(index)"
           >
             <h4 class="mb-0">{{ value.quarter }}</h4>
             <span v-if="value.active" class="indicator d-block">Current</span>
@@ -61,7 +66,20 @@
               </li>
             </ul>
           </div>
-          <div v-else class="col-5" />
+          <div
+            v-else
+            class="col-md-5 d-flex align-items-center my-auto"
+            :class="{ 'image-wrapper': value.image }"
+          >
+            <img
+              v-if="value.image"
+              ref="images"
+              :src="value.image.src"
+              :alt="value.image.alt"
+              class="w-100 animate__animated animate__zoomIn"
+              :style="animationStyle(index)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -75,6 +93,20 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import roadmapCreateWordImageV1 from "@/assets/images/roadmap-create-word-V1.png";
+import roadmapCreateWordImageV2 from "@/assets/images/roadmap-create-word-V2.png";
+import { onMounted, onUnmounted, ref } from "vue";
+
+const animationDelay = 0.1;
+const animationStyle = (index: number) => {
+  return {
+    "-webkit-animation-delay": index * animationDelay + "s",
+    "animation-delay": index * animationDelay + "s",
+  };
+};
+
+const images = ref<Array<HTMLImageElement>>([]);
+
 const data = [
   {
     quarter: "Q1 2023",
@@ -87,6 +119,12 @@ const data = [
       "Redesigned “Homepage”.",
       "Added new animations across the site.",
     ],
+    image: {
+      width: 3360,
+      height: 1878,
+      src: roadmapCreateWordImageV1,
+      alt: "roadmap-create-word-v1",
+    },
   },
   {
     quarter: "Q2 2023",
@@ -99,6 +137,12 @@ const data = [
       "Added Circled preview functionality in “My Words” page.",
       "Unlocked “Inventory” page.",
     ],
+    image: {
+      width: 3360,
+      height: 1878,
+      src: roadmapCreateWordImageV2,
+      alt: "roadmap-create-word-v2",
+    },
   },
   {
     quarter: "Q3 2023",
@@ -110,6 +154,7 @@ const data = [
       "Enabled Search page with information about owners, mint and properties.",
       "Connected Solflare and many of Solana based wallets.",
     ],
+    image: null,
   },
   {
     quarter: "Q4 2023",
@@ -122,6 +167,7 @@ const data = [
       "Created partnership premium NFTs, collaborations.",
       "Enabled rewards for NFT (crafted Circled, not inventory items) holdings.",
     ],
+    image: null,
   },
   {
     quarter: "Q1 2024",
@@ -132,6 +178,28 @@ const data = [
       "Removed WalletConnect implementation. For Metamask owners that did mint of NFTs from OpenSea - functionallity still available.",
       "Implemented possibility to place Circled you own on your site out of circledwords.io. (Something like watermark, iframe implementation)",
     ],
+    image: null,
   },
 ];
+
+const setImageWrapperHeight = () => {
+  for (const [key, image] of images.value.entries()) {
+    if (data[key].image === null) {
+      continue;
+    }
+
+    const image_ratio = data[key].image!.width / data[key].image!.height;
+    image.parentElement!.style.height =
+      image.parentElement!.offsetWidth / image_ratio + "px";
+  }
+};
+
+onMounted(() => {
+  setImageWrapperHeight();
+  window.addEventListener("resize", setImageWrapperHeight);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", setImageWrapperHeight);
+});
 </script>

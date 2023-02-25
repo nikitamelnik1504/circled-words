@@ -27,7 +27,6 @@
               ref="carouselItems"
               class="carousel-item col-12 col-lg-6 col-xl-4 px-4 d-block me-0"
               :class="{ active: level === 0 }"
-              style=""
             >
               <LevelBlock :level="level + 1" :properties="level_properties" />
             </div>
