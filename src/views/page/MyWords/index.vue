@@ -50,7 +50,9 @@
                 <div
                   class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
                 >
-                  <h3>You don't have any Circled</h3>
+                  <h3 class="animate__animated animate__headShake">
+                    You don't have any Circled
+                  </h3>
                 </div>
               </div>
             </div>
