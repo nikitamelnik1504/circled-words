@@ -106,15 +106,6 @@
                     <li class="ms-3">
                       <a
                         class="social-link d-flex justify-content-center align-items-center"
-                        href="https://opensea.io/CircledWordsCompany"
-                        target="_blank"
-                      >
-                        <img src="../assets/images/opensea.svg" alt="opensea" />
-                      </a>
-                    </li>
-                    <li class="ms-3">
-                      <a
-                        class="social-link d-flex justify-content-center align-items-center"
                         href="https://discord.com/invite/reRdPWgeh3"
                         target="_blank"
                       >
@@ -194,17 +185,6 @@
                   class="w-100"
                   src="../assets/images/twitter.svg"
                   alt="Twitter"
-                />
-              </a>
-              <a
-                href="https://opensea.io/collection/circledwords"
-                class="social-link d-flex justify-content-center align-items-center ms-sm-3"
-                target="_blank"
-              >
-                <img
-                  class="w-100"
-                  src="../assets/images/opensea.svg"
-                  alt="OpenSea"
                 />
               </a>
               <a
