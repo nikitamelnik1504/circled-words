@@ -121,7 +121,11 @@
                     href="#"
                     class="nav-link px-3 me-sm-4 ms-auto"
                     data-bs-toggle="modal"
-                    data-bs-target="#connectWalletModal"
+                    :data-bs-target="
+                      isSolana
+                        ? '#connectSolanaWalletModal'
+                        : '#connectEthereumWalletModal'
+                    "
                   >
                     Connect Wallet
                   </button>
@@ -159,7 +163,11 @@
                 href="#"
                 class="px-3 py-2 ms-auto"
                 data-bs-toggle="modal"
-                data-bs-target="#connectWalletModal"
+                :data-bs-target="
+                  isSolana
+                    ? '#connectSolanaWalletModal'
+                    : '#connectEthereumWalletModal'
+                "
               >
                 Connect Wallet
               </button>
@@ -204,17 +212,8 @@
       </div>
     </nav>
   </header>
-  <div
-    id="connectWalletModal"
-    ref="connectWalletModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <SolanaWalletModal v-if="isSolana" :toggle-wallet-state="toggleWalletState" />
-    <EthereumWalletModal v-else :toggle-wallet-state="toggleWalletState" />
-  </div>
+  <SolanaWalletModal :toggle-wallet-state="toggleWalletState" />
+  <EthereumWalletModal :toggle-wallet-state="toggleWalletState" />
 </template>
 
 <script lang="ts" setup>
