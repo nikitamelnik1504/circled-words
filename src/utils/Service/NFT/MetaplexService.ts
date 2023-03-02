@@ -17,10 +17,13 @@ export default class MetaplexService {
     "8wAXCzCiLpsbBN3WM3cba7fALnFytNRjkDGLe16YfUtb"
   );
 
+  private provider;
+
   private nftImageUrl =
     "https://eccr4vp5qxmhn4nixbdah44hci7picmgjxwtnuxdp2yokh573c6a.arweave.net/IIUeVf2F2HbxqLhGA_OHEj70CYZN7TbS436w5R-_2Lw";
 
   constructor(provider: PhantomWalletAdapter) {
+    this.provider = provider;
     const connection = new Connection(clusterApiUrl("devnet"));
     this.metaplex = Metaplex.make(connection).use(
       walletAdapterIdentity(provider)
@@ -83,6 +86,19 @@ export default class MetaplexService {
     this.nftStage = null;
   }
 
+  async verifyNFT(tokenAddress: string) {
+    return this.metaplex.nfts().verifyCollection({
+      mintAddress: new PublicKey(tokenAddress),
+      collectionMintAddress: this.collectionAddress,
+      collectionAuthority: {
+        publicKey: this.provider.publicKey!,
+        signMessage: this.provider.signMessage,
+        signTransaction: this.provider.signTransaction,
+        signAllTransactions: this.provider.signAllTransactions,
+      },
+    });
+  }
+
   async loadNFTs() {
     return this.metaplex
       .nfts()
@@ -109,7 +125,7 @@ export default class MetaplexService {
       collection: null,
       name: "CircledWords",
       symbol: "CW",
-      isMutable: false,
+      isMutable: true,
       sellerFeeBasisPoints: 250,
       isCollection: true,
     });
