@@ -5,5 +5,5 @@ COPY package-lock.json ./
 ENV NODE_OPTIONS="--max-old-space-size=3096"
 RUN npm i
 COPY ./ ./
-COPY .env.example .env
+COPY .build/staging/.env.example .env
 RUN npm run build
