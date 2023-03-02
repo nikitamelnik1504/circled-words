@@ -35,7 +35,7 @@
     "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@melloware/coloris": "^0.18.0",
     "@metamask/detect-provider": "^1.2.0",
-    "@metaplex-foundation/js": "^0.17.5",
+    "@metaplex-foundation/js": "^0.18.3",
     "@popperjs/core": "^2.11.5",
     "@rollup/plugin-inject": "^4.0.4",
     "@solana/wallet-adapter-base": "^0.9.15",
