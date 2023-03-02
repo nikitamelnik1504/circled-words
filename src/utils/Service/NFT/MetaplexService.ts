@@ -13,9 +13,9 @@ export default class MetaplexService {
   protected metaplex: Metaplex;
   public nftStage: "JSON Upload" | "Create" | null = null;
 
-  private collectionAddress = new PublicKey(
-    "8wAXCzCiLpsbBN3WM3cba7fALnFytNRjkDGLe16YfUtb"
-  );
+  public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
+
+  private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
 
   private provider;
 
@@ -24,17 +24,25 @@ export default class MetaplexService {
 
   constructor(provider: PhantomWalletAdapter) {
     this.provider = provider;
-    const connection = new Connection(clusterApiUrl("devnet"));
-    this.metaplex = Metaplex.make(connection).use(
-      walletAdapterIdentity(provider)
-    );
-    this.metaplex.use(
-      bundlrStorage({
-        address: "https://devnet.bundlr.network",
-        providerUrl: "https://api.devnet.solana.com",
-        timeout: 60000,
-      })
-    );
+
+    if (process.env.IS_STAGING === undefined || +process.env.IS_STAGING === 1) {
+      this.rpc = "devnet";
+    }
+
+    const connection = new Connection(clusterApiUrl(this.rpc));
+
+    this.metaplex = Metaplex.make(connection)
+      .use(walletAdapterIdentity(provider))
+      .use(
+        bundlrStorage({
+          address:
+            this.rpc === "mainnet-beta"
+              ? "http://node1.bundlr.network"
+              : "https://devnet.bundlr.network",
+          providerUrl: connection.rpcEndpoint,
+          timeout: 60000,
+        })
+      );
   }
 
   async createNFT(properties: Array<Array<Property>>) {
@@ -78,7 +86,7 @@ export default class MetaplexService {
       uri: json_link,
       name: "CircledWord #DEV",
       symbol: "CW",
-      collection: this.collectionAddress,
+      collection: new PublicKey(this.collectionAddress),
       sellerFeeBasisPoints: 500,
       isCollection: false,
     });
@@ -89,7 +97,7 @@ export default class MetaplexService {
   async verifyNFT(tokenAddress: string) {
     return this.metaplex.nfts().verifyCollection({
       mintAddress: new PublicKey(tokenAddress),
-      collectionMintAddress: this.collectionAddress,
+      collectionMintAddress: new PublicKey(this.collectionAddress),
       collectionAuthority: {
         publicKey: this.provider.publicKey!,
         signMessage: this.provider.signMessage,
@@ -109,8 +117,7 @@ export default class MetaplexService {
           // @TODO Implement check for verified collection item.
           if (
             result[i].collection !== null &&
-            result[i].collection!.address.toString() ===
-              this.collectionAddress.toString()
+            result[i].collection!.address.toString() === this.collectionAddress
           ) {
             nfts.push(result[i]);
           }
