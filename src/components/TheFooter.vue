@@ -51,8 +51,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { inject, ref, watch } from "vue";
+import MetaplexService from "@/utils/Service/NFT/MetaplexService";
 
 const version = process.env.npm_package_version;
 const network = ref();
+
+const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
+
+watch(metaplexService as Required<Ref>, (newValue) => {
+  if (newValue instanceof MetaplexService) {
+    network.value = newValue.rpc === "devnet" ? "Devnet" : "Mainnet";
+  }
+});
 </script>
