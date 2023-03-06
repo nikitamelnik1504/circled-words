@@ -9,9 +9,9 @@
     <div class="modal-dialog modal-dialog-centered justify-content-center">
       <div class="modal-content py-2">
         <div class="modal-body text-center">
-          <div v-if="nftStage !== null">
+          <div v-if="props.nftStage !== null">
             <h4>
-              Please wait for the {{ nftStage }} transaction completion...
+              Please wait for the {{ props.nftStage }} transaction completion...
             </h4>
             <div class="spinner-border mt-3" role="status">
               <span class="visually-hidden">Loading...</span>
@@ -27,28 +27,38 @@
 </template>
 
 <script lang="ts">
-import { Options, Prop, Ref, Vue, Watch } from "vue-property-decorator";
+export default {
+  name: "MintLoaderModal",
+};
+</script>
+
+<script lang="ts" setup>
+import { onMounted, ref, watch } from "vue";
 import { Modal } from "bootstrap";
 
-@Options({})
-export default class MintLoaderModal extends Vue {
-  @Prop({ required: true }) readonly nftStage!: string;
-  @Ref("mintLoaderModal") readonly mintLoaderModal!: HTMLDivElement;
-
-  private modal!: typeof Modal;
-
-  mounted() {
-    this.modal = new Modal(this.mintLoaderModal);
-  }
-
-  @Watch("nftStage")
-  onNftStageChanged(new_value: unknown, old_value: unknown): void {
-    if (old_value === null && new_value === "JSON Upload") {
-      this.modal.show();
-    }
-    if (old_value !== null && new_value === null) {
-      this.modal.hide();
-    }
-  }
+interface Props {
+  nftStage: string | null;
 }
+
+const props = defineProps<Props>();
+
+const mintLoaderModal = ref<Ref<HTMLDivElement>>();
+
+let modal: typeof Modal;
+
+onMounted(() => {
+  modal = new Modal(mintLoaderModal.value);
+});
+
+watch(
+  () => props.nftStage,
+  (newValue: string | null, oldValue) => {
+    if (oldValue === null && newValue === "JSON Upload") {
+      modal.show();
+    }
+    if (oldValue !== null && newValue === null) {
+      modal.hide();
+    }
+  }
+);
 </script>
