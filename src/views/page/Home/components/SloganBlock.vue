@@ -42,54 +42,43 @@
   </section>
 </template>
 
-<script lang="ts">
-import { Vue, Options } from "vue-property-decorator";
-import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
-import CircledWord from "@/components/CircledWord.vue";
+<script lang="ts" setup>
 import CircledWordService, {
   SampleNFT,
 } from "@/utils/Service/CircledWordService";
+import sloganWords from "@/assets/json/homepage_slogan_circled_word_samples.json";
 import { getFreeHeight } from "@/utils/layout-space";
-import type { ComputedRef } from "vue";
-import { computed } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
+import CircledWord from "@/components/CircledWord.vue";
 
-@Options({
-  components: {
-    CircledWord,
-  },
-})
-export default class SloganBlock extends Vue {
-  wordsData = this.getWordsData();
+const heightValues: Ref<{ [key: string]: number }> = ref(getFreeHeight());
 
-  heightValues: { [key: string]: number } = getFreeHeight();
+const minHeightValue = computed(() => {
+  return heightValues.value.clientHeight - heightValues.value.headerHeight;
+});
 
-  minHeightValue: ComputedRef<number> = computed(() => {
-    return this.heightValues.clientHeight - this.heightValues.headerHeight;
+const getSloganWords = () => {
+  return sloganWords as NFTMetadata[];
+};
+
+const wordsData = (() => {
+  const data: SampleNFT[] = [];
+  const circled_word_service = new CircledWordService();
+  getSloganWords().forEach((word: NFTMetadata) => {
+    const current_word = circled_word_service.getSampleNft(word) as SampleNFT;
+    current_word.link = word.link;
+    data.push(current_word);
   });
+  return data;
+})();
 
-  mounted(): void {
-    this.$nextTick((): void => {
-      window.addEventListener("resize", this.onResize);
-    });
-  }
+const onResize = () => {
+  heightValues.value = getFreeHeight();
+};
 
-  getSloganWords(): NFTMetadata[] {
-    return sloganWords as NFTMetadata[];
-  }
-
-  getWordsData(): SampleNFT[] {
-    const data: SampleNFT[] = [];
-    const circled_word_service = new CircledWordService();
-    this.getSloganWords().forEach((word: NFTMetadata) => {
-      const current_word = circled_word_service.getSampleNft(word) as SampleNFT;
-      current_word.link = word.link;
-      data.push(current_word);
-    });
-    return data;
-  }
-
-  onResize(): void {
-    this.heightValues = getFreeHeight();
-  }
-}
+onMounted(() => {
+  nextTick((): void => {
+    window.addEventListener("resize", onResize);
+  });
+});
 </script>
