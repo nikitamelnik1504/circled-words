@@ -4,6 +4,7 @@ import nodePolyfills from "rollup-plugin-node-polyfills";
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import eslintPlugin from "vite-plugin-eslint";
+import inject from "@rollup/plugin-inject";
 import autoprefixer from "autoprefixer";
 
 export default ({ mode }: { mode: string }) => {
@@ -36,7 +37,10 @@ export default ({ mode }: { mode: string }) => {
     build: {
       target: "esnext",
       rollupOptions: {
-        plugins: [nodePolyfills({ crypto: true }) as never],
+        plugins: [
+          inject({ Buffer: ["buffer", "Buffer"] }),
+          nodePolyfills({ crypto: true }) as never,
+        ],
       },
     },
     server: {
