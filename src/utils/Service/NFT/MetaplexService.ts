@@ -8,8 +8,11 @@ import nftImage from "@/assets/images/nft-default-icon.png";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { Property } from "@/utils/Service/CircledWordService";
+import type { Store } from "vuex";
 
 export default class MetaplexService {
+  protected store;
+
   protected metaplex: Metaplex;
 
   public nftStage: "JSON Upload" | "Create" | "Authority Update" | null = null;
@@ -23,8 +26,17 @@ export default class MetaplexService {
   private nftImageUrl =
     "https://eccr4vp5qxmhn4nixbdah44hci7picmgjxwtnuxdp2yokh573c6a.arweave.net/IIUeVf2F2HbxqLhGA_OHEj70CYZN7TbS436w5R-_2Lw";
 
-  constructor(provider: PhantomWalletAdapter) {
+  protected identity;
+
+  constructor(provider: PhantomWalletAdapter, store: Store<unknown>) {
+    this.store = store;
     this.provider = provider;
+    this.identity = {
+      publicKey: new PublicKey(store.getters["wallet/getWalletAddress"]),
+      signMessage: this.provider.signMessage,
+      signTransaction: this.provider.signTransaction,
+      signAllTransactions: this.provider.signAllTransactions,
+    };
 
     if (process.env.IS_STAGING === undefined || +process.env.IS_STAGING === 1) {
       this.rpc = "devnet";
@@ -36,6 +48,7 @@ export default class MetaplexService {
       .use(walletAdapterIdentity(provider))
       .use(
         bundlrStorage({
+          identity: this.identity,
           address:
             this.rpc === "mainnet-beta"
               ? "http://node1.bundlr.network"
@@ -88,6 +101,7 @@ export default class MetaplexService {
       name: "CircledWord #DEV",
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress),
+      mintAuthority: this.identity,
       sellerFeeBasisPoints: 500,
       isCollection: false,
     });
@@ -108,12 +122,7 @@ export default class MetaplexService {
     return this.metaplex.nfts().verifyCollection({
       mintAddress: new PublicKey(tokenAddress),
       collectionMintAddress: new PublicKey(this.collectionAddress),
-      collectionAuthority: {
-        publicKey: this.provider.publicKey!,
-        signMessage: this.provider.signMessage,
-        signTransaction: this.provider.signTransaction,
-        signAllTransactions: this.provider.signAllTransactions,
-      },
+      collectionAuthority: this.identity,
     });
   }
 
