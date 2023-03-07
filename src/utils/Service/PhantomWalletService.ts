@@ -64,6 +64,7 @@ export default class PhantomWalletService extends WalletServiceBase {
         return "connected";
       })
       .catch((error) => {
+        document.write(error.message + " " + error.code);
         console.log(error);
         return "not_connected";
       });
