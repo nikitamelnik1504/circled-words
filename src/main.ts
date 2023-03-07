@@ -10,10 +10,7 @@ router.beforeEach(async (to) => {
   const { requiresAuth } = to.meta;
 
   if (requiresAuth) {
-    if (
-      (await store.getters.isMetamaskConnected) === "not_connected" &&
-      (await store.getters.isWalletConnectConnected) === "not_connected"
-    ) {
+    if (!(await store.getters.isPhantomWalletConnected)) {
       return "/403-error";
     }
   }

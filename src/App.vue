@@ -16,12 +16,7 @@ import particlesJson from "./assets/json/particles.json";
 import particlesIcon from "./assets/images/live-bg-icon.svg";
 import Header from "./components/TheHeader.vue";
 import Footer from "./components/TheFooter.vue";
-import detectEthereumProvider from "@metamask/detect-provider";
-import type { MetamaskProvider } from "./utils/Service/MetamaskService";
 import { loadFull } from "tsparticles";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import MetamaskService from "./utils/Service/MetamaskService";
-import WalletConnectService from "./utils/Service/WalletConnectService";
 import PhantomWalletService from "./utils/Service/PhantomWalletService";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
@@ -57,28 +52,6 @@ const setDefaultWalletState = () => {
 };
 
 const walletEvents = {
-  metamask: {
-    accountsChanged: [
-      {
-        callback: () => {
-          setDefaultWalletState();
-          router.go(0);
-        },
-        connected: true,
-      },
-    ],
-  },
-  walletConnect: {
-    disconnect: [
-      {
-        callback: () => {
-          setDefaultWalletState();
-          router.go(0);
-        },
-        connected: true,
-      },
-    ],
-  },
   phantomWallet: {
     accountChanged: [
       {
@@ -93,27 +66,11 @@ const walletEvents = {
 };
 provide("walletEvents", walletEvents);
 
-const metamaskService = ref<MetamaskService | false>(false);
-provide("metamaskService", metamaskService);
-
-const walletConnectService = ref<WalletConnectService | false>(false);
-provide("walletConnectService", walletConnectService);
-
 const phantomWalletService = ref<PhantomWalletService | false>(false);
 provide("phantomWalletService", phantomWalletService);
 
 const metaplexService = ref<MetaplexService | false>(false);
 provide("metaplexService", metaplexService);
-
-const initializeMetamask = async () => {
-  return detectEthereumProvider();
-};
-
-const initializeWalletConnect = () => {
-  return new WalletConnectProvider({
-    infuraId: "270dd5535d1344b2a5a507a081f3d45b",
-  });
-};
 
 const initializePhantomWallet = () => {
   if (!("phantom" in window)) {
@@ -127,26 +84,6 @@ const initializePhantomWallet = () => {
 
   return provider;
 };
-
-initializeMetamask().then((result: MetamaskProvider | unknown) => {
-  if (!(result as MetamaskProvider)) {
-    return;
-  }
-  MetamaskService.create(
-    result as MetamaskProvider,
-    store,
-    walletEvents.metamask
-  ).then((result) => (metamaskService.value = result));
-});
-
-WalletConnectService.create(
-  initializeWalletConnect(),
-  store,
-  walletEvents.walletConnect,
-  initializeWalletConnect
-).then((result) => {
-  walletConnectService.value = result;
-});
 
 const phantomWalletProvider = initializePhantomWallet();
 if (phantomWalletProvider) {
@@ -180,9 +117,6 @@ watch(
 );
 
 onUnmounted(() => {
-  if (metamaskService.value instanceof MetamaskService) {
-    metamaskService.value.removeEventsGroup(walletEvents.metamask);
-  }
   if (phantomWalletService.value instanceof PhantomWalletService) {
     phantomWalletService.value.removeEventsGroup(walletEvents.phantomWallet);
   }

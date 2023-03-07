@@ -76,15 +76,7 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer justify-content-center">
-          <a
-            href="#"
-            data-bs-toggle="modal"
-            data-bs-target="#connectEthereumWalletModal"
-          >
-            I'm Ethereum user
-          </a>
-        </div>
+        <div class="modal-footer py-md-3"></div>
       </div>
     </div>
   </div>
