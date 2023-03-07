@@ -11,7 +11,8 @@ import type { Property } from "@/utils/Service/CircledWordService";
 
 export default class MetaplexService {
   protected metaplex: Metaplex;
-  public nftStage: "JSON Upload" | "Create" | null = null;
+
+  public nftStage: "JSON Upload" | "Create" | "Authority Update" | null = null;
 
   public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
 
@@ -82,13 +83,22 @@ export default class MetaplexService {
 
     this.nftStage = "Create";
 
-    await this.metaplex.nfts().create({
+    const nft_output = await this.metaplex.nfts().create({
       uri: json_link,
       name: "CircledWord #DEV",
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress),
       sellerFeeBasisPoints: 500,
       isCollection: false,
+    });
+
+    this.nftStage = "Authority Update";
+
+    await this.metaplex.nfts().update({
+      nftOrSft: nft_output.nft,
+      newUpdateAuthority: new PublicKey(
+        "Cg2W5BZKRFakNBCMpFeTC3xo2f9Kv9kN7FPBzkDxj32V"
+      ),
     });
 
     this.nftStage = null;

@@ -28,6 +28,10 @@ export default class PhantomWalletService extends WalletServiceBase {
   ): Promise<PhantomWalletService> {
     const instance = new this(provider, store, events);
 
+    // const enc = new TextEncoder();
+    // const signature_text = 'Please approve your login to the CircledWords site.';
+    // await provider.signMessage(enc.encode(signature_text));
+
     // @ts-ignore
     instance.connected = false; // @TODO Implement Eagerly Connecting.
 
