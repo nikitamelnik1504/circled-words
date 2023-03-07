@@ -12,8 +12,8 @@
             class="mx-auto d-inline-block text-center text-lg-start animate__animated animate__pulse"
           >
             <h1 class="slogan">
-              <span class="word-secondary">Circled</span>
-              <span class="word-primary">Word</span> is already waiting for you!
+              Tell the world your story about the
+              <span class="word-primary">Circled</span>
             </h1>
             <router-link
               to="/create-word"
