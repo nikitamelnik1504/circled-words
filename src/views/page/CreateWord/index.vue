@@ -201,9 +201,17 @@
                     href="#"
                     class="py-3 text-center text-decoration-none w-50 mint-action animate__animated animate__fadeInUp"
                     :class="{
-                      disabled: true || mintRunning || !metaplexService,
+                      disabled:
+                        mintRunning ||
+                        !metaplexService ||
+                        metaplexService.rpc === 'mainnet-beta',
                     }"
-                    @click.prevent="() => (mintRunning ? undefined : undefined)"
+                    @click.prevent="
+                      () =>
+                        mintRunning || metaplexService.rpc === 'mainnet-beta'
+                          ? undefined
+                          : mint()
+                    "
                     >Mint</a
                   >
                 </div>
@@ -213,7 +221,10 @@
         </div>
       </div>
     </div>
-    <MintLoaderModal :nft-stage="metaplexService.nftStage" />
+    <MintLoaderModal
+      v-if="metaplexService"
+      :nft-stage="metaplexService.nftStage"
+    />
   </div>
 </template>
 

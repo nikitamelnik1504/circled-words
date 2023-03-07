@@ -1,8 +1,4 @@
-import {
-  createRouter,
-  createWebHashHistory,
-  createWebHistory,
-} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/page/Home/index.vue";
 import MyWords from "@/views/page/MyWords/index.vue";
 import Roadmap from "@/views/page/Roadmap/index.vue";
@@ -12,8 +8,6 @@ import CreateWord from "@/views/page/CreateWord/index.vue";
 if (process.env.IS_STAGING === undefined) {
   console.warn("Make sure you create .env file or declare a variable.");
 }
-
-const IS_STAGING = process.env.IS_STAGING === "1";
 
 const routes = [
   {
@@ -48,9 +42,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: IS_STAGING
-    ? createWebHashHistory("/circled-words/")
-    : createWebHistory(),
+  history: createWebHistory(),
   routes,
 });
 

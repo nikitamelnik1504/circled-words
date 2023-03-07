@@ -13,4 +13,22 @@ footer {
       }
     }
   }
+
+  .network {
+    color: $secondary;
+    font-size: 12px;
+    top: 0;
+    right: -42px;
+
+    @include media-breakpoint-up(sm) {
+      top: 15px;
+      right: unset;
+      left: -42px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      right: -42px;
+      left: unset;
+    }
+  }
 }

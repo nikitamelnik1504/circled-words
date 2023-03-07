@@ -39,7 +39,7 @@
                           phantomWalletService ? '#' : 'https://phantom.app'
                         "
                         class="wallet-link phantom-link h-100 d-flex justify-content-between align-items-center flex-column text-center position-relative p-2"
-                        @click.prevent="showPhantomWalletModal()"
+                        @click="showPhantomWalletModal($event)"
                       >
                         <div
                           class="image-wrapper d-flex justify-content-center py-2"
@@ -76,15 +76,7 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer justify-content-center">
-          <a
-            href="#"
-            data-bs-toggle="modal"
-            data-bs-target="#connectEthereumWalletModal"
-          >
-            I'm Ethereum user
-          </a>
-        </div>
+        <div class="modal-footer py-md-3"></div>
       </div>
     </div>
   </div>
@@ -104,11 +96,12 @@ const walletEvents = inject("walletEvents", {
 
 const closeWalletModal = ref<HTMLButtonElement | null>(null);
 
-const showPhantomWalletModal = async () => {
+const showPhantomWalletModal = async (event: Event) => {
   if (!phantomWalletService?.value) {
     return;
   }
 
+  event.preventDefault();
   const connectionToPhantomWallet = await phantomWalletService.value.connect();
   if (connectionToPhantomWallet === "connected") {
     phantomWalletService.value.addEventsGroup(walletEvents.phantomWallet);

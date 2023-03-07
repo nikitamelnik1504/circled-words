@@ -21,7 +21,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: mv Dockerfile.production Dockerfile
+      - run: mv .build/staging/Dockerfile .
       - uses: docker/build-push-action@v3
         with:
           context: .

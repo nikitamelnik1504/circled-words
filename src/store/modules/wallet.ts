@@ -1,6 +1,3 @@
-import { VuexModule, Module, Mutation } from "vuex-module-decorators";
-import store from "vuex";
-
 const getDefaultWalletState = () => {
   return {
     type: "",
@@ -10,68 +7,57 @@ const getDefaultWalletState = () => {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-@Module({ namespaced: true, name: "wallet", store })
-class Wallet extends VuexModule {
-  public wallet = getDefaultWalletState();
-
-  public get getActiveType(): string {
-    return this.wallet.type;
-  }
-
-  public get getStatus(): string {
-    return this.wallet.connected ? "connected" : "not_connected";
-  }
-
-  public get getWalletAddress(): string {
-    return this.wallet.walletAddress;
-  }
-
-  public get getChainId(): string {
-    return this.wallet.chainId;
-  }
-
-  public get isMetamaskConnected(): boolean {
-    return this.getActiveType === "metamask" && this.getStatus === "connected";
-  }
-
-  public get isWalletConnectConnected(): boolean {
-    return (
-      this.getActiveType === "walletConnect" && this.getStatus === "connected"
-    );
-  }
-
-  public get isPhantomWalletConnected(): boolean {
-    return (
-      this.getActiveType === "phantomWallet" && this.getStatus === "connected"
-    );
-  }
-
-  @Mutation
-  public setDefaultWalletState(): void {
-    this.wallet = getDefaultWalletState();
-  }
-
-  @Mutation
-  public setWalletType(type: string): void {
-    this.wallet.type = type;
-  }
-
-  @Mutation
-  public setConnected(): void {
-    this.wallet.connected = true;
-  }
-
-  @Mutation
-  public setDisconnected(): void {
-    this.wallet.connected = false;
-  }
-
-  @Mutation
-  public setWalletAddress(address: string): void {
-    this.wallet.walletAddress = address;
-  }
+interface State {
+  type: string;
+  walletAddress: string;
+  connected: boolean;
+  chainId: string;
 }
 
-export default Wallet;
+export default {
+  namespaced: true,
+  state: () => getDefaultWalletState(),
+  getters: {
+    getActiveType(state: State): string {
+      return state.type;
+    },
+    getStatus(state: State): string {
+      return state.connected ? "connected" : "not_connected";
+    },
+    getWalletAddress(state: State): string {
+      return state.walletAddress;
+    },
+    getChainId(state: State): string {
+      return state.chainId;
+    },
+    isPhantomWalletConnected(
+      state: State,
+      getters: { getActiveType: string; getStatus: string }
+    ): boolean {
+      return (
+        getters.getActiveType === "phantomWallet" &&
+        getters.getStatus === "connected"
+      );
+    },
+  },
+  mutations: {
+    setDefaultWalletState(state: State): void {
+      const default_state = getDefaultWalletState() as State;
+      for (const key in default_state) {
+        state[key] = default_state[key];
+      }
+    },
+    setWalletType(state: State, { type }): void {
+      state.type = type;
+    },
+    setConnected(state: State): void {
+      state.connected = true;
+    },
+    setDisconnected(state: State): void {
+      state.connected = false;
+    },
+    setWalletAddress(state: State, { address }): void {
+      state.walletAddress = address;
+    },
+  },
+};

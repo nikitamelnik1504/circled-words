@@ -205,16 +205,12 @@
     </nav>
   </header>
   <SolanaWalletModal />
-  <EthereumWalletModal />
 </template>
 
 <script lang="ts" setup>
 import { computed, inject, isRef, ref } from "vue";
 import SolanaWalletModal from "@/components/SolanaWalletModal.vue";
-import EthereumWalletModal from "@/components/EthereumWalletModal.vue";
 import { Collapse } from "bootstrap";
-import MetamaskService from "@/utils/Service/MetamaskService";
-import WalletConnectService from "@/utils/Service/WalletConnectService";
 import PhantomWalletService from "@/utils/Service/PhantomWalletService";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -224,12 +220,6 @@ const store = useStore();
 const getStatus = computed(() => store.getters["wallet/getStatus"]);
 
 const router = useRouter();
-
-const metamaskService = inject<Ref<MetamaskService | false>>("metamaskService");
-
-const walletConnectService = inject<Ref<WalletConnectService | false>>(
-  "walletConnectService"
-);
 
 const phantomWalletService = inject<Ref<PhantomWalletService | false>>(
   "phantomWalletService"
@@ -248,20 +238,6 @@ const toggleNavbar = () => {
 };
 
 const logOut = async () => {
-  if (
-    isRef(metamaskService) &&
-    metamaskService.value instanceof MetamaskService &&
-    metamaskService.value.connectedToSite
-  ) {
-    metamaskService.value.disconnect();
-  }
-  if (
-    isRef(walletConnectService) &&
-    walletConnectService.value instanceof WalletConnectService &&
-    walletConnectService.value.connectedToSite
-  ) {
-    await walletConnectService.value.disconnect();
-  }
   if (
     isRef(phantomWalletService) &&
     phantomWalletService.value instanceof PhantomWalletService &&

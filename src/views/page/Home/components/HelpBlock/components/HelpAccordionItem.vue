@@ -1,39 +1,45 @@
 <template>
   <div class="accordion-item">
-    <h2 :id.attr="'heading' + uuid" class="accordion-header">
+    <h2 :id.attr="'heading' + UUID" class="accordion-header">
       <button
         class="accordion-button collapsed"
         type="button"
         data-bs-toggle="collapse"
-        :data-bs-target.attr="'#collapse' + uuid"
+        :data-bs-target.attr="'#collapse' + UUID"
         aria-expanded="false"
-        :aria-controls.attr="'collapse' + uuid"
+        :aria-controls.attr="'collapse' + UUID"
       >
-        {{ question }}
+        {{ props.question }}
       </button>
     </h2>
     <div
-      :id.attr="'collapse' + uuid"
+      :id.attr="'collapse' + UUID"
       class="accordion-collapse collapse"
-      :aria-labelledby.attr="'heading' + uuid"
+      :aria-labelledby.attr="'heading' + UUID"
       data-bs-parent="#helpAccordion"
     >
       <div class="accordion-body">
-        {{ answer }}
+        {{ props.answer }}
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Prop, Vue } from "vue-property-decorator";
+export default {
+  name: "HelpAccordionItem",
+};
+</script>
+
+<script lang="ts" setup>
 import { uuid } from "vue-uuid";
 
-@Options({})
-export default class HelpAccordionItem extends Vue {
-  @Prop({ type: String, required: true }) readonly question!: string;
-  @Prop({ type: String, required: true }) readonly answer!: string;
-
-  uuid = uuid.v4();
+interface Props {
+  question: string;
+  answer: string;
 }
+
+const props = defineProps<Props>();
+
+const UUID = uuid.v4();
 </script>

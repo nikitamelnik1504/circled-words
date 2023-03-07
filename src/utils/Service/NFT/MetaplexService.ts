@@ -11,27 +11,39 @@ import type { Property } from "@/utils/Service/CircledWordService";
 
 export default class MetaplexService {
   protected metaplex: Metaplex;
-  public nftStage: "JSON Upload" | "Create" | null = null;
 
-  private collectionAddress = new PublicKey(
-    "8wAXCzCiLpsbBN3WM3cba7fALnFytNRjkDGLe16YfUtb"
-  );
+  public nftStage: "JSON Upload" | "Create" | "Authority Update" | null = null;
+
+  public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
+
+  private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
+
+  private provider;
 
   private nftImageUrl =
     "https://eccr4vp5qxmhn4nixbdah44hci7picmgjxwtnuxdp2yokh573c6a.arweave.net/IIUeVf2F2HbxqLhGA_OHEj70CYZN7TbS436w5R-_2Lw";
 
   constructor(provider: PhantomWalletAdapter) {
-    const connection = new Connection(clusterApiUrl("devnet"));
-    this.metaplex = Metaplex.make(connection).use(
-      walletAdapterIdentity(provider)
-    );
-    this.metaplex.use(
-      bundlrStorage({
-        address: "https://devnet.bundlr.network",
-        providerUrl: "https://api.devnet.solana.com",
-        timeout: 60000,
-      })
-    );
+    this.provider = provider;
+
+    if (process.env.IS_STAGING === undefined || +process.env.IS_STAGING === 1) {
+      this.rpc = "devnet";
+    }
+
+    const connection = new Connection(clusterApiUrl(this.rpc));
+
+    this.metaplex = Metaplex.make(connection)
+      .use(walletAdapterIdentity(provider))
+      .use(
+        bundlrStorage({
+          address:
+            this.rpc === "mainnet-beta"
+              ? "http://node1.bundlr.network"
+              : "https://devnet.bundlr.network",
+          providerUrl: connection.rpcEndpoint,
+          timeout: 60000,
+        })
+      );
   }
 
   async createNFT(properties: Array<Array<Property>>) {
@@ -71,16 +83,38 @@ export default class MetaplexService {
 
     this.nftStage = "Create";
 
-    await this.metaplex.nfts().create({
+    const nft_output = await this.metaplex.nfts().create({
       uri: json_link,
       name: "CircledWord #DEV",
       symbol: "CW",
-      collection: this.collectionAddress,
+      collection: new PublicKey(this.collectionAddress),
       sellerFeeBasisPoints: 500,
       isCollection: false,
     });
 
+    this.nftStage = "Authority Update";
+
+    await this.metaplex.nfts().update({
+      nftOrSft: nft_output.nft,
+      newUpdateAuthority: new PublicKey(
+        "Cg2W5BZKRFakNBCMpFeTC3xo2f9Kv9kN7FPBzkDxj32V"
+      ),
+    });
+
     this.nftStage = null;
+  }
+
+  async verifyNFT(tokenAddress: string) {
+    return this.metaplex.nfts().verifyCollection({
+      mintAddress: new PublicKey(tokenAddress),
+      collectionMintAddress: new PublicKey(this.collectionAddress),
+      collectionAuthority: {
+        publicKey: this.provider.publicKey!,
+        signMessage: this.provider.signMessage,
+        signTransaction: this.provider.signTransaction,
+        signAllTransactions: this.provider.signAllTransactions,
+      },
+    });
   }
 
   async loadNFTs() {
@@ -93,8 +127,7 @@ export default class MetaplexService {
           // @TODO Implement check for verified collection item.
           if (
             result[i].collection !== null &&
-            result[i].collection!.address.toString() ===
-              this.collectionAddress.toString()
+            result[i].collection!.address.toString() === this.collectionAddress
           ) {
             nfts.push(result[i]);
           }
@@ -109,7 +142,7 @@ export default class MetaplexService {
       collection: null,
       name: "CircledWords",
       symbol: "CW",
-      isMutable: false,
+      isMutable: true,
       sellerFeeBasisPoints: 250,
       isCollection: true,
     });

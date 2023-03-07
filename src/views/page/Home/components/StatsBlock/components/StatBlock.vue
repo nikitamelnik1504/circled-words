@@ -1,26 +1,31 @@
 <template>
   <div>
     <h4 class="stat-value m-0">
-      {{ value }}
+      {{ props.value }}
     </h4>
     <p class="stat-title">
-      {{ title }}
+      {{ props.title }}
     </p>
   </div>
   <div>
     <p class="stat-description">
-      {{ description }}
+      {{ props.description }}
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options, Prop } from "vue-property-decorator";
+export default {
+  name: "StatBlock",
+};
+</script>
 
-@Options({})
-export default class StatBlock extends Vue {
-  @Prop({ type: Number, required: true }) readonly value!: number;
-  @Prop({ type: String, required: true }) readonly title!: string;
-  @Prop({ type: String, required: true }) readonly description!: string;
+<script lang="ts" setup>
+interface Props {
+  value: number;
+  title: string;
+  description: string;
 }
+
+const props = defineProps<Props>();
 </script>

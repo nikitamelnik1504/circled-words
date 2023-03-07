@@ -28,6 +28,10 @@ export default class PhantomWalletService extends WalletServiceBase {
   ): Promise<PhantomWalletService> {
     const instance = new this(provider, store, events);
 
+    // const enc = new TextEncoder();
+    // const signature_text = 'Please approve your login to the CircledWords site.';
+    // await provider.signMessage(enc.encode(signature_text));
+
     // @ts-ignore
     instance.connected = false; // @TODO Implement Eagerly Connecting.
 
@@ -50,12 +54,11 @@ export default class PhantomWalletService extends WalletServiceBase {
     return this.provider
       .connect()
       .then(() => {
-        this.store.commit(
-          "wallet/setWalletAddress",
-          this.provider.publicKey?.toString()
-        );
-        this.store.commit("wallet/setWalletType", "phantomWallet");
-        this.store.commit("wallet/setConnected", true);
+        this.store.commit("wallet/setWalletAddress", {
+          address: this.provider.publicKey?.toString(),
+        });
+        this.store.commit("wallet/setWalletType", { type: "phantomWallet" });
+        this.store.commit("wallet/setConnected");
         this.connected = true;
         this.connectedToSite = true;
         return "connected";
