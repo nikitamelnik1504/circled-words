@@ -213,7 +213,10 @@
         </div>
       </div>
     </div>
-    <MintLoaderModal :nft-stage="metaplexService.nftStage" />
+    <MintLoaderModal
+      v-if="metaplexService"
+      :nft-stage="metaplexService.nftStage"
+    />
   </div>
 </template>
 

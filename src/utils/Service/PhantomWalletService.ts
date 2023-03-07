@@ -54,12 +54,11 @@ export default class PhantomWalletService extends WalletServiceBase {
     return this.provider
       .connect()
       .then(() => {
-        this.store.commit(
-          "wallet/setWalletAddress",
-          this.provider.publicKey?.toString()
-        );
-        this.store.commit("wallet/setWalletType", "phantomWallet");
-        this.store.commit("wallet/setConnected", true);
+        this.store.commit("wallet/setWalletAddress", {
+          address: this.provider.publicKey?.toString(),
+        });
+        this.store.commit("wallet/setWalletType", { type: "phantomWallet" });
+        this.store.commit("wallet/setConnected");
         this.connected = true;
         this.connectedToSite = true;
         return "connected";

@@ -8,7 +8,7 @@ const store = createStore({
   mutations: {
     initialiseStore(state): void {
       if (localStorage.getItem("walletStore")) {
-        state.wallet.wallet = JSON.parse(
+        state.wallet = JSON.parse(
           localStorage.getItem("walletStore") as string
         );
       }
@@ -17,7 +17,7 @@ const store = createStore({
 });
 
 store.subscribe((mutation, state) => {
-  localStorage.setItem("walletStore", JSON.stringify(state.wallet.wallet));
+  localStorage.setItem("walletStore", JSON.stringify(state.wallet));
 });
 
 export default store;
