@@ -48,7 +48,6 @@
     "bootstrap": "^5.1.3",
     "graphql": "^16.6.0",
     "invert-color": "^2.0.0",
-    "s-vuex-class": "^0.4.1",
     "stylelint-config-recommended": "^8.0.0",
     "stylelint-config-standard": "^26.0.0",
     "tsparticles": "^2.2.2",
@@ -77,8 +76,7 @@
     "util": "^0.12.5",
     "vite": "^2.9.1",
     "vite-plugin-eslint": "^1.6.0",
-    "vue-eslint-parser": "^9.0.3",
-    "vuex-module-decorators": "^2.0.0"
+    "vue-eslint-parser": "^9.0.3"
   },
   "browserslist": [
     "defaults"
