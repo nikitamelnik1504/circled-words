@@ -18,6 +18,9 @@ export default class MetaplexService {
 
   public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
 
+  private mainnetRpc =
+    "https://convincing-ultra-silence.solana-mainnet.discover.quiknode.pro";
+
   private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
 
   private provider;
@@ -41,7 +44,9 @@ export default class MetaplexService {
       this.rpc = "devnet";
     }
 
-    const connection = new Connection(clusterApiUrl(this.rpc));
+    const connection = new Connection(
+      this.rpc === "devnet" ? clusterApiUrl(this.rpc) : this.mainnetRpc
+    );
 
     const identity = this.identity;
     this.metaplex = Metaplex.make(connection)
