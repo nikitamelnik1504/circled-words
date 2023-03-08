@@ -1,6 +1,5 @@
 import {
   Metaplex,
-  walletAdapterIdentity,
   bundlrStorage,
   toMetaplexFile,
 } from "@metaplex-foundation/js";
@@ -44,11 +43,15 @@ export default class MetaplexService {
 
     const connection = new Connection(clusterApiUrl(this.rpc));
 
+    const identity = this.identity;
     this.metaplex = Metaplex.make(connection)
-      .use(walletAdapterIdentity(provider))
+      .use({
+        install(metaplex: Metaplex) {
+          metaplex.identity().setDriver(identity);
+        },
+      })
       .use(
         bundlrStorage({
-          identity: this.identity,
           address:
             this.rpc === "mainnet-beta"
               ? "http://node1.bundlr.network"
@@ -101,7 +104,6 @@ export default class MetaplexService {
       name: "CircledWord #DEV",
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress),
-      mintAuthority: this.identity,
       sellerFeeBasisPoints: 500,
       isCollection: false,
     });
