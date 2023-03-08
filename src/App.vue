@@ -109,7 +109,8 @@ watch(
       metaplexService.value === false
     ) {
       metaplexService.value = new MetaplexService(
-        (phantomWalletService.value as PhantomWalletService).provider
+        (phantomWalletService.value as PhantomWalletService).provider,
+        store
       );
     }
   },

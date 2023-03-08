@@ -1,6 +1,6 @@
 {
   "name": "circledwords",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "productName": "CircledWords",
   "description": "Web3 app that allows you to create your own Circled",
   "repository": {
@@ -37,8 +37,7 @@
     "@metaplex-foundation/js": "^0.18.3",
     "@popperjs/core": "^2.11.5",
     "@rollup/plugin-inject": "^4.0.4",
-    "@solana/wallet-adapter-base": "^0.9.15",
-    "@solana/wallet-adapter-phantom": "^0.9.14",
+    "@solana/wallet-adapter-phantom": "^0.9.22",
     "@solana/web3.js": "^1.66.2",
     "@types/bootstrap": "^5.2.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",

@@ -1,6 +1,5 @@
 import {
   Metaplex,
-  walletAdapterIdentity,
   bundlrStorage,
   toMetaplexFile,
 } from "@metaplex-foundation/js";
@@ -8,13 +7,19 @@ import nftImage from "@/assets/images/nft-default-icon.png";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { Property } from "@/utils/Service/CircledWordService";
+import type { Store } from "vuex";
 
 export default class MetaplexService {
+  protected store;
+
   protected metaplex: Metaplex;
 
   public nftStage: "JSON Upload" | "Create" | "Authority Update" | null = null;
 
   public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
+
+  private mainnetRpc =
+    "https://convincing-ultra-silence.solana-mainnet.discover.quiknode.pro";
 
   private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
 
@@ -23,17 +28,33 @@ export default class MetaplexService {
   private nftImageUrl =
     "https://eccr4vp5qxmhn4nixbdah44hci7picmgjxwtnuxdp2yokh573c6a.arweave.net/IIUeVf2F2HbxqLhGA_OHEj70CYZN7TbS436w5R-_2Lw";
 
-  constructor(provider: PhantomWalletAdapter) {
+  protected identity;
+
+  constructor(provider: PhantomWalletAdapter, store: Store<unknown>) {
+    this.store = store;
     this.provider = provider;
+    this.identity = {
+      publicKey: new PublicKey(store.getters["wallet/getWalletAddress"]),
+      signMessage: this.provider.signMessage,
+      signTransaction: this.provider.signTransaction,
+      signAllTransactions: this.provider.signAllTransactions,
+    };
 
     if (process.env.IS_STAGING === undefined || +process.env.IS_STAGING === 1) {
       this.rpc = "devnet";
     }
 
-    const connection = new Connection(clusterApiUrl(this.rpc));
+    const connection = new Connection(
+      this.rpc === "devnet" ? clusterApiUrl(this.rpc) : this.mainnetRpc
+    );
 
+    const identity = this.identity;
     this.metaplex = Metaplex.make(connection)
-      .use(walletAdapterIdentity(provider))
+      .use({
+        install(metaplex: Metaplex) {
+          metaplex.identity().setDriver(identity);
+        },
+      })
       .use(
         bundlrStorage({
           address:
@@ -108,12 +129,7 @@ export default class MetaplexService {
     return this.metaplex.nfts().verifyCollection({
       mintAddress: new PublicKey(tokenAddress),
       collectionMintAddress: new PublicKey(this.collectionAddress),
-      collectionAuthority: {
-        publicKey: this.provider.publicKey!,
-        signMessage: this.provider.signMessage,
-        signTransaction: this.provider.signTransaction,
-        signAllTransactions: this.provider.signAllTransactions,
-      },
+      collectionAuthority: this.identity,
     });
   }
 

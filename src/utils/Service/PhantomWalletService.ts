@@ -51,22 +51,25 @@ export default class PhantomWalletService extends WalletServiceBase {
   }
 
   async connect(): Promise<string> {
-    return this.provider
-      .connect()
-      .then(() => {
-        this.store.commit("wallet/setWalletAddress", {
-          address: this.provider.publicKey?.toString(),
-        });
-        this.store.commit("wallet/setWalletType", { type: "phantomWallet" });
-        this.store.commit("wallet/setConnected");
-        this.connected = true;
-        this.connectedToSite = true;
-        return "connected";
-      })
-      .catch((error) => {
-        console.log(error);
-        return "not_connected";
-      });
+    return (
+      this.provider
+        .connect()
+        // @ts-ignore Not typed in provider.
+        .then((value: { publicKey: unknown }) => {
+          this.store.commit("wallet/setWalletAddress", {
+            address: value.publicKey?.toString(),
+          });
+          this.store.commit("wallet/setWalletType", { type: "phantomWallet" });
+          this.store.commit("wallet/setConnected");
+          this.connected = true;
+          this.connectedToSite = true;
+          return "connected";
+        })
+        .catch((error) => {
+          console.log(error);
+          return "not_connected";
+        })
+    );
   }
 
   public addEvent(
