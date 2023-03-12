@@ -53,7 +53,7 @@ onMounted(() => {
 watch(
   () => props.nftStage,
   (newValue: string | null, oldValue) => {
-    if (oldValue === null && newValue === "JSON Upload") {
+    if (oldValue === null && newValue) {
       modal.show();
     }
     if (oldValue !== null && newValue === null) {
