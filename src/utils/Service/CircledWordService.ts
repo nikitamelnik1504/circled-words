@@ -1,3 +1,5 @@
+import nftImage from "@/assets/images/circled.svg";
+
 type Widget = "select" | "text" | "time";
 
 export interface Property {
@@ -230,5 +232,28 @@ export default class CircledWordService {
 
   getNftTypes(): Array<typeof NFT> {
     return this.nftTypes;
+  }
+
+  async getNftImage(properties: Array<Array<Property>>) {
+    const svg_string: string = await fetch(nftImage as string).then((result) =>
+      result.text()
+    );
+    const parser = new DOMParser();
+    const circled_image = parser.parseFromString(svg_string, "image/svg+xml");
+    const circled_border = circled_image.getElementById("border");
+    const circled_text = circled_image.getElementById("text");
+
+    if (properties[0][0].value === "Fill In") {
+      for (const property of properties[1]) {
+        if (property.originLabel === "Text Color") {
+          circled_text!.setAttribute("fill", <string>property.value);
+        }
+        if (property.originLabel === "Border Color") {
+          circled_border!.setAttribute("stroke", <string>property.value);
+        }
+      }
+    }
+
+    return new XMLSerializer().serializeToString(circled_image);
   }
 }

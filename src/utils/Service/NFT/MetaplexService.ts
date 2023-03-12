@@ -3,11 +3,11 @@ import {
   bundlrStorage,
   toMetaplexFile,
 } from "@metaplex-foundation/js";
-import nftImage from "@/assets/images/circled.svg";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { Property } from "@/utils/Service/CircledWordService";
 import type { Store } from "vuex";
+import CircledWordService from "@/utils/Service/CircledWordService";
 
 export default class MetaplexService {
   protected store;
@@ -71,10 +71,8 @@ export default class MetaplexService {
 
   async createNFT(properties: Array<Array<Property>>) {
     this.nftStage = "Image Upload";
-    const file = toMetaplexFile(
-      await fetch(nftImage as string).then((result) => result.arrayBuffer()),
-      "circled.svg"
-    );
+    const image = await new CircledWordService().getNftImage(properties);
+    const file = toMetaplexFile(image, "circled.svg");
     const image_url = await this.metaplex.storage().upload(file);
 
     this.nftStage = "JSON Upload";
@@ -166,13 +164,5 @@ export default class MetaplexService {
       sellerFeeBasisPoints: 250,
       isCollection: true,
     });
-  }
-
-  async uploadNFTImage() {
-    const image = await fetch(nftImage as string).then((result) =>
-      result.arrayBuffer()
-    );
-    const image_file = await toMetaplexFile(image, "circled.png");
-    await this.metaplex.storage().upload(image_file);
   }
 }
