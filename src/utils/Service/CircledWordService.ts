@@ -1,4 +1,5 @@
-import nftImage from "@/assets/images/circled.svg";
+import nftImage from "@/assets/images/circled_fill_in.svg";
+import { Canvg } from "canvg";
 
 type Widget = "select" | "text" | "time";
 
@@ -254,6 +255,18 @@ export default class CircledWordService {
       }
     }
 
-    return new XMLSerializer().serializeToString(circled_image);
+    const canvas = <HTMLCanvasElement>document.getElementById("circledCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const v = await Canvg.from(
+      ctx!,
+      new XMLSerializer().serializeToString(circled_image)
+    );
+    v.start();
+    await v.render();
+
+    const base_64_image = canvas.toDataURL("image/png");
+
+    return await fetch(base_64_image).then((result) => result.blob());
   }
 }

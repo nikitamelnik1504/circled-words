@@ -72,7 +72,7 @@ export default class MetaplexService {
   async createNFT(properties: Array<Array<Property>>) {
     this.nftStage = "Image Upload";
     const image = await new CircledWordService().getNftImage(properties);
-    const file = toMetaplexFile(image, "circled.svg");
+    const file = toMetaplexFile(await image.arrayBuffer(), "circled.png");
     const image_url = await this.metaplex.storage().upload(file);
 
     this.nftStage = "JSON Upload";
@@ -100,15 +100,13 @@ export default class MetaplexService {
       symbol: "CW",
       description: "",
       image: image_url,
-      animation_url: "",
-      external_url: "",
       attributes,
     };
-    const json_link = await this.metaplex.storage().uploadJson(nft_json);
+    const json_link = await this.metaplex.nfts().uploadMetadata(nft_json);
 
     this.nftStage = "Create";
     const nft_output = await this.metaplex.nfts().create({
-      uri: json_link,
+      uri: json_link.uri,
       name: "CircledWord #DEV",
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress),
