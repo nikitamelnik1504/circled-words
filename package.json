@@ -1,6 +1,6 @@
 {
   "name": "circledwords",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "productName": "CircledWords",
   "description": "Web3 app that allows you to create your own Circled",
   "repository": {
@@ -45,6 +45,7 @@
     "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
+    "canvg": "^4.0.1",
     "graphql": "^16.6.0",
     "invert-color": "^2.0.0",
     "stylelint-config-recommended": "^8.0.0",

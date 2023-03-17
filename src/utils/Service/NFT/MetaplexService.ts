@@ -3,18 +3,23 @@ import {
   bundlrStorage,
   toMetaplexFile,
 } from "@metaplex-foundation/js";
-import nftImage from "@/assets/images/nft-default-icon.png";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { Property } from "@/utils/Service/CircledWordService";
 import type { Store } from "vuex";
+import CircledWordService from "@/utils/Service/CircledWordService";
 
 export default class MetaplexService {
   protected store;
 
   protected metaplex: Metaplex;
 
-  public nftStage: "JSON Upload" | "Create" | "Authority Update" | null = null;
+  public nftStage:
+    | "JSON Upload"
+    | "Image Upload"
+    | "Create"
+    | "Authority Update"
+    | null = null;
 
   public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
 
@@ -24,9 +29,6 @@ export default class MetaplexService {
   private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
 
   private provider;
-
-  private nftImageUrl =
-    "https://eccr4vp5qxmhn4nixbdah44hci7picmgjxwtnuxdp2yokh573c6a.arweave.net/IIUeVf2F2HbxqLhGA_OHEj70CYZN7TbS436w5R-_2Lw";
 
   protected identity;
 
@@ -68,8 +70,12 @@ export default class MetaplexService {
   }
 
   async createNFT(properties: Array<Array<Property>>) {
-    this.nftStage = "JSON Upload";
+    this.nftStage = "Image Upload";
+    const image = await new CircledWordService().getNftImage(properties);
+    const file = toMetaplexFile(await image.arrayBuffer(), "circled.png");
+    const image_url = await this.metaplex.storage().upload(file);
 
+    this.nftStage = "JSON Upload";
     const attributes = (() => {
       const result: { trait_type: string; value: string }[] = [];
 
@@ -89,23 +95,18 @@ export default class MetaplexService {
       }
       return result;
     })();
-
     const nft_json = {
       name: "CircledWord #DEV",
       symbol: "CW",
       description: "",
-      image: this.nftImageUrl,
-      animation_url: "",
-      external_url: "",
+      image: image_url,
       attributes,
     };
-
-    const json_link = await this.metaplex.storage().uploadJson(nft_json);
+    const json_link = await this.metaplex.nfts().uploadMetadata(nft_json);
 
     this.nftStage = "Create";
-
     const nft_output = await this.metaplex.nfts().create({
-      uri: json_link,
+      uri: json_link.uri,
       name: "CircledWord #DEV",
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress),
@@ -114,7 +115,6 @@ export default class MetaplexService {
     });
 
     this.nftStage = "Authority Update";
-
     await this.metaplex.nfts().update({
       nftOrSft: nft_output.nft,
       newUpdateAuthority: new PublicKey(
@@ -162,13 +162,5 @@ export default class MetaplexService {
       sellerFeeBasisPoints: 250,
       isCollection: true,
     });
-  }
-
-  async uploadNFTImage() {
-    const image = await fetch(nftImage as string).then((result) =>
-      result.arrayBuffer()
-    );
-    const image_file = await toMetaplexFile(image, "circled.png");
-    await this.metaplex.storage().upload(image_file);
   }
 }

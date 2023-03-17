@@ -9,6 +9,7 @@
   <Header />
   <router-view />
   <Footer />
+  <canvas id="circledCanvas" class="d-none" width="3000" height="3000" />
 </template>
 
 <script lang="ts" setup>
