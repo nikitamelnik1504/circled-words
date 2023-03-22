@@ -50,30 +50,48 @@
               >
             </div>
           </div>
-          <div class="col-sm-10 mx-auto d-flex flex-column" style="flex: 2">
-            <div class="tab-header d-flex">
-              <a
-                href="#"
-                class="w-50 text-center py-3"
-                @click.prevent="activeTab = 'properties'"
-                >Properties</a
-              >
-              <a
-                href="#"
-                class="w-50 text-center py-3"
-                @click.prevent="activeTab = 'story'"
-                >Story</a
-              >
-            </div>
-            <div class="tab-content">
-              <div
-                class="properties"
-                :class="{ 'd-none': activeTab === 'story' }"
-              ></div>
-              <div
-                class="story"
-                :class="{ 'd-none': activeTab === 'properties' }"
-              ></div>
+          <div
+            class="col-sm-10 col-md-7 mx-auto d-flex flex-column"
+            style="flex: 2"
+          >
+            <div class="tabs-wrapper">
+              <div class="tab-header d-flex">
+                <a
+                  href="#"
+                  class="w-50 text-center py-3"
+                  @click.prevent="activeTab = 'properties'"
+                  >Properties</a
+                >
+                <a
+                  href="#"
+                  class="w-50 text-center py-3"
+                  @click.prevent="activeTab = 'story'"
+                  >Story</a
+                >
+              </div>
+              <div class="tab-content h-100">
+                <div
+                  class="properties"
+                  :class="{ 'd-none': activeTab === 'story' }"
+                >
+                  <swiper
+                    class="d-md-none"
+                    :pagination="true"
+                    :modules="modules"
+                  >
+                    <swiper-slide
+                      v-for="(level_properties, level) in nft.properties"
+                      :key="level"
+                    >
+                      <h3 class="text-center">Level {{ level + 1 }}</h3>
+                    </swiper-slide>
+                  </swiper>
+                </div>
+                <div
+                  class="story"
+                  :class="{ 'd-none': activeTab === 'properties' }"
+                ></div>
+              </div>
             </div>
           </div>
           <div
@@ -96,7 +114,11 @@ export default {
 import CircledWord from "@/components/CircledWord.vue";
 import PageBase from "@/views/page/PageBase/index.vue";
 import CircledWordService from "@/utils/Service/CircledWordService";
+import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref } from "vue";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const wordProperties: Ref<NFTMetadata> = ref({
   name: "CircledWord #1",
@@ -117,6 +139,8 @@ const playRunning = ref(false);
 const mintRunning = ref(false);
 
 const activeTab = ref("properties");
+
+const modules = ref([Pagination]);
 
 const onPlayFinished = () => {
   playRunning.value = false;

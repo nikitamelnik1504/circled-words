@@ -5,9 +5,14 @@
         border: solid 1px #34352d;
         border-radius: 4px;
 
-        .tab-header {
-          a {
-            font-size: 16px;
+        .tabs-wrapper {
+          border: solid 1px #34352d;
+          border-radius: 4px;
+
+          .tab-header {
+            a {
+              font-size: 16px;
+            }
           }
         }
 
