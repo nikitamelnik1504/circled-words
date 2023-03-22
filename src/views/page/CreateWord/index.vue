@@ -83,7 +83,35 @@
                       v-for="(level_properties, level) in nft.properties"
                       :key="level"
                     >
-                      <h3 class="text-center">Level {{ level + 1 }}</h3>
+                      <div class="row">
+                        <h3 class="text-center">Level {{ level + 1 }}</h3>
+                        <div
+                          v-for="(property, index) in level_properties"
+                          :key="index"
+                          class="col-6"
+                        >
+                          <div v-if="property.widget === 'select'"></div>
+                          <div v-else-if="property.widget === 'time'"></div>
+                          <div v-else>
+                            <div class="d-flex align-items-center">
+                              <p class="circled-property-field-label m-0">
+                                {{ property.label }}
+                              </p>
+                            </div>
+                            <div
+                              class="property-field-value-wrapper px-0 h-100"
+                            >
+                              <input
+                                v-model="property.value"
+                                type="text"
+                                readonly
+                                class="circled-property-field-value w-100 h-100 py-0 text-center color-input position-absolute opacity-0"
+                                :disabled="playRunning"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </swiper-slide>
                   </swiper>
                 </div>
