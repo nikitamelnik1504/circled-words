@@ -6,20 +6,21 @@
     class="create-word-page"
   >
     <div class="col-12">
-      <div class="wrapper p-md-4">
-        <div class="row">
-          <div class="col-5">
-            <div class="animate__animated animate__zoomIn">
-              <CircledWord
-                class="disabled"
-                :nft="nft"
-                :play="playRunning"
-                locked
-                @play-finished="onPlayFinished"
-              />
-            </div>
+      <div class="wrapper p-md-4 h-100 w-100 d-flex justify-content-center">
+        <div class="row w-100 flex-column flex-md-row">
+          <div
+            class="col-sm-10 col-md-5 my-md-auto mx-auto text-center"
+            style="flex: 1"
+          >
+            <CircledWord
+              class="disabled mt-3 mb-3"
+              :nft="nft"
+              :play="playRunning"
+              locked
+              @play-finished="onPlayFinished"
+            />
             <div
-              class="actions d-flex justify-content-center circled-entity-preview-actions my-4 mb-lg-0"
+              class="actions d-flex justify-content-center circled-entity-preview-actions my-4 mb-lg-0 d-none d-md-block"
             >
               <a
                 href="#"
@@ -49,7 +50,36 @@
               >
             </div>
           </div>
-          <div class="col-7"></div>
+          <div class="col-sm-10 mx-auto d-flex flex-column" style="flex: 2">
+            <div class="tab-header d-flex">
+              <a
+                href="#"
+                class="w-50 text-center py-3"
+                @click.prevent="activeTab = 'properties'"
+                >Properties</a
+              >
+              <a
+                href="#"
+                class="w-50 text-center py-3"
+                @click.prevent="activeTab = 'story'"
+                >Story</a
+              >
+            </div>
+            <div class="tab-content">
+              <div
+                class="properties"
+                :class="{ 'd-none': activeTab === 'story' }"
+              ></div>
+              <div
+                class="story"
+                :class="{ 'd-none': activeTab === 'properties' }"
+              ></div>
+            </div>
+          </div>
+          <div
+            class="col-sm-10 mx-auto d-flex flex-column d-md-none"
+            style="flex: 1"
+          ></div>
         </div>
       </div>
     </div>
@@ -85,6 +115,8 @@ const nft = ref(new CircledWordService().getNft(wordProperties.value));
 
 const playRunning = ref(false);
 const mintRunning = ref(false);
+
+const activeTab = ref("properties");
 
 const onPlayFinished = () => {
   playRunning.value = false;

@@ -4,6 +4,36 @@
       .wrapper {
         border: solid 1px #34352d;
         border-radius: 4px;
+
+        .tab-header {
+          a {
+            font-size: 16px;
+          }
+        }
+
+        .circled-word {
+          @include circled-word(1.4);
+
+          @include media-breakpoint-up(md) {
+            @include circled-word(1.5);
+          }
+
+          @include media-breakpoint-up(md) {
+            @include circled-word(1.7);
+          }
+
+          @include media-breakpoint-up(lg) {
+            @include circled-word(1.7);
+          }
+
+          @include media-breakpoint-up(xl) {
+            @include circled-word(2);
+          }
+
+          @include media-breakpoint-up(xxl) {
+            @include circled-word(2.5);
+          }
+        }
       }
     }
   }

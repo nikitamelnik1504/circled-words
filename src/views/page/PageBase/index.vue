@@ -2,7 +2,7 @@
   <div class="page container-fluid mt-md-2">
     <div class="row px-2 px-md-3" :class="{ 'h-100': fullHeight }">
       <div class="col-12 content py-md-3">
-        <div class="wrapper px-md-4 py-md-3 h-100">
+        <div class="wrapper px-md-4 py-md-3 h-100 d-flex flex-column">
           <div class="row header">
             <div class="col-md-3 page-title">
               <div
@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-          <div class="row body mt-3">
+          <div class="row body mt-3 h-100">
             <slot />
           </div>
         </div>
