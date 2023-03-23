@@ -47,6 +47,7 @@
             .tab-header {
               .tab-link {
                 font-size: 16px;
+                border-bottom: solid 1px #34352d;
 
                 &.active {
                   z-index: -1;
