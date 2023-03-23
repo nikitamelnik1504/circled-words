@@ -5,38 +5,62 @@
         border: solid 1px #34352d;
         border-radius: 4px;
 
-        .tabs-wrapper {
-          border: solid 1px #34352d;
-          border-radius: 4px;
+        .circled-preview {
+          flex: 1;
 
-          .tab-header {
-            a {
-              font-size: 16px;
+          .circled-word {
+            @include circled-word(1.4);
+
+            @include media-breakpoint-up(md) {
+              @include circled-word(1.5);
             }
+
+            @include media-breakpoint-up(md) {
+              @include circled-word(1.7);
+            }
+
+            @include media-breakpoint-up(lg) {
+              @include circled-word(1.7);
+            }
+
+            @include media-breakpoint-up(xl) {
+              @include circled-word(2);
+            }
+
+            @include media-breakpoint-up(xxl) {
+              @include circled-word(2.5);
+            }
+          }
+
+          @include media-breakpoint-up(md) {
+            flex: unset;
           }
         }
 
-        .circled-word {
-          @include circled-word(1.4);
+        .circled-tabs {
+          flex: 2;
 
-          @include media-breakpoint-up(md) {
-            @include circled-word(1.5);
+          .tabs-wrapper {
+            border: solid 1px #34352d;
+            border-radius: 4px;
+
+            .tab-header {
+              a {
+                font-size: 16px;
+              }
+            }
           }
 
           @include media-breakpoint-up(md) {
-            @include circled-word(1.7);
+            flex: unset;
           }
+        }
 
-          @include media-breakpoint-up(lg) {
-            @include circled-word(1.7);
-          }
+        .circled-actions {
+          flex: 1;
 
-          @include media-breakpoint-up(xl) {
-            @include circled-word(2);
-          }
-
-          @include media-breakpoint-up(xxl) {
-            @include circled-word(2.5);
+          @include media-breakpoint-up(md) {
+            flex: unset;
           }
         }
       }

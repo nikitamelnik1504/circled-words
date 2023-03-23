@@ -9,8 +9,7 @@
       <div class="wrapper p-md-4 h-100 w-100 d-flex justify-content-center">
         <div class="row w-100 flex-column flex-md-row">
           <div
-            class="col-sm-10 col-md-5 my-md-auto mx-auto text-center"
-            style="flex: 1"
+            class="circled-preview col-sm-10 col-md-5 my-md-auto mx-auto text-center"
           >
             <CircledWord
               class="disabled mt-3 mb-3"
@@ -51,8 +50,7 @@
             </div>
           </div>
           <div
-            class="col-sm-10 col-md-7 mx-auto d-flex flex-column"
-            style="flex: 2"
+            class="circled-tabs col-sm-10 col-md-7 mx-auto d-flex flex-column"
           >
             <div class="tabs-wrapper">
               <div class="tab-header d-flex">
@@ -123,8 +121,7 @@
             </div>
           </div>
           <div
-            class="col-sm-10 mx-auto d-flex flex-column d-md-none"
-            style="flex: 1"
+            class="circled-actions col-sm-10 mx-auto d-flex flex-column d-md-none"
           ></div>
         </div>
       </div>
