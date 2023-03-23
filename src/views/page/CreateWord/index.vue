@@ -56,13 +56,15 @@
               <div class="tab-header d-flex">
                 <a
                   href="#"
-                  class="w-50 text-center py-3"
+                  class="tab-link w-50 text-center py-3"
+                  :class="{ active: activeTab === 'properties' }"
                   @click.prevent="activeTab = 'properties'"
                   >Properties</a
                 >
                 <a
                   href="#"
-                  class="w-50 text-center py-3"
+                  class="tab-link w-50 text-center py-3"
+                  :class="{ active: activeTab === 'story' }"
                   @click.prevent="activeTab = 'story'"
                   >Story</a
                 >
