@@ -63,6 +63,25 @@
                 .level {
                   font-size: 18px;
                 }
+
+                .property {
+                  .property-field-value-wrapper {
+                    border: solid 1px $primary;
+                    border-radius: 4px;
+                  }
+
+                  .property-label {
+                    font-size: 16px;
+                  }
+                }
+
+                .swiper {
+                  .swiper-pagination {
+                    @include media-breakpoint-up(md) {
+                      display: none;
+                    }
+                  }
+                }
               }
             }
           }

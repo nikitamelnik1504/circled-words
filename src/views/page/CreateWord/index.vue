@@ -75,22 +75,65 @@
                   :class="{ 'd-none': activeTab === 'story' }"
                 >
                   <swiper
-                    class="d-md-none"
                     :pagination="true"
                     :modules="modules"
+                    :wrapper-class="'flex-md-column'"
                   >
                     <swiper-slide
                       v-for="(level_properties, level) in nft.properties"
                       :key="level"
                     >
-                      <div class="row">
+                      <div class="row w-100 m-0 px-2">
                         <h3 class="text-center level">Level {{ level + 1 }}</h3>
                         <div
                           v-for="(property, index) in level_properties"
                           :key="index"
-                          class="col-6"
+                          class="col-6 property"
                         >
-                          <div v-if="property.widget === 'select'"></div>
+                          <div
+                            v-if="property.widget === 'select'"
+                            class="text-center"
+                          >
+                            <h5 class="property-label m-0">
+                              {{ property.label }}
+                            </h5>
+                            <div
+                              class="mt-2 px-0 py-2 property-field-value-wrapper"
+                            >
+                              <div
+                                class="dropdown circled-property-field-value text-center p-0 w-100 h-100 d-flex"
+                              >
+                                <input
+                                  id="animationType"
+                                  v-model="property.value"
+                                  class="dropdown-toggle circled-property-field-value w-100 border-0 bg-transparent p-0"
+                                  :disabled="playRunning"
+                                  type="button"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                  name="animation_type"
+                                />
+                                <ul
+                                  class="dropdown-menu justify-content-center align-items-center w-100 text-center border-0 p-1"
+                                >
+                                  <li
+                                    v-for="(nftType, nftTypeIndex) in nftTypes"
+                                    :key="nftTypeIndex"
+                                  >
+                                    <a
+                                      class="dropdown-item"
+                                      href="#"
+                                      @click.prevent="
+                                        property.value = nftType.type
+                                      "
+                                    >
+                                      {{ nftType.type }}</a
+                                    >
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
                           <div v-else-if="property.widget === 'time'"></div>
                           <div v-else>
                             <div class="d-flex align-items-center">
