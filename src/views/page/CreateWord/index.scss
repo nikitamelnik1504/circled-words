@@ -57,6 +57,14 @@
                 }
               }
             }
+
+            .tab-content {
+              .properties {
+                .level {
+                  font-size: 18px;
+                }
+              }
+            }
           }
 
           @include media-breakpoint-up(md) {

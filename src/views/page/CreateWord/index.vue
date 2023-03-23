@@ -71,7 +71,7 @@
               </div>
               <div class="tab-content h-100">
                 <div
-                  class="properties"
+                  class="properties pt-3 pb-2"
                   :class="{ 'd-none': activeTab === 'story' }"
                 >
                   <swiper
@@ -84,7 +84,7 @@
                       :key="level"
                     >
                       <div class="row">
-                        <h3 class="text-center">Level {{ level + 1 }}</h3>
+                        <h3 class="text-center level">Level {{ level + 1 }}</h3>
                         <div
                           v-for="(property, index) in level_properties"
                           :key="index"
@@ -116,7 +116,7 @@
                   </swiper>
                 </div>
                 <div
-                  class="story"
+                  class="story pt-3 pb-2"
                   :class="{ 'd-none': activeTab === 'properties' }"
                 ></div>
               </div>
