@@ -88,26 +88,25 @@
                         <div
                           v-for="(property, index) in level_properties"
                           :key="index"
-                          class="col-6 col-md-3 property"
+                          class="col-6 col-md-3 property mb-3"
                         >
                           <div
                             v-if="property.widget === 'select'"
                             class="text-center"
                           >
-                            <h5 class="property-label m-0">
+                            <h5 class="property-label m-0 mb-2">
                               {{ property.label }}
                             </h5>
-                            <div class="mt-2 px-0 property-field-value-wrapper">
+                            <div class="px-0 property-field-value-wrapper">
                               <div
                                 class="dropdown py-2 circled-property-field-value text-center p-0 w-100 h-100 d-flex"
                               >
                                 <input
                                   id="animationType"
                                   v-model="property.value"
-                                  class="dropdown-toggle circled-property-field-value w-100 border-0 bg-transparent p-0"
+                                  class="circled-property-field-value w-100 border-0 bg-transparent p-0"
                                   :disabled="playRunning"
                                   type="button"
-                                  data-bs-toggle="dropdown"
                                   aria-expanded="false"
                                   name="animation_type"
                                 />
@@ -115,12 +114,10 @@
                             </div>
                           </div>
                           <div v-else-if="property.widget === 'time'"></div>
-                          <div v-else>
-                            <div class="d-flex align-items-center">
-                              <p class="circled-property-field-label m-0">
-                                {{ property.label }}
-                              </p>
-                            </div>
+                          <div v-else class="text-center">
+                            <h5 class="property-label mb-2 m-0">
+                              {{ property.label }}
+                            </h5>
                             <div
                               class="property-field-value-wrapper px-0 h-100"
                             >
@@ -128,7 +125,7 @@
                                 v-model="property.value"
                                 type="text"
                                 readonly
-                                class="circled-property-field-value w-100 h-100 py-0 text-center color-input position-absolute opacity-0"
+                                class="circled-property-field-value w-100 h-100 py-2 text-center color-input position-relative"
                                 :disabled="playRunning"
                               />
                             </div>
@@ -161,14 +158,16 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import "@melloware/coloris/dist/coloris.css";
 import CircledWord from "@/components/CircledWord.vue";
 import PageBase from "@/views/page/PageBase/index.vue";
 import CircledWordService from "@/utils/Service/CircledWordService";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import "swiper/css";
 import "swiper/css/pagination";
+import Coloris from "@melloware/coloris";
 
 const wordProperties: Ref<NFTMetadata> = ref({
   name: "CircledWord #1",
@@ -195,4 +194,14 @@ const modules = ref([Pagination]);
 const onPlayFinished = () => {
   playRunning.value = false;
 };
+
+onMounted(() => {
+  Coloris.init();
+  Coloris({
+    el: ".color-input",
+    themeMode: "dark",
+    alpha: false,
+    focusInput: false,
+  });
+});
 </script>

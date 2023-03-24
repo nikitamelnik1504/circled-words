@@ -70,8 +70,17 @@
                     border-radius: 4px;
 
                     .circled-property-field-value {
-                      .circled-property-field-value {
-                        color: white;
+                      background: none;
+                      border: none;
+                      color: white;
+                    }
+
+                    .clr-field {
+                      width: 100%;
+
+                      button {
+                        border-radius: 3px;
+                        width: 100%;
                       }
                     }
                   }
