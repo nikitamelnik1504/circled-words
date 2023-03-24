@@ -68,6 +68,12 @@
                   .property-field-value-wrapper {
                     border: solid 1px $primary;
                     border-radius: 4px;
+
+                    .circled-property-field-value {
+                      .circled-property-field-value {
+                        color: white;
+                      }
+                    }
                   }
 
                   .property-label {
