@@ -92,6 +92,8 @@
 
                 .swiper {
                   .swiper-pagination {
+                    position: relative;
+
                     @include media-breakpoint-up(md) {
                       display: none;
                     }
