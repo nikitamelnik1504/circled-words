@@ -97,7 +97,9 @@
                             <h5 class="property-label m-0 mb-2">
                               {{ property.label }}
                             </h5>
-                            <div class="px-0 property-field-value-wrapper">
+                            <div
+                              class="px-0 property-field-value-wrapper select"
+                            >
                               <div
                                 class="dropdown py-2 circled-property-field-value text-center p-0 w-100 h-100 d-flex"
                               >
@@ -119,7 +121,7 @@
                               {{ property.label }}
                             </h5>
                             <div
-                              class="property-field-value-wrapper px-0 h-100"
+                              class="property-field-value-wrapper h-100 color"
                             >
                               <input
                                 v-model="property.value"
@@ -127,6 +129,7 @@
                                 readonly
                                 class="circled-property-field-value w-100 h-100 py-2 text-center color-input position-relative"
                                 :disabled="playRunning"
+                                :style="{ 'border-color': property.value }"
                               />
                             </div>
                           </div>

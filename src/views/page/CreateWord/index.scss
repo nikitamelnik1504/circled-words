@@ -66,8 +66,15 @@
 
                 .property {
                   .property-field-value-wrapper {
-                    border: solid 1px $primary;
                     border-radius: 4px;
+
+                    &.select {
+                      border: solid 1px $primary;
+                    }
+
+                    &.color {
+                      border-width: 1px;
+                    }
 
                     .circled-property-field-value {
                       background: none;
@@ -80,7 +87,14 @@
 
                       button {
                         border-radius: 3px;
+                        border: none;
                         width: 100%;
+                      }
+
+                      input {
+                        &:focus {
+                          outline: none;
+                        }
                       }
                     }
                   }
