@@ -94,6 +94,10 @@
                   .swiper-pagination {
                     position: relative;
 
+                    .swiper-pagination-bullet-active {
+                      background: $primary;
+                    }
+
                     @include media-breakpoint-up(md) {
                       display: none;
                     }
