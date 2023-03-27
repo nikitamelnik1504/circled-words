@@ -16,38 +16,18 @@
               :nft="nft"
               :play="playRunning"
               locked
-              @play-finished="onPlayFinished"
+              @play-finished="playRunning = false"
             />
-            <div
-              class="actions d-flex justify-content-center circled-entity-preview-actions my-4 mb-lg-0 d-none d-md-block"
-            >
-              <a
-                href="#"
-                class="py-3 text-center me-3 text-decoration-none w-50 play-action animate__animated animate__fadeInUp"
-                :class="{ disabled: playRunning }"
-                @click.prevent="
-                  () => (playRunning ? undefined : (playRunning = true))
-                "
-                >Play</a
-              >
-              <a
-                href="#"
-                class="py-3 text-center text-decoration-none w-50 mint-action animate__animated animate__fadeInUp"
-                :class="{
-                  disabled:
-                    mintRunning ||
-                    !metaplexService ||
-                    metaplexService.rpc === 'mainnet-beta',
-                }"
-                @click.prevent="
-                  () =>
-                    mintRunning || metaplexService.rpc === 'mainnet-beta'
-                      ? undefined
-                      : mint()
-                "
-                >Mint</a
-              >
-            </div>
+            <Actions
+              :class="'d-flex justify-content-center my-4 mb-lg-0 d-none d-md-block'"
+              :metaplex-service="metaplexService"
+              :nft="nft"
+              :play-running="playRunning"
+              :mint-running="mintRunning"
+              @play-started="playRunning = true"
+              @mint-started="mintRunning = true"
+              @mint-completed="mintRunning = false"
+            />
           </div>
           <div
             class="circled-tabs col-sm-10 col-md-6 mx-auto d-flex flex-column"
@@ -204,9 +184,16 @@
               </div>
             </div>
           </div>
-          <div
-            class="circled-actions col-sm-10 mx-auto d-flex flex-column d-md-none"
-          ></div>
+          <Actions
+            :class="'col-sm-10 mx-auto d-flex d-md-none'"
+            :metaplex-service="metaplexService"
+            :nft="nft"
+            :play-running="playRunning"
+            :mint-running="mintRunning"
+            @play-started="playRunning = true"
+            @mint-started="mintRunning = true"
+            @mint-completed="mintRunning = false"
+          />
         </div>
       </div>
     </div>
@@ -237,6 +224,7 @@ import Coloris from "@melloware/coloris";
 import MintLoaderModal from "./components/MintLoaderModal.vue";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
 import invert from "invert-color";
+import Actions from "./components/Actions.vue";
 
 const wordProperties: Ref<NFTMetadata> = ref({
   name: "CircledWord #1",
@@ -261,23 +249,6 @@ const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
 const activeTab = ref("properties");
 
 const modules = ref([Pagination]);
-
-const onPlayFinished = () => {
-  playRunning.value = false;
-};
-
-const mint = async () => {
-  mintRunning.value = true;
-  try {
-    await (metaplexService?.value as MetaplexService).createNFT(
-      (nft.value as NFT).properties
-    );
-  } catch (e) {
-    (metaplexService?.value as MetaplexService).nftStage = null;
-  } finally {
-    mintRunning.value = false;
-  }
-};
 
 const colorPickerInSliderFix = () => {
   const slider = document.getElementsByClassName(
