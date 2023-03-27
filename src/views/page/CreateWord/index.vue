@@ -186,7 +186,10 @@
                               readonly
                               class="circled-property-field-value w-100 h-100 py-2 text-center color-input position-relative"
                               :disabled="playRunning"
-                              :style="{ border: 'solid 1px' + property.value }"
+                              :style="{
+                                border: 'solid 1px' + property.value,
+                                color: invert(property.value, true),
+                              }"
                             />
                           </div>
                         </div>
@@ -207,6 +210,10 @@
         </div>
       </div>
     </div>
+    <MintLoaderModal
+      v-if="metaplexService"
+      :nft-stage="metaplexService.nftStage"
+    />
   </PageBase>
 </template>
 
@@ -223,10 +230,13 @@ import PageBase from "@/views/page/PageBase/index.vue";
 import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { onMounted, ref } from "vue";
+import { inject, onMounted, ref } from "vue";
 import "swiper/css";
 import "swiper/css/pagination";
 import Coloris from "@melloware/coloris";
+import MintLoaderModal from "./components/MintLoaderModal.vue";
+import MetaplexService from "@/utils/Service/NFT/MetaplexService";
+import invert from "invert-color";
 
 const wordProperties: Ref<NFTMetadata> = ref({
   name: "CircledWord #1",
@@ -246,12 +256,27 @@ const nft = ref(new CircledWordService().getNft(wordProperties.value));
 const playRunning = ref(false);
 const mintRunning = ref(false);
 
+const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
+
 const activeTab = ref("properties");
 
 const modules = ref([Pagination]);
 
 const onPlayFinished = () => {
   playRunning.value = false;
+};
+
+const mint = async () => {
+  mintRunning.value = true;
+  try {
+    await (metaplexService?.value as MetaplexService).createNFT(
+      (nft.value as NFT).properties
+    );
+  } catch (e) {
+    (metaplexService?.value as MetaplexService).nftStage = null;
+  } finally {
+    mintRunning.value = false;
+  }
 };
 
 const colorPickerInSliderFix = () => {
