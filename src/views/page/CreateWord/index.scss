@@ -68,7 +68,8 @@
                   .property-field-value-wrapper {
                     border-radius: 4px;
 
-                    &.select {
+                    &.select,
+                    &.time {
                       border: solid 1px $primary;
                     }
 

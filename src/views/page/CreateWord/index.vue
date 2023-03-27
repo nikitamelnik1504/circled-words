@@ -88,50 +88,45 @@
                         <div
                           v-for="(property, index) in level_properties"
                           :key="index"
-                          class="col-6 col-md-3 property mb-3"
+                          class="col-6 col-md-3 property mb-3 text-center"
                         >
+                          <h5 class="property-label m-0 mb-2">
+                            {{ property.label }}
+                          </h5>
                           <div
                             v-if="property.widget === 'select'"
-                            class="text-center"
+                            class="px-0 property-field-value-wrapper select"
                           >
-                            <h5 class="property-label m-0 mb-2">
-                              {{ property.label }}
-                            </h5>
                             <div
-                              class="px-0 property-field-value-wrapper select"
-                            >
-                              <div
-                                class="dropdown py-2 circled-property-field-value text-center p-0 w-100 h-100 d-flex"
-                              >
-                                <input
-                                  id="animationType"
-                                  v-model="property.value"
-                                  class="circled-property-field-value w-100 border-0 bg-transparent p-0"
-                                  :disabled="playRunning"
-                                  type="button"
-                                  aria-expanded="false"
-                                  name="animation_type"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div v-else-if="property.widget === 'time'"></div>
-                          <div v-else class="text-center">
-                            <h5 class="property-label mb-2 m-0">
-                              {{ property.label }}
-                            </h5>
-                            <div
-                              class="property-field-value-wrapper h-100 color"
+                              class="dropdown py-2 circled-property-field-value text-center p-0 w-100 h-100 d-flex"
                             >
                               <input
+                                id="animationType"
                                 v-model="property.value"
-                                type="text"
-                                readonly
-                                class="circled-property-field-value w-100 h-100 py-2 text-center color-input position-relative"
+                                class="circled-property-field-value w-100 border-0 bg-transparent p-0"
                                 :disabled="playRunning"
-                                :style="{ 'border-color': property.value }"
+                                type="button"
+                                aria-expanded="false"
+                                name="animation_type"
                               />
                             </div>
+                          </div>
+                          <div
+                            v-else-if="property.widget === 'time'"
+                            class="property-field-value-wrapper time"
+                          ></div>
+                          <div
+                            v-else
+                            class="property-field-value-wrapper color"
+                          >
+                            <input
+                              v-model="property.value"
+                              type="text"
+                              readonly
+                              class="circled-property-field-value w-100 h-100 py-2 text-center color-input position-relative"
+                              :disabled="playRunning"
+                              :style="{ 'border-color': property.value }"
+                            />
                           </div>
                         </div>
                       </div>
