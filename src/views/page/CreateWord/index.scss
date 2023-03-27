@@ -77,7 +77,14 @@
                       border-width: 1px;
                     }
 
+                    input {
+                      &:focus {
+                        outline: none;
+                      }
+                    }
+
                     .circled-property-field-value {
+                      border-radius: 4px;
                       background: none;
                       border: none;
                       color: white;
@@ -100,10 +107,54 @@
                           left: -0.5px;
                         }
                       }
+                    }
 
-                      input {
-                        &:focus {
-                          outline: none;
+                    .number-type {
+                      input[type="number"] {
+                        appearance: textfield;
+                        width: 100%;
+
+                        &::-webkit-outer-spin-button,
+                        &::-webkit-inner-spin-button {
+                          appearance: none;
+                        }
+                      }
+
+                      button {
+                        border: none;
+                        background-color: transparent;
+
+                        &::before,
+                        &::after {
+                          content: "";
+                          position: absolute;
+                          width: 5px;
+                          height: 1px;
+                          background-color: #b97a2a;
+
+                          @include media-breakpoint-up(sm) {
+                            width: 7px;
+                            height: 2px;
+                          }
+
+                          @include media-breakpoint-up(md) {
+                            width: 15px;
+                            height: 3px;
+                          }
+                        }
+
+                        &.disabled {
+                          cursor: default;
+                          pointer-events: none;
+                        }
+
+                        &.disabled::before,
+                        &.disabled::after {
+                          background-color: #724b1a;
+                        }
+
+                        &.plus::after {
+                          transform: rotate(90deg);
                         }
                       }
                     }

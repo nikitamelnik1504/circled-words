@@ -88,7 +88,7 @@
                         <div
                           v-for="(property, index) in level_properties"
                           :key="index"
-                          class="col-6 col-md-3 property mb-3 text-center"
+                          class="col-6 col-md-3 property mb-3 text-center d-flex flex-column justify-content-between"
                         >
                           <h5 class="property-label m-0 mb-2">
                             {{ property.label }}
@@ -98,7 +98,7 @@
                             class="px-0 property-field-value-wrapper select"
                           >
                             <div
-                              class="dropdown py-2 circled-property-field-value text-center p-0 w-100 h-100 d-flex"
+                              class="dropdown py-2 circled-property-field-value text-center p-0 w-100 d-flex"
                             >
                               <input
                                 id="animationType"
@@ -114,7 +114,68 @@
                           <div
                             v-else-if="property.widget === 'time'"
                             class="property-field-value-wrapper time"
-                          ></div>
+                          >
+                            <div
+                              class="py-2 number-type position-relative d-flex"
+                            >
+                              <button
+                                type="button"
+                                class="minus w-25 h-100 position-absolute top-0 start-0 d-flex justify-content-center align-items-center"
+                                :class="{ disabled: +property.value === 0.1 }"
+                                :disabled="
+                                  +property.value === 0.1 || playRunning
+                                "
+                                @click="
+                                  () => {
+                                    property.value = (
+                                      +property.value - 0.1
+                                    ).toFixed(1);
+                                    restrictInput(
+                                      level,
+                                      index,
+                                      property.value.toString()
+                                    );
+                                  }
+                                "
+                              ></button>
+                              <button
+                                type="button"
+                                class="plus w-25 h-100 position-absolute top-0 end-0 d-flex justify-content-center align-items-center"
+                                :class="{ disabled: property.value >= 100 }"
+                                :disabled="
+                                  +property.value >= 100 || playRunning
+                                "
+                                @click="
+                                  () => {
+                                    property.value = (
+                                      +property.value + 0.1
+                                    ).toFixed(1);
+                                    restrictInput(
+                                      level,
+                                      index,
+                                      property.value.toString()
+                                    );
+                                  }
+                                "
+                              ></button>
+                              <input
+                                v-model="property.value"
+                                class="circled-property-field-value text-center w-100 p-0"
+                                :disabled="playRunning"
+                                type="number"
+                                :min="0.1"
+                                :max="100"
+                                :step="0.1"
+                                @input="
+                                  restrictInput(
+                                    level,
+                                    index,
+                                    property.value.toString()
+                                  )
+                                "
+                              />
+                            </div>
+                          </div>
                           <div
                             v-else
                             class="property-field-value-wrapper color"
@@ -125,7 +186,7 @@
                               readonly
                               class="circled-property-field-value w-100 h-100 py-2 text-center color-input position-relative"
                               :disabled="playRunning"
-                              :style="{ 'border-color': property.value }"
+                              :style="{ border: 'solid 1px' + property.value }"
                             />
                           </div>
                         </div>
@@ -159,7 +220,7 @@ export default {
 import "@melloware/coloris/dist/coloris.css";
 import CircledWord from "@/components/CircledWord.vue";
 import PageBase from "@/views/page/PageBase/index.vue";
-import CircledWordService from "@/utils/Service/CircledWordService";
+import CircledWordService, { NFT } from "@/utils/Service/CircledWordService";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { onMounted, ref } from "vue";
@@ -203,6 +264,29 @@ const colorPickerInSliderFix = () => {
       color_picker.classList.remove("clr-open");
     }
   };
+};
+
+const restrictInput = (
+  property_level: number,
+  property_index: number,
+  value: string
+) => {
+  let updated_string = value;
+
+  if (value.includes(".") && value.split(".")[1].length > 1) {
+    updated_string = value.slice(0, value.indexOf("."));
+  }
+
+  if (+updated_string > 100) {
+    updated_string = "100";
+  }
+
+  if (+updated_string <= 0) {
+    updated_string = "0.1";
+  }
+
+  (nft.value as NFT).properties[property_level][property_index].value =
+    updated_string;
 };
 
 onMounted(() => {
