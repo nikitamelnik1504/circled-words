@@ -128,18 +128,13 @@
                         &::after {
                           content: "";
                           position: absolute;
-                          width: 5px;
-                          height: 1px;
+                          width: 10px;
+                          height: 2px;
                           background-color: #b97a2a;
 
-                          @include media-breakpoint-up(sm) {
-                            width: 7px;
-                            height: 2px;
-                          }
-
                           @include media-breakpoint-up(md) {
-                            width: 15px;
-                            height: 3px;
+                            width: 12.5px;
+                            height: 2.5px;
                           }
                         }
 
