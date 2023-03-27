@@ -198,6 +198,18 @@ const onPlayFinished = () => {
   playRunning.value = false;
 };
 
+const colorPickerInSliderFix = () => {
+  const slider = document.getElementsByClassName(
+    "swiper-wrapper"
+  )[0] as HTMLDivElement;
+  const color_picker = document.getElementById("clr-picker") as HTMLDivElement;
+  slider.onclick = () => {
+    if (color_picker.classList.contains("clr-open")) {
+      color_picker.classList.remove("clr-open");
+    }
+  };
+};
+
 onMounted(() => {
   Coloris.init();
   Coloris({
@@ -206,5 +218,6 @@ onMounted(() => {
     alpha: false,
     focusInput: false,
   });
+  colorPickerInSliderFix();
 });
 </script>
