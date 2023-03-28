@@ -32,7 +32,7 @@
           <div
             class="circled-tabs col-sm-10 col-md-6 mx-auto d-flex flex-column mb-3"
           >
-            <div class="tabs-wrapper">
+            <div class="tabs-wrapper d-flex flex-column">
               <div class="tab-header d-flex">
                 <a
                   href="#"
