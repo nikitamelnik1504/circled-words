@@ -185,7 +185,7 @@
             </div>
           </div>
           <Actions
-            :class="'col-sm-10 mx-auto d-flex d-md-none'"
+            :class="'col-sm-10 mx-auto d-flex d-md-none mb-3'"
             :metaplex-service="metaplexService"
             :nft="nft"
             :play-running="playRunning"

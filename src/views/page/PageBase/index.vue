@@ -1,5 +1,5 @@
 <template>
-  <div class="page container-fluid mt-md-2">
+  <div class="page container-fluid mt-1 mt-md-2">
     <div class="row px-2 px-md-3" :class="{ 'h-100': fullHeight }">
       <div class="col-12 content py-md-3">
         <div class="wrapper px-md-4 py-md-3 h-100 d-flex flex-column">
