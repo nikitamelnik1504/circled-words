@@ -42,7 +42,7 @@ import { NFT } from "@/utils/Service/CircledWordService";
 interface Props {
   playRunning: boolean;
   mintRunning: boolean;
-  metaplexService: false | MetaplexService;
+  metaplexService: Ref<boolean> | MetaplexService;
   nft: NFT;
 }
 
