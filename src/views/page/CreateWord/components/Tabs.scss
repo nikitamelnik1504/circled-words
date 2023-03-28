@@ -1,0 +1,138 @@
+.circled-tabs {
+  .tabs-wrapper {
+    border: solid 1px #34352d;
+    border-radius: 4px;
+
+    .tab-header {
+      .tab-link {
+        font-size: 16px;
+        border-bottom: solid 1px #34352d;
+
+        &.active {
+          z-index: -1;
+          border-radius: 4px;
+          box-shadow: rgba(255, 178, 41, 0.2) 0 0 15px;
+          background: #34352d;
+        }
+      }
+    }
+
+    .tab-content {
+      .properties {
+        .level {
+          font-size: 18px;
+        }
+
+        .property {
+          .property-field-value-wrapper {
+            border-radius: 4px;
+
+            &.select,
+            &.time {
+              border: solid 1px $primary;
+            }
+
+            &.color {
+              border-width: 1px;
+            }
+
+            input {
+              &:focus {
+                outline: none;
+              }
+            }
+
+            .circled-property-field-value {
+              border-radius: 4px;
+              background: none;
+              border: none;
+              color: white;
+            }
+
+            .clr-field {
+              width: 100%;
+
+              button {
+                border-radius: 3px;
+                border: none;
+                width: 100%;
+                overflow: unset !important;
+
+                &::after {
+                  box-shadow: none;
+                  width: calc(100% + 1px);
+                  height: calc(100% + 1px);
+                  top: -0.5px;
+                  left: -0.5px;
+                }
+              }
+            }
+
+            .number-type {
+              input[type="number"] {
+                appearance: textfield;
+                width: 100%;
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                  appearance: none;
+                }
+              }
+
+              button {
+                border: none;
+                background-color: transparent;
+
+                &::before,
+                &::after {
+                  content: "";
+                  position: absolute;
+                  width: 10px;
+                  height: 2px;
+                  background-color: #b97a2a;
+
+                  @include media-breakpoint-up(md) {
+                    width: 12.5px;
+                    height: 2.5px;
+                  }
+                }
+
+                &.disabled {
+                  cursor: default;
+                  pointer-events: none;
+                }
+
+                &.disabled::before,
+                &.disabled::after {
+                  background-color: #724b1a;
+                }
+
+                &.plus::after {
+                  transform: rotate(90deg);
+                }
+              }
+            }
+          }
+
+          .property-label {
+            font-size: 16px;
+          }
+        }
+
+        .swiper {
+          .swiper-pagination {
+            position: relative;
+
+            .swiper-pagination-bullet-active {
+              background: $primary;
+            }
+
+            @include media-breakpoint-up(md) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
