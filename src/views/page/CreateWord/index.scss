@@ -9,8 +9,6 @@
         border-radius: 4px;
 
         .circled-preview {
-          flex: 1;
-
           .circled-word {
             @include circled-word(1.4);
 
@@ -34,15 +32,9 @@
               @include circled-word(2.5);
             }
           }
-
-          @include media-breakpoint-up(md) {
-            flex: unset;
-          }
         }
 
         .circled-tabs {
-          flex: 2;
-
           .tabs-wrapper {
             border: solid 1px #34352d;
             border-radius: 4px;
@@ -179,17 +171,23 @@
               }
             }
           }
-
-          @include media-breakpoint-up(md) {
-            flex: unset;
-          }
         }
 
         .circled-actions {
-          flex: 1;
+          a {
+            border-radius: 4px;
+            font-size: 20px;
+            color: #ffb229;
+            background-color: #34352d;
+            box-shadow: 0 0 15px rgb(255 178 41 / 20%);
 
-          @include media-breakpoint-up(md) {
-            flex: unset;
+            &.disabled {
+              box-shadow: unset;
+              background: none;
+              border: solid 1px #51524b;
+              color: #51524b;
+              cursor: default;
+            }
           }
         }
       }

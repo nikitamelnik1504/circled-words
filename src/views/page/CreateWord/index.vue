@@ -30,7 +30,7 @@
             />
           </div>
           <div
-            class="circled-tabs col-sm-10 col-md-6 mx-auto d-flex flex-column"
+            class="circled-tabs col-sm-10 col-md-6 mx-auto d-flex flex-column mb-3"
           >
             <div class="tabs-wrapper">
               <div class="tab-header d-flex">
@@ -49,7 +49,7 @@
                   >Story</a
                 >
               </div>
-              <div class="tab-content h-100">
+              <div class="tab-content">
                 <div
                   class="properties pt-3 pb-2"
                   :class="{ 'd-none': activeTab === 'story' }"
