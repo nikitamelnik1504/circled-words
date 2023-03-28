@@ -1,6 +1,6 @@
 <template>
   <div class="circled-tabs">
-    <div class="tabs-wrapper d-flex flex-column">
+    <div class="tabs-wrapper h-100 d-flex flex-column">
       <div class="tab-header d-flex">
         <a
           href="#"
@@ -17,9 +17,9 @@
           >Story</a
         >
       </div>
-      <div class="tab-content">
+      <div class="tab-content overflow-scroll">
         <div
-          class="properties pt-3 pb-2"
+          class="properties h-100 pt-3 pb-2"
           :class="{ 'd-none': activeTab === 'story' }"
         >
           <swiper

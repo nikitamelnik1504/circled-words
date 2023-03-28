@@ -3,8 +3,9 @@
     title="Create Word"
     description="This is a Heart of our project... What’s your next story? >:"
     class="create-word-page"
+    full-height
   >
-    <div class="col-12">
+    <div class="col-12 h-100">
       <div class="wrapper p-md-4 h-100 w-100 d-flex justify-content-center">
         <div class="row w-100 flex-column flex-md-row">
           <div
@@ -29,12 +30,13 @@
             />
           </div>
           <Tabs
-            :class="'col-sm-10 col-md-6 mx-auto d-flex flex-column mb-3'"
+            :class="'col-sm-10 col-md-6 mx-auto d-flex flex-column'"
+            :style="{ 'min-height': tabsHeight + 'px' }"
             :nft="nft"
             :play-running="playRunning"
           />
           <Actions
-            :class="'col-sm-10 mx-auto d-flex d-md-none mb-3'"
+            :class="'col-sm-10 mx-auto d-flex d-md-none py-3'"
             :metaplex-service="metaplexService"
             :nft="nft"
             :play-running="playRunning"
