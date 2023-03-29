@@ -132,6 +132,11 @@
             position: relative;
             bottom: 30px;
 
+            .swiper-pagination-bullet {
+              opacity: 1;
+              background: #51524b;
+            }
+
             .swiper-pagination-bullet-active {
               background: $primary;
             }
