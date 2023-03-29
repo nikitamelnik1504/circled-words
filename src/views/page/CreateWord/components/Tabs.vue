@@ -17,7 +17,7 @@
           >Story</a
         >
       </div>
-      <div class="tab-content overflow-scroll">
+      <div class="tab-content">
         <div
           class="properties h-100 pt-3 pb-2"
           :class="{ 'd-none': activeTab === 'story' }"

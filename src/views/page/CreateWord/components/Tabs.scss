@@ -1,5 +1,6 @@
 .circled-tabs {
   flex: 1;
+  min-height: 225px;
 
   .tabs-wrapper {
     border: solid 1px #34352d;
@@ -20,6 +21,7 @@
     }
 
     .tab-content {
+      overflow-y: hidden;
       flex: 1;
 
       .properties {
@@ -136,6 +138,12 @@
 
             @include media-breakpoint-up(md) {
               display: none;
+            }
+          }
+
+          .swiper-wrapper {
+            .swiper-slide {
+              overflow-y: scroll;
             }
           }
         }
