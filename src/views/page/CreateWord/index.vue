@@ -31,7 +31,6 @@
           </div>
           <Tabs
             :class="'col-sm-10 col-md-6 mx-auto d-flex flex-column'"
-            :style="{ 'min-height': tabsHeight + 'px' }"
             :nft="nft"
             :play-running="playRunning"
           />

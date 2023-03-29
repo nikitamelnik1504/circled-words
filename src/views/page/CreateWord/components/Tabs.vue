@@ -19,6 +19,7 @@
       </div>
       <div class="tab-content">
         <div
+          ref="propertiesTab"
           class="properties h-100 pt-3 pb-2"
           :class="{ 'd-none': activeTab === 'story' }"
         >
@@ -129,7 +130,9 @@
           </swiper>
         </div>
         <div
+          ref="storyTab"
           class="story pt-3 pb-2"
+          :style="{ height: storyHeight }"
           :class="{ 'd-none': activeTab === 'properties' }"
         ></div>
       </div>
@@ -162,6 +165,11 @@ interface Props {
 const props = defineProps<Props>();
 
 const activeTab = ref("properties");
+
+const propertiesTab = ref();
+const storyTab = ref();
+
+const storyHeight = ref("auto");
 
 const modules = ref([Pagination]);
 
@@ -209,5 +217,6 @@ onMounted(() => {
     focusInput: false,
   });
   colorPickerInSliderFix();
+  storyHeight.value = propertiesTab.value.clientHeight + "px";
 });
 </script>
