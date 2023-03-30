@@ -73,29 +73,55 @@ provide("phantomWalletService", phantomWalletService);
 const metaplexService = ref<MetaplexService | false>(false);
 provide("metaplexService", metaplexService);
 
-const initializePhantomWallet = () => {
-  if (!("phantom" in window)) {
-    return false;
+const initializePhantomWallet = async () => {
+  const getPhantomInWindow = () => {
+    return "phantom" in window;
+  };
+
+  // Wait a while for phantom wallet injection to the window.
+  if (!getPhantomInWindow()) {
+    const result = await new Promise((resolve) => {
+      const timeout = 3000;
+      let time = 0;
+
+      const interval = setInterval(() => {
+        time += 1000;
+
+        if (getPhantomInWindow()) {
+          resolve(true);
+        }
+
+        if (time > timeout) {
+          clearInterval(interval);
+          resolve(false);
+        }
+      }, 1000);
+    });
+    if (!result) {
+      return;
+    }
   }
+
   const provider = window.phantom?.solana;
 
   if (!provider?.isPhantom || !(provider as PhantomWalletAdapter)) {
-    return false;
+    return;
   }
 
   return provider;
 };
 
-const phantomWalletProvider = initializePhantomWallet();
-if (phantomWalletProvider) {
-  PhantomWalletService.create(
-    phantomWalletProvider,
-    store,
-    walletEvents.phantomWallet
-  ).then((result) => {
-    phantomWalletService.value = result;
-  });
-}
+initializePhantomWallet().then((provider) => {
+  if (provider) {
+    PhantomWalletService.create(
+      provider,
+      store,
+      walletEvents.phantomWallet
+    ).then((result) => {
+      phantomWalletService.value = result;
+    });
+  }
+});
 
 watch(
   phantomWalletService,
