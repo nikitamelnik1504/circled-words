@@ -8,27 +8,17 @@
     <div class="col-12 h-100">
       <div class="wrapper p-md-4 h-100 w-100 d-flex justify-content-center">
         <div class="row w-100 flex-column flex-md-row">
-          <div
-            class="circled-preview col-sm-10 col-md-5 my-md-auto mx-auto text-center"
-          >
-            <CircledWord
-              class="disabled mt-3 mb-3"
-              :nft="nft"
-              :play="playRunning"
-              locked
-              @play-finished="playRunning = false"
-            />
-            <Actions
-              :class="'d-flex justify-content-center my-4 mb-lg-0 d-none d-md-block'"
-              :metaplex-service="metaplexService"
-              :nft="nft"
-              :play-running="playRunning"
-              :mint-running="mintRunning"
-              @play-started="playRunning = true"
-              @mint-started="mintRunning = true"
-              @mint-completed="mintRunning = false"
-            />
-          </div>
+          <Preview
+            :class="'col-sm-10 col-md-5 my-md-auto mx-auto text-center'"
+            :nft="nft"
+            :play-running="playRunning"
+            :mint-running="mintRunning"
+            :metaplex-service="metaplexService"
+            @play-started="playRunning = true"
+            @play-completed="playRunning = false"
+            @mint-started="mintRunning = true"
+            @mint-completed="mintRunning = false"
+          />
           <Tabs
             :class="'col-sm-10 col-md-6 mx-auto d-flex flex-column'"
             :nft="nft"
@@ -61,12 +51,12 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import CircledWord from "@/components/CircledWord.vue";
 import PageBase from "@/views/page/PageBase/index.vue";
 import CircledWordService from "@/utils/Service/CircledWordService";
 import { inject, ref } from "vue";
 import MintLoaderModal from "./components/MintLoaderModal.vue";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
+import Preview from "./components/Preview.vue";
 import Actions from "./components/Actions.vue";
 import Tabs from "./components/Tabs.vue";
 

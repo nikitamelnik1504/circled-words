@@ -7,32 +7,7 @@
         border: solid 1px #34352d;
         border-radius: 4px;
 
-        .circled-preview {
-          .circled-word {
-            @include circled-word(1.4);
-
-            @include media-breakpoint-up(md) {
-              @include circled-word(1.5);
-            }
-
-            @include media-breakpoint-up(md) {
-              @include circled-word(1.7);
-            }
-
-            @include media-breakpoint-up(lg) {
-              @include circled-word(1.7);
-            }
-
-            @include media-breakpoint-up(xl) {
-              @include circled-word(2);
-            }
-
-            @include media-breakpoint-up(xxl) {
-              @include circled-word(2.5);
-            }
-          }
-        }
-
+        @import "components/Preview";
         @import "components/Tabs";
         @import "components/Actions";
       }
