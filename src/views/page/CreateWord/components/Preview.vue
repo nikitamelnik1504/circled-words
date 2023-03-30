@@ -1,9 +1,15 @@
 <template>
   <div class="circled-preview">
     <CircledWord
+      ref="circledWord"
       class="disabled mt-3 mb-3"
       :nft="props.nft"
       :play="props.playRunning"
+      :style="{
+        'font-size': styles.fontSize,
+        'border-width': styles.borderWidth,
+        'border-radius': styles.borderRadius,
+      }"
       locked
       @play-finished="emit('playCompleted')"
     />
@@ -31,6 +37,7 @@ import CircledWord from "@/components/CircledWord.vue";
 import Actions from "./Actions.vue";
 import { NFT } from "@/utils/Service/CircledWordService";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
+import { onMounted, ref } from "vue";
 
 interface Props {
   nft: NFT;
@@ -46,5 +53,33 @@ const emit = defineEmits({
   mintStarted: () => true,
   mintCompleted: () => true,
   playCompleted: () => true,
+});
+
+const circledWord = ref();
+
+const styles = ref({
+  fontSize: "auto",
+  borderWidth: "auto",
+  borderRadius: "auto",
+});
+
+const baseCircledSize = {
+  width: 216,
+  height: 104,
+  border_width: 4,
+  border_radius: 6,
+  font_size: 32,
+};
+
+const scaleCircled = () => {
+  const scale = circledWord.value.element.clientWidth / baseCircledSize.width;
+  styles.value.fontSize = baseCircledSize.font_size * scale + "px";
+  styles.value.borderWidth = baseCircledSize.border_width * scale + "px";
+  styles.value.borderRadius = baseCircledSize.border_radius * scale + "px";
+};
+
+onMounted(() => {
+  scaleCircled();
+  window.addEventListener("resize", scaleCircled);
 });
 </script>

@@ -1,8 +1,8 @@
 <template>
   <a
-    ref="circledWord"
+    ref="element"
     :href="props.link"
-    class="circled-word text-decoration-none d-inline-block text-center user-select-none"
+    class="circled-word text-decoration-none text-center user-select-none"
     :class="[
       getClass(),
       {
@@ -14,6 +14,12 @@
     >{{ nft.label ? nft.label : "CIRCLED" }}</a
   >
 </template>
+
+<script lang="ts">
+export default {
+  expose: ["element"],
+};
+</script>
 
 <script lang="ts" setup>
 import {
@@ -36,7 +42,7 @@ const props = withDefaults(defineProps<Props>(), {
   play: false,
 });
 
-const circledWord = ref();
+const element = ref();
 
 const playStarted = ref(false);
 const beforeAnimationEventTriggered = ref(false);
@@ -72,13 +78,13 @@ const onPlayStarted = (value: boolean) => {
     return;
   }
 
-  if (!circledWord.value) {
+  if (!element.value) {
     return;
   }
 
   playStarted.value = true;
 
-  circledWord.value.addEventListener(
+  element.value.addEventListener(
     "transitionend",
     beforeAnimationCompletionEvent
   );
@@ -88,7 +94,7 @@ const afterAnimationCompletionEvent = () => {
   beforeAnimationEventTriggered.value = false;
   emit("playFinished");
 
-  circledWord.value.removeEventListener(
+  element.value.removeEventListener(
     "transitionend",
     afterAnimationCompletionEvent
   );
@@ -105,13 +111,13 @@ const beforeAnimationCompletionEvent = async () => {
     setTimeout(() => resolve(true), 1000); // @TODO: Move timeout value to separate var.
   });
 
-  circledWord.value.removeEventListener(
+  element.value.removeEventListener(
     "transitionend",
     beforeAnimationCompletionEvent
   );
 
   playStarted.value = false;
-  circledWord.value.addEventListener(
+  element.value.addEventListener(
     "transitionend",
     afterAnimationCompletionEvent
   );

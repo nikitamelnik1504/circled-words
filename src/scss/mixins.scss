@@ -1,6 +1,11 @@
 @mixin circled-word($scale) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 27 / 13;
   border-width: calc(4px * $scale);
-  padding: calc(26px * $scale) calc(43.39px * $scale);
+  width: calc(216px * $scale);
+  height: calc(104px * $scale);
   font-size: calc(32px * $scale);
   border-radius: calc(6px * $scale);
 }

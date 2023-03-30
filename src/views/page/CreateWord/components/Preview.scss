@@ -1,6 +1,7 @@
 .circled-preview {
   .circled-word {
-    @include circled-word(1.4);
+    width: 100%;
+    height: auto;
 
     @include media-breakpoint-up(md) {
       @include circled-word(1.5);
