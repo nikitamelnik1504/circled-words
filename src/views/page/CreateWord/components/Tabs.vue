@@ -217,6 +217,10 @@ onMounted(() => {
     focusInput: false,
   });
   colorPickerInSliderFix();
+
   storyHeight.value = propertiesTab.value.clientHeight + "px";
+  window.addEventListener("resize", () => {
+    storyHeight.value = propertiesTab.value.clientHeight + "px";
+  });
 });
 </script>
