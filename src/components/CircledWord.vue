@@ -22,11 +22,6 @@ import {
   SampleNFT,
 } from "@/utils/Service/CircledWordService";
 import { onMounted, ref, watch } from "vue";
-import colors from "@/assets/libraries/colors.json";
-
-type TraitKeysMatching<T, V> = {
-  [K in keyof T]-?: T[K] extends V ? K : never;
-}[keyof T];
 
 interface Props {
   nft: NFT | SampleNFT;
@@ -60,16 +55,8 @@ const getStyle = () => {
         continue;
       }
 
-      let value = trait.getValue() as string;
-
-      // Ethereum NFTs support.
-      if (
-        colors[value as TraitKeysMatching<typeof colors, string>] !== undefined
-      ) {
-        value = "#" + colors[value as TraitKeysMatching<typeof colors, string>];
-      }
-
-      style["--" + trait.machine_name.replaceAll(/_/g, "-")] = value;
+      style["--" + trait.machine_name.replaceAll(/_/g, "-")] =
+        trait.getValue() as string;
     }
   }
 
