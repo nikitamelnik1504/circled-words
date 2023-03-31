@@ -17,11 +17,16 @@
           >Story</a
         >
       </div>
-      <div class="tab-content">
+      <div
+        ref="tabContent"
+        class="tab-content w-100 d-flex overflow-hidden position-relative"
+      >
         <div
-          ref="propertiesTab"
-          class="properties h-100 pt-3 pb-2"
-          :class="{ 'd-none': activeTab === 'story' }"
+          class="properties h-100 w-100 pt-3 pb-2"
+          :class="{
+            'invisible order-2': activeTab === 'story',
+            'order-1': activeTab === 'properties',
+          }"
         >
           <swiper
             :pagination="true"
@@ -130,12 +135,16 @@
           </swiper>
         </div>
         <div
-          ref="storyTab"
           class="story pt-3 pb-2"
-          :style="{ height: storyHeight }"
-          :class="{ 'd-none': activeTab === 'properties' }"
+          :class="{
+            'invisible order-2': activeTab === 'properties',
+            'order-1': activeTab === 'story',
+          }"
         >
-          <div class="row m-0 w-100 px-2">
+          <div
+            class="row m-0 px-2 overflow-scroll flex-column"
+            :style="{ width: tabWidth }"
+          >
             <div class="col-12 story-property-wrapper">
               <label class="d-flex flex-column story-property">
                 Title
@@ -179,12 +188,11 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const tabContent = ref();
+
+const tabWidth = ref("auto");
+
 const activeTab = ref("properties");
-
-const propertiesTab = ref();
-const storyTab = ref();
-
-const storyHeight = ref("auto");
 
 const modules = ref([Pagination]);
 
@@ -223,7 +231,12 @@ const colorPickerInSliderFix = () => {
   };
 };
 
+const setStoryTabWidth = () => {
+  tabWidth.value = tabContent.value.clientWidth + "px";
+};
+
 onMounted(() => {
+  // Color picker.
   Coloris.init();
   Coloris({
     el: ".color-input",
@@ -233,12 +246,7 @@ onMounted(() => {
   });
   colorPickerInSliderFix();
 
-  storyHeight.value = propertiesTab.value.clientHeight + "px";
-  window.addEventListener("resize", () => {
-    // @todo Fix not available height value on display:none Properties element.
-    if (propertiesTab.value) {
-      storyHeight.value = propertiesTab.value.clientHeight + "px";
-    }
-  });
+  setStoryTabWidth();
+  window.addEventListener("resize", setStoryTabWidth);
 });
 </script>
