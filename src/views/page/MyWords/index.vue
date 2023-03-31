@@ -5,9 +5,9 @@
     class="my-words-page"
     full-height
   >
-    <div v-if="metaplexService" class="col-12">
+    <div class="col-12">
       <div class="wrapper p-md-2 h-100 w-100 d-flex justify-content-center">
-        <div class="row w-100 flex-column flex-md-row">
+        <div v-if="metaplexService" class="row w-100 flex-column flex-md-row">
           <div v-if="loadStatus === 'loaded'" class="h-100">
             <div
               v-if="assets.length > 0"
@@ -45,9 +45,9 @@
             </div>
           </div>
         </div>
+        <ErrorPage403 v-else />
       </div>
     </div>
-    <ErrorPage403 v-else />
   </PageBase>
 </template>
 

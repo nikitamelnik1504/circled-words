@@ -1,14 +1,13 @@
 .my-word-preview {
+  border: 1px solid #34352d;
+  border-radius: 4px;
+
   .my-word-wrapper {
-    border: 1px solid #34352d;
-
     &:first-child {
-      border-bottom: none;
-    }
+      border-bottom: 1px solid #34352d;
 
-    &:last-child {
       @include media-breakpoint-up(lg) {
-        border-top: none;
+        border-bottom: none;
       }
     }
   }
