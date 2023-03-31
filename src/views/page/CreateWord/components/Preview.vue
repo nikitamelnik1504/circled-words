@@ -37,7 +37,7 @@ import CircledWord from "@/components/CircledWord.vue";
 import Actions from "./Actions.vue";
 import { NFT } from "@/utils/Service/CircledWordService";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 interface Props {
   nft: NFT;
@@ -81,5 +81,9 @@ const scaleCircled = () => {
 onMounted(() => {
   scaleCircled();
   window.addEventListener("resize", scaleCircled);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", scaleCircled);
 });
 </script>

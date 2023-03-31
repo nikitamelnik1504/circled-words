@@ -171,7 +171,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import Coloris from "@melloware/coloris";
 import { NFT } from "@/utils/Service/CircledWordService";
 import "@melloware/coloris/dist/coloris.css";
@@ -248,5 +248,9 @@ onMounted(() => {
 
   setStoryTabWidth();
   window.addEventListener("resize", setStoryTabWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", setStoryTabWidth);
 });
 </script>
