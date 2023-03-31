@@ -62,7 +62,7 @@ abstract class BackgroundColorProperty implements Property {
   }
 }
 
-abstract class AnimationDurationProperty implements Property {
+export abstract class AnimationDurationProperty implements Property {
   public label = "Animation Duration";
   public originLabel = this.label;
   public machine_name = "animation_duration";

@@ -9,7 +9,7 @@
         hover: playStarted,
       },
     ]"
-    :style="getStyle()"
+    :style="{ ...getStaticStyle(), ...dynamicStyle }"
     @click="(event) => (props.locked ? event.preventDefault() : undefined)"
     >{{ nft.label ? nft.label : "CIRCLED" }}</a
   >
@@ -24,6 +24,7 @@ export default {
 <script lang="ts" setup>
 import {
   AnimationTypeProperty,
+  AnimationDurationProperty,
   NFT,
   SampleNFT,
 } from "@/utils/Service/CircledWordService";
@@ -52,12 +53,15 @@ const getClass = () => {
   return nft_type.toLowerCase().replaceAll(/ /g, "-");
 };
 
-const getStyle = () => {
+const getStaticStyle = () => {
   const style: Record<string, string> = {};
   const traits = props.nft.properties;
   for (const level_traits of traits) {
     for (const [, trait] of level_traits.entries()) {
-      if (trait instanceof AnimationTypeProperty) {
+      if (
+        trait instanceof AnimationTypeProperty ||
+        trait instanceof AnimationDurationProperty
+      ) {
         continue;
       }
 
@@ -68,6 +72,23 @@ const getStyle = () => {
 
   return style;
 };
+
+const getDynamicStyle = () => {
+  const style: Record<string, string> = {};
+  const traits = props.nft.properties;
+  for (const level_traits of traits) {
+    for (const [, trait] of level_traits.entries()) {
+      if (trait instanceof AnimationDurationProperty) {
+        style["--" + trait.machine_name.replaceAll(/_/g, "-")] =
+          trait.getValue() as string;
+      }
+    }
+  }
+
+  return style;
+};
+
+const dynamicStyle = ref({});
 
 const emit = defineEmits({
   playFinished: () => true,
@@ -82,6 +103,7 @@ const onPlayStarted = (value: boolean) => {
     return;
   }
 
+  dynamicStyle.value = getDynamicStyle();
   playStarted.value = true;
 
   element.value.addEventListener(
@@ -91,7 +113,10 @@ const onPlayStarted = (value: boolean) => {
 };
 
 const afterAnimationCompletionEvent = () => {
+  dynamicStyle.value = {};
+
   beforeAnimationEventTriggered.value = false;
+
   emit("playFinished");
 
   element.value.removeEventListener(
@@ -117,6 +142,7 @@ const beforeAnimationCompletionEvent = async () => {
   );
 
   playStarted.value = false;
+
   element.value.addEventListener(
     "transitionend",
     afterAnimationCompletionEvent
