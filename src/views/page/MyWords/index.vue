@@ -1,24 +1,23 @@
 <template>
   <PageBase
-    v-if="metaplexService"
     title="My Words"
     description="Hmm... These guys looks beautiful."
     class="my-words-page"
     full-height
   >
-    <div class="col-12">
+    <div v-if="metaplexService" class="col-12">
       <div class="wrapper p-md-2 h-100 w-100 d-flex justify-content-center">
         <div class="row w-100 flex-column flex-md-row">
-          <div class="h-100 mx-auto col-lg-8">
+          <div class="h-100 mx-auto">
             <div v-if="loadStatus === 'loaded'" class="h-100">
-              <div v-if="assets.length > 0" class="pt-1 pt-lg-0 mt-3">
+              <div v-if="assets.length > 0" class="pt-1 pt-lg-0 my-3">
                 <div class="row">
                   <div class="col-11 col-md-12 mx-auto">
                     <div class="row flex-column flex-sm-row">
                       <div
                         v-for="(word, index) in assets"
                         :key="index"
-                        class="col-12 col-sm-6 col-lg-4 mb-2 mb-md-4 mb-lg-5 animate__animated animate__zoomIn animate__faster"
+                        class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3 mb-md-4 mb-xl-5 animate__animated animate__zoomIn animate__faster"
                         :style="{
                           '-webkit-animation-delay': index * 0.05 + 's',
                           'animation-delay': index * 0.05 + 's',
@@ -50,36 +49,11 @@
               </div>
             </div>
           </div>
-          <div class="d-none d-lg-block col-lg-4 my-3">
-            <div class="create-word-block h-100">
-              <h3 class="mb-3 mb-xl-5">
-                <router-link
-                  to="/create-word"
-                  class="create-word-button d-inline-block text-center"
-                >
-                  CREATE
-                </router-link>
-              </h3>
-              <div class="create-word-descriptions">
-                <p class="create-word-description mb-3 mb-xl-5">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis nae
-                  eleifend tellus. Aenean leo ligula, porttitor eu, consequat
-                  vitae, el.
-                </p>
-                <p class="create-word-description">
-                  quis, feugiat a, tellus. Phasellus viverra nulla ut metus
-                  varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam
-                  ultricies nisi vel augue. Curabitur ullamcorper ultricie.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+    <ErrorPage403 v-else />
   </PageBase>
-  <ErrorPage403 v-else />
 </template>
 
 <script lang="ts">

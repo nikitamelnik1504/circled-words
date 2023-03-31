@@ -2,12 +2,14 @@
   .my-word-wrapper {
     border: 1px solid #34352d;
 
-    @include media-breakpoint-up(lg) {
-      border: unset;
-    }
-
     &:first-child {
       border-bottom: none;
+    }
+
+    &:last-child {
+      @include media-breakpoint-up(lg) {
+        border-top: none;
+      }
     }
   }
 

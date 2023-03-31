@@ -1,6 +1,6 @@
 <template>
   <div class="my-word-preview text-center mx-sm-2">
-    <div class="my-word-wrapper p-3 p-lg-0">
+    <div class="my-word-wrapper p-3 pb-lg-2 p-xxl-5 pb-xxl-3">
       <h5 class="button-title mb-3 d-sm-none">
         <span class="primary">Circled</span><span class="secondary">Word</span>
         {{ nft.name }}
@@ -21,7 +21,7 @@
       />
     </div>
     <div
-      class="my-word-wrapper actions p-3 p-lg-0 d-flex justify-content-between mt-lg-4"
+      class="my-word-wrapper actions p-3 pt-lg-2 p-xxl-5 pt-xxl-2 d-flex justify-content-between"
     >
       <a href="#" class="text-center me-3 text-decoration-none w-50 disabled"
         >View</a
