@@ -154,6 +154,10 @@
               &::-webkit-scrollbar {
                 display: none;
               }
+
+              @include media-breakpoint-up(md) {
+                height: auto;
+              }
             }
           }
         }
