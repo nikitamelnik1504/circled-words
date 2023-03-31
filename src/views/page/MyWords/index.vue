@@ -8,45 +8,40 @@
     <div v-if="metaplexService" class="col-12">
       <div class="wrapper p-md-2 h-100 w-100 d-flex justify-content-center">
         <div class="row w-100 flex-column flex-md-row">
-          <div class="h-100 mx-auto">
-            <div v-if="loadStatus === 'loaded'" class="h-100">
-              <div v-if="assets.length > 0" class="pt-1 pt-lg-0 my-3">
-                <div class="row">
-                  <div class="col-11 col-md-12 mx-auto">
-                    <div class="row flex-column flex-sm-row">
-                      <div
-                        v-for="(word, index) in assets"
-                        :key="index"
-                        class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3 mb-md-4 mb-xl-5 animate__animated animate__zoomIn animate__faster"
-                        :style="{
-                          '-webkit-animation-delay': index * 0.05 + 's',
-                          'animation-delay': index * 0.05 + 's',
-                        }"
-                      >
-                        <MyWord :metadata="word" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div v-else class="h-100">
-                <div
-                  class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
-                >
-                  <h3 class="animate__animated animate__headShake">
-                    You don't have any Circled
-                  </h3>
-                </div>
+          <div v-if="loadStatus === 'loaded'" class="h-100">
+            <div
+              v-if="assets.length > 0"
+              class="row flex-column flex-sm-row py-3"
+            >
+              <div
+                v-for="(word, index) in assets"
+                :key="index"
+                class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3 mb-md-4 mb-xl-5 animate__animated animate__zoomIn animate__faster"
+                :style="{
+                  '-webkit-animation-delay': index * 0.05 + 's',
+                  'animation-delay': index * 0.05 + 's',
+                }"
+              >
+                <MyWord :metadata="word" />
               </div>
             </div>
             <div v-else class="h-100">
               <div
-                class="col-12 h-100 d-flex align-items-center justify-content-center"
+                class="text-center col-12 h-100 d-flex align-items-center justify-content-center"
               >
-                <h3 class="animate__animated animate__pulse animate__infinite">
-                  Loading...
+                <h3 class="animate__animated animate__headShake">
+                  You don't have any Circled
                 </h3>
               </div>
+            </div>
+          </div>
+          <div v-else class="h-100">
+            <div
+              class="col-12 h-100 d-flex align-items-center justify-content-center"
+            >
+              <h3 class="animate__animated animate__pulse animate__infinite">
+                Loading...
+              </h3>
             </div>
           </div>
         </div>
