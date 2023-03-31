@@ -135,14 +135,14 @@
           </swiper>
         </div>
         <div
-          class="story pt-3 pb-2"
+          class="story py-3"
           :class="{
             'invisible order-2': activeTab === 'properties',
             'order-1': activeTab === 'story',
           }"
         >
           <div
-            class="row m-0 px-2 overflow-scroll flex-column"
+            class="row m-0 px-2 overflow-scroll flex-column h-100"
             :style="{ width: tabWidth }"
           >
             <div class="col-12 story-property-wrapper">
@@ -151,10 +151,10 @@
                 <input type="text" class="mt-2 p-2" />
               </label>
             </div>
-            <div class="col-12 mt-3 story-property-wrapper">
-              <label class="d-flex flex-column story-property">
+            <div class="col-12 mt-3 story-property-wrapper" style="flex: 1">
+              <label class="d-flex flex-column story-property h-100">
                 Story
-                <input type="text" class="mt-2 p-2" />
+                <textarea class="mt-2 p-2 h-100"></textarea>
               </label>
             </div>
           </div>
