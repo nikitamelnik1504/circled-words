@@ -112,3 +112,8 @@ html.js {
     }
   }
 }
+
+input:focus {
+  outline: none;
+  border-color: $primary;
+}

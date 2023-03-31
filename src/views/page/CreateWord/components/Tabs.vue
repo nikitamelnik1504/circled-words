@@ -134,7 +134,22 @@
           class="story pt-3 pb-2"
           :style="{ height: storyHeight }"
           :class="{ 'd-none': activeTab === 'properties' }"
-        ></div>
+        >
+          <div class="row m-0 w-100 px-2">
+            <div class="col-12 story-property-wrapper">
+              <label class="d-flex flex-column story-property">
+                Title
+                <input type="text" class="mt-2 p-2" />
+              </label>
+            </div>
+            <div class="col-12 mt-3 story-property-wrapper">
+              <label class="d-flex flex-column story-property">
+                Story
+                <input type="text" class="mt-2 p-2" />
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -220,7 +235,10 @@ onMounted(() => {
 
   storyHeight.value = propertiesTab.value.clientHeight + "px";
   window.addEventListener("resize", () => {
-    storyHeight.value = propertiesTab.value.clientHeight + "px";
+    // @todo Fix not available height value on display:none Properties element.
+    if (propertiesTab.value) {
+      storyHeight.value = propertiesTab.value.clientHeight + "px";
+    }
   });
 });
 </script>

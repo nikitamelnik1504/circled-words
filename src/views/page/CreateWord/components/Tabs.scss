@@ -158,6 +158,23 @@
           }
         }
       }
+
+      .story {
+        .story-property-wrapper {
+          .story-property {
+            input {
+              background: none;
+              border: solid 1px $fuscous-gray;
+              border-radius: 4px;
+              color: white;
+
+              &:focus {
+                border-color: $primary;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
