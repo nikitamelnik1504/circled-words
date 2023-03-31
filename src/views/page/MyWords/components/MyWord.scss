@@ -1,17 +1,32 @@
-.button-item {
-  border: solid 1px #34352d;
+.my-word-preview {
+  border: 1px solid #34352d;
   border-radius: 4px;
 
-  .button-title {
-    font-size: 28px;
-    color: #51524b;
+  .my-word-wrapper {
+    &:first-child {
+      border-bottom: 1px solid #34352d;
 
-    .primary {
-      color: #ffb229;
+      @include media-breakpoint-up(lg) {
+        border-bottom: none;
+      }
     }
+  }
 
-    .secondary {
-      color: #b97a2a;
+  .actions {
+    a {
+      border-radius: 4px;
+      font-size: 20px;
+      border: 1px solid #34352d;
+      color: #ffffff;
+      padding: 13px 0;
+
+      &.disabled {
+        box-shadow: unset;
+        background: none;
+        border: 1px solid #51524b;
+        color: #51524b;
+        cursor: default;
+      }
     }
   }
 }
