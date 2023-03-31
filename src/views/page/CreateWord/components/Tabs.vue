@@ -22,7 +22,7 @@
         class="tab-content w-100 d-flex overflow-hidden position-relative"
       >
         <div
-          class="properties h-100 w-100 pt-3 pb-2"
+          class="properties h-100 pt-3 pb-2"
           :class="{
             'invisible order-2': activeTab === 'story',
             'order-1': activeTab === 'properties',
@@ -32,12 +32,13 @@
             :pagination="true"
             :modules="modules"
             :wrapper-class="'flex-md-column'"
+            :style="{ width: tabWidth }"
           >
             <swiper-slide
               v-for="(level_properties, level) in props.nft.properties"
               :key="level"
             >
-              <div class="row w-100 m-0 px-2">
+              <div class="row m-0 px-2">
                 <h3 class="text-center level">Level {{ level + 1 }}</h3>
                 <div
                   v-for="(property, index) in level_properties"
@@ -231,7 +232,7 @@ const colorPickerInSliderFix = () => {
   };
 };
 
-const setStoryTabWidth = () => {
+const setTabWidth = () => {
   tabWidth.value = tabContent.value.clientWidth + "px";
 };
 
@@ -246,11 +247,11 @@ onMounted(() => {
   });
   colorPickerInSliderFix();
 
-  setStoryTabWidth();
-  window.addEventListener("resize", setStoryTabWidth);
+  setTabWidth();
+  window.addEventListener("resize", setTabWidth);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("resize", setStoryTabWidth);
+  window.removeEventListener("resize", setTabWidth);
 });
 </script>
