@@ -2,7 +2,7 @@
   <div class="circled-actions">
     <a
       href="#"
-      class="me-2 py-3 text-center text-decoration-none w-50 play-action animate__animated animate__fadeInUp"
+      class="me-2 py-3 text-center text-decoration-none play-action animate__animated animate__fadeInUp"
       :class="{ disabled: props.playRunning }"
       @click.prevent="
         () => (props.playRunning ? undefined : emit('playStarted'))
@@ -11,7 +11,7 @@
     >
     <a
       href="#"
-      class="ms-2 py-3 text-center text-decoration-none w-50 mint-action animate__animated animate__fadeInUp"
+      class="ms-2 py-3 text-center text-decoration-none mint-action animate__animated animate__fadeInUp"
       :class="{
         disabled:
           props.mintRunning ||

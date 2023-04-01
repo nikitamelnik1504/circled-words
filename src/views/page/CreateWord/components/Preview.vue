@@ -14,7 +14,7 @@
       @play-finished="emit('playCompleted')"
     />
     <Actions
-      :class="'d-flex justify-content-center my-4 mb-lg-0 d-none d-lg-block'"
+      :class="'mt-4 mx-0 d-none d-lg-flex w-100'"
       :metaplex-service="metaplexService"
       :nft="nft"
       :play-running="props.playRunning"
