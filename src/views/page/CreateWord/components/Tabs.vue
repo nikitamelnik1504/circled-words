@@ -40,14 +40,19 @@
               v-for="(level_properties, level) in props.nft.properties"
               :key="level"
             >
-              <div class="row m-0 px-2">
-                <h3 class="text-center level">Level {{ level + 1 }}</h3>
+              <div
+                class="row m-0 px-2 mb-md-3 px-md-2 px-lg-3 px-xl-4"
+                :class="{ 'pt-lg-2 pt-xl-3': level === 0 }"
+              >
+                <h3 class="text-center text-md-start level mb-md-2">
+                  Level {{ level + 1 }}
+                </h3>
                 <div
                   v-for="(property, index) in level_properties"
                   :key="index"
                   class="col-6 col-md-3 col-lg-4 col-xl-3 property mb-3 text-center d-flex flex-column justify-content-between"
                 >
-                  <h5 class="property-label m-0 mb-2">
+                  <h5 class="property-label text-center text-md-start m-0 mb-2">
                     {{ property.label }}
                   </h5>
                   <div
