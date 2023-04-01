@@ -139,7 +139,7 @@
           </swiper>
         </div>
         <div
-          class="story py-3"
+          class="story py-3 pb-md-4 py-xl-4 pt-xl-3"
           :class="{
             'invisible order-2': activeTab === 'properties',
             'order-1': activeTab === 'story',

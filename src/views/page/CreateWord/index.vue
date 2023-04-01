@@ -22,7 +22,7 @@
             @mint-completed="mintRunning = false"
           />
           <Tabs
-            :class="'col-sm-10 col-md-12 col-lg-6 mx-auto d-flex flex-column'"
+            :class="'col-sm-10 col-md-12 col-lg-6 mx-auto d-flex flex-column my-md-2 my-lg-3 my-xl-4'"
             :nft="nft"
             :play-running="playRunning"
           />
