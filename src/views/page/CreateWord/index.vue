@@ -9,7 +9,7 @@
       <div class="wrapper p-md-4 h-100 w-100 d-flex justify-content-center">
         <div class="row w-100 flex-column flex-md-row">
           <Preview
-            :class="'col-sm-10 col-md-5 my-md-auto mx-auto text-center'"
+            :class="'col-sm-10 col-lg-5 my-md-auto mx-auto text-center'"
             :nft="nft"
             :play-running="playRunning"
             :mint-running="mintRunning"
@@ -20,12 +20,12 @@
             @mint-completed="mintRunning = false"
           />
           <Tabs
-            :class="'col-sm-10 col-md-6 mx-auto d-flex flex-column'"
+            :class="'col-sm-10 col-md-12 col-lg-6 mx-auto d-flex flex-column'"
             :nft="nft"
             :play-running="playRunning"
           />
           <Actions
-            :class="'col-sm-10 mx-auto d-flex d-md-none py-3'"
+            :class="'col-sm-10 col-md-12 mx-auto d-flex d-lg-none py-3'"
             :metaplex-service="metaplexService"
             :nft="nft"
             :play-running="playRunning"

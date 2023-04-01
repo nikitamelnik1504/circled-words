@@ -4,11 +4,6 @@
     height: auto;
 
     @include media-breakpoint-up(md) {
-      @include circled-word(1.5);
-    }
-
-    @include media-breakpoint-up(md) {
-      @include circled-word(1.7);
     }
 
     @include media-breakpoint-up(lg) {

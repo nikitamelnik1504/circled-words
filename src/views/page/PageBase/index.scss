@@ -10,7 +10,11 @@
           h2 {
             font-size: 21px;
 
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(lg) {
+              font-size: 24px;
+            }
+
+            @include media-breakpoint-up(lg) {
               font-size: 32px;
             }
           }
@@ -22,6 +26,14 @@
           border: solid 1px #34352d;
           border-radius: 4px;
           height: 53px;
+
+          p {
+            font-size: 16px;
+
+            @include media-breakpoint-up(lg) {
+              font-size: 21px;
+            }
+          }
 
           @include media-breakpoint-up(md) {
             height: 64px;
