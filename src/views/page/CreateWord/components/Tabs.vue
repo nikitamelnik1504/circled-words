@@ -267,6 +267,7 @@ onMounted(() => {
   setTabWidth();
   window.addEventListener("resize", setTabWidth);
 
+  setSliderScrollable();
   window.addEventListener("resize", setSliderScrollable);
 });
 
