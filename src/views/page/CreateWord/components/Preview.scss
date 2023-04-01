@@ -2,20 +2,5 @@
   .circled-word {
     width: 100%;
     height: auto;
-
-    @include media-breakpoint-up(md) {
-    }
-
-    @include media-breakpoint-up(lg) {
-      @include circled-word(1.7);
-    }
-
-    @include media-breakpoint-up(xl) {
-      @include circled-word(2);
-    }
-
-    @include media-breakpoint-up(xxl) {
-      @include circled-word(2.5);
-    }
   }
 }
