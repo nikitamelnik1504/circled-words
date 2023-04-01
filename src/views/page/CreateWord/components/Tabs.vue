@@ -29,10 +29,12 @@
           }"
         >
           <swiper
+            :key="swiperComponentKey"
             :pagination="true"
             :modules="modules"
             :wrapper-class="'flex-md-column'"
             :style="{ width: tabWidth }"
+            :allow-touch-move="sliderEnabled"
           >
             <swiper-slide
               v-for="(level_properties, level) in props.nft.properties"
@@ -127,6 +129,7 @@
                       :style="{
                         border: 'solid 1px' + property.value,
                         color: invert(property.value, true),
+                        background: property.value,
                       }"
                     />
                   </div>
@@ -191,7 +194,10 @@ const props = defineProps<Props>();
 
 const tabContent = ref();
 
+const swiperComponentKey = ref(0);
+
 const tabWidth = ref("auto");
+const sliderEnabled = ref(true);
 
 const activeTab = ref("properties");
 
@@ -236,6 +242,16 @@ const setTabWidth = () => {
   tabWidth.value = tabContent.value.clientWidth + "px";
 };
 
+const setSliderScrollable = () => {
+  if (window.innerWidth > 767 && sliderEnabled.value === true) {
+    sliderEnabled.value = false;
+    swiperComponentKey.value += 1;
+  } else if (window.innerWidth < 768 && sliderEnabled.value === false) {
+    sliderEnabled.value = true;
+    swiperComponentKey.value += 1;
+  }
+};
+
 onMounted(() => {
   // Color picker.
   Coloris.init();
@@ -244,14 +260,18 @@ onMounted(() => {
     themeMode: "dark",
     alpha: false,
     focusInput: false,
+    wrap: false,
   });
   colorPickerInSliderFix();
 
   setTabWidth();
   window.addEventListener("resize", setTabWidth);
+
+  window.addEventListener("resize", setSliderScrollable);
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", setTabWidth);
+  window.removeEventListener("resize", setSliderScrollable);
 });
 </script>

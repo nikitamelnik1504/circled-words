@@ -55,25 +55,6 @@
               color: white;
             }
 
-            .clr-field {
-              width: 100%;
-
-              button {
-                border-radius: 3px;
-                border: none;
-                width: 100%;
-                overflow: unset !important;
-
-                &::after {
-                  box-shadow: none;
-                  width: calc(100% + 1px);
-                  height: calc(100% + 1px);
-                  top: -0.5px;
-                  left: -0.5px;
-                }
-              }
-            }
-
             .number-type {
               input[type="number"] {
                 appearance: textfield;
