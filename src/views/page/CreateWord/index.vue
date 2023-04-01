@@ -6,10 +6,12 @@
     full-height
   >
     <div class="col-12 h-100">
-      <div class="wrapper p-md-4 h-100 w-100 d-flex justify-content-center">
+      <div
+        class="wrapper py-md-4 px-md-2 px-lg-3 px-xl-0 h-100 w-100 d-flex justify-content-center"
+      >
         <div class="row w-100 flex-column flex-md-row">
           <Preview
-            :class="'col-sm-10 col-lg-5 my-md-auto mx-auto text-center'"
+            :class="'col-sm-10 col-lg-6 col-xl-5 my-md-auto mx-auto text-center'"
             :nft="nft"
             :play-running="playRunning"
             :mint-running="mintRunning"

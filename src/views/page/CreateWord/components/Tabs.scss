@@ -167,4 +167,8 @@
       }
     }
   }
+
+  @include media-breakpoint-up(md) {
+    flex: unset;
+  }
 }

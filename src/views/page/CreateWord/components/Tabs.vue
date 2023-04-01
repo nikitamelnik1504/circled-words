@@ -45,7 +45,7 @@
                 <div
                   v-for="(property, index) in level_properties"
                   :key="index"
-                  class="col-6 col-md-3 property mb-3 text-center d-flex flex-column justify-content-between"
+                  class="col-6 col-md-3 col-lg-4 col-xl-3 property mb-3 text-center d-flex flex-column justify-content-between"
                 >
                   <h5 class="property-label m-0 mb-2">
                     {{ property.label }}
