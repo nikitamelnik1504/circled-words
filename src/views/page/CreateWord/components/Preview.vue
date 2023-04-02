@@ -2,7 +2,7 @@
   <div class="circled-preview">
     <CircledWord
       ref="circledWord"
-      class="disabled mt-3 mb-3 animate__animated animate__zoomIn"
+      class="disabled mt-3 mb-3"
       :nft="props.nft"
       :play="props.playRunning"
       :style="{
