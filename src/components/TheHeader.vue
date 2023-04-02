@@ -83,13 +83,22 @@
                     Store
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item me-sm-3 me-md-4">
                   <router-link
                     to="/roadmap"
                     class="nav-link"
                     @click="toggleNavbar()"
                   >
                     Roadmap
+                  </router-link>
+                </li>
+                <li class="nav-item">
+                  <router-link
+                    to="/faq"
+                    class="nav-link"
+                    @click="toggleNavbar()"
+                  >
+                    FAQ
                   </router-link>
                 </li>
                 <li class="d-sm-none mt-2 mt-md-0">
