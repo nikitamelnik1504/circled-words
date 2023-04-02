@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-          <div class="row body my-3 h-100">
+          <div class="row body mt-3 mb-2 h-100">
             <slot />
           </div>
         </div>

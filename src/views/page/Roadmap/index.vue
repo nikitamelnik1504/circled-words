@@ -9,7 +9,7 @@
       <div
         class="wrapper pt-md-2 px-md-1 h-100 w-100 d-flex justify-content-center"
       >
-        <div class="row w-100 m-0 pt-2 px-md-2 pt-md-3">
+        <div class="row w-100 m-0 px-md-2 pt-md-3">
           <div
             v-for="(value, index) in data"
             :key="index"

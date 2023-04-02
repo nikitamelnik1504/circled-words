@@ -5,7 +5,7 @@
       :style="{ 'min-height': minHeightValue + 'px' }"
     >
       <div
-        class="col-8 col-md-7 col-lg-5 col-xl-6 col-xxl-5 m-auto px-3 px-sm-0 pb-5"
+        class="col-10 col-md-7 col-lg-5 col-xl-6 col-xxl-5 m-auto px-3 px-sm-0 pb-5"
       >
         <div
           class="mx-auto d-inline-block text-center animate__animated animate__pulse"
@@ -16,7 +16,7 @@
           </h1>
           <router-link
             to="/create-word"
-            class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4 py-3 px-4"
+            class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4 py-3 px-4 py-sm-3 px-sm-4"
             >Start your journey!
           </router-link>
         </div>

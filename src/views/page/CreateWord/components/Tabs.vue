@@ -41,7 +41,7 @@
               :key="level"
             >
               <div
-                class="row m-0 px-2 mb-md-3 px-md-2 px-lg-3 px-xl-4"
+                class="row m-0 px-2 mb-md-3 px-md-3 px-xl-4"
                 :class="{ 'pt-lg-2 pt-xl-3': level === 0 }"
               >
                 <h3 class="text-center text-md-start level mb-md-2">
