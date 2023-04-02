@@ -73,7 +73,9 @@ const baseCircledSize = {
 
 const scaleCircled = () => {
   console.log(circledWord.value.element);
-  const scale = circledWord.value.element.clientWidth / baseCircledSize.width;
+  const scale =
+    document.getElementsByClassName("circled-word")[0].clientWidth /
+    baseCircledSize.width;
   styles.value.fontSize = baseCircledSize.font_size * scale + "px";
   styles.value.borderWidth = baseCircledSize.border_width * scale + "px";
   styles.value.borderRadius = baseCircledSize.border_radius * scale + "px";
