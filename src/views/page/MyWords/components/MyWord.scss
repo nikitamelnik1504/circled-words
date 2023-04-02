@@ -6,7 +6,7 @@
     &:first-child {
       border-bottom: 1px solid #34352d;
 
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(sm) {
         border-bottom: none;
       }
     }

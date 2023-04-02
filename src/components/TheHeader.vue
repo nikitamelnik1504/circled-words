@@ -243,7 +243,7 @@ const logOut = async () => {
     phantomWalletService.value instanceof PhantomWalletService &&
     phantomWalletService.value.connectedToSite
   ) {
-    await phantomWalletService.value.disconnect();
+    phantomWalletService.value.disconnect();
   }
 
   router.go(0);

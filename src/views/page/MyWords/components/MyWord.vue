@@ -1,6 +1,6 @@
 <template>
-  <div class="my-word-preview text-center mx-sm-2">
-    <div class="my-word-wrapper p-3 pb-lg-2 p-xxl-5 pb-xxl-3">
+  <div class="my-word-preview text-center">
+    <div class="my-word-wrapper p-3 pb-xl-3 p-xl-4">
       <h5 class="button-title mb-3 d-sm-none">
         <span class="primary">Circled</span><span class="secondary">Word</span>
         {{ nft.name }}
@@ -20,13 +20,11 @@
         @play-finished="onPlayFinished"
       />
     </div>
-    <div
-      class="my-word-wrapper actions p-3 pt-lg-2 p-xxl-5 pt-xxl-2 d-flex justify-content-between"
-    >
-      <a href="#" class="text-center me-3 text-decoration-none w-50 disabled"
+    <div class="my-word-wrapper actions d-flex p-3 pt-sm-0 px-xl-4 pb-xl-4">
+      <a href="#" class="text-center me-1 text-decoration-none w-50 disabled"
         >View</a
       >
-      <a href="#" class="text-center text-decoration-none w-50 disabled"
+      <a href="#" class="text-center ms-1 text-decoration-none w-50 disabled"
         >Sell</a
       >
     </div>
