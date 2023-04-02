@@ -8,12 +8,16 @@
               <div
                 class="wrapper px-3 d-flex align-items-center justify-content-center"
               >
-                <h2 class="m-0">{{ props.title }}</h2>
+                <h2 class="m-0 animate__animated animate__fadeIn">
+                  {{ props.title }}
+                </h2>
               </div>
             </div>
             <div class="col-md-8 col-lg-9 page-description d-none d-md-block">
               <div class="wrapper px-3 d-flex align-items-center">
-                <p class="m-0">{{ props.description }}</p>
+                <p class="m-0 m-0 animate__animated animate__fadeIn">
+                  {{ props.description }}
+                </p>
               </div>
             </div>
           </div>

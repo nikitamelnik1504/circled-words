@@ -7,10 +7,13 @@
       <div
         class="col-10 col-md-7 col-lg-5 col-xl-6 col-xxl-5 m-auto px-3 px-sm-0 pb-5"
       >
-        <div
-          class="mx-auto d-inline-block text-center animate__animated animate__pulse"
-        >
-          <h1 class="slogan">
+        <div class="mx-auto d-inline-block text-center">
+          <h1
+            class="slogan animate__animated animate__shakeY animate__infinite"
+            :style="{
+              'animation-duration': 15 + 's',
+            }"
+          >
             Tell the world your story about the
             <span class="word-primary">Circled</span>
           </h1>

@@ -17,7 +17,7 @@
           >
             <div class="roadmap-item-wrapper text-center h-100">
               <div
-                class="py-5 px-4 h-100 d-flex flex-column justify-content-between"
+                class="py-5 px-4 h-100 d-flex flex-column justify-content-between animate__animated animate__fadeIn"
               >
                 <div class="content-wrapper">
                   <h4 class="mb-0">{{ value.quarter }}</h4>
@@ -42,7 +42,6 @@
                     :src="value.image.src"
                     :alt="value.image.alt"
                     class="w-100 h-100 animate__animated animate__zoomIn"
-                    :style="animationStyle(index)"
                   />
                 </div>
               </div>
@@ -65,14 +64,6 @@ import PageBase from "@/views/page/PageBase/index.vue";
 import roadmapCreateWordImageV1 from "@/assets/images/roadmap-create-word-V1.png";
 import roadmapCreateWordImageV2 from "@/assets/images/roadmap-create-word-V2.png";
 import { onMounted, onUnmounted, ref } from "vue";
-
-const animationDelay = 0.1;
-const animationStyle = (index: number) => {
-  return {
-    "-webkit-animation-delay": index * animationDelay + "s",
-    "animation-delay": index * animationDelay + "s",
-  };
-};
 
 const images = ref<Array<HTMLImageElement>>([]);
 

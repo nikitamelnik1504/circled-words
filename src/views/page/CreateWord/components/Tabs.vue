@@ -44,13 +44,16 @@
                 class="row m-0 px-2 mb-md-3 px-md-3 px-xl-4"
                 :class="{ 'pt-lg-2 pt-xl-3': level === 0 }"
               >
-                <h3 class="text-center text-md-start level mb-md-2">
+                <h3
+                  class="text-center text-md-start level mb-md-2 animate__animated animate__fadeIn"
+                >
                   Level {{ level + 1 }}
                 </h3>
                 <div
                   v-for="(property, index) in level_properties"
                   :key="index"
-                  class="col-6 col-md-3 col-lg-4 col-xl-3 property mb-3 text-center d-flex flex-column justify-content-between"
+                  class="col-6 col-md-3 col-lg-4 col-xl-3 property mb-3 text-center d-flex flex-column justify-content-between animate__animated animate__fadeInRight"
+                  :style="animationStyle(index, level)"
                 >
                   <h5 class="property-label text-center text-md-start m-0 mb-2">
                     {{ property.label }}
@@ -255,6 +258,15 @@ const setSliderScrollable = () => {
     sliderEnabled.value = true;
     swiperComponentKey.value += 1;
   }
+};
+
+const animationDelay = 0.03;
+const animationStyle = (index: number, level: number) => {
+  return {
+    "-webkit-animation-delay":
+      level * (index + level + 1) * animationDelay + "s",
+    "animation-delay": level * (index + level + 1) * animationDelay + "s",
+  };
 };
 
 onMounted(() => {
