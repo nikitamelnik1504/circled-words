@@ -62,7 +62,7 @@ abstract class BackgroundColorProperty implements Property {
   }
 }
 
-abstract class AnimationDurationProperty implements Property {
+export abstract class AnimationDurationProperty implements Property {
   public label = "Animation Duration";
   public originLabel = this.label;
   public machine_name = "animation_duration";
@@ -86,8 +86,7 @@ export abstract class NFT {
 
   public load(metadata: NFTMetadata): NFT {
     this._name = metadata.name;
-    const attributes =
-      metadata.traits !== undefined ? metadata.traits : metadata.attributes;
+    const attributes = metadata.attributes;
 
     for (const [attribute_index, attribute_value] of attributes.entries()) {
       const attribute = (() => {
@@ -206,8 +205,7 @@ export default class CircledWordService {
   }
 
   getNft(metadata: NFTMetadata): NFT {
-    const attributes =
-      metadata.attributes !== undefined ? metadata.attributes : metadata.traits;
+    const attributes = metadata.attributes;
 
     const type_attribute = (<NFTMetadata["attributes"]>attributes).find(
       (attribute) => {

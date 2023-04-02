@@ -1,0 +1,18 @@
+.circled-actions {
+  a {
+    border-radius: 4px;
+    font-size: 20px;
+    color: #ffb229;
+    background-color: #34352d;
+    box-shadow: 0 0 15px rgb(255 178 41 / 20%);
+    width: 50%;
+
+    &.disabled {
+      box-shadow: unset;
+      background: none;
+      border: solid 1px #51524b;
+      color: #51524b;
+      cursor: default;
+    }
+  }
+}

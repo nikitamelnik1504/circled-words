@@ -5,8 +5,6 @@ body {
 }
 
 #app {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
 }
 
@@ -113,4 +111,10 @@ html.js {
       border-color: $primary;
     }
   }
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: $primary;
 }

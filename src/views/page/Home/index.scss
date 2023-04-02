@@ -1,31 +1,37 @@
-@import "./components/SloganBlock";
-@import "./components/DescriptionBlock";
-@import "./components/StatsBlock";
-@import "./components/PlaygroundBlock";
-@import "./components/HelpBlock";
-
 .homepage {
-  .section-title {
-    border-bottom: solid 4px;
-    border-left: solid 4px;
-    padding-left: 15px;
-    padding-bottom: 10px;
-  }
-
-  .help-description {
-    font-size: 21px;
+  .slogan {
     color: #f1f2f2;
 
-    a {
-      color: #f1f2f2;
+    .word-primary {
+      color: #ffb229;
     }
 
-    &.disabled {
-      color: #51524b;
+    .word-secondary {
+      color: #dc962a;
+    }
+  }
 
-      a {
-        color: #51524b;
-      }
+  .start-journey-button {
+    font-size: 18px;
+    color: #f1f2f2;
+    border: solid 2px #f1f2f2;
+    border-radius: 4px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #f1f2f2;
+      color: #17181c;
+    }
+
+    @include media-breakpoint-up(lg) {
+      font-size: 21px;
+      border: solid 4px #f1f2f2;
+      padding: 12px 27px;
+    }
+
+    @include media-breakpoint-up(xxl) {
+      font-size: 26px;
+      padding: 15px 27px;
     }
   }
 }

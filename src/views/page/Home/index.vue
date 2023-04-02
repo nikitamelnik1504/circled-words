@@ -1,10 +1,30 @@
 <template>
   <div class="page container-fluid homepage">
-    <Slogan />
-    <Description ref="descriptionComponent" />
-    <Playground ref="playgroundComponent" />
-    <Stats ref="statsComponent" />
-    <Help ref="helpComponent" />
+    <section
+      class="row slogan-section"
+      :style="{ 'min-height': minHeightValue + 'px' }"
+    >
+      <div
+        class="col-10 col-md-7 col-lg-5 col-xl-6 col-xxl-5 m-auto px-3 px-sm-0 pb-5"
+      >
+        <div class="mx-auto d-inline-block text-center">
+          <h1
+            class="slogan animate__animated animate__shakeY animate__infinite"
+            :style="{
+              'animation-duration': 15 + 's',
+            }"
+          >
+            Tell the world your story about the
+            <span class="word-primary">Circled</span>
+          </h1>
+          <router-link
+            to="/create-word"
+            class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4 py-3 px-4 py-sm-3 px-sm-4"
+            >Start your journey!
+          </router-link>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -15,55 +35,12 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import Help from "./components/HelpBlock/index.vue";
-import Playground from "./components/PlaygroundBlock/index.vue";
-import Stats from "./components/StatsBlock/index.vue";
-import Description from "./components/DescriptionBlock/index.vue";
-import Slogan from "./components/SloganBlock.vue";
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, ref } from "vue";
+import { getFreeHeight } from "@/utils/layout-space";
 
-const descriptionComponent = ref();
-const playgroundComponent = ref();
-const statsComponent = ref();
-const helpComponent = ref();
+const heightValues: Ref<{ [key: string]: number }> = ref(getFreeHeight());
 
-const animatedElements = ref<Array<HTMLElement>>([]);
-
-const handleScroll = () => {
-  for (let i = 0; i < animatedElements.value.length; i++) {
-    const elem = animatedElements.value[i];
-    elem.style.animation = "none";
-    elem.style.opacity = "0";
-
-    if (isElemVisible(elem) || document.documentElement.clientWidth < 992) {
-      elem.style.opacity = "1";
-      // @ts-ignore
-      elem.style.animation = null;
-      animatedElements.value.splice(i, 1);
-    }
-  }
-};
-
-const isElemVisible = (el: HTMLElement) => {
-  const rect = el.getBoundingClientRect();
-  const elemTop = rect.top + window.innerHeight * 0.7;
-  const elemBottom = rect.bottom;
-  return elemTop < window.innerHeight && elemBottom >= 0;
-};
-
-onMounted(() => {
-  animatedElements.value = [
-    descriptionComponent.value.$refs.section,
-    playgroundComponent.value.$refs.section,
-    statsComponent.value.$refs.section,
-    helpComponent.value.$refs.section,
-  ];
-
-  document.addEventListener("scroll", handleScroll);
-  handleScroll();
-});
-
-onUnmounted(() => {
-  document.removeEventListener("scroll", handleScroll);
+const minHeightValue = computed(() => {
+  return heightValues.value.clientHeight - heightValues.value.headerHeight;
 });
 </script>

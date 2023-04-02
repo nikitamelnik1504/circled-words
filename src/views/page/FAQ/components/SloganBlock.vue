@@ -17,7 +17,7 @@
             </h1>
             <router-link
               to="/create-word"
-              class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4"
+              class="start-journey-button text-decoration-none d-inline-block mt-3 mt-lg-4 py-3 px-4 py-sm-3 px-sm-4"
               >Start your journey!
             </router-link>
           </div>
