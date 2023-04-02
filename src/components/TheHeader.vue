@@ -21,7 +21,7 @@
             </router-link>
           </div>
           <div
-            class="order-3 order-xl-2 col-12 col-xl-auto d-flex justify-content-center"
+            class="order-3 order-xl-2 col-12 col-xl-auto d-flex justify-content-center mx-xl-auto mx-xxl-0"
           >
             <div
               id="navbarNav"
@@ -106,6 +106,15 @@
                     <li>
                       <a
                         class="social-link d-flex justify-content-center align-items-center"
+                        href="https://github.com/nikitamelnik1504/circled-words"
+                        target="_blank"
+                      >
+                        <img src="../assets/images/github.svg" alt="github" />
+                      </a>
+                    </li>
+                    <li class="ms-3">
+                      <a
+                        class="social-link d-flex justify-content-center align-items-center"
                         href="https://twitter.com/Circled_Words"
                         target="_blank"
                       >
@@ -148,7 +157,7 @@
             </div>
           </div>
           <div
-            class="order-2 order-xl-3 col-6 col-sm-7 col-md-auto text-end d-flex align-items-center justify-content-start flex-row-reverse"
+            class="order-2 order-xl-3 col-6 col-sm-7 col-md-auto text-end d-flex align-items-center justify-content-start flex-row-reverse ms-xl-auto ms-xxl-0"
           >
             <button
               class="navbar-toggler"
@@ -186,8 +195,19 @@
               class="social-links d-none d-sm-flex me-sm-4 me-lg-3 me-xl-4 justify-content-center align-items-center"
             >
               <a
-                href="https://twitter.com/Circled_Words"
+                href="https://github.com/nikitamelnik1504/circled-words"
                 class="social-link d-flex justify-content-center align-items-center"
+                target="_blank"
+              >
+                <img
+                  class="w-100"
+                  src="../assets/images/github.svg"
+                  alt="GitHub"
+                />
+              </a>
+              <a
+                href="https://twitter.com/Circled_Words"
+                class="social-link d-flex justify-content-center align-items-center ms-sm-3"
                 target="_blank"
               >
                 <img
