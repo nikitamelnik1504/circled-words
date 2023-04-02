@@ -3,7 +3,7 @@
     <Slogan />
     <Description ref="descriptionComponent" />
     <Playground ref="playgroundComponent" />
-    <Stats ref="statsComponent" />
+    <!--  <Stats ref="statsComponent" />  -->
     <Help ref="helpComponent" />
   </div>
 </template>
@@ -17,14 +17,12 @@ export default {
 <script lang="ts" setup>
 import Help from "./components/HelpBlock/index.vue";
 import Playground from "./components/PlaygroundBlock/index.vue";
-import Stats from "./components/StatsBlock/index.vue";
 import Description from "./components/DescriptionBlock/index.vue";
 import Slogan from "./components/SloganBlock.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const descriptionComponent = ref();
 const playgroundComponent = ref();
-const statsComponent = ref();
 const helpComponent = ref();
 
 const animatedElements = ref<Array<HTMLElement>>([]);
@@ -55,7 +53,6 @@ onMounted(() => {
   animatedElements.value = [
     descriptionComponent.value.$refs.section,
     playgroundComponent.value.$refs.section,
-    statsComponent.value.$refs.section,
     helpComponent.value.$refs.section,
   ];
 
