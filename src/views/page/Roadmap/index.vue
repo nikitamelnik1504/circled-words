@@ -41,7 +41,7 @@
                     ref="images"
                     :src="value.image.src"
                     :alt="value.image.alt"
-                    class="w-100 h-100 animate__animated animate__zoomIn"
+                    class="w-100 h-100"
                   />
                 </div>
               </div>
