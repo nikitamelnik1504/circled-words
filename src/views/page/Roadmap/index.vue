@@ -1,89 +1,57 @@
 <template>
-  <div class="page container-fluid roadmap">
-    <div class="row">
-      <div class="col-11 mx-auto mb-4 mb-md-5">
-        <h3
-          class="text-center my-4 my-lg-0 mt-lg-2 animate__animated animate__fadeIn"
-        >
-          Roadmap
-        </h3>
-        <div
-          v-for="(value, index) in data"
-          :key="index"
-          class="row mt-4 mt-md-5 justify-content-center"
-          :class="{ 'mt-md-5': index === 0 }"
-        >
+  <PageBase
+    title="Roadmap"
+    description="Welcome to the Roadmap page, here you can check what we gonna do in the future."
+    class="roadmap-page"
+    full-height
+  >
+    <div class="col-12">
+      <div
+        class="wrapper pt-md-2 px-md-1 h-100 w-100 d-flex justify-content-center"
+      >
+        <div class="row w-100 m-0 pt-2 px-md-2 pt-md-3">
           <div
-            v-if="(index + 2) % 2 === 0"
-            class="col-md-5 text-start text-md-end animate__animated animate__fadeInLeft my-auto"
-            :style="animationStyle(index)"
+            v-for="(value, index) in data"
+            :key="index"
+            class="roadmap-item col-12 col-lg-6 mb-4 mx-auto"
           >
-            <h4 class="mb-0">{{ value.quarter }}</h4>
-            <span v-if="value.active" class="indicator d-block">Current</span>
-            <h6 class="version mt-1">{{ value.version }}</h6>
-            <ul class="changes p-0">
-              <li
-                v-for="(change, key) in value.changes"
-                :key="key"
-                :class="{ 'pt-1': key !== 0 }"
+            <div class="roadmap-item-wrapper text-center h-100">
+              <div
+                class="py-5 px-4 h-100 d-flex flex-column justify-content-between"
               >
-                {{ change }}
-              </li>
-            </ul>
-          </div>
-          <div
-            v-else
-            class="col-md-5 order-2 order-md-0 text-end d-flex align-items-center my-auto"
-            :class="{ 'image-wrapper': value.image }"
-          >
-            <img
-              v-if="value.image"
-              ref="images"
-              :src="value.image.src"
-              :alt="value.image.alt"
-              class="w-100 animate__animated animate__zoomIn"
-              :style="animationStyle(index)"
-            />
-          </div>
-          <div class="col-1 d-none d-md-block text-center">
-            <div class="vr" style="height: 100%"></div>
-          </div>
-          <div
-            v-if="(index + 2) % 2 !== 0"
-            class="col-md-5 text-start animate__animated animate__fadeInRight my-auto"
-            :style="animationStyle(index)"
-          >
-            <h4 class="mb-0">{{ value.quarter }}</h4>
-            <span v-if="value.active" class="indicator d-block">Current</span>
-            <h6 class="version mt-1">{{ value.version }}</h6>
-            <ul class="changes p-0">
-              <li
-                v-for="(change, key) in value.changes"
-                :key="key"
-                :class="{ 'pt-1': key !== 0 }"
-              >
-                {{ change }}
-              </li>
-            </ul>
-          </div>
-          <div
-            v-else
-            class="col-md-5 d-flex align-items-center my-auto"
-            :class="{ 'image-wrapper': value.image }"
-          >
-            <img
-              v-if="value.image"
-              ref="images"
-              :src="value.image.src"
-              :alt="value.image.alt"
-              class="w-100 animate__animated animate__zoomIn"
-              :style="animationStyle(index)"
-            />
+                <div class="content-wrapper">
+                  <h4 class="mb-0">{{ value.quarter }}</h4>
+                  <span v-if="value.active" class="indicator d-block"
+                    >Current</span
+                  >
+                  <h6 class="version mt-1">{{ value.version }}</h6>
+                  <ul class="changes p-0">
+                    <li
+                      v-for="(change, key) in value.changes"
+                      :key="key"
+                      :class="{ 'pt-1': key !== 0 }"
+                    >
+                      {{ change }}
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="value.image" class="image-wrapper p-1">
+                  <img
+                    v-if="value.image"
+                    ref="images"
+                    :src="value.image.src"
+                    :alt="value.image.alt"
+                    class="w-100 h-100 animate__animated animate__zoomIn"
+                    :style="animationStyle(index)"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </PageBase>
 </template>
 
 <script lang="ts">
@@ -93,6 +61,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import PageBase from "@/views/page/PageBase/index.vue";
 import roadmapCreateWordImageV1 from "@/assets/images/roadmap-create-word-V1.png";
 import roadmapCreateWordImageV2 from "@/assets/images/roadmap-create-word-V2.png";
 import { onMounted, onUnmounted, ref } from "vue";
@@ -110,7 +79,7 @@ const images = ref<Array<HTMLImageElement>>([]);
 const data = [
   {
     quarter: "Q1 2023",
-    active: true,
+    active: false,
     version: "2.1.0",
     changes: [
       "Minted CW token.",
@@ -128,7 +97,7 @@ const data = [
   },
   {
     quarter: "Q2 2023",
-    active: false,
+    active: true,
     version: "3.0.0",
     changes: [
       "New UI on “Create Word” page.",

@@ -5,7 +5,7 @@
       :style="{ 'min-height': minHeightValue + 'px' }"
     >
       <div
-        class="col-12 col-sm-8 col-md-7 col-lg-5 col-xl-6 col-xxl-5 m-auto px-3 px-sm-0 pb-5"
+        class="col-8 col-md-7 col-lg-5 col-xl-6 col-xxl-5 m-auto px-3 px-sm-0 pb-5"
       >
         <div
           class="mx-auto d-inline-block text-center animate__animated animate__pulse"
