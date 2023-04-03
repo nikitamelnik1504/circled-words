@@ -25,6 +25,7 @@
             :class="'col-sm-10 col-md-12 col-lg-6 mx-auto d-flex flex-column my-md-2 my-lg-3 my-xl-4'"
             :nft="nft"
             :play-running="playRunning"
+            @validation-status="onValidation"
           />
           <Actions
             :class="'col-sm-10 col-md-12 mx-auto d-flex d-lg-none py-3'"
@@ -80,5 +81,11 @@ const nft = ref(new CircledWordService().getNft(wordProperties.value));
 const playRunning = ref(false);
 const mintRunning = ref(false);
 
+const isFormValidated = ref(false);
+
 const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
+
+const onValidation = (status: boolean) => {
+  isFormValidated.value = status;
+}
 </script>
