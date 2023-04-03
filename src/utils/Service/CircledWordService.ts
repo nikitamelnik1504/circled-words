@@ -133,8 +133,13 @@ class FillInNFT extends NFT {
 
   protected _properties: [
     [AnimationTypeProperty],
-    [TextColorProperty, BorderColorProperty, BackgroundColorProperty],
-    [AnimationDurationProperty, TextColorProperty, BorderColorProperty]
+    [TextColorProperty, BorderColorProperty],
+    [
+      BackgroundColorProperty,
+      TextColorProperty,
+      BorderColorProperty,
+      AnimationDurationProperty
+    ]
   ] = [
     [
       new (class extends AnimationTypeProperty {
@@ -148,13 +153,10 @@ class FillInNFT extends NFT {
       new (class extends BorderColorProperty {
         value = "#FFFFFF";
       })(),
-      new (class extends BackgroundColorProperty {
-        value = "#FFFFFF";
-      })(),
     ],
     [
-      new (class extends AnimationDurationProperty {
-        value = 1;
+      new (class extends BackgroundColorProperty {
+        value = "#FFFFFF";
       })(),
       new (class extends TextColorProperty {
         label = "Second Text Color";
@@ -165,6 +167,9 @@ class FillInNFT extends NFT {
         label = "Second Border Color";
         machine_name = "second_border_color";
         value = "#FFFFFF";
+      })(),
+      new (class extends AnimationDurationProperty {
+        value = 1;
       })(),
     ],
   ];

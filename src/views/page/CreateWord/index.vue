@@ -69,9 +69,9 @@ const wordProperties: Ref<NFTMetadata> = ref({
     { trait_type: "Text Color", value: "#ffffff" },
     { trait_type: "Border Color", value: "#ffffff" },
     { trait_type: "Background Color", value: "#ffffff" },
-    { trait_type: "Animation Duration", value: "1" },
     { trait_type: "Second Text Color", value: "#000000" },
     { trait_type: "Second Border Color", value: "#000000" },
+    { trait_type: "Animation Duration", value: "1" },
   ],
 });
 
