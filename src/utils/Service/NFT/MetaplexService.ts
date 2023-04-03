@@ -69,7 +69,7 @@ export default class MetaplexService {
         bundlrStorage({
           address:
             this.rpc === "mainnet-beta"
-              ? "http://node1.bundlr.network"
+              ? "https://node1.bundlr.network"
               : "https://devnet.bundlr.network",
           providerUrl: connection.rpcEndpoint,
           timeout: 60000,
