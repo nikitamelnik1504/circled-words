@@ -13,17 +13,9 @@
       href="#"
       class="ms-2 py-3 text-center text-decoration-none mint-action animate__animated animate__fadeInUp"
       :class="{
-        disabled:
-          props.mintRunning ||
-          !props.metaplexService ||
-          props.metaplexService.rpc === 'mainnet-beta',
+        disabled: props.mintRunning || !props.metaplexService,
       }"
-      @click.prevent="
-        () =>
-          props.mintRunning || props.metaplexService.rpc === 'mainnet-beta'
-            ? undefined
-            : mint()
-      "
+      @click.prevent="() => (props.mintRunning ? undefined : mint())"
       >Mint</a
     >
   </div>

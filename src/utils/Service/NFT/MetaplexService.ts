@@ -26,7 +26,10 @@ export default class MetaplexService {
   private mainnetRpc =
     "https://convincing-ultra-silence.solana-mainnet.discover.quiknode.pro";
 
-  private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
+  private collectionAddress = {
+    "mainnet-beta": "HgFah7nj5UZp7EPYMkmuRBj98tBgeGkc4LLSngUnZ44a",
+    devnet: "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH",
+  };
 
   private provider;
 
@@ -109,7 +112,7 @@ export default class MetaplexService {
       uri: json_link.uri,
       name: "CircledWord #DEV",
       symbol: "CW",
-      collection: new PublicKey(this.collectionAddress),
+      collection: new PublicKey(this.collectionAddress[this.rpc]),
       sellerFeeBasisPoints: 500,
       isCollection: false,
     });
@@ -128,7 +131,7 @@ export default class MetaplexService {
   async verifyNFT(tokenAddress: string) {
     return this.metaplex.nfts().verifyCollection({
       mintAddress: new PublicKey(tokenAddress),
-      collectionMintAddress: new PublicKey(this.collectionAddress),
+      collectionMintAddress: new PublicKey(this.collectionAddress[this.rpc]),
       collectionAuthority: this.identity,
     });
   }
@@ -143,7 +146,8 @@ export default class MetaplexService {
           // @TODO Implement check for verified collection item.
           if (
             result[i].collection !== null &&
-            result[i].collection!.address.toString() === this.collectionAddress
+            result[i].collection!.address.toString() ===
+              this.collectionAddress[this.rpc]
           ) {
             nfts.push(result[i]);
           }
