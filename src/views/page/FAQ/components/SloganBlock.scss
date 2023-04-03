@@ -33,6 +33,9 @@
           border-width: 2px;
           border-radius: 6px;
           font-size: 21px;
+          transition: 0.5s;
+          height: unset !important;
+          aspect-ratio: unset !important;
 
           @media (min-width: 400px) {
             width: 94%;
@@ -59,9 +62,14 @@
           }
 
           @include media-breakpoint-up(xxl) {
-            font-size: 42px;
+            font-size: 36px;
             padding: 35px 10px;
           }
+        }
+
+        &:last-child {
+          flex: 0 0 50%;
+          margin: 0 auto;
         }
       }
     }
@@ -69,7 +77,6 @@
     .start-journey-button {
       font-size: 16px;
       color: #f1f2f2;
-      padding: 8px 21px;
       border: solid 2px #f1f2f2;
       border-radius: 4px;
       transition: 0.3s;
@@ -82,12 +89,10 @@
       @include media-breakpoint-up(lg) {
         font-size: 21px;
         border: solid 4px #f1f2f2;
-        padding: 12px 27px;
       }
 
       @include media-breakpoint-up(xxl) {
         font-size: 26px;
-        padding: 15px 27px;
       }
     }
   }

@@ -1,4 +1,26 @@
-.roadmap {
+.roadmap-page {
+  .content {
+    .body {
+      .wrapper {
+        @include media-breakpoint-up(md) {
+          border: 1px solid #34352d;
+          border-radius: 4px;
+        }
+
+        .roadmap-item {
+          @include media-breakpoint-down(md) {
+            padding: 0 !important;
+          }
+
+          .roadmap-item-wrapper {
+            border: 1px solid #34352d;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+
   .indicator {
     font-size: 14px;
     color: $primary;

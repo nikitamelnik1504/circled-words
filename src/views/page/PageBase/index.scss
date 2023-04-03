@@ -1,0 +1,64 @@
+.content {
+  & > .wrapper {
+    .header {
+      .page-title {
+        .wrapper {
+          border: solid 1px #34352d;
+          border-radius: 4px;
+          height: 64px;
+
+          h2 {
+            font-size: 21px;
+
+            @include media-breakpoint-up(lg) {
+              font-size: 24px;
+            }
+
+            @include media-breakpoint-up(xl) {
+              font-size: 32px;
+            }
+          }
+        }
+      }
+
+      .page-description {
+        .wrapper {
+          border: solid 1px #34352d;
+          border-radius: 4px;
+          height: 53px;
+
+          p {
+            font-size: 16px;
+
+            @include media-breakpoint-up(lg) {
+              font-size: 18px;
+            }
+
+            @include media-breakpoint-up(xl) {
+              font-size: 21px;
+            }
+          }
+
+          @include media-breakpoint-up(md) {
+            height: 64px;
+          }
+        }
+      }
+    }
+
+    .body {
+    }
+
+    @include media-breakpoint-up(md) {
+      border: solid 1px #34352d;
+      border-radius: 4px;
+    }
+  }
+}
+
+h2 {
+}
+
+p {
+  font-size: 21px;
+}

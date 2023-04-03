@@ -1,0 +1,183 @@
+.circled-tabs {
+  flex: 1;
+  min-height: 225px;
+
+  .tabs-wrapper {
+    border: solid 1px #34352d;
+    border-radius: 4px;
+
+    .tab-header {
+      .tab-link {
+        font-size: 16px;
+        border-bottom: solid 1px #34352d;
+
+        &.active {
+          z-index: -1;
+          border-radius: 4px;
+          box-shadow: rgba(255, 178, 41, 0.2) 0 0 15px;
+          background: #34352d;
+        }
+      }
+    }
+
+    .tab-content {
+      overflow-y: hidden;
+      flex: 1;
+
+      .properties {
+        .level {
+          font-size: 21px;
+        }
+
+        .property {
+          .property-field-value-wrapper {
+            border-radius: 4px;
+
+            &.select,
+            &.time {
+              border: solid 1px $primary;
+            }
+
+            &.color {
+              border-width: 1px;
+            }
+
+            input {
+              &:focus {
+                outline: none;
+              }
+            }
+
+            .circled-property-field-value {
+              border-radius: 4px;
+              background: none;
+              border: none;
+              color: white;
+            }
+
+            .number-type {
+              input[type="number"] {
+                appearance: textfield;
+                width: 100%;
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                  appearance: none;
+                }
+              }
+
+              button {
+                border: none;
+                background-color: transparent;
+
+                &::before,
+                &::after {
+                  content: "";
+                  position: absolute;
+                  width: 10px;
+                  height: 2px;
+                  background-color: #b97a2a;
+
+                  @include media-breakpoint-up(md) {
+                    width: 12.5px;
+                    height: 2.5px;
+                  }
+                }
+
+                &.disabled {
+                  cursor: default;
+                  pointer-events: none;
+                }
+
+                &.disabled::before,
+                &.disabled::after {
+                  background-color: #724b1a;
+                }
+
+                &.plus::after {
+                  transform: rotate(90deg);
+                }
+              }
+            }
+          }
+
+          .property-label {
+            font-size: 16px;
+          }
+        }
+
+        .swiper {
+          height: 100%;
+
+          .swiper-pagination {
+            position: relative;
+            bottom: 30px;
+
+            .swiper-pagination-bullet {
+              opacity: 1;
+              background: #51524b;
+            }
+
+            .swiper-pagination-bullet-active {
+              background: $primary;
+            }
+
+            @include media-breakpoint-up(md) {
+              display: none;
+            }
+          }
+
+          .swiper-wrapper {
+            .swiper-slide {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+
+              &::-webkit-scrollbar {
+                display: none;
+              }
+
+              @include media-breakpoint-up(md) {
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+
+      .story {
+        .overflow-scroll {
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+
+        .story-property-wrapper {
+          .story-property {
+            input,
+            textarea {
+              background: none;
+              border: solid 1px $fuscous-gray;
+              border-radius: 4px;
+              color: white;
+
+              &:focus {
+                border-color: $primary;
+              }
+            }
+
+            textarea {
+              resize: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    flex: unset;
+  }
+}

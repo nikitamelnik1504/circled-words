@@ -70,41 +70,6 @@
     "link": "#playground"
   },
   {
-    "name": "CircledWord Sample #3",
-    "label": "Stats",
-    "attributes": [
-      {
-        "trait_type": "Animation Type",
-        "value": "Fill In"
-      },
-      {
-        "trait_type": "Text Color",
-        "value": "#FB8989"
-      },
-      {
-        "trait_type": "Border Color",
-        "value": "#FB8989"
-      },
-      {
-        "trait_type": "Background Color",
-        "value": "#FB8989"
-      },
-      {
-        "trait_type": "Animation Duration",
-        "value": 0.5
-      },
-      {
-        "trait_type": "Second Text Color",
-        "value": "#FFFFFF"
-      },
-      {
-        "trait_type": "Second Border Color",
-        "value": "#FB8989"
-      }
-    ],
-    "link": "#stats"
-  },
-  {
     "name": "CircledWord Sample #4",
     "label": "Help",
     "attributes": [
