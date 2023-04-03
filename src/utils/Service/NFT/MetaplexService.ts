@@ -19,6 +19,8 @@ export default class MetaplexService {
     | "Image Upload"
     | "Create"
     | "Authority Update"
+    | "Done"
+    | "Error"
     | null = null;
 
   public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
@@ -140,7 +142,7 @@ export default class MetaplexService {
       newUpdateAuthority: new PublicKey(this.collectionOwnerAddress),
     });
 
-    this.nftStage = null;
+    this.nftStage = "Done";
   }
 
   async verifyNFT(tokenAddress: string) {

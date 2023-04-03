@@ -56,7 +56,7 @@ const mint = async () => {
       (props.nft as NFT).description
     );
   } catch (e) {
-    (props.metaplexService as MetaplexService).nftStage = null;
+    (props.metaplexService as MetaplexService).nftStage = "Error";
   } finally {
     emit("mintCompleted");
   }
