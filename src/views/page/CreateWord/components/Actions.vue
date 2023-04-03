@@ -35,6 +35,7 @@ interface Props {
   playRunning: boolean;
   mintRunning: boolean;
   metaplexService: Ref<boolean> | MetaplexService;
+  formValidationStatus: boolean;
   nft: NFT;
 }
 
@@ -47,6 +48,16 @@ const emit = defineEmits({
 });
 
 const mint = async () => {
+  if (!props.formValidationStatus) {
+    // @todo Temporary. Please replace in future.
+    (document.getElementsByClassName('tab-link story-tab')[0] as HTMLLinkElement).click();
+    setTimeout(() => {
+      (document.getElementsByClassName('field_title')[0] as HTMLInputElement).focus();
+    }, 200);
+
+    return;
+  }
+
   emit("mintStarted");
 
   try {
