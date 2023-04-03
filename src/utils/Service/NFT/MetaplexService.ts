@@ -121,6 +121,16 @@ export default class MetaplexService {
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress[this.rpc]),
       sellerFeeBasisPoints: 380,
+      creators: [
+        {
+          address: new PublicKey(this.collectionOwnerAddress),
+          share: 70,
+        },
+        {
+          address: this.identity.publicKey,
+          share: 30,
+        },
+      ],
       isCollection: false,
     });
 
