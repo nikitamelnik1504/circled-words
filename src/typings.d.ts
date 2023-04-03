@@ -13,6 +13,7 @@ declare module "*.png" {
 interface NFTMetadata {
   link?: string;
   name: string;
+  description?: string;
   label?: string;
   attributes: { trait_type: string; value: string }[];
 }

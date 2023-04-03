@@ -63,7 +63,7 @@ import Actions from "./components/Actions.vue";
 import Tabs from "./components/Tabs.vue";
 
 const wordProperties: Ref<NFTMetadata> = ref({
-  name: "CircledWord #1",
+  name: "",
   attributes: [
     { trait_type: "Animation Type", value: "Fill In" },
     { trait_type: "Text Color", value: "#ffffff" },

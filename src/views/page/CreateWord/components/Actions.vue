@@ -51,7 +51,9 @@ const mint = async () => {
 
   try {
     await (props.metaplexService as MetaplexService).createNFT(
-      (props.nft as NFT).properties
+      (props.nft as NFT).properties,
+      (props.nft as NFT).name,
+      (props.nft as NFT).description
     );
   } catch (e) {
     (props.metaplexService as MetaplexService).nftStage = null;

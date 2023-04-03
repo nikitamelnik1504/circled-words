@@ -26,6 +26,9 @@ export default class MetaplexService {
   private mainnetRpc =
     "https://convincing-ultra-silence.solana-mainnet.discover.quiknode.pro";
 
+  private collectionOwnerAddress =
+    "DcofQ3SSw6Ydgzf9adg826mTcyPTB9Tn7GTPUd8mYdDq";
+
   private collectionAddress = {
     "mainnet-beta": "HgFah7nj5UZp7EPYMkmuRBj98tBgeGkc4LLSngUnZ44a",
     devnet: "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH",
@@ -72,7 +75,11 @@ export default class MetaplexService {
       );
   }
 
-  async createNFT(properties: Array<Array<Property>>) {
+  async createNFT(
+    properties: Array<Array<Property>>,
+    name: string,
+    description: string
+  ) {
     this.nftStage = "Image Upload";
     const image = await new CircledWordService().getNftImage(properties);
     const file = toMetaplexFile(await image.arrayBuffer(), "circled.png");
@@ -99,9 +106,9 @@ export default class MetaplexService {
       return result;
     })();
     const nft_json = {
-      name: "CircledWord #DEV",
+      name,
       symbol: "CW",
-      description: "",
+      description: description,
       image: image_url,
       attributes,
     };
@@ -110,19 +117,17 @@ export default class MetaplexService {
     this.nftStage = "Create";
     const nft_output = await this.metaplex.nfts().create({
       uri: json_link.uri,
-      name: "CircledWord #DEV",
+      name,
       symbol: "CW",
       collection: new PublicKey(this.collectionAddress[this.rpc]),
-      sellerFeeBasisPoints: 500,
+      sellerFeeBasisPoints: 380,
       isCollection: false,
     });
 
     this.nftStage = "Authority Update";
     await this.metaplex.nfts().update({
       nftOrSft: nft_output.nft,
-      newUpdateAuthority: new PublicKey(
-        "Cg2W5BZKRFakNBCMpFeTC3xo2f9Kv9kN7FPBzkDxj32V"
-      ),
+      newUpdateAuthority: new PublicKey(this.collectionOwnerAddress),
     });
 
     this.nftStage = null;

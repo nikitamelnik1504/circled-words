@@ -160,13 +160,17 @@
             <div class="col-12 story-property-wrapper">
               <label class="d-flex flex-column story-property">
                 Title
-                <input type="text" class="mt-2 p-2" />
+                <!-- @todo Replace props by emit. -->
+                <!--  eslint-disable-next-line vue/no-mutating-props  -->
+                <input v-model="props.nft.name" type="text" class="mt-2 p-2" />
               </label>
             </div>
             <div class="col-12 mt-3 story-property-wrapper" style="flex: 1">
               <label class="d-flex flex-column story-property h-100">
                 Story
-                <textarea class="mt-2 p-2 h-100"></textarea>
+                <!-- @todo Replace props by emit. -->
+                <!--  eslint-disable-next-line vue/no-mutating-props  -->
+                <textarea v-model="props.nft.description" class="mt-2 p-2 h-100"></textarea>
               </label>
             </div>
           </div>
