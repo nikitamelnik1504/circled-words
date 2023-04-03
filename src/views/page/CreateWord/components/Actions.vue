@@ -15,7 +15,7 @@
       :class="{
         disabled: props.mintRunning || !props.metaplexService,
       }"
-      @click.prevent="() => (props.mintRunning && !props.metaplexService ? undefined : mint())"
+      @click.prevent="() => (props.mintRunning || !props.metaplexService ? undefined : mint())"
       >Mint</a
     >
   </div>
