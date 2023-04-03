@@ -4,5 +4,18 @@
       width: 3rem;
       height: 3rem;
     }
+
+    .step-bullets {
+      .bullet {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background-color: $fuscous-gray;
+
+        &.active {
+          background-color: $primary;
+        }
+      }
+    }
   }
 }

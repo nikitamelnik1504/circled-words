@@ -16,6 +16,14 @@
             <div class="spinner-border mt-3" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
+            <div class="step-bullets mt-4 d-flex justify-content-center">
+              <div
+                v-for="(value, key) in mintStagesCount"
+                :key="key"
+                class="bullet mx-1"
+                :class="{ active: key < mintStagesCompleted }"
+              />
+            </div>
           </div>
           <div v-else>
             <h4>Done</h4>
@@ -43,6 +51,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const mintLoaderModal = ref<Ref<HTMLDivElement>>();
+const mintStagesCount = 4;
+const mintStagesCompleted = ref(0);
 
 let modal: typeof Modal;
 
@@ -56,8 +66,12 @@ watch(
     if (oldValue === null && newValue) {
       modal.show();
     }
+    if (oldValue !== null && newValue !== null) {
+      mintStagesCompleted.value++;
+    }
     if (oldValue !== null && newValue === null) {
       modal.hide();
+      mintStagesCompleted.value = 0;
     }
   }
 );
