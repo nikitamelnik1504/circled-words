@@ -75,17 +75,16 @@ export abstract class AnimationDurationProperty implements Property {
 }
 
 export abstract class NFT {
-  protected _name = "";
+  public name = "";
+  public description = "";
+
   protected abstract _properties: Array<Array<Property>>;
   public static readonly type: AnimationType;
 
-  get name(): string {
-    const hash_position = this._name.indexOf("#");
-    return this._name.substring(hash_position);
-  }
-
   public load(metadata: NFTMetadata): NFT {
-    this._name = metadata.name;
+    this.name = metadata.name;
+    this.description = metadata.description as string;
+
     const attributes = metadata.attributes;
 
     for (const [attribute_index, attribute_value] of attributes.entries()) {
@@ -134,8 +133,13 @@ class FillInNFT extends NFT {
 
   protected _properties: [
     [AnimationTypeProperty],
-    [TextColorProperty, BorderColorProperty, BackgroundColorProperty],
-    [AnimationDurationProperty, TextColorProperty, BorderColorProperty]
+    [TextColorProperty, BorderColorProperty],
+    [
+      BackgroundColorProperty,
+      TextColorProperty,
+      BorderColorProperty,
+      AnimationDurationProperty
+    ]
   ] = [
     [
       new (class extends AnimationTypeProperty {
@@ -149,13 +153,10 @@ class FillInNFT extends NFT {
       new (class extends BorderColorProperty {
         value = "#FFFFFF";
       })(),
-      new (class extends BackgroundColorProperty {
-        value = "#FFFFFF";
-      })(),
     ],
     [
-      new (class extends AnimationDurationProperty {
-        value = 1;
+      new (class extends BackgroundColorProperty {
+        value = "#FFFFFF";
       })(),
       new (class extends TextColorProperty {
         label = "Second Text Color";
@@ -166,6 +167,9 @@ class FillInNFT extends NFT {
         label = "Second Border Color";
         machine_name = "second_border_color";
         value = "#FFFFFF";
+      })(),
+      new (class extends AnimationDurationProperty {
+        value = 1;
       })(),
     ],
   ];

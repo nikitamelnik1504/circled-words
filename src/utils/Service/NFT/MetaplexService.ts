@@ -19,6 +19,8 @@ export default class MetaplexService {
     | "Image Upload"
     | "Create"
     | "Authority Update"
+    | "Done"
+    | "Error"
     | null = null;
 
   public rpc: "mainnet-beta" | "devnet" = "mainnet-beta";
@@ -26,7 +28,13 @@ export default class MetaplexService {
   private mainnetRpc =
     "https://convincing-ultra-silence.solana-mainnet.discover.quiknode.pro";
 
-  private collectionAddress = "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH";
+  private collectionOwnerAddress =
+    "DcofQ3SSw6Ydgzf9adg826mTcyPTB9Tn7GTPUd8mYdDq";
+
+  private collectionAddress = {
+    "mainnet-beta": "HgFah7nj5UZp7EPYMkmuRBj98tBgeGkc4LLSngUnZ44a",
+    devnet: "5yWoSj1h5k7YpJewniwoJf6X2u5xGPoGEGkoPLotWjzH",
+  };
 
   private provider;
 
@@ -69,7 +77,11 @@ export default class MetaplexService {
       );
   }
 
-  async createNFT(properties: Array<Array<Property>>) {
+  async createNFT(
+    properties: Array<Array<Property>>,
+    name: string,
+    description: string
+  ) {
     this.nftStage = "Image Upload";
     const image = await new CircledWordService().getNftImage(properties);
     const file = toMetaplexFile(await image.arrayBuffer(), "circled.png");
@@ -96,9 +108,9 @@ export default class MetaplexService {
       return result;
     })();
     const nft_json = {
-      name: "CircledWord #DEV",
+      name,
       symbol: "CW",
-      description: "",
+      description: description,
       image: image_url,
       attributes,
     };
@@ -107,28 +119,36 @@ export default class MetaplexService {
     this.nftStage = "Create";
     const nft_output = await this.metaplex.nfts().create({
       uri: json_link.uri,
-      name: "CircledWord #DEV",
+      name,
       symbol: "CW",
-      collection: new PublicKey(this.collectionAddress),
-      sellerFeeBasisPoints: 500,
+      collection: new PublicKey(this.collectionAddress[this.rpc]),
+      sellerFeeBasisPoints: 380,
+      creators: [
+        {
+          address: new PublicKey(this.collectionOwnerAddress),
+          share: 70,
+        },
+        {
+          address: this.identity.publicKey,
+          share: 30,
+        },
+      ],
       isCollection: false,
     });
 
     this.nftStage = "Authority Update";
     await this.metaplex.nfts().update({
       nftOrSft: nft_output.nft,
-      newUpdateAuthority: new PublicKey(
-        "Cg2W5BZKRFakNBCMpFeTC3xo2f9Kv9kN7FPBzkDxj32V"
-      ),
+      newUpdateAuthority: new PublicKey(this.collectionOwnerAddress),
     });
 
-    this.nftStage = null;
+    this.nftStage = "Done";
   }
 
   async verifyNFT(tokenAddress: string) {
     return this.metaplex.nfts().verifyCollection({
       mintAddress: new PublicKey(tokenAddress),
-      collectionMintAddress: new PublicKey(this.collectionAddress),
+      collectionMintAddress: new PublicKey(this.collectionAddress[this.rpc]),
       collectionAuthority: this.identity,
     });
   }
@@ -143,7 +163,8 @@ export default class MetaplexService {
           // @TODO Implement check for verified collection item.
           if (
             result[i].collection !== null &&
-            result[i].collection!.address.toString() === this.collectionAddress
+            result[i].collection!.address.toString() ===
+              this.collectionAddress[this.rpc]
           ) {
             nfts.push(result[i]);
           }

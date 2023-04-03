@@ -19,6 +19,7 @@
       :nft="nft"
       :play-running="props.playRunning"
       :mint-running="props.mintRunning"
+      :form-validation-status="props.formValidationStatus"
       @play-started="emit('playStarted')"
       @mint-started="emit('mintStarted')"
       @mint-completed="emit('mintCompleted')"
@@ -43,6 +44,7 @@ interface Props {
   nft: NFT;
   playRunning: boolean;
   mintRunning: boolean;
+  formValidationStatus: boolean;
   metaplexService: Ref<boolean> | MetaplexService;
 }
 

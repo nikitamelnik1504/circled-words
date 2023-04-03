@@ -13,17 +13,9 @@
       href="#"
       class="ms-2 py-3 text-center text-decoration-none mint-action animate__animated animate__fadeInUp"
       :class="{
-        disabled:
-          props.mintRunning ||
-          !props.metaplexService ||
-          props.metaplexService.rpc === 'mainnet-beta',
+        disabled: props.mintRunning || !props.metaplexService,
       }"
-      @click.prevent="
-        () =>
-          props.mintRunning || props.metaplexService.rpc === 'mainnet-beta'
-            ? undefined
-            : mint()
-      "
+      @click.prevent="() => (props.mintRunning || !props.metaplexService ? undefined : mint())"
       >Mint</a
     >
   </div>
@@ -43,6 +35,7 @@ interface Props {
   playRunning: boolean;
   mintRunning: boolean;
   metaplexService: Ref<boolean> | MetaplexService;
+  formValidationStatus: boolean;
   nft: NFT;
 }
 
@@ -55,14 +48,26 @@ const emit = defineEmits({
 });
 
 const mint = async () => {
+  if (!props.formValidationStatus) {
+    // @todo Temporary. Please replace in future.
+    (document.getElementsByClassName('tab-link story-tab')[0] as HTMLLinkElement).click();
+    setTimeout(() => {
+      (document.getElementsByClassName('field_title')[0] as HTMLInputElement).focus();
+    }, 200);
+
+    return;
+  }
+
   emit("mintStarted");
 
   try {
     await (props.metaplexService as MetaplexService).createNFT(
-      (props.nft as NFT).properties
+      (props.nft as NFT).properties,
+      (props.nft as NFT).name,
+      (props.nft as NFT).description
     );
   } catch (e) {
-    (props.metaplexService as MetaplexService).nftStage = null;
+    (props.metaplexService as MetaplexService).nftStage = "Error";
   } finally {
     emit("mintCompleted");
   }

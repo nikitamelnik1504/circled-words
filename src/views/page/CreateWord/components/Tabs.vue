@@ -4,14 +4,14 @@
       <div class="tab-header d-flex">
         <a
           href="#"
-          class="tab-link w-50 text-center py-3"
+          class="tab-link w-50 text-center py-3 properties-tab"
           :class="{ active: activeTab === 'properties' }"
           @click.prevent="activeTab = 'properties'"
           >Properties</a
         >
         <a
           href="#"
-          class="tab-link w-50 text-center py-3"
+          class="tab-link w-50 text-center py-3 story-tab"
           :class="{ active: activeTab === 'story' }"
           @click.prevent="activeTab = 'story'"
           >Story</a
@@ -67,6 +67,7 @@
                     >
                       <input
                         id="animationType"
+                        :ref="setFieldRef"
                         v-model="property.value"
                         class="circled-property-field-value w-100 border-0 bg-transparent p-0"
                         :disabled="props.playRunning"
@@ -114,6 +115,7 @@
                         "
                       ></button>
                       <input
+                        :ref="setFieldRef"
                         v-model="property.value"
                         class="circled-property-field-value text-center w-100 p-0"
                         :disabled="props.playRunning"
@@ -129,6 +131,7 @@
                   </div>
                   <div v-else class="property-field-value-wrapper color">
                     <input
+                      :ref="setFieldRef"
                       v-model="property.value"
                       type="text"
                       readonly
@@ -159,14 +162,19 @@
           >
             <div class="col-12 story-property-wrapper">
               <label class="d-flex flex-column story-property">
-                Title
-                <input type="text" class="mt-2 p-2" />
+                <span>Title<span style="color: #ffb229">*</span></span>
+                <!-- @todo Replace props by emit. -->
+                <!--  eslint-disable-next-line vue/no-mutating-props  -->
+                <input :ref="setFieldRef" v-model="props.nft.name" type="text" class="mt-2 p-2 field_title" required />
               </label>
             </div>
             <div class="col-12 mt-3 story-property-wrapper" style="flex: 1">
               <label class="d-flex flex-column story-property h-100">
                 Story
-                <textarea class="mt-2 p-2 h-100"></textarea>
+                <!-- @todo Replace props by emit. -->
+                <!--  eslint-disable-next-line vue/no-mutating-props  -->
+                <textarea :ref="setFieldRef" v-model="props.nft.description"
+                          class="mt-2 p-2 h-100 field_description"></textarea>
               </label>
             </div>
           </div>
@@ -200,6 +208,8 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const emit = defineEmits(['validationStatus']);
+
 const tabContent = ref();
 
 const swiperComponentKey = ref(0);
@@ -210,6 +220,14 @@ const sliderEnabled = ref(true);
 const activeTab = ref("properties");
 
 const modules = ref([Pagination]);
+
+const fields: Ref<Array<HTMLInputElement | HTMLTextAreaElement>> = ref([]);
+
+const setFieldRef = (el: HTMLInputElement | HTMLTextAreaElement) => {
+  if (el) {
+    fields.value.push(el);
+  }
+};
 
 const restrictInput = (
   property_level: number,
@@ -269,6 +287,17 @@ const animationStyle = (index: number, level: number) => {
   };
 };
 
+const validateForm = () => {
+  let vStatus = true;
+  for (const field of fields.value) {
+    if (field.required && field.value.trim() === "") {
+      vStatus = false;
+    }
+  }
+
+  emit("validationStatus", vStatus);
+}
+
 onMounted(() => {
   // Color picker.
   Coloris.init();
@@ -280,6 +309,11 @@ onMounted(() => {
     wrap: false,
   });
   colorPickerInSliderFix();
+
+  for (const field of fields.value) {
+    field.onchange = validateForm;
+  }
+  validateForm();
 
   setTabWidth();
   window.addEventListener("resize", setTabWidth);

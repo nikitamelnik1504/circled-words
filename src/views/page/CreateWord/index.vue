@@ -16,6 +16,7 @@
             :play-running="playRunning"
             :mint-running="mintRunning"
             :metaplex-service="metaplexService"
+            :form-validation-status="isFormValidated"
             @play-started="playRunning = true"
             @play-completed="playRunning = false"
             @mint-started="mintRunning = true"
@@ -25,6 +26,7 @@
             :class="'col-sm-10 col-md-12 col-lg-6 mx-auto d-flex flex-column my-md-2 my-lg-3 my-xl-4'"
             :nft="nft"
             :play-running="playRunning"
+            @validation-status="onValidation"
           />
           <Actions
             :class="'col-sm-10 col-md-12 mx-auto d-flex d-lg-none py-3'"
@@ -32,6 +34,7 @@
             :nft="nft"
             :play-running="playRunning"
             :mint-running="mintRunning"
+            :form-validation-status="isFormValidated"
             @play-started="playRunning = true"
             @mint-started="mintRunning = true"
             @mint-completed="mintRunning = false"
@@ -63,15 +66,15 @@ import Actions from "./components/Actions.vue";
 import Tabs from "./components/Tabs.vue";
 
 const wordProperties: Ref<NFTMetadata> = ref({
-  name: "CircledWord #1",
+  name: "",
   attributes: [
     { trait_type: "Animation Type", value: "Fill In" },
     { trait_type: "Text Color", value: "#ffffff" },
     { trait_type: "Border Color", value: "#ffffff" },
     { trait_type: "Background Color", value: "#ffffff" },
-    { trait_type: "Animation Duration", value: "1" },
     { trait_type: "Second Text Color", value: "#000000" },
     { trait_type: "Second Border Color", value: "#000000" },
+    { trait_type: "Animation Duration", value: "1" },
   ],
 });
 
@@ -80,5 +83,11 @@ const nft = ref(new CircledWordService().getNft(wordProperties.value));
 const playRunning = ref(false);
 const mintRunning = ref(false);
 
+const isFormValidated = ref(false);
+
 const metaplexService = inject<Ref<MetaplexService | false>>("metaplexService");
+
+const onValidation = (status: boolean) => {
+  isFormValidated.value = status;
+}
 </script>
