@@ -1,7 +1,7 @@
 <template>
   <div class="my-word-preview text-center">
     <div class="my-word-wrapper p-3 pb-xl-3 p-xl-4">
-      <h5 class="button-title mb-3 d-sm-none">
+      <h5 class="button-title mb-3">
         {{ nft.name }}
       </h5>
       <CircledWord

@@ -10,12 +10,20 @@
         border-bottom: none;
       }
     }
+
+    .button-title {
+      font-size: 18px;
+      color: $primary;
+      border-radius: 4px;
+      padding: 10px 0;
+      border: solid 1px $primary;
+    }
   }
 
   .actions {
     a {
       border-radius: 4px;
-      font-size: 20px;
+      font-size: 18px;
       border: 1px solid #34352d;
       color: #ffffff;
       padding: 13px 0;
