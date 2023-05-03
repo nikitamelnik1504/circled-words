@@ -76,6 +76,10 @@ a {
   text-decoration: none;
 }
 
+.live-background {
+  opacity: 0.3;
+}
+
 .animate__animated {
   @include media-breakpoint-down(lg) {
     transition-property: none;
