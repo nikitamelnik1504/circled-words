@@ -20,11 +20,8 @@
       />
     </div>
     <div class="my-word-wrapper actions d-flex p-3 pt-sm-0 px-xl-4 pb-xl-4">
-      <a href="#" class="text-center me-1 text-decoration-none w-50 disabled"
+      <a href="#" class="text-center me-1 text-decoration-none disabled w-100"
         >View</a
-      >
-      <a href="#" class="text-center ms-1 text-decoration-none w-50 disabled"
-        >Sell</a
       >
     </div>
   </div>
