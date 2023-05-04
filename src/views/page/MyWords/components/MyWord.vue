@@ -25,7 +25,8 @@
       <a v-if="nft.verified" href="#" class="text-center me-1 text-decoration-none disabled w-100">
         View
       </a>
-      <a v-else href="#" class="text-center me-1 text-decoration-none disabled w-100">
+      <a v-else href="#" class="text-center me-1 text-decoration-none w-100 d-flex justify-content-center align-items-center">
+        <img src="@/assets/images/checked-mark.svg" alt="checked mark">
         Verify
       </a>
     </div>
