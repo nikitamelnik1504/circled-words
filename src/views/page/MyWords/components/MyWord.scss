@@ -18,6 +18,21 @@
       padding: 10px 0;
       border: solid 1px $primary;
     }
+
+    &.not-verified {
+      .button-title {
+        color: $secondary;
+        border-color: $secondary;
+      }
+
+      .circled-wrapper {
+        opacity: 0.3;
+
+        a {
+          cursor: default;
+        }
+      }
+    }
   }
 
   .actions {

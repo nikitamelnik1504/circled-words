@@ -83,8 +83,10 @@ const loadAssetsFromSolana = async () => {
         const json = await fetch(nft.uri).then(
           async (result) => await result.json()
         );
+        json.verified = nft.collection!.verified;
         assets.value.push(json);
       }
+
       loadStatus.value = "loaded";
     });
 };

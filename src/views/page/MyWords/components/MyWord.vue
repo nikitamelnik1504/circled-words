@@ -1,28 +1,33 @@
 <template>
   <div class="my-word-preview text-center">
-    <div class="my-word-wrapper p-3 pb-xl-3 p-xl-4">
+    <div class="my-word-wrapper p-3 pb-xl-3 p-xl-4" :class="{'not-verified': !nft.verified}">
       <h5 class="button-title mb-3">
-        {{ nft.name }}
+        {{ nft.verified ? nft.name : 'Not Verified' }}
       </h5>
-      <CircledWord
-        ref="circledWord"
-        class="clickable"
-        :nft="nft"
-        :play="play"
-        :style="{
+      <div class="circled-wrapper">
+        <CircledWord
+          ref="circledWord"
+          class="clickable"
+          :nft="nft"
+          :play="play"
+          :style="{
           'font-size': styles.fontSize,
           'border-width': styles.borderWidth,
           'border-radius': styles.borderRadius,
         }"
-        locked
-        @click.prevent="() => (play ? undefined : (play = true))"
-        @play-finished="onPlayFinished"
-      />
+          locked
+          @click.prevent="() => (play || !nft.verified ? undefined : (play = true))"
+          @play-finished="onPlayFinished"
+        />
+      </div>
     </div>
     <div class="my-word-wrapper actions d-flex p-3 pt-sm-0 px-xl-4 pb-xl-4">
-      <a href="#" class="text-center me-1 text-decoration-none disabled w-100"
-        >View</a
-      >
+      <a v-if="nft.verified" href="#" class="text-center me-1 text-decoration-none disabled w-100">
+        View
+      </a>
+      <a v-else href="#" class="text-center me-1 text-decoration-none disabled w-100">
+        Verify
+      </a>
     </div>
   </div>
 </template>
