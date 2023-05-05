@@ -43,6 +43,11 @@
       box-shadow: 0 0 5px rgba(255, 178, 41, 0.2);
       padding: 10px 0;
       background-color: #34352d;
+      transition: .3s;
+
+      &:hover {
+        box-shadow: 0 0 15px rgba(255, 178, 41, 0.2);
+      }
 
       img {
         height: 18px;
