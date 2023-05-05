@@ -1,0 +1,24 @@
+.verify-modal {
+  .modal-header {
+    .modal-title {
+      font-size: 28px;
+    }
+  }
+
+  .modal-body {
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .modal-footer {
+    a {
+      background: #34352D;
+      padding: 12px 0;
+      &:hover {
+        color: $primary;
+        background: #51524B;
+      }
+    }
+  }
+}
