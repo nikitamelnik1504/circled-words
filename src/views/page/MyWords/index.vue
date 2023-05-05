@@ -84,6 +84,7 @@ const loadAssetsFromSolana = async () => {
           async (result) => await result.json()
         );
         json.verified = nft.collection!.verified;
+        json.tokenAddress = nft.mintAddress.toString();
         assets.value.push(json);
       }
 
