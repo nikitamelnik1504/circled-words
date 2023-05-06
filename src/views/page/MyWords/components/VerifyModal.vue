@@ -10,7 +10,7 @@
         <div class="modal-body text-center py-0">
           <p>Newly created NFTs needs verification to be part of original collection, which means that you can
             use/share/sell it anywhere.</p>
-          <div class="verification-box py-3 mb-3 d-flex align-items-center flex-column mx-3 px-3">
+          <div class="verification-box py-3 mb-3 d-flex align-items-center flex-column mx-1 mx-md-3 px-3">
             <p class="mb-3">To complete verification please copy NFT Address displayed below</p>
             <div class="nft-id-wrapper mb-2 w-100">
               <p class="m-0 px-3 py-1 text-center d-inline-block ">{{ props.metadata.tokenAddress }}</p>
