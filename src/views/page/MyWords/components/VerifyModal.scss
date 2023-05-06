@@ -11,22 +11,20 @@
     }
 
     .verification-box {
-      border: solid 1px $primary;
+      border: solid 1px #34352D;
       border-radius: 5px;
 
       p {
-        font-size: 18px;
-        color: $primary;
+        font-size: 16px;
       }
     }
 
     .nft-id-wrapper {
       p {
         font-size: 15px;
-        background: #51524B;
         border-radius: 2px;
-        border: none;
-        color: white;
+        border: solid 1px $primary;
+        color: $primary;
         word-break: break-all;
         white-space: normal;
       }
