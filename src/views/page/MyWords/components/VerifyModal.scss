@@ -1,0 +1,44 @@
+.verify-modal {
+  .modal-header {
+    .modal-title {
+      font-size: 28px;
+    }
+  }
+
+  .modal-body {
+    & > p {
+      font-size: 16px;
+    }
+
+    .verification-box {
+      border: solid 1px #34352D;
+      border-radius: 5px;
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .nft-id-wrapper {
+      p {
+        font-size: 15px;
+        border-radius: 2px;
+        border: solid 1px $primary;
+        color: $primary;
+        word-break: break-all;
+        white-space: normal;
+      }
+    }
+  }
+
+  .modal-footer {
+    a {
+      background: #34352D;
+      padding: 12px 0;
+      &:hover {
+        color: $primary;
+        background: #51524B;
+      }
+    }
+  }
+}

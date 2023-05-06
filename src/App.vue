@@ -10,6 +10,7 @@
   <router-view />
   <Footer />
   <canvas id="circledCanvas" class="d-none" width="3000" height="3000" />
+  <VerifyModal v-if="verificationModalState" ref="verificationModal" :metadata="store.state.modal.verification.props.metadata" />
 </template>
 
 <script lang="ts" setup>
@@ -21,13 +22,18 @@ import { loadFull } from "tsparticles";
 import PhantomWalletService from "./utils/Service/PhantomWalletService";
 import MetaplexService from "@/utils/Service/NFT/MetaplexService";
 import type { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
-import { onUnmounted, provide, ref, watch } from "vue";
+import { computed, nextTick, onUnmounted, provide, ref, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import VerifyModal from "@/views/page/MyWords/components/VerifyModal.vue";
+import { Modal } from "bootstrap";
 
 const store = useStore();
 
 const router = useRouter();
+
+const verificationModalState = computed(() => store.getters["modal/verificationModalState"])
+const verificationModal = ref(null);
 
 const particlesConfig = particlesJson;
 // Use particles image as relative path.
@@ -78,7 +84,7 @@ const initializePhantomWallet = async () => {
     return "phantom" in window;
   };
 
-  // Wait a while for phantom wallet injection to the window.
+  // Wait a while until phantom wallet injected to the window.
   if (!getPhantomInWindow()) {
     const result = await new Promise((resolve) => {
       const timeout = 3000;
@@ -143,6 +149,15 @@ watch(
   },
   { deep: true }
 );
+
+watch(verificationModalState, (newValue) => {
+  if (newValue) {
+    nextTick(() => {
+      const modal = new Modal(verificationModal.value!.element);
+      modal.show();
+    })
+  }
+})
 
 onUnmounted(() => {
   if (phantomWalletService.value instanceof PhantomWalletService) {

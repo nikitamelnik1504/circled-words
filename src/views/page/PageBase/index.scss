@@ -15,7 +15,7 @@
             }
 
             @include media-breakpoint-up(xl) {
-              font-size: 32px;
+              font-size: 28px;
             }
           }
         }
@@ -32,10 +32,6 @@
 
             @include media-breakpoint-up(lg) {
               font-size: 18px;
-            }
-
-            @include media-breakpoint-up(xl) {
-              font-size: 21px;
             }
           }
 

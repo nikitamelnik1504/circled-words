@@ -1,9 +1,8 @@
 const getDefaultWalletState = () => {
-  return {
+  return <State>{
     type: "",
     walletAddress: "",
     connected: false,
-    chainId: "",
   };
 };
 
@@ -11,7 +10,6 @@ interface State {
   type: string;
   walletAddress: string;
   connected: boolean;
-  chainId: string;
 }
 
 export default {
@@ -27,9 +25,6 @@ export default {
     getWalletAddress(state: State): string {
       return state.walletAddress;
     },
-    getChainId(state: State): string {
-      return state.chainId;
-    },
     isPhantomWalletConnected(
       state: State,
       getters: { getActiveType: string; getStatus: string }
@@ -42,7 +37,7 @@ export default {
   },
   mutations: {
     setDefaultWalletState(state: State): void {
-      const default_state = getDefaultWalletState() as State;
+      const default_state = getDefaultWalletState();
       for (const key in default_state) {
         state[key] = default_state[key];
       }

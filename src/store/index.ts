@@ -1,9 +1,10 @@
 import { createStore } from "vuex";
 import wallet from "./modules/wallet";
+import modal from "./modules/modal";
 
 const store = createStore({
   modules: {
-    wallet,
+    wallet, modal
   },
   mutations: {
     initialiseStore(state): void {

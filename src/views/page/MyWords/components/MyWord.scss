@@ -10,15 +10,50 @@
         border-bottom: none;
       }
     }
+
+    .button-title {
+      font-size: 18px;
+      color: $primary;
+      border-radius: 4px;
+      padding: 10px 0;
+      border: solid 1px $primary;
+    }
+
+    &.not-verified {
+      .button-title {
+        color: $secondary;
+        border-color: $secondary;
+      }
+
+      .circled-wrapper {
+        opacity: 0.3;
+
+        a {
+          cursor: default;
+        }
+      }
+    }
   }
 
   .actions {
     a {
       border-radius: 4px;
-      font-size: 20px;
-      border: 1px solid #34352d;
-      color: #ffffff;
-      padding: 13px 0;
+      font-size: 16px;
+      color: $primary;
+      box-shadow: 0 0 5px rgba(255, 178, 41, 0.2);
+      padding: 10px 0;
+      background-color: #34352d;
+      transition: .3s;
+
+      &:hover {
+        box-shadow: 0 0 15px rgba(255, 178, 41, 0.2);
+      }
+
+      img {
+        height: 18px;
+        margin-top: 1px;
+        margin-right: 5px;
+      }
 
       &.disabled {
         box-shadow: unset;
